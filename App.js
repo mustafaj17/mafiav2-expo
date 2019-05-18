@@ -5,11 +5,11 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Loading from './src/screens/loading'
 import SignUp from './src/screens/signup'
 import Login from './src/screens/login'
-import Main from './src/screens/main'
+import Main from './src/screens/main';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
-// create our app's navigation stack
-const App = createStackNavigator(
-   {
+let RootStack = createStackNavigator(   {
        Loading : { screen: Loading},
        SignUp : { screen: SignUp},
        Login : { screen: Login},
@@ -20,7 +20,17 @@ const App = createStackNavigator(
    {
        initialRouteName: 'Loading',
        headerMode: 'none'
-   }
-)
+   });
 
-export default createAppContainer(App)
+let Navigation = createAppContainer(RootStack);
+
+
+const App = () => {
+    return(
+       <Provider store={store}>
+           <Navigation/>
+       </Provider>
+    )
+}
+
+export default App;

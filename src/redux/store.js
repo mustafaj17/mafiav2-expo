@@ -45,3 +45,4 @@ const store = createStoreWithFirebase(rootReducer, initialState);
 
 
 export default store;
+export const firestore = store.firestore;
