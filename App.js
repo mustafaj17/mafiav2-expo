@@ -13,10 +13,13 @@ const App = createStackNavigator(
        Loading : { screen: Loading},
        SignUp : { screen: SignUp},
        Login : { screen: Login},
-       Main : { screen: Main},
+       Main : {
+           screen: Main
+       },
    },
    {
-       initialRouteName: 'Loading'
+       initialRouteName: 'Loading',
+       headerMode: 'none'
    }
 )
 
