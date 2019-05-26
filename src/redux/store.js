@@ -1,23 +1,14 @@
-import { createStore, combineReducers, compose } from 'redux'
-import { reduxFirestore, firestoreReducer } from 'redux-firestore'
-import firebase from '../services/firebase';
+import { createStore } from 'redux'
 
-const rfConfig = {} // optional redux-firestore Config Options
-
-// Add reduxFirestore store enhancer to store creator
-const createStoreWithFirebase = compose(
-   reduxFirestore(firebase, rfConfig), // firebase instance as first argument, rfConfig as optional second
-)(createStore)
-
-// Add Firebase to reducers
-const rootReducer = combineReducers({
-    firestore: firestoreReducer
-})
-
+export const reducer = (state = {POP:'POP'}, action) => {
+    return state
+}
 
 // Create store with reducers and initial state
-const initialState = {}
-const store = createStoreWithFirebase(rootReducer, initialState);
+const store = createStore(
+   reducer,
+   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 // store.firestore.get({ collection: 'mafia-games', doc: 'goodgood' }).then( data => {
 //     // data.docs.forEach( doc => {

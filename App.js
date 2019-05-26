@@ -13,11 +13,8 @@ let RootStack = createStackNavigator(   {
        Loading : { screen: Loading},
        SignUp : { screen: SignUp},
        Login : { screen: Login},
-       Main : {
-           screen: Main
-       },
-   },
-   {
+       Main : { screen: Main },
+   }, {
        initialRouteName: 'Loading',
        headerMode: 'none'
    });

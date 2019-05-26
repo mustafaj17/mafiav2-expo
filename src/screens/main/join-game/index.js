@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import { firestore } from '../../../redux/store';
+import { firestore } from '../../../services/firebase';
 
 
-class JoinGame extends Component{
+export default class JoinGame extends Component{
 
     state = {
         gameName : '',
@@ -13,21 +12,21 @@ class JoinGame extends Component{
 
     joinGame = () => {
 
-        const { gameName } = this.state;
-
-        firestore.get({ collection: 'mafia-games', doc: gameName }).then( doc => {
-            if (doc.exists) {
-                if(!doc.data().gameInProgress) {
-                    this.setState({errorMessage: "This game can be joined"})
-                }else{
-                    this.setState({errorMessage: "This game has started"})
-                }
-            } else {
-                this.setState({errorMessage: "This game does not exist"})
-            }
-        }).catch( err => {
-            console.log(err);
-        })
+        // const { gameName } = this.state;
+        //
+        // firestore.get({ collection: 'mafia-games', doc: gameName }).then( doc => {
+        //     if (doc.exists) {
+        //         if(!doc.data().gameInProgress) {
+        //             this.setState({errorMessage: "This game can be joined"})
+        //         }else{
+        //             this.setState({errorMessage: "This game has started"})
+        //         }
+        //     } else {
+        //         this.setState({errorMessage: "This game does not exist"})
+        //     }
+        // }).catch( err => {
+        //     console.log(err);
+        // })
     }
 
     render(){
@@ -57,9 +56,3 @@ class JoinGame extends Component{
         )
     }
 }
-
-const mapStateToProps = (state) => ({
-    firestore : state.firestore
-})
-
-export default connect(mapStateToProps)(JoinGame)

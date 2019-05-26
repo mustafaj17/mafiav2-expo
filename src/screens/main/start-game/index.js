@@ -10,6 +10,7 @@ export default () => {
            <Text>Join Game</Text>
            <Text>Join Game</Text>
            <Text>Join Game</Text>
+           <Text>Pop city</Text>
        </View>
     )
 }
