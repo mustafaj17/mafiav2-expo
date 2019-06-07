@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { firestore } from '../../../services/firebase';
+import styles from '../../../styles/global';
 
 
 export default class JoinGame extends Component{
@@ -12,21 +13,19 @@ export default class JoinGame extends Component{
 
     joinGame = () => {
 
-        // const { gameName } = this.state;
-        //
-        // firestore.get({ collection: 'mafia-games', doc: gameName }).then( doc => {
-        //     if (doc.exists) {
-        //         if(!doc.data().gameInProgress) {
-        //             this.setState({errorMessage: "This game can be joined"})
-        //         }else{
-        //             this.setState({errorMessage: "This game has started"})
-        //         }
-        //     } else {
-        //         this.setState({errorMessage: "This game does not exist"})
-        //     }
-        // }).catch( err => {
-        //     console.log(err);
-        // })
+        const {gameName} = this.state;
+
+        firestore.collection('mafia-games').doc(gameName).get().then(doc => {
+            if (doc.exists) {
+                if (!doc.data().gameInProgress) {
+                    this.setState({errorMessage: "This game can be joined"})
+                } else {
+                    this.setState({errorMessage: "This game has started"})
+                }
+            } else {
+                this.setState({errorMessage: "This game does not exist"})
+            }
+        })
     }
 
     render(){
@@ -35,7 +34,7 @@ export default class JoinGame extends Component{
         const setName = (text) => this.setState({gameName: text});
 
         return (
-           <View>
+           <View style={styles.page}>
                <View >
                    <TextInput
                       onChangeText={(text) => setName(text)}
@@ -48,7 +47,7 @@ export default class JoinGame extends Component{
                    <Text>{errorMessage}</Text>
                </View>
                <View>
-                   <TouchableOpacity onPress={this.joinGame}>
+                   <TouchableOpacity onPress={this.joinGame} style={styles.button}>
                        <Text>Join</Text>
                    </TouchableOpacity>
                </View>

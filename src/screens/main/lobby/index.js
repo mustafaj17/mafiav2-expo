@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import firebase from '../../../services/firebase';
+import styles from '../../../styles/global';
 
 export default class Lobby extends Component {
 
@@ -28,22 +29,15 @@ export default class Lobby extends Component {
         const { currentUser } = this.state;
 
         return(
-           <View style={styles.lobbyScreen}>
+           <View style={styles.page}>
                {currentUser && <Text>Hello {currentUser.email}!</Text>}
-               <TouchableOpacity  onPress={this.handleJoinGame}>
+               <TouchableOpacity  onPress={this.handleJoinGame} style={styles.button}>
                    <Text >Join Game</Text>
                </TouchableOpacity>
-               <TouchableOpacity  onPress={this.handleStartGame}>
+               <TouchableOpacity  onPress={this.handleStartGame} style={styles.button}>
                    <Text >Start New Game</Text>
                </TouchableOpacity>
            </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    lobbyScreen: {
-           paddingTop: 50
-       }
-   }
-);
