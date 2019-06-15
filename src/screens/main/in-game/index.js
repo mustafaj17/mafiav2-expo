@@ -28,7 +28,8 @@ class InGame extends React.Component {
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
         playersColRef.doc(user.email).set({
-            uid: user.uid
+            uid: user.uid,
+            displayName: user.displayName
         });
         // const playerDocRef = playersColRef.doc(user.uid).get().then( doc => {
         //     if(doc.exist){
@@ -84,7 +85,7 @@ class InGame extends React.Component {
 
 
     render() {
-
+console.log(this.props.state)
         const { gameData } = this.props;
 
         return (
@@ -106,7 +107,8 @@ class InGame extends React.Component {
 const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
-    user: state.user.data
+    user: state.user.data,
+    state: state
 })
 
 const mapDispatchToProps = dispatch => ({

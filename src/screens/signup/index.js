@@ -3,44 +3,56 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import firebase from '../../services/firebase';
 
 export default class SignUp extends React.Component {
-    state = { email: '', password: '', errorMessage: null }
+    state = { email: '', password: '', errorMessage: null, displayName: '' }
     handleSignUp = () => {
+        const { email, password, displayName} = this.state
+
         firebase
-           .auth()
-           .createUserWithEmailAndPassword(this.state.email, this.state.password)
-           .then(() => this.props.navigation.navigate('Main'))
-           .catch(error => this.setState({errorMessage: error.message}))
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                userCredentials.user.updateProfile({displayName: displayName})
+                this.props.navigation.navigate('Main')
+            })
+            .catch(error => this.setState({errorMessage: error.message}))
     }
 
     render() {
         return (
-           <View style={styles.container}>
-               <Text>Sign Up</Text>
-               {this.state.errorMessage &&
-               <Text style={{ color: 'red' }}>
-                   {this.state.errorMessage}
-               </Text>}
-               <TextInput
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  style={styles.textInput}
-                  onChangeText={email => this.setState({ email })}
-                  value={this.state.email}
-               />
-               <TextInput
-                  secureTextEntry
-                  placeholder="Password"
-                  autoCapitalize="none"
-                  style={styles.textInput}
-                  onChangeText={password => this.setState({ password })}
-                  value={this.state.password}
-               />
-               <Button title="Sign Up" onPress={this.handleSignUp} />
-               <Button
-                  title="Already have an account? Login"
-                  onPress={() => this.props.navigation.navigate('Login')}
-               />
-           </View>
+            <View style={styles.container}>
+                <Text>Sign Up</Text>
+                {this.state.errorMessage &&
+                <Text style={{ color: 'red' }}>
+                    {this.state.errorMessage}
+                </Text>}
+                <TextInput
+                    placeholder="Display Name"
+                    autoCapitalize="none"
+                    style={styles.textInput}
+                    onChangeText={displayName => this.setState({ displayName })}
+                    value={this.state.displayName}
+                />
+                <TextInput
+                    placeholder="Email"
+                    autoCapitalize="none"
+                    style={styles.textInput}
+                    onChangeText={email => this.setState({ email })}
+                    value={this.state.email}
+                />
+                <TextInput
+                    secureTextEntry
+                    placeholder="Password"
+                    autoCapitalize="none"
+                    style={styles.textInput}
+                    onChangeText={password => this.setState({ password })}
+                    value={this.state.password}
+                />
+                <Button title="Sign Up" onPress={this.handleSignUp} />
+                <Button
+                    title="Already have an account? Login"
+                    onPress={() => this.props.navigation.navigate('Login')}
+                />
+            </View>
         )
     }
 }
