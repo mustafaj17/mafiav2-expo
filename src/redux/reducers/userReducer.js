@@ -1,4 +1,4 @@
-import { SET_USER } from './../actions/userActions';
+import { SET_USER, SET_USER_IS_ADMIN } from './../actions/userActions';
 
 const initialState = {
     data: null,

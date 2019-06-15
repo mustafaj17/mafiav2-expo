@@ -71,8 +71,9 @@ class StartGame extends Component{
 const mapStateToProps = state => ({
 
 })
+
 const mapDispatchToProps = dispatch => ({
-    startGame: doc => dispatch(startGame(doc))
+    startGame: doc => dispatch(startGame(doc)),
     setUserIsAdmin: () => dispatch(setUserIsAdmin())
 })
 

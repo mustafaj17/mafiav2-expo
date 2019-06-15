@@ -23,45 +23,45 @@ class InGame extends React.Component {
 
     componentDidMount() {
 
-        const gameRef = this.props.gameDoc.ref;
-        const playersColRef = gameRef.collection('players');
-        const playerDocRef = playersColRef()
+        // const gameRef = this.props.gameDoc.ref;
+        // const playersColRef = gameRef.collection('players');
+        // const playerDocRef = playersColRef()
 
         //connect to the player collection and update when it changes
-        this.disconnectFromPlayers = playersColRef.onSnapshot(playersSnapshot => {
-            let playersArray = [];
-            playersSnapshot.forEach(playerDoc => {
-                playersArray.push(playerDoc.data())
-            })
+        // this.disconnectFromPlayers = playersColRef.onSnapshot(playersSnapshot => {
+        //     let playersArray = [];
+        //     playersSnapshot.forEach(playerDoc => {
+        //         playersArray.push(playerDoc.data())
+        //     })
+        //
+        //     this.setState({
+        //         players: playersArray
+        //     })
+        //
+        //     this.runGame();
+        // })
 
-            this.setState({
-                players: playersArray
-            })
-
-            this.runGame();
-        })
-
-        playersColRef.add({
-            type: null,
-            inGame: true,
-            ready: false,
-            ...this.user
-        })
-           .then(playerDocRef => {
-               playerDocRef.get().then(playerDoc => {
-
-                   this.setState({
-                       playerRef: playerDocRef
-                   });
-
-                   this.disconnectFromPlayer = playerDoc.ref.onSnapshot(playerRef => {
-                       this.setState({
-                           playerRef: playerRef
-                       })
-                   })
-               })
-
-           })
+        // playersColRef.add({
+        //     type: null,
+        //     inGame: true,
+        //     ready: false,
+        //     ...this.user
+        // })
+        //    .then(playerDocRef => {
+        //        playerDocRef.get().then(playerDoc => {
+        //
+        //            this.setState({
+        //                playerRef: playerDocRef
+        //            });
+        //
+        //            this.disconnectFromPlayer = playerDoc.ref.onSnapshot(playerRef => {
+        //                this.setState({
+        //                    playerRef: playerRef
+        //                })
+        //            })
+        //        })
+        //
+        //    })
 
 
         const disconnectFromGame = this.props.gameDoc.ref.onSnapshot(doc => {
