@@ -16,7 +16,7 @@ class StartGame extends Component{
 
     startGame = () => {
 
-        const {gameName} = this.state;
+        const { gameName } = this.state;
         const { navigation, startGame, setUserIsAdmin }  = this.props;
 
 

@@ -23,9 +23,20 @@ class InGame extends React.Component {
 
     componentDidMount() {
 
-        // const gameRef = this.props.gameDoc.ref;
-        // const playersColRef = gameRef.collection('players');
-        // const playerDocRef = playersColRef()
+        const { user } = this.props;
+
+        const gameRef = this.props.gameDoc.ref;
+        const playersColRef = gameRef.collection('players');
+        playersColRef.doc(user.email).set({
+            uid: user.uid
+        });
+        // const playerDocRef = playersColRef.doc(user.uid).get().then( doc => {
+        //     if(doc.exist){
+        //         console.log('player exist')
+        //     }else{
+        //         console.log('player can be added')
+        //     }
+        // });
 
         //connect to the player collection and update when it changes
         // this.disconnectFromPlayers = playersColRef.onSnapshot(playersSnapshot => {
@@ -64,9 +75,10 @@ class InGame extends React.Component {
         //    })
 
 
-        const disconnectFromGame = this.props.gameDoc.ref.onSnapshot(doc => {
+        const disconnectFromGame = gameRef.onSnapshot(doc => {
             this.props.updateGameData(doc.data());
         });
+
         this.props.setGameDisconnect(disconnectFromGame);
     }
 
@@ -93,7 +105,8 @@ class InGame extends React.Component {
 
 const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
-    gameData: state.game.gameData
+    gameData: state.game.gameData,
+    user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({
