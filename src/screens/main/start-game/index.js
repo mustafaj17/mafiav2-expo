@@ -4,6 +4,7 @@ import { firestore } from '../../../services/firebase';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { startGame } from '../../../redux/actions/gameActions';
+import { setUserIsAdmin } from '../../../redux/actions/userActions';
 
 class StartGame extends Component{
 
@@ -16,7 +17,7 @@ class StartGame extends Component{
     startGame = () => {
 
         const {gameName} = this.state;
-        const { navigation, startGame }  = this.props;
+        const { navigation, startGame, setUserIsAdmin }  = this.props;
 
 
         firestore.collection('mafia-games').doc(gameName).get().then(doc => {
@@ -28,6 +29,7 @@ class StartGame extends Component{
                     gameName: gameName,
                     timestamp: new Date()
                 });
+                setUserIsAdmin();
                 startGame(doc);
                 navigation.navigate('InGame')
             }
@@ -71,6 +73,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
     startGame: doc => dispatch(startGame(doc))
+    setUserIsAdmin: () => dispatch(setUserIsAdmin())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartGame);
