@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, BackHandler, ToastAndroid } from 'react-native';
 import firebase from '../../../services/firebase';
 import styles from '../../../styles/global';
+import { NavigationEvents } from 'react-navigation';
 
 export default class Lobby extends Component {
 
@@ -10,8 +11,21 @@ export default class Lobby extends Component {
         currentUser: null,
     }
 
+    screenWillFocus= () => {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+        return true;
+    }
+
+    screenWillBlur = () => {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
 
     componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         const { currentUser } = firebase.auth();
         this.setState({ currentUser })
     }
@@ -30,6 +44,10 @@ export default class Lobby extends Component {
 
         return(
            <View style={styles.page}>
+               <NavigationEvents
+                  onWillFocus={this.screenWillFocus}
+                  onWillBlur={this.screenWillBlur}
+               />
                {currentUser && <Text>Hello {currentUser.email}!</Text>}
                <TouchableOpacity  onPress={this.handleJoinGame} style={styles.button}>
                    <Text >Join Game</Text>
