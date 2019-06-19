@@ -4,6 +4,7 @@ import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../redux/actions/gameActions';
 import { NavigationEvents } from 'react-navigation';
+import PlayersList from '../../../components/playersList/playersList';
 
 class InGame extends React.Component {
     static navigationOptions = { header: null }
@@ -25,11 +26,11 @@ class InGame extends React.Component {
         const { user } = this.props;
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
+
         playersColRef.doc(user.email).set({
             uid: user.uid,
             displayName: user.displayName
         });
-
 
 
         const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
@@ -67,7 +68,7 @@ class InGame extends React.Component {
                />
 
                <View><Text>{gameData.gameName}</Text></View>
-               <View><Text>{playersData.length}</Text></View>
+               <PlayersList/>
 
            </View>
         )
