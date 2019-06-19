@@ -1,11 +1,13 @@
-import { START_GAME, JOIN_GAME, UPDATE_GAME_DATA, SET_GAME_DISCONNECT } from './../actions/gameActions';
+import { START_GAME, JOIN_GAME, UPDATE_GAME_DATA, SET_GAME_DISCONNECT,UPDATE_PLAYERS_DATA,SET_PLAYERS_DISCONNECT } from './../actions/gameActions';
 
 const initialState = {
     gameDoc: null,
     gameData: {
         gameName: 'loading'
     },
-    disconnect: null
+    playersData: [],
+    gameDisconnect: null,
+    playersDisconnect: null
 }
 
 export default (state = initialState, action) => {
@@ -29,7 +31,17 @@ export default (state = initialState, action) => {
         case SET_GAME_DISCONNECT:
             return {
                 ...state,
-                disconnect: action.payload
+                gameDisconnect: action.payload
+            }
+        case UPDATE_PLAYERS_DATA:
+            return {
+                ...state,
+                playersData: action.payload
+            }
+        case SET_PLAYERS_DISCONNECT:
+            return {
+                ...state,
+                playersDisconnect: action.payload
             }
         default:
             return state;

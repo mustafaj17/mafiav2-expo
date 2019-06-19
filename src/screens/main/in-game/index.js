@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, BackHandler, ToastAndroid, } from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect } from '../../../redux/actions/gameActions';
+import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../redux/actions/gameActions';
 import { NavigationEvents } from 'react-navigation';
 
 class InGame extends React.Component {
@@ -22,58 +22,28 @@ class InGame extends React.Component {
     }
 
     componentDidMount() {
-
         const { user } = this.props;
-
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
         playersColRef.doc(user.email).set({
             uid: user.uid,
             displayName: user.displayName
         });
-        // const playerDocRef = playersColRef.doc(user.uid).get().then( doc => {
-        //     if(doc.exist){
-        //         console.log('player exist')
-        //     }else{
-        //         console.log('player can be added')
-        //     }
-        // });
 
-        //connect to the player collection and update when it changes
-        // this.disconnectFromPlayers = playersColRef.onSnapshot(playersSnapshot => {
-        //     let playersArray = [];
-        //     playersSnapshot.forEach(playerDoc => {
-        //         playersArray.push(playerDoc.data())
-        //     })
-        //
-        //     this.setState({
-        //         players: playersArray
-        //     })
-        //
-        //     this.runGame();
-        // })
 
-        // playersColRef.add({
-        //     type: null,
-        //     inGame: true,
-        //     ready: false,
-        //     ...this.user
-        // })
-        //    .then(playerDocRef => {
-        //        playerDocRef.get().then(playerDoc => {
-        //
-        //            this.setState({
-        //                playerRef: playerDocRef
-        //            });
-        //
-        //            this.disconnectFromPlayer = playerDoc.ref.onSnapshot(playerRef => {
-        //                this.setState({
-        //                    playerRef: playerRef
-        //                })
-        //            })
-        //        })
-        //
-        //    })
+
+        const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
+            const players = [];
+
+            querySnapshot.forEach( playerDocument => {
+                players.push(playerDocument.data())
+            })
+
+            this.props.updatePlayersData(players);
+        });
+
+        this.props.setPlayersDisconnect(disconnectFromPlayerCollection);
+
 
 
         const disconnectFromGame = gameRef.onSnapshot(doc => {
@@ -85,8 +55,8 @@ class InGame extends React.Component {
 
 
     render() {
-console.log(this.props.state)
-        const { gameData } = this.props;
+
+        const { gameData, playersData } = this.props;
 
         return (
            <View style={styles.page}>
@@ -97,6 +67,7 @@ console.log(this.props.state)
                />
 
                <View><Text>{gameData.gameName}</Text></View>
+               <View><Text>{playersData.length}</Text></View>
 
            </View>
         )
@@ -107,13 +78,15 @@ console.log(this.props.state)
 const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
-    user: state.user.data,
-    state: state
+    playersData: state.game.playersData,
+    user: state.user.data
 })
 
 const mapDispatchToProps = dispatch => ({
     updateGameData: data => dispatch(updateGameData(data)),
-    setGameDisconnect: gameDisconnect => dispatch(setGameDisconnect(gameDisconnect))
+    updatePlayersData: data => dispatch(updatePlayersData(data)),
+    setGameDisconnect: gameDisconnect => dispatch(setGameDisconnect(gameDisconnect)),
+    setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InGame);
