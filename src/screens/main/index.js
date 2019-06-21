@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation'
 import Lobby from './lobby';
 import StartGame from './start-game';
 import JoinGame from './join-game';
-import InGame from './in-game';
+import GameBrain from './game-brain';
 
 export default createStackNavigator(
    {
@@ -23,14 +23,15 @@ export default createStackNavigator(
                title: 'Join Game',
            })
        },
-       InGame: {
-           screen: InGame,
+       GameBrain: {
+           screen: GameBrain,
            navigationOptions: () => ({
                gesturesEnabled: false,
            })
        },
    },
    {
-       initialRouteName: 'Lobby'
+       initialRouteName: 'Lobby',
+       headerMode: 'screen'
    }
 )

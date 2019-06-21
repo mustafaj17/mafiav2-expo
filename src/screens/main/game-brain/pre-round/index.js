@@ -1,13 +1,16 @@
 import React from 'react'
-import { View, Text, BackHandler, ToastAndroid, } from 'react-native'
-import styles from '../../../styles/global';
+import {View, Text, BackHandler, ToastAndroid, TouchableOpacity,} from 'react-native'
+import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../redux/actions/gameActions';
+import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
 import { NavigationEvents } from 'react-navigation';
-import PlayersList from '../../../components/playersList/playersList';
+import PlayersList from '../../../../components/playersList';
+import ReadyButton from '../../../../components/playerReadyButton';
 
-class InGame extends React.Component {
-    static navigationOptions = { header: null }
+class PreGame extends React.Component {
+    static navigationOptions = {
+        header: null
+    }
 
     screenWillFocus= () => {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -22,7 +25,7 @@ class InGame extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    componentDidMount() {
+    componentDidMount(){
         const { user } = this.props;
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
@@ -55,9 +58,16 @@ class InGame extends React.Component {
     }
 
 
+
     render() {
 
-        const { gameData, playersData } = this.props;
+        const { gameData, playerRequirementMet, currentPlayer, navigation, allPlayersAreReady } = this.props;
+
+            if(playerRequirementMet && allPlayersAreReady) {
+                console.log('navigate');
+                navigation.navigate('InRound');
+                return null;
+            }
 
         return (
            <View style={styles.page}>
@@ -70,6 +80,14 @@ class InGame extends React.Component {
                <View><Text>{gameData.gameName}</Text></View>
                <PlayersList/>
 
+               <TouchableOpacity onPress={ () =>  navigation.navigate('InRound') }>
+                   <View><Text>GO</Text></View>
+               </TouchableOpacity>
+
+               {playerRequirementMet && !currentPlayer.ready &&
+                <ReadyButton/>
+               }
+
            </View>
         )
     }
@@ -80,7 +98,11 @@ const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
     playersData: state.game.playersData,
-    user: state.user.data
+    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
+    allPlayersReady: state.game.allPlayersReady,
+    playerRequirementMet: (state.game.playersData.length > 0),
+    user: state.user.data,
+    allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -90,4 +112,4 @@ const mapDispatchToProps = dispatch => ({
     setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(InGame);
+export default connect(mapStateToProps, mapDispatchToProps)(PreGame);

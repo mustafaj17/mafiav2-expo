@@ -31,7 +31,7 @@ class StartGame extends Component{
                 });
                 setUserIsAdmin();
                 startGame(doc);
-                navigation.navigate('InGame')
+                navigation.navigate('GameBrain')
             }
         }).catch( (e) => {
             console.log(e);
