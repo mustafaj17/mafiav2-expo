@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, BackHandler, ToastAndroid, TouchableOpacity,} from 'react-native'
+import {View, Text, BackHandler, ToastAndroid } from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
@@ -29,7 +29,7 @@ class PreRound extends React.Component {
 
         const { gameData, playerRequirementMet, currentPlayer, navigation, allPlayersAreReady } = this.props;
 
-            if(playerRequirementMet && allPlayersAreReady) {
+            if(allPlayersAreReady) {
                 navigation.navigate('InRound');
                 return null;
             }
@@ -41,15 +41,12 @@ class PreRound extends React.Component {
                   onWillFocus={this.screenWillFocus}
                   onWillBlur={this.screenWillBlur}
                />
+               <View><Text>Pre-Round Screen</Text></View>
 
                <View><Text>{gameData.gameName}</Text></View>
                <PlayersList/>
 
-               <TouchableOpacity onPress={ () =>  navigation.navigate('InRound') }>
-                   <View><Text>GO</Text></View>
-               </TouchableOpacity>
-
-               {playerRequirementMet && !currentPlayer.ready &&
+               {!currentPlayer.ready &&
                 <ReadyButton/>
                }
 

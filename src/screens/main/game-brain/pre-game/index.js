@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
 import { NavigationEvents } from 'react-navigation';
 import PlayersList from '../../../../components/playersList';
-import ReadyButton from '../../../../components/playerReadyButton';
 
 class PreGame extends React.Component {
 
@@ -29,7 +28,8 @@ class PreGame extends React.Component {
 
         playersColRef.doc(user.email).set({
             uid: user.uid,
-            displayName: user.displayName
+            displayName: user.displayName,
+            email: user.email
         });
 
 
@@ -54,70 +54,59 @@ class PreGame extends React.Component {
         this.props.setGameDisconnect(disconnectFromGame);
     }
 
-    handleGameStart = () => {
-        const setTypes = () => {
-            let players = this.state.players;
+    handleStartGame = () => {
+        const { playersData, gameDoc, navigation } = this.props;
 
-            //if players dont have types
-            if(players.every( player => player.type === null)){
-                //no types are set
-                let mafiaCount;
-                switch (true){
-                    case (players.length < 5):
-                        mafiaCount = 1;
-                        break;
-                    case (players.length < 8):
-                        mafiaCount = 2;
-                        break;
-                    case (players.length < 11):
-                        mafiaCount = 3;
-                        break;
-                    case (players.length < 14):
-                        mafiaCount = 4;
-                        break;
-                    case (players.length < 16):
-                        mafiaCount = 5;
-                        break;
-                    default:
-                        mafiaCount = 6;
-                        break
-                }
+        const players = [...playersData];
+        let mafiaCount;
 
-                while(mafiaCount){
-                    let rand = Math.floor(Math.random() * players.length);
-                    if(!players[rand].type){
-                        players[rand].type = 'Mafia';
-                        players.ready = false;
-                        mafiaCount--;
-                    }
-                }
+        switch (true){
+            case (players.length < 5):
+                mafiaCount = 1;
+                break;
+            case (players.length < 8):
+                mafiaCount = 2;
+                break;
+            case (players.length < 11):
+                mafiaCount = 3;
+                break;
+            case (players.length < 14):
+                mafiaCount = 4;
+                break;
+            case (players.length < 16):
+                mafiaCount = 5;
+                break;
+            default:
+                mafiaCount = 6;
+                break
+        }
 
-                players.forEach( player => {
-                    if(!player.type) {
-                        player.type = 'Civilian'
-                        player.ready = false
-                    }
-                });
-
-                this.state.gameDocRef.ref.collection('players').get().then( playerDocs => {
-
-                    playerDocs.forEach ( playerDoc => {
-                        let playerType = null;
-                        this.state.players.forEach( player => {
-                            if(player.name === playerDoc.data().name){
-                                playerType = player.type
-                            }
-                        })
-                        playerDoc.ref.update('type', playerType, 'ready', false);
-                    })
-                })
+        while(mafiaCount){
+            let rand = Math.floor(Math.random() * players.length);
+            if(!players[rand].type){
+                players[rand].type = 'Mafia';
+                mafiaCount--;
             }
         }
+
+        players.forEach( player => {
+            if(!player.type) {
+                player.type = 'Civilian'
+            }
+        });
+
+        gameDoc.ref.update({gameStarted: true})
+
+        players.forEach(player => {
+            gameDoc.ref.collection('players').doc(player.email).update({type: player.type})
+        })
+
+        navigation.navigate('PreRound')
     }
 
     render() {
 
-        const { gameData, playerRequirementMet, currentPlayer, navigation, allPlayersAreReady } = this.props;
+        const { gameData, playerRequirementMet, navigation, allPlayersAreReady } = this.props;
 
         if(playerRequirementMet && allPlayersAreReady) {
             navigation.navigate('InRound');
@@ -132,17 +121,15 @@ class PreGame extends React.Component {
                 onWillBlur={this.screenWillBlur}
               />
 
+              <View><Text>Pre-Game Screen</Text></View>
+
               <View><Text>{gameData.gameName}</Text></View>
               <PlayersList/>
-
-              <TouchableOpacity onPress={ () =>  navigation.navigate('InRound') }>
-                  <View><Text>GO</Text></View>
-              </TouchableOpacity>
 
               {playerRequirementMet &&
               <Button
                 onPress={this.handleStartGame}
-                title='Learn More'
+                title='Start Game'
               />
               }
 
