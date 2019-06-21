@@ -55,7 +55,64 @@ class PreGame extends React.Component {
     }
 
     handleGameStart = () => {
+        const setTypes = () => {
+            let players = this.state.players;
 
+            //if players dont have types
+            if(players.every( player => player.type === null)){
+                //no types are set
+                let mafiaCount;
+                switch (true){
+                    case (players.length < 5):
+                        mafiaCount = 1;
+                        break;
+                    case (players.length < 8):
+                        mafiaCount = 2;
+                        break;
+                    case (players.length < 11):
+                        mafiaCount = 3;
+                        break;
+                    case (players.length < 14):
+                        mafiaCount = 4;
+                        break;
+                    case (players.length < 16):
+                        mafiaCount = 5;
+                        break;
+                    default:
+                        mafiaCount = 6;
+                        break
+                }
+
+                while(mafiaCount){
+                    let rand = Math.floor(Math.random() * players.length);
+                    if(!players[rand].type){
+                        players[rand].type = 'Mafia';
+                        players.ready = false;
+                        mafiaCount--;
+                    }
+                }
+
+                players.forEach( player => {
+                    if(!player.type) {
+                        player.type = 'Civilian'
+                        player.ready = false
+                    }
+                });
+
+                this.state.gameDocRef.ref.collection('players').get().then( playerDocs => {
+
+                    playerDocs.forEach ( playerDoc => {
+                        let playerType = null;
+                        this.state.players.forEach( player => {
+                            if(player.name === playerDoc.data().name){
+                                playerType = player.type
+                            }
+                        })
+                        playerDoc.ref.update('type', playerType, 'ready', false);
+                    })
+                })
+            }
+        }
     }
 
     render() {
