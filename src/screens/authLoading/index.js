@@ -5,7 +5,7 @@ import styles from '../../styles/global';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/userActions';
 
-class Loading extends React.Component {
+class AuthLoading extends React.Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
@@ -33,4 +33,4 @@ const mapDispatchToProps = dispatch => ({
     setUser: user => dispatch(setUser(user))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLoading);

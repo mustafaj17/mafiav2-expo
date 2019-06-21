@@ -28,7 +28,7 @@ class InRound extends React.Component {
     }
 
     render() {
-
+        const { gameData } = this.props
         return (
            <View style={styles.page}>
 
@@ -38,6 +38,7 @@ class InRound extends React.Component {
                />
 
                <Text> InRound </Text>
+               <Text>Insert Timer.... and navigate to inVote</Text>
            </View>
         )
     }
@@ -45,7 +46,8 @@ class InRound extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    gameData: state.game.gameData,
 })
 
 const mapDispatchToProps = dispatch => ({})

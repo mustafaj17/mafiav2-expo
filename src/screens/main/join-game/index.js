@@ -7,8 +7,6 @@ import { joinGame } from '../../../redux/actions/gameActions';
 
 class JoinGame extends Component{
 
-    static navigationOptions = { header: 'screen' }
-
     state = {
         gameName : '',
         errorMessage: 'waiting'

@@ -7,7 +7,7 @@ import { NavigationEvents } from 'react-navigation';
 import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
 
-class PreGame extends React.Component {
+class PreRound extends React.Component {
     static navigationOptions = {
         header: null
     }
@@ -25,46 +25,11 @@ class PreGame extends React.Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-    componentDidMount(){
-        const { user } = this.props;
-        const gameRef = this.props.gameDoc.ref;
-        const playersColRef = gameRef.collection('players');
-
-        playersColRef.doc(user.email).set({
-            uid: user.uid,
-            displayName: user.displayName
-        });
-
-
-        const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
-            const players = [];
-
-            querySnapshot.forEach( playerDocument => {
-                players.push(playerDocument.data())
-            })
-
-            this.props.updatePlayersData(players);
-        });
-
-        this.props.setPlayersDisconnect(disconnectFromPlayerCollection);
-
-
-
-        const disconnectFromGame = gameRef.onSnapshot(doc => {
-            this.props.updateGameData(doc.data());
-        });
-
-        this.props.setGameDisconnect(disconnectFromGame);
-    }
-
-
-
     render() {
 
         const { gameData, playerRequirementMet, currentPlayer, navigation, allPlayersAreReady } = this.props;
 
             if(playerRequirementMet && allPlayersAreReady) {
-                console.log('navigate');
                 navigation.navigate('InRound');
                 return null;
             }
@@ -112,4 +77,4 @@ const mapDispatchToProps = dispatch => ({
     setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PreGame);
+export default connect(mapStateToProps, mapDispatchToProps)(PreRound);

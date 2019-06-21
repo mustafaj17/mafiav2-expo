@@ -1,4 +1,5 @@
 import {createStackNavigator} from "react-navigation";
+import PreGame from './pre-game';
 import PreRound from './pre-round';
 import InRound from './in-round';
 import InVote from './in-vote';
@@ -6,6 +7,11 @@ import VotingResults from './voting-results';
 
 export default createStackNavigator(
    {
+     PreGame: { screen: PreGame,
+       navigationOptions: () => ({
+         gesturesEnabled: false,
+       })
+     },
        PreRound : { screen: PreRound,
            navigationOptions: () => ({
                gesturesEnabled: false,
@@ -31,7 +37,7 @@ export default createStackNavigator(
        },
    },
    {
-       initialRouteName: 'PreRound',
-       headerMode: 'screen'
+       initialRouteName: 'PreGame',
+       headerMode: 'none',
    }
 )

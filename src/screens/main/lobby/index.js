@@ -5,9 +5,6 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 
 class Lobby extends Component {
-
-    static navigationOptions = { header: null }
-
     screenWillFocus= () => {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     }

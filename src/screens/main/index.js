@@ -6,9 +6,11 @@ import GameBrain from './game-brain';
 
 export default createStackNavigator(
    {
-       Lobby : { screen: Lobby,
+       Lobby : {
+           screen: Lobby,
            navigationOptions: () => ({
                gesturesEnabled: false,
+               header: null,
            })
        },
        StartGame : {
@@ -27,11 +29,18 @@ export default createStackNavigator(
            screen: GameBrain,
            navigationOptions: () => ({
                gesturesEnabled: false,
+               header: null,
            })
        },
    },
-   {
-       initialRouteName: 'Lobby',
-       headerMode: 'screen'
-   }
+  {
+    initialRouteName: 'Lobby',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#28F1A6',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+    }
+  }
 )
