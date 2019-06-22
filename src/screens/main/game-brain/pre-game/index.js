@@ -1,11 +1,11 @@
 import React from 'react'
-import {View, Text, BackHandler, ToastAndroid, TouchableOpacity, Button} from 'react-native'
+import {View, Text, BackHandler, ToastAndroid, Button} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
 import { NavigationEvents } from 'react-navigation';
 import PlayersList from '../../../../components/playersList';
-
+import { firestore } from '../../../../services/firebase'
 class PreGame extends React.Component {
 
     screenWillFocus= () => {
@@ -54,13 +54,12 @@ class PreGame extends React.Component {
         this.props.setGameDisconnect(disconnectFromGame);
     }
 
-    handleStartGame = () => {
-        const { playersData, gameDoc, navigation } = this.props;
+    setPlayerTypes = () => {
 
-        const players = [...playersData];
+        const players = [...this.props.playersData];
         let mafiaCount;
 
-        switch (true){
+        switch (true) {
             case (players.length < 5):
                 mafiaCount = 1;
                 break;
@@ -81,13 +80,21 @@ class PreGame extends React.Component {
                 break
         }
 
-        while(mafiaCount){
+        while (mafiaCount) {
             let rand = Math.floor(Math.random() * players.length);
-            if(!players[rand].type){
+            if (!players[rand].type) {
                 players[rand].type = 'Mafia';
                 mafiaCount--;
             }
         }
+
+        return players;
+    }
+
+    handleStartGame = () => {
+        const { gameDoc, navigation } = this.props;
+
+        const players = this.setPlayerTypes();
 
         players.forEach( player => {
             if(!player.type) {
@@ -95,13 +102,20 @@ class PreGame extends React.Component {
             }
         });
 
-        gameDoc.ref.update({gameStarted: true})
-
+        const batch = firestore.batch();
+        batch.update(gameDoc.ref, {gameStarted: true});
         players.forEach(player => {
-            gameDoc.ref.collection('players').doc(player.email).update({type: player.type})
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type});
+        });
+
+        batch.commit().then( () => {
+            console.log('game started and player types set');
+            navigation.navigate('PreRound');
+        }).catch( e => {
+            console.log('error starting game and setting player types: ', e );
         })
 
-        navigation.navigate('PreRound')
+
     }
 
     render() {

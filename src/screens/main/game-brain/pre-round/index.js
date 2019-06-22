@@ -27,7 +27,7 @@ class PreRound extends React.Component {
 
     render() {
 
-        const { gameData, playerRequirementMet, currentPlayer, navigation, allPlayersAreReady } = this.props;
+        const { gameData, currentPlayer, navigation, allPlayersAreReady } = this.props;
 
             if(allPlayersAreReady) {
                 navigation.navigate('InRound');
@@ -62,7 +62,6 @@ const mapStateToProps = state => ({
     playersData: state.game.playersData,
     currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
     allPlayersReady: state.game.allPlayersReady,
-    playerRequirementMet: (state.game.playersData.length > 0),
     user: state.user.data,
     allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
 })
