@@ -20,6 +20,10 @@ class InRound extends React.Component {
 
     screenWillFocus= () => {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        this.setTimer()
+    }
+
+    setTimer = () => {
         this.timer = setInterval( ()=> {
             const newTime = this.state.timer-1;
             if(newTime === 0){
@@ -28,9 +32,10 @@ class InRound extends React.Component {
                 this.setState({ timer: newTime})
             }
         }, 1000);
-    }
+    };
 
     endRound = () => {
+        clearInterval(this.timer);
         this.props.navigation.navigate('InVote');
     }
 
@@ -40,7 +45,6 @@ class InRound extends React.Component {
     }
 
     screenWillBlur = () => {
-        clearInterval(this.timer);
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
