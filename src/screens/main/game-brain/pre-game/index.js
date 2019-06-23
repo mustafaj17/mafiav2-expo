@@ -26,12 +26,12 @@ class PreGame extends React.Component {
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
 
-        playersColRef.doc(user.email).set({
-            uid: user.uid,
-            displayName: user.displayName,
-            email: user.email
+        playersColRef.doc(user.data.email).set({
+            uid: user.data.uid,
+            displayName: user.data.displayName,
+            email: user.data.email,
+            isAdmin: !!user.isAdmin
         });
-
 
         const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
             const players = [];
@@ -160,7 +160,7 @@ const mapStateToProps = state => ({
     currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
     allPlayersReady: state.game.allPlayersReady,
     playerRequirementMet: (state.game.playersData.length > 0),
-    user: state.user.data,
+    user: state.user,
     allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
 })
 

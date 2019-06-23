@@ -8,7 +8,7 @@ export const setUser = user => {
     }
 }
 
-export const setUserIsAdmin = user => {
+export const setUserIsAdmin = () => {
     return {
         type: SET_USER_IS_ADMIN
     }

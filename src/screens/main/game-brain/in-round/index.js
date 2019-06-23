@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, BackHandler, ToastAndroid, } from 'react-native'
+import {View, Text, BackHandler, ToastAndroid, Button,} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
@@ -14,8 +14,24 @@ class InRound extends React.Component {
         }
     }
 
+    state = {
+        timer: 10
+    }
+
     screenWillFocus= () => {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        this.timer = setInterval( ()=> {
+            const newTime = this.state.timer-1;
+            if(newTime === 0){
+                this.endRound();
+            }else{
+                this.setState({ timer: newTime})
+            }
+        }, 1000);
+    }
+
+    endRound = () => {
+        this.props.navigation.navigate('InVote');
     }
 
     handleBackButton = () => {
@@ -24,11 +40,18 @@ class InRound extends React.Component {
     }
 
     screenWillBlur = () => {
+        clearInterval(this.timer);
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     render() {
-        const { gameData } = this.props
+        const { currentPlayer, gameDoc, gameData } = this.props;
+
+        if(gameData.roundSkipped){
+            this.endRound();
+            return null;
+        }
+
         return (
            <View style={styles.page}>
 
@@ -38,7 +61,15 @@ class InRound extends React.Component {
                />
 
                <Text> InRound </Text>
-               <Text>Insert Timer.... and navigate to inVote</Text>
+               <Text> {this.state.timer} </Text>
+
+               { currentPlayer.isAdmin &&
+               <Button title="Skip round" onPress={ () => {
+                   gameDoc.ref.update( 'roundSkipped', true)
+               }} />
+
+               }
+
            </View>
         )
     }
@@ -48,6 +79,8 @@ class InRound extends React.Component {
 const mapStateToProps = state => ({
     user: state.user.data,
     gameData: state.game.gameData,
+    gameDoc: state.game.gameDoc,
+    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
 })
 
 const mapDispatchToProps = dispatch => ({})
