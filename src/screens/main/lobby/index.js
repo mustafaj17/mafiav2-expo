@@ -26,6 +26,8 @@ class Lobby extends Component {
         this.props.navigation.navigate('StartGame')
     }
 
+
+
     render(){
 
         const { user } = this.props;

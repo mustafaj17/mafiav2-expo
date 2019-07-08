@@ -1,37 +1,42 @@
 import React from 'react'
-import { View, Text, BackHandler, ToastAndroid, } from 'react-native'
+import { View, Text} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
-import { NavigationEvents } from 'react-navigation';
-import PlayersList from '../../../../components/playersList';
-import ReadyButton from '../../../../components/playerReadyButton';
 
 class VotingResults extends React.Component {
-    static navigationOptions = { header: null }
-
-    screenWillFocus= () => {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-    handleBackButton = () => {
-        ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-        return true;
-    }
-
-    screenWillBlur = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
 
     render() {
+
+        const { players } = this.props;
+        const votingResults = players.reduce( (result, player ) => {
+            if(!result[player.votingFor]){
+                result[player.votingFor] = 0;
+            }
+            result[player.votingFor]++;
+            return result;
+        }, {});
+
+        const sortedResults = [];
+        for (let player in votingResults) {
+            sortedResults.push([player, votingResults[player]]);
+        }
+
+        sortedResults.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+
+        console.log('sortedresults***', sortedResults)
 
         return (
            <View style={styles.page}>
 
-               <NavigationEvents
-                  onWillFocus={this.screenWillFocus}
-                  onWillBlur={this.screenWillBlur}
-               />
+               <View>
+                   {sortedResults.map( result => <View>
+                       <Text>
+                           {result[0]} : {result[1]}
+                       </Text>
+                   </View>)}
+               </View>
 
                <Text> VotingResults </Text>
            </View>
@@ -41,7 +46,9 @@ class VotingResults extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user.data
+    user: state.user.data,
+    players: state.game.playersData,
+    game: state.game.gameData
 })
 
 const mapDispatchToProps = dispatch => ({})

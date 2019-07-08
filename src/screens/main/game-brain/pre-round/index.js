@@ -1,46 +1,29 @@
 import React from 'react'
-import {View, Text, BackHandler, ToastAndroid } from 'react-native'
+import {View, Text } from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
-import { NavigationEvents } from 'react-navigation';
+import {  startRound } from '../../../../redux/actions/gameActions';
 import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
 
 class PreRound extends React.Component {
-    static navigationOptions = {
-        header: null
-    }
 
-    screenWillFocus= () => {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    }
+    componentDidUpdate(){
+        const { navigation, allPlayersAreReady, startRound } = this.props;
 
-    handleBackButton = () => {
-        ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-        return true;
-    }
-
-    screenWillBlur = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+        if(allPlayersAreReady) {
+            startRound();
+            navigation.navigate('InRound');
+        }
     }
 
     render() {
 
-        const { gameData, currentPlayer, navigation, allPlayersAreReady } = this.props;
-
-            if(allPlayersAreReady) {
-                navigation.navigate('InRound');
-                return null;
-            }
+        const { gameData, currentPlayer  } = this.props;
 
         return (
            <View style={styles.page}>
 
-               <NavigationEvents
-                  onWillFocus={this.screenWillFocus}
-                  onWillBlur={this.screenWillBlur}
-               />
                <View><Text>Pre-Round Screen</Text></View>
 
                <View><Text>{gameData.gameName}</Text></View>
@@ -57,20 +40,13 @@ class PreRound extends React.Component {
 
 
 const mapStateToProps = state => ({
-    gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
-    playersData: state.game.playersData,
     currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
-    allPlayersReady: state.game.allPlayersReady,
-    user: state.user.data,
     allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateGameData: data => dispatch(updateGameData(data)),
-    updatePlayersData: data => dispatch(updatePlayersData(data)),
-    setGameDisconnect: gameDisconnect => dispatch(setGameDisconnect(gameDisconnect)),
-    setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect))
+    startRound: () => dispatch(startRound())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreRound);

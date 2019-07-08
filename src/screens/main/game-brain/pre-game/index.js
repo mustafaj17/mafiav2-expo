@@ -1,27 +1,16 @@
 import React from 'react'
-import {View, Text, BackHandler, ToastAndroid, Button} from 'react-native'
+import {View, Text, Button} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
-import { NavigationEvents } from 'react-navigation';
 import PlayersList from '../../../../components/playersList';
 import { firestore } from '../../../../services/firebase'
+
 class PreGame extends React.Component {
 
-    screenWillFocus= () => {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-    handleBackButton = () => {
-        ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-        return true;
-    }
-
-    screenWillBlur = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
 
     componentDidMount(){
+
         const { user } = this.props;
         const gameRef = this.props.gameDoc.ref;
         const playersColRef = gameRef.collection('players');
@@ -48,6 +37,9 @@ class PreGame extends React.Component {
 
 
         const disconnectFromGame = gameRef.onSnapshot(doc => {
+
+            console.log('snapshot triggered');
+
             this.props.updateGameData(doc.data());
         });
 
@@ -118,22 +110,72 @@ class PreGame extends React.Component {
 
     }
 
-    render() {
-
-        const { gameData, playerRequirementMet, navigation, allPlayersAreReady } = this.props;
+    componentDidUpdate(){
+        const { playerRequirementMet, navigation, allPlayersAreReady } = this.props;
 
         if(playerRequirementMet && allPlayersAreReady) {
             navigation.navigate('InRound');
-            return null;
         }
+    }
+
+    startTestGame = () => {
+
+        const { gameDoc, navigation } = this.props;
+
+        const testPlayers = [
+            {
+                email: 'test1@email.com',
+                type: 'Civilian',
+                displayName: 'Pop1',
+                ready: true
+            },
+            {
+                email: 'test2@email.com',
+                type: 'Civilian',
+                displayName: 'Pop2',
+                ready: true
+            },
+            {
+                email: 'test3@email.com',
+                type: 'Civilian',
+                displayName: 'Pop3',
+                ready: true
+            },
+            {
+                email: 'test4@email.com',
+                type: 'Civilian',
+                displayName: 'Pop4',
+                ready: true
+            },
+            {
+                email: 'test5@email.com',
+                type: 'Civilian',
+                displayName: 'Pop5',
+                ready: true
+            }
+        ]
+
+        const batch = firestore.batch();
+
+        batch.update(gameDoc.ref, {gameStarted: true});
+        testPlayers.forEach(player => {
+            batch.set(gameDoc.ref.collection('players').doc(player.email), {...player});
+        });
+
+        batch.commit().then( () => {
+            console.log('game started and player types set');
+            navigation.navigate('PreRound');
+        }).catch( e => {
+            console.log('error starting game and setting player types: ', e );
+        })
+    }
+
+    render() {
+
+        const { gameData, playerRequirementMet } = this.props;
 
         return (
           <View style={styles.page}>
-
-              <NavigationEvents
-                onWillFocus={this.screenWillFocus}
-                onWillBlur={this.screenWillBlur}
-              />
 
               <View><Text>Pre-Game Screen</Text></View>
 
@@ -147,6 +189,8 @@ class PreGame extends React.Component {
               />
               }
 
+
+              <Button onPress={this.startTestGame} title={'Start Test Game'}/>
           </View>
         )
     }
@@ -158,7 +202,6 @@ const mapStateToProps = state => ({
     gameData: state.game.gameData,
     playersData: state.game.playersData,
     currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
-    allPlayersReady: state.game.allPlayersReady,
     playerRequirementMet: (state.game.playersData.length > 0),
     user: state.user,
     allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)

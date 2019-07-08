@@ -1,26 +1,16 @@
 import React from 'react'
-import {View, Text, BackHandler, ToastAndroid, Button,} from 'react-native'
+import {View, Text, Button,} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
-import { NavigationEvents } from 'react-navigation';
-import PlayersList from '../../../../components/playersList';
-import ReadyButton from '../../../../components/playerReadyButton';
 
 class InRound extends React.Component {
-    static navigationOptions = {
-        header: {
-            visible: false,
-        }
-    }
 
     state = {
         timer: 10
     }
 
-    screenWillFocus= () => {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-        this.setTimer()
+    componentDidMount(){
+        this.setTimer();
     }
 
     setTimer = () => {
@@ -39,30 +29,21 @@ class InRound extends React.Component {
         this.props.navigation.navigate('InVote');
     }
 
-    handleBackButton = () => {
-        ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-        return true;
-    }
+    componentDidUpdate(){
 
-    screenWillBlur = () => {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    }
-
-    render() {
-        const { currentPlayer, gameDoc, gameData } = this.props;
+        const { gameData } = this.props;
 
         if(gameData.roundSkipped){
             this.endRound();
             return null;
         }
+    }
+
+    render() {
+        const { currentPlayer, gameDoc } = this.props;
 
         return (
            <View style={styles.page}>
-
-               <NavigationEvents
-                  onWillFocus={this.screenWillFocus}
-                  onWillBlur={this.screenWillBlur}
-               />
 
                <Text> InRound </Text>
                <Text> {this.state.timer} </Text>
