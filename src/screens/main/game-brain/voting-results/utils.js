@@ -1,3 +1,4 @@
+import {TYPE} from "../../../../constants/index";
 export const generateSortedVotes = (players) => {
     const votingResults = players.reduce( (result, player ) => {
         if(!result[player.votingFor.displayName]){
@@ -40,4 +41,21 @@ export const getHighestVotedPlayer = (players) => {
 
     return sortedResults[0][0];
 
+}
+
+export const isGameOver = players => {
+    let civilianCount = players.filter(player => player.type === TYPE.CIVILIAN)
+    let mafiaCount = players.filter(player => player.type === TYPE.MAFIA)
+
+    if (mafiaCount.length === 0) {
+        //mafias win
+        return true;
+    }
+
+    if (mafiaCount.length >= civilianCount.length) {
+        // civilians win
+        return true;
+    }
+
+    return false;
 }

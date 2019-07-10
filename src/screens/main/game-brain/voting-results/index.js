@@ -34,7 +34,8 @@ class VotingResults extends React.Component {
     handleNextRound = () => {
         const { inGamePlayers, navigation, gameDoc } = this.props;
         const batch = firestore.batch();
-        const playerVotedOut = getHighestVotedPlayer(inGamePlayers)
+        const playerVotedOut = getHighestVotedPlayer(inGamePlayers);
+        const gameOver = isGameOver(inGamePlayers);
         this.setState({ loading: true});
 
         batch.update(gameDoc.ref, {votingDraw: null});

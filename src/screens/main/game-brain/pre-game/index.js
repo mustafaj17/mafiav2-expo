@@ -6,6 +6,7 @@ import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconn
 import PlayersList from '../../../../components/playersList';
 import { firestore } from '../../../../services/firebase'
 import {areAllPlayersReady, getCurrentPlayer} from "../../../../redux/selectors/index";
+import {TYPE} from "../../../../constants/index";
 
 class PreGame extends React.Component {
 
@@ -76,7 +77,7 @@ class PreGame extends React.Component {
         while (mafiaCount) {
             let rand = Math.floor(Math.random() * players.length);
             if (!players[rand].type) {
-                players[rand].type = 'Mafia';
+                players[rand].type = TYPE.MAFIA;
                 mafiaCount--;
             }
         }
@@ -91,7 +92,7 @@ class PreGame extends React.Component {
 
         players.forEach( player => {
             if(!player.type) {
-                player.type = 'Civilian'
+                player.type = TYPE.CIVILIAN;
             }
         });
 
@@ -126,31 +127,31 @@ class PreGame extends React.Component {
         const testPlayers = [
             {
                 email: 'test1@email.com',
-                type: 'Civilian',
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop1',
                 ready: true
             },
             {
                 email: 'test2@email.com',
-                type: 'Civilian',
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop2',
                 ready: true
             },
             {
                 email: 'test3@email.com',
-                type: 'Civilian',
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop3',
                 ready: true
             },
             {
                 email: 'test4@email.com',
-                type: 'Civilian',
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop4',
                 ready: true
             },
             {
                 email: 'test5@email.com',
-                type: 'Civilian',
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop5',
                 ready: true
             }
