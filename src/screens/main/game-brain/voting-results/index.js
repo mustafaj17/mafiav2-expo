@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer} from "./utils";
 import {firestore} from "../../../../services/firebase";
+import {getInGamePlayers} from "../../../../redux/selectors/index";
 
 class VotingResults extends React.Component {
 
@@ -13,14 +14,15 @@ class VotingResults extends React.Component {
     }
 
     handleRevote = () => {
-        debugger
         const { inGamePlayers, navigation, gameDoc } = this.props;
         const batch = firestore.batch();
+
+        this.setState({ loading: true});
+
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
         });
 
-        this.setState({ loading: true});
         batch.commit().then( () => {
             console.log('re-vote update complete');
             navigation.navigate('InVote');
@@ -33,6 +35,8 @@ class VotingResults extends React.Component {
         const { inGamePlayers, navigation, gameDoc } = this.props;
         const batch = firestore.batch();
         const playerVotedOut = getHighestVotedPlayer(inGamePlayers)
+        this.setState({ loading: true});
+
         batch.update(gameDoc.ref, {votingDraw: null});
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email),
@@ -42,11 +46,14 @@ class VotingResults extends React.Component {
                     isOut: (player.email === playerVotedOut)
                 });
         });
-
-        this.setState({ loading: true});
         batch.commit().then( () => {
             console.log('voting complete');
-            navigation.navigate('PreRound');
+
+            if(gameOver){
+                navigation.navigate('GameOver');
+            }else{
+                navigation.navigate('PreRound');
+            }
         }).catch( e => {
             console.log('error completing voting: ', e );
         })
@@ -96,7 +103,7 @@ const mapStateToProps = state => ({
     user: state.user.data,
     players: state.game.playersData,
     game: state.game.gameData,
-    inGamePlayers: state.game.playersData.filter( player => !player.isOut),
+    inGamePlayers: getInGamePlayers(state),
     gameDoc: state.game.gameDoc
 })
 

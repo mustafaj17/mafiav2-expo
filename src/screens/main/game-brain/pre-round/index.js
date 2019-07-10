@@ -4,6 +4,7 @@ import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
+import {areAllPlayersReady} from "../../../../redux/selectors/index";
 
 class PreRound extends React.Component {
 
@@ -39,8 +40,8 @@ class PreRound extends React.Component {
 
 const mapStateToProps = state => ({
     gameData: state.game.gameData,
-    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
-    allPlayersAreReady: state.game.playersData.filter(player => !player.isOut).reduce( (allReady,player) => (allReady && !!player.ready), true)
+    currentPlayer: state.game.playersData.find( player => player.email === state.user.data.email),
+    allPlayersAreReady: areAllPlayersReady(state)
 })
 
 const mapDispatchToProps = dispatch => ({

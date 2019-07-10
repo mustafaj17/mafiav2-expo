@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
 import PlayersList from '../../../../components/playersList';
 import { firestore } from '../../../../services/firebase'
+import {areAllPlayersReady, getCurrentPlayer} from "../../../../redux/selectors/index";
 
 class PreGame extends React.Component {
 
@@ -201,10 +202,10 @@ const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
     playersData: state.game.playersData,
-    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
+    currentPlayer: getCurrentPlayer(state),
     playerRequirementMet: (state.game.playersData.length > 0),
     user: state.user,
-    allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
+    allPlayersAreReady: areAllPlayersReady(state)
 })
 
 const mapDispatchToProps = dispatch => ({

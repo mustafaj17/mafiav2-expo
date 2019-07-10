@@ -3,6 +3,7 @@ import {View, Text, ScrollView, FlatList, Button} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../../services/firebase'
+import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
 
 
 class InVote extends React.Component {
@@ -95,9 +96,9 @@ const mapStateToProps = state => ({
     user: state.user.data,
     gameDoc: state.game.gameDoc,
     players: state.game.playersData,
-    inGamePlayers: state.game.playersData.filter( player => !player.isOut),
-    allPlayersHaveVoted: state.game.playersData.filter( player => !player.isOut).reduce( (allVoted ,player) => (allVoted && !!player.votingFor), true),
-    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
+    inGamePlayers: getInGamePlayers(state),
+    allPlayersHaveVoted: haveAllPlayersVoted(state),
+    currentPlayer: getCurrentPlayer(state),
     gameRound: state.game.round
 
 })

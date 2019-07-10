@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Text, Button,} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
+import {getCurrentPlayer} from "../../../../redux/selectors/index";
 
 class InRound extends React.Component {
 
@@ -65,7 +66,7 @@ const mapStateToProps = state => ({
     user: state.user.data,
     gameData: state.game.gameData,
     gameDoc: state.game.gameDoc,
-    currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
+    currentPlayer: getCurrentPlayer(state)
 })
 
 const mapDispatchToProps = dispatch => ({})
