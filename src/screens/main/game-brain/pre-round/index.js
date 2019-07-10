@@ -2,17 +2,15 @@ import React from 'react'
 import {View, Text } from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import {  startRound } from '../../../../redux/actions/gameActions';
 import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
 
 class PreRound extends React.Component {
 
     componentDidUpdate(){
-        const { navigation, allPlayersAreReady, startRound } = this.props;
+        const { navigation, allPlayersAreReady } = this.props;
 
         if(allPlayersAreReady) {
-            startRound();
             navigation.navigate('InRound');
         }
     }
@@ -46,7 +44,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    startRound: () => dispatch(startRound())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreRound);
