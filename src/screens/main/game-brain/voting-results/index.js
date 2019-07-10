@@ -2,43 +2,90 @@ import React from 'react'
 import { View, Text} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
+import { Button } from 'react-native';
+import {generateSortedVotes, getHighestVotedPlayer} from "./utils";
+import {firestore} from "../../../../services/firebase";
 
 class VotingResults extends React.Component {
 
-    render() {
+    state = {
+        loading: false
+    }
 
-        const { players } = this.props;
-        const votingResults = players.reduce( (result, player ) => {
-            if(!result[player.votingFor]){
-                result[player.votingFor] = 0;
-            }
-            result[player.votingFor]++;
-            return result;
-        }, {});
-
-        const sortedResults = [];
-        for (let player in votingResults) {
-            sortedResults.push([player, votingResults[player]]);
-        }
-
-        sortedResults.sort(function(a, b) {
-            return b[1] - a[1];
+    handleRevote = () => {
+        debugger
+        const { inGamePlayers, navigation, gameDoc } = this.props;
+        const batch = firestore.batch();
+        inGamePlayers.forEach(player => {
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
         });
 
-        console.log('sortedresults***', sortedResults)
+        this.setState({ loading: true});
+        batch.commit().then( () => {
+            console.log('re-vote update complete');
+            navigation.navigate('InVote');
+        }).catch( e => {
+            console.log('error re-vote update: ', e );
+        })
+    }
+
+    handleNextRound = () => {
+        const { inGamePlayers, navigation, gameDoc } = this.props;
+        const batch = firestore.batch();
+        const playerVotedOut = getHighestVotedPlayer(inGamePlayers)
+        batch.update(gameDoc.ref, {votingDraw: null});
+        inGamePlayers.forEach(player => {
+            batch.update(gameDoc.ref.collection('players').doc(player.email),
+                {
+                    votingFor: null,
+                    ready: false,
+                    isOut: (player.email === playerVotedOut)
+                });
+        });
+
+        this.setState({ loading: true});
+        batch.commit().then( () => {
+            console.log('voting complete');
+            navigation.navigate('PreRound');
+        }).catch( e => {
+            console.log('error completing voting: ', e );
+        })
+    }
+
+    getResults = () => {
+        const { players } = this.props;
+        const { loading } = this.state;
+
+        if( loading ) return <Text>Loading</Text>;
+
+        const votingResults = generateSortedVotes(players);
+        return (<View>
+            {votingResults && votingResults.map( result => <View>
+                <Text>
+                    {result[0]} : {result[1]}
+                </Text>
+            </View>)}
+        </View>)
+    }
+
+    render() {
+
+        const { game } = this.props;
+
 
         return (
            <View style={styles.page}>
 
-               <View>
-                   {sortedResults.map( result => <View>
-                       <Text>
-                           {result[0]} : {result[1]}
-                       </Text>
-                   </View>)}
-               </View>
-
                <Text> VotingResults </Text>
+               { game.votingDraw && <Text>Game was draw </Text> }
+
+               { this.getResults() }
+
+               { game.votingDraw ?
+                   <Button onPress={this.handleRevote} title='Re-vote'/> :
+                   <Button onPress={this.handleNextRound} title='Next'/>
+               }
+
            </View>
         )
     }
@@ -48,7 +95,9 @@ class VotingResults extends React.Component {
 const mapStateToProps = state => ({
     user: state.user.data,
     players: state.game.playersData,
-    game: state.game.gameData
+    game: state.game.gameData,
+    inGamePlayers: state.game.playersData.filter( player => !player.isOut),
+    gameDoc: state.game.gameDoc
 })
 
 const mapDispatchToProps = dispatch => ({})

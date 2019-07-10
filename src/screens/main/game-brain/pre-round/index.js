@@ -42,7 +42,7 @@ class PreRound extends React.Component {
 const mapStateToProps = state => ({
     gameData: state.game.gameData,
     currentPlayer: state.game.playersData.find( player => player.displayName === state.user.data.displayName),
-    allPlayersAreReady: state.game.playersData.reduce( (allReady,player) => (allReady && !!player.ready), true)
+    allPlayersAreReady: state.game.playersData.filter(player => !player.isOut).reduce( (allReady,player) => (allReady && !!player.ready), true)
 })
 
 const mapDispatchToProps = dispatch => ({

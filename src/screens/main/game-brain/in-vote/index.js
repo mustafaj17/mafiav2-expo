@@ -23,14 +23,13 @@ class InVote extends React.Component {
 
     handleVotingComplete = () => {
 
-        const { inGamePlayers, gameRound, gameDoc } = this.props;
+        const { inGamePlayers, navigation, gameDoc } = this.props;
 
         const votingResults =  inGamePlayers.reduce(function(map, player){
-            if(!(player.displayName in map)) {
-                map[player.displayName] = 1;
-            }else{
-                map[player.displayName]++;
+            if(!(player.votingFor.displayName in map)) {
+                map[player.votingFor.displayName] = 0;
             }
+            map[player.votingFor.displayName]++;
             return map;
         }, {});
 
@@ -41,17 +40,17 @@ class InVote extends React.Component {
         });
 
         if(highestVotedForPlayers.length > 1){
-            gameDoc.ref.update({ votingDraw: true, playersDrawn : highestVotedForPlayers})
+            gameDoc.ref.update({ votingDraw: true })
         }
 
-        this.props.navigation.navigate('VotingResults');
+        navigation.navigate('VotingResults');
     }
 
     testAutoVote = () => {
         const { inGamePlayers, gameDoc } = this.props;
         const getRandomPlayer = ()=>{
             const randomNumber = Math.floor(Math.random() * inGamePlayers.length)
-            return inGamePlayers[randomNumber].displayName
+            return inGamePlayers[randomNumber]
         }
         const batch = firestore.batch();
         inGamePlayers.forEach(player => {
@@ -70,23 +69,23 @@ class InVote extends React.Component {
         const { players } = this.props;
 
         return (
-           <View style={styles.page}>
+            <View style={styles.page}>
 
-               <Text> InVote </Text>
+                <Text> InVote </Text>
                 <Button onPress={this.testAutoVote} title={'Auto-Vote'}/>
-               <ScrollView>
-                   <FlatList
-                      data={players}
-                      renderItem={(player) => {
-                          return (
-                             <Button
-                                title={player.item.displayName}
-                                onPress={ () => { this.voteForPlayer(player.item)}}
-                             />)
-                      }}
-                   />
-               </ScrollView>
-           </View>
+                <ScrollView>
+                    <FlatList
+                        data={players}
+                        renderItem={(player) => {
+                            return (
+                                <Button
+                                    title={player.item.displayName}
+                                    onPress={ () => { this.voteForPlayer(player.item)}}
+                                />)
+                        }}
+                    />
+                </ScrollView>
+            </View>
         )
     }
 }
