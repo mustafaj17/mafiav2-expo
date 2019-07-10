@@ -2,14 +2,27 @@ import React from 'react'
 import {View, Text, Button,} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import {getCurrentPlayer} from "../../../../redux/selectors/index";
+import {didMafiasWin, getCurrentPlayer} from "../../../../redux/selectors/index";
 
 class GameOver extends React.Component {
 
+    handleEndGame = () => {}
+    handlePlayAgain= () => {}
+
     render() {
+
+        const { mafiasWon } = this.props;
+
         return (
            <View style={styles.page}>
                <Text>Game Over</Text>
+               <Text>
+                   {mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}
+               </Text>
+
+               <Button title='Play again' onPress={this.handlePlayAgain}/>
+               <Button title='End game' onPress={this.handleEndGame}/>
+
            </View>
         )
     }
@@ -19,7 +32,8 @@ class GameOver extends React.Component {
 const mapStateToProps = state => ({
     gameData: state.game.gameData,
     gameDoc: state.game.gameDoc,
-    currentPlayer: getCurrentPlayer(state)
+    currentPlayer: getCurrentPlayer(state),
+    mafiasWon: didMafiasWin(state)
 })
 
 const mapDispatchToProps = dispatch => ({})

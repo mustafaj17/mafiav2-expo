@@ -67,7 +67,7 @@ class InVote extends React.Component {
 
     render() {
 
-        const { players } = this.props;
+        const { inGamePlayers } = this.props;
 
         return (
             <View style={styles.page}>
@@ -76,7 +76,7 @@ class InVote extends React.Component {
                 <Button onPress={this.testAutoVote} title={'Auto-Vote'}/>
                 <ScrollView>
                     <FlatList
-                        data={players}
+                        data={inGamePlayers}
                         renderItem={(player) => {
                             return (
                                 <Button
@@ -95,7 +95,6 @@ class InVote extends React.Component {
 const mapStateToProps = state => ({
     user: state.user.data,
     gameDoc: state.game.gameDoc,
-    players: state.game.playersData,
     inGamePlayers: getInGamePlayers(state),
     allPlayersHaveVoted: haveAllPlayersVoted(state),
     currentPlayer: getCurrentPlayer(state),

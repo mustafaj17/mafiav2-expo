@@ -32,9 +32,11 @@ class InRound extends React.Component {
 
     componentDidUpdate(){
 
-        const { gameData } = this.props;
+        const { gameData, gameDoc } = this.props;
 
         if(gameData.roundSkipped){
+            //reset the flag for next round
+            gameDoc.ref.update( 'roundSkipped', false);
             this.endRound();
             return null;
         }

@@ -55,6 +55,7 @@ class VotingResults extends React.Component {
             }else{
                 navigation.navigate('PreRound');
             }
+
         }).catch( e => {
             console.log('error completing voting: ', e );
         })

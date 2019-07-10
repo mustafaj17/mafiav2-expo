@@ -28,7 +28,7 @@ class PreRound extends React.Component {
                <View><Text>{gameData.gameName}</Text></View>
                <PlayersList/>
 
-               {!currentPlayer.ready &&
+               {!currentPlayer.isOut && !currentPlayer.ready &&
                 <ReadyButton/>
                }
 

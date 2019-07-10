@@ -12,3 +12,14 @@ export const haveAllPlayersVoted = state => {
 export const areAllPlayersReady = state => {
     return getInGamePlayers(state).reduce( (allReady,player) => (allReady && !!player.ready), true)
 }
+
+export const didMafiasWin = state => {
+    let players = getInGamePlayers(state);
+    let mafiaCount = players.filter(player => player.type === TYPE.MAFIA);
+
+    if (mafiaCount.length === 0) {
+        return false
+    }
+
+    return true;
+}
