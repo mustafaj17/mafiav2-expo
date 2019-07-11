@@ -1,10 +1,11 @@
 import React from 'react'
-import {View, Text } from 'react-native'
+import {View, Text, Button } from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
-import {areAllPlayersReady} from "../../../../redux/selectors/index";
+import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../../redux/selectors/index";
+import {firestore} from "../../../../services/firebase";
 
 class PreRound extends React.Component {
 
@@ -18,21 +19,29 @@ class PreRound extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer  } = this.props;
+        const { gameData, currentPlayer, inGamePlayers, gameDoc  } = this.props;
 
         return (
-           <View style={styles.page}>
+            <View style={styles.page}>
 
-               <View><Text>Pre-Round Screen</Text></View>
+                <View><Text>Pre-Round Screen</Text></View>
 
-               <View><Text>{gameData.gameName}</Text></View>
-               <PlayersList/>
+                <View><Text>{gameData.gameName}</Text></View>
+                <PlayersList/>
 
-               {!currentPlayer.isOut && !currentPlayer.ready &&
+                {!currentPlayer.isOut && !currentPlayer.ready &&
                 <ReadyButton/>
-               }
+                }
 
-           </View>
+                <Button title='ready-all' onPress={ () => {
+                    const batch = firestore.batch();
+                    inGamePlayers.forEach(player => {
+                        batch.update(gameDoc.ref.collection('players').doc(player.email), {ready: true});
+                    });
+                    batch.commit().then( () => {});
+                }}/>
+
+            </View>
         )
     }
 }
@@ -40,7 +49,9 @@ class PreRound extends React.Component {
 
 const mapStateToProps = state => ({
     gameData: state.game.gameData,
-    currentPlayer: state.game.playersData.find( player => player.email === state.user.data.email),
+    gameDoc: state.game.gameDoc,
+    inGamePlayers: getInGamePlayers(state),
+    currentPlayer: getCurrentPlayer(state),
     allPlayersAreReady: areAllPlayersReady(state)
 })
 

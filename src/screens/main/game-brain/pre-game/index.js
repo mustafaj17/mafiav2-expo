@@ -145,13 +145,13 @@ class PreGame extends React.Component {
             },
             {
                 email: 'test4@email.com',
-                type: TYPE.CIVILIAN,
+                type: TYPE.MAFIA,
                 displayName: 'Pop4',
                 ready: true
             },
             {
                 email: 'test5@email.com',
-                type: TYPE.CIVILIAN,
+                type: TYPE.MAFIA,
                 displayName: 'Pop5',
                 ready: true
             }

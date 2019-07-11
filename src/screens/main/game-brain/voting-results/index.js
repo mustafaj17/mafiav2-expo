@@ -3,7 +3,7 @@ import { View, Text} from 'react-native'
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
 import { Button } from 'react-native';
-import {generateSortedVotes, getHighestVotedPlayer} from "./utils";
+import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
 import {firestore} from "../../../../services/firebase";
 import {getInGamePlayers} from "../../../../redux/selectors/index";
 
@@ -22,7 +22,7 @@ class VotingResults extends React.Component {
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
         });
-
+        batch.update(gameDoc.ref, {votingDraw: null});
         batch.commit().then( () => {
             console.log('re-vote update complete');
             navigation.navigate('InVote');
@@ -38,7 +38,6 @@ class VotingResults extends React.Component {
         const gameOver = isGameOver(inGamePlayers);
         this.setState({ loading: true});
 
-        batch.update(gameDoc.ref, {votingDraw: null});
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email),
                 {
@@ -62,12 +61,12 @@ class VotingResults extends React.Component {
     }
 
     getResults = () => {
-        const { players } = this.props;
+        const { inGamePlayers } = this.props;
         const { loading } = this.state;
 
         if( loading ) return <Text>Loading</Text>;
 
-        const votingResults = generateSortedVotes(players);
+        const votingResults = generateSortedVotes(inGamePlayers);
         return (<View>
             {votingResults && votingResults.map( result => <View>
                 <Text>
@@ -103,7 +102,6 @@ class VotingResults extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    players: state.game.playersData,
     game: state.game.gameData,
     inGamePlayers: getInGamePlayers(state),
     gameDoc: state.game.gameDoc
