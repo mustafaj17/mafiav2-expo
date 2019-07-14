@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, BackHandler } from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
 import { firestore } from '../../../services/firebase';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ class StartGame extends Component{
 
     state = {
         gameName : '',
-        errorMessage: 'waiting'
+        errorMessage: '',
+        loading: false
     }
 
 
@@ -18,12 +19,13 @@ class StartGame extends Component{
 
         const { gameName } = this.state;
         const { navigation, startGame, setUserIsAdmin }  = this.props;
+        this.setState({loading: true})
 
 
         firestore.collection('mafia-games').doc(gameName).get().then(doc => {
 
             if (doc.exists) {
-                this.setState({errorMessage: "Game name taken"})
+                this.setState({loading: false, errorMessage: "Game name taken"})
             } else {
                 doc.ref.set({
                     gameName: gameName,
@@ -35,13 +37,13 @@ class StartGame extends Component{
             }
         }).catch( (e) => {
             console.log(e);
-            this.setState({errorMessage: "not sure what went wrong"})
+            this.setState({loading: false,errorMessage: "not sure what went wrong"})
         })
     }
 
     render(){
 
-        const { gameName, errorMessage } = this.state;
+        const { gameName, errorMessage, loading } = this.state;
         const setName = (text) => this.setState({gameName: text});
 
         return (
@@ -57,11 +59,7 @@ class StartGame extends Component{
                <View>
                    <Text>{errorMessage}</Text>
                </View>
-               <View>
-                   <TouchableOpacity onPress={this.startGame} style={styles.button}>
-                       <Text>Start</Text>
-                   </TouchableOpacity>
-               </View>
+                   <Button onPress={this.startGame} title="Start" style={styles.button} disabled={loading} />
            </View>
         )
     }

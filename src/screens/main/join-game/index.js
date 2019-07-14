@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
 import { firestore } from '../../../services/firebase';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
@@ -9,7 +9,8 @@ class JoinGame extends Component{
 
     state = {
         gameName : '',
-        errorMessage: 'waiting'
+        errorMessage: '',
+        loading: false
     }
 
     joinGame = () => {
@@ -23,20 +24,20 @@ class JoinGame extends Component{
                     joinGame(doc);
                     navigation.navigate('GameBrain')
                 } else {
-                    this.setState({errorMessage: "This game has started"})
+                    this.setState({loading: false, errorMessage: "This game has started"})
                 }
             } else {
-                this.setState({errorMessage: "This game does not exist"})
+                this.setState({loading: false, errorMessage: "This game does not exist"})
             }
         }).catch( (e) => {
             console.log(e);
-            this.setState({errorMessage: "not sure what went wrong"})
+            this.setState({loading: false, errorMessage: "not sure what went wrong"})
         })
     }
 
     render(){
 
-        const { gameName, errorMessage } = this.state;
+        const { gameName, errorMessage, loading } = this.state;
         const setName = (text) => this.setState({gameName: text});
 
         return (
@@ -52,11 +53,8 @@ class JoinGame extends Component{
                <View>
                    <Text>{errorMessage}</Text>
                </View>
-               <View>
-                   <TouchableOpacity onPress={this.joinGame} style={styles.button}>
-                       <Text>Join</Text>
-                   </TouchableOpacity>
-               </View>
+
+               <Button onPress={this.joinGame} title="Join" disabled={loading} style={styles.button}/>
            </View>
         )
     }
