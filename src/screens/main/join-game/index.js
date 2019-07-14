@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, Button, TextInput, ActivityIndicator } from 'react-native';
 import { firestore } from '../../../services/firebase';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
@@ -49,6 +49,8 @@ class JoinGame extends Component{
                       placeholder='Enter game ID'/>
 
                </View>
+
+               {loading && <ActivityIndicator size="small" />}
 
                <View>
                    <Text>{errorMessage}</Text>
