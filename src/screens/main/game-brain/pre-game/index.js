@@ -186,7 +186,7 @@ class PreGame extends React.Component {
               <View><Text>{gameData.gameName}</Text></View>
               <PlayersList/>
 
-              {currentPlayer.isAdmin &&
+              {currentPlayer && currentPlayer.isAdmin &&
               <Button
                 onPress={this.handleStartGame}
                 title='Start Game'
