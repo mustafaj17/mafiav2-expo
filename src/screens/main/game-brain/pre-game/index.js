@@ -176,7 +176,7 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, playerRequirementMet } = this.props;
+        const { gameData, currentPlayer } = this.props;
 
         return (
           <View style={styles.page}>
