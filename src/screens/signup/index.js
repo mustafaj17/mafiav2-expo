@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator } from 'react-native';
 import firebase from '../../services/firebase';
 
 export default class SignUp extends React.Component {
-    state = { email: '', password: '', errorMessage: null, displayName: '' }
+    state = { email: '', password: '', errorMessage: null, displayName: '', loading: false }
     handleSignUp = () => {
+      this.setState({loading: true})
         const { email, password, displayName} = this.state
 
         firebase
@@ -14,10 +15,19 @@ export default class SignUp extends React.Component {
                 userCredentials.user.updateProfile({displayName: displayName})
                 this.props.navigation.navigate('Main')
             })
-            .catch(error => this.setState({errorMessage: error.message}))
+            .catch(error => this.setState({loading: false, errorMessage: error.message}))
     }
 
     render() {
+
+      if(this.state.loading){
+        return(
+          <View style={styles.container}>
+            <ActivityIndicator size="large" />
+          </View>
+        )
+      }
+
         return (
             <View style={styles.container}>
                 <Text>Sign Up</Text>
