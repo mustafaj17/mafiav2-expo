@@ -9,28 +9,47 @@ import {getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors
 
 class VotingResults extends React.Component {
 
+    componentDidUpdate(){
+
+        const { gameData, navigation, gameDoc, inGamePlayers } = this.props;
+
+        const gameOver = isGameOver(inGamePlayers);
+
+        if(gameData.revoteStarted){
+            gameDoc.ref.update( 'revoteStarted', false);
+            navigation.navigate('InVote');
+            return null;
+        }
+        if(gameData.votingComplete) {
+            gameDoc.ref.update( 'votingComplete', false);
+            if (gameOver) {
+                navigation.navigate('GameOver');
+            } else {
+                navigation.navigate('PreRound');
+            }
+        }
+    }
+
     handleRevote = () => {
-        const { inGamePlayers, navigation, gameDoc } = this.props;
+        const { inGamePlayers, gameDoc } = this.props;
         const batch = firestore.batch();
 
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
         });
-        batch.update(gameDoc.ref, {votingDraw: null});
+        batch.update(gameDoc.ref, {votingDraw: null, revoteStarted: true});
         batch.commit().then( () => {
             console.log('re-vote update complete');
-            navigation.navigate('InVote');
         }).catch( e => {
             console.log('error re-vote update: ', e );
         })
     }
 
     handleNextRound = () => {
-        const { inGamePlayers, navigation, gameDoc } = this.props;
+        const { inGamePlayers, gameDoc } = this.props;
         const batch = firestore.batch();
         const playerVotedOut = getHighestVotedPlayer(inGamePlayers);
-        const gameOver = isGameOver(inGamePlayers);
-
+        batch.update(gameDoc.ref, {votingComplete: true});
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email),
                 {
@@ -41,12 +60,6 @@ class VotingResults extends React.Component {
         });
         batch.commit().then( () => {
             console.log('voting complete');
-
-            if(gameOver){
-                navigation.navigate('GameOver');
-            }else{
-                navigation.navigate('PreRound');
-            }
 
         }).catch( e => {
             console.log('error completing voting: ', e );
@@ -70,18 +83,18 @@ class VotingResults extends React.Component {
 
     render() {
 
-        const { game } = this.props;
+        const { gameData } = this.props;
 
 
         return (
            <View style={styles.page}>
 
                <Text> VotingResults </Text>
-               { game.votingDraw && <Text>Game was draw </Text> }
+               { gameData.votingDraw && <Text>Game was draw </Text> }
 
                { this.getResults() }
 
-               { game.votingDraw ?
+               { gameData.votingDraw ?
                    <Button onPress={this.handleRevote} title='Re-vote'/> :
                    <Button onPress={this.handleNextRound} title='Next'/>
                }
@@ -94,7 +107,7 @@ class VotingResults extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.user.data,
-    game: state.game.gameData,
+    gameData: state.game.gameData,
     inGamePlayers: getInGamePlayers(state),
     gameDoc: state.game.gameDoc,
     allPlayersHaveVoted: haveAllPlayersVoted(state),
