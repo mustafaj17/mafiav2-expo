@@ -1,5 +1,6 @@
 import {TYPE} from "../../../../constants/index";
 export const generateSortedVotes = (players) => {
+
     const votingResults = players.reduce( (result, player ) => {
         if(!result[player.votingFor.displayName]){
             result[player.votingFor.displayName] = 0;

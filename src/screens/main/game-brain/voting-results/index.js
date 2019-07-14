@@ -5,19 +5,13 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
 import {firestore} from "../../../../services/firebase";
-import {getInGamePlayers} from "../../../../redux/selectors/index";
+import {getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
 
 class VotingResults extends React.Component {
-
-    state = {
-        loading: false
-    }
 
     handleRevote = () => {
         const { inGamePlayers, navigation, gameDoc } = this.props;
         const batch = firestore.batch();
-
-        this.setState({ loading: true});
 
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
@@ -36,7 +30,6 @@ class VotingResults extends React.Component {
         const batch = firestore.batch();
         const playerVotedOut = getHighestVotedPlayer(inGamePlayers);
         const gameOver = isGameOver(inGamePlayers);
-        this.setState({ loading: true});
 
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email),
@@ -61,10 +54,9 @@ class VotingResults extends React.Component {
     }
 
     getResults = () => {
-        const { inGamePlayers } = this.props;
-        const { loading } = this.state;
+        const { inGamePlayers, allPlayersHaveVoted } = this.props;
 
-        if( loading ) return <Text>Loading</Text>;
+        if( !allPlayersHaveVoted ) return <Text>Loading</Text>;
 
         const votingResults = generateSortedVotes(inGamePlayers);
         return (<View>
@@ -104,7 +96,8 @@ const mapStateToProps = state => ({
     user: state.user.data,
     game: state.game.gameData,
     inGamePlayers: getInGamePlayers(state),
-    gameDoc: state.game.gameDoc
+    gameDoc: state.game.gameDoc,
+    allPlayersHaveVoted: haveAllPlayersVoted(state),
 })
 
 const mapDispatchToProps = dispatch => ({})

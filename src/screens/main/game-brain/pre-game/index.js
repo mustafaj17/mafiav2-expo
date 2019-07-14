@@ -106,7 +106,6 @@ class PreGame extends React.Component {
 
         batch.commit().then( () => {
             console.log('game started and player types set');
-            navigation.navigate('PreRound');
         }).catch( e => {
             console.log('error starting game and setting player types: ', e );
         })
@@ -118,7 +117,7 @@ class PreGame extends React.Component {
         const { navigation, gameData } = this.props;
 
         if(gameData.gameStarted) {
-            navigation.navigate('InRound');
+            navigation.navigate('PreRound');
         }
     }
 
