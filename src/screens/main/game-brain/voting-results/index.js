@@ -94,10 +94,11 @@ class VotingResults extends React.Component {
 
                { this.getResults() }
 
-               { currentPlayer.isAdmin && gameData.votingDraw ?
+               { currentPlayer.isAdmin &&
+               (gameData.votingDraw ?
                    <Button onPress={this.handleRevote} title='Re-vote'/> :
                    <Button onPress={this.handleNextRound} title='Next'/>
-               }
+               ) }
 
            </View>
         )
