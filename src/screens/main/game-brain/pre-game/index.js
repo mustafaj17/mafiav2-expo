@@ -25,6 +25,8 @@ class PreGame extends React.Component {
         });
 
         const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
+
+            console.log('players onSnapshot')
             const players = [];
 
             querySnapshot.forEach( playerDocument => {
@@ -40,7 +42,7 @@ class PreGame extends React.Component {
 
         const disconnectFromGame = gameRef.onSnapshot(doc => {
 
-            console.log('snapshot triggered');
+            console.log('game onSnapshot');
 
             this.props.updateGameData(doc.data());
         });
@@ -113,9 +115,9 @@ class PreGame extends React.Component {
     }
 
     componentDidUpdate(){
-        const { playerRequirementMet, navigation, allPlayersAreReady } = this.props;
+        const { navigation, gameData } = this.props;
 
-        if(playerRequirementMet && allPlayersAreReady) {
+        if(gameData.gameStarted) {
             navigation.navigate('InRound');
         }
     }
@@ -184,7 +186,7 @@ class PreGame extends React.Component {
               <View><Text>{gameData.gameName}</Text></View>
               <PlayersList/>
 
-              {playerRequirementMet &&
+              {currentPlayer.isAdmin &&
               <Button
                 onPress={this.handleStartGame}
                 title='Start Game'

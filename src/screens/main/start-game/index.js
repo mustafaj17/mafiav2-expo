@@ -69,7 +69,6 @@ class StartGame extends Component{
 
 
 const mapStateToProps = state => ({
-
 })
 
 const mapDispatchToProps = dispatch => ({
