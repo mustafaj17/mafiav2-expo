@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
 import {firestore} from "../../../../services/firebase";
-import {getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
+import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
 
 class VotingResults extends React.Component {
 
@@ -83,7 +83,7 @@ class VotingResults extends React.Component {
 
     render() {
 
-        const { gameData } = this.props;
+        const { gameData, currentPlayer } = this.props;
 
 
         return (
@@ -94,7 +94,7 @@ class VotingResults extends React.Component {
 
                { this.getResults() }
 
-               { gameData.votingDraw ?
+               { currentPlayer.isAdmin && gameData.votingDraw ?
                    <Button onPress={this.handleRevote} title='Re-vote'/> :
                    <Button onPress={this.handleNextRound} title='Next'/>
                }
@@ -106,7 +106,7 @@ class VotingResults extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user.data,
+    currentPlayer: getCurrentPlayer(state),
     gameData: state.game.gameData,
     inGamePlayers: getInGamePlayers(state),
     gameDoc: state.game.gameDoc,
