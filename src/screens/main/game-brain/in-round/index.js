@@ -30,16 +30,17 @@ class InRound extends React.Component {
         this.props.navigation.navigate('InVote');
     }
 
-    componentDidUpdate(){
+    shouldComponentUpdate(nextProps){
 
-        const { gameData, gameDoc } = this.props;
+        const { gameData, gameDoc } = nextProps;
 
         if(gameData.roundSkipped){
-            //reset the flag for next round
             gameDoc.ref.update( 'roundSkipped', false);
             this.endRound();
-            return null;
+            return false;
         }
+
+        return true;
     }
 
     render() {

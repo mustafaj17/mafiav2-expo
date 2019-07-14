@@ -9,12 +9,15 @@ import {firestore} from "../../../../services/firebase";
 
 class PreRound extends React.Component {
 
-    componentDidUpdate(){
-        const { navigation, allPlayersAreReady } = this.props;
+    shouldComponentUpdate(nextProps){
+        const { navigation, allPlayersAreReady } = nextProps;
 
         if(allPlayersAreReady) {
             navigation.navigate('InRound');
+            return false;
         }
+
+        return true;
     }
 
     render() {

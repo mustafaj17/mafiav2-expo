@@ -9,16 +9,16 @@ import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../
 
 class VotingResults extends React.Component {
 
-    componentDidUpdate(){
+    shouldComponentUpdate(nextProps){
 
-        const { gameData, navigation, gameDoc, inGamePlayers } = this.props;
+        const { gameData, navigation, gameDoc, inGamePlayers } = nextProps;
 
         const gameOver = isGameOver(inGamePlayers);
 
-        if(gameData.revoteStarted){
-            gameDoc.ref.update( 'revoteStarted', false);
+        if(gameData.inVote){
+            gameDoc.ref.update( 'inVote', false);
             navigation.navigate('InVote');
-            return null;
+            return false;
         }
         if(gameData.votingComplete) {
             gameDoc.ref.update( 'votingComplete', false);
@@ -27,7 +27,10 @@ class VotingResults extends React.Component {
             } else {
                 navigation.navigate('PreRound');
             }
+            return false
         }
+
+        return true;
     }
 
     handleRevote = () => {
@@ -37,7 +40,7 @@ class VotingResults extends React.Component {
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
         });
-        batch.update(gameDoc.ref, {votingDraw: null, revoteStarted: true});
+        batch.update(gameDoc.ref, {votingDraw: null, inVote: true});
         batch.commit().then( () => {
             console.log('re-vote update complete');
         }).catch( e => {
@@ -69,11 +72,11 @@ class VotingResults extends React.Component {
     getResults = () => {
         const { inGamePlayers, allPlayersHaveVoted } = this.props;
 
-        if( !allPlayersHaveVoted ) return <Text>Loading</Text>;
+        if( !allPlayersHaveVoted ) return null;
 
         const votingResults = generateSortedVotes(inGamePlayers);
         return (<View>
-            {votingResults && votingResults.map( result => <View>
+            {votingResults.map( result => <View>
                 <Text>
                     {result[0]} : {result[1]}
                 </Text>

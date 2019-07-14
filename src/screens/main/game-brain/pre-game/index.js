@@ -7,15 +7,14 @@ import PlayersList from '../../../../components/playersList';
 import { firestore } from '../../../../services/firebase'
 import {areAllPlayersReady, getCurrentPlayer} from "../../../../redux/selectors/index";
 import {TYPE} from "../../../../constants/index";
+import {connectedToGameDoc, connectedToPlayerCollection, setLoading} from "../../../../redux/actions/loadingActions";
 
 class PreGame extends React.Component {
 
 
     componentDidMount(){
-
-        const { user } = this.props;
-        const gameRef = this.props.gameDoc.ref;
-        const playersColRef = gameRef.collection('players');
+        const { user, gameDoc, setConnectedToPlayerCollection, setConnectedToGameDoc, connectedToPlayersCollection, connectedToGameDoc } = this.props;
+        const playersColRef = gameDoc.ref.collection('players');
 
         playersColRef.doc(user.data.email).set({
             uid: user.data.uid,
@@ -34,17 +33,27 @@ class PreGame extends React.Component {
             })
 
             this.props.updatePlayersData(players);
+
+            if(!connectedToPlayersCollection){
+                setConnectedToPlayerCollection()
+            }
         });
 
         this.props.setPlayersDisconnect(disconnectFromPlayerCollection);
 
 
 
-        const disconnectFromGame = gameRef.onSnapshot(doc => {
+        const disconnectFromGame = gameDoc.ref.onSnapshot(doc => {
+
+
 
             console.log('game onSnapshot');
 
             this.props.updateGameData(doc.data());
+
+            if(!connectedToGameDoc){
+                setConnectedToGameDoc();
+            }
         });
 
         this.props.setGameDisconnect(disconnectFromGame);
@@ -88,7 +97,7 @@ class PreGame extends React.Component {
     }
 
     handleStartGame = () => {
-        const { gameDoc, navigation } = this.props;
+        const { gameDoc } = this.props;
 
         const players = this.setPlayerTypes();
 
@@ -113,12 +122,15 @@ class PreGame extends React.Component {
 
     }
 
-    componentDidUpdate(){
-        const { navigation, gameData } = this.props;
+    shouldComponentUpdate(nextProps){
+        const { navigation, gameData } = nextProps;
 
         if(gameData.gameStarted) {
             navigation.navigate('PreRound');
+            return false;
         }
+
+        return true;
     }
 
     startTestGame = () => {
@@ -175,7 +187,11 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer } = this.props;
+        const { gameData, currentPlayer, connectedToGameDoc, connectedToPlayersCollection } = this.props;
+
+        if(!connectedToGameDoc || !connectedToPlayersCollection){
+            return(<View><Text>Loading</Text></View>)
+        }
 
         return (
           <View style={styles.page}>
@@ -185,7 +201,7 @@ class PreGame extends React.Component {
               <View><Text>{gameData.gameName}</Text></View>
               <PlayersList/>
 
-              {currentPlayer && currentPlayer.isAdmin &&
+              {currentPlayer.isAdmin &&
               <Button
                 onPress={this.handleStartGame}
                 title='Start Game'
@@ -207,14 +223,19 @@ const mapStateToProps = state => ({
     currentPlayer: getCurrentPlayer(state),
     playerRequirementMet: (state.game.playersData.length > 0),
     user: state.user,
-    allPlayersAreReady: areAllPlayersReady(state)
+    allPlayersAreReady: areAllPlayersReady(state),
+    connectedToPlayersCollection: state.loading.connectedToPlayersCollection,
+    connectedToGameDoc: state.loading.connectedToGameDoc,
 })
 
 const mapDispatchToProps = dispatch => ({
     updateGameData: data => dispatch(updateGameData(data)),
     updatePlayersData: data => dispatch(updatePlayersData(data)),
     setGameDisconnect: gameDisconnect => dispatch(setGameDisconnect(gameDisconnect)),
-    setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect))
+    setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect)),
+    setLoading: loading => dispatch(setLoading(loading)),
+    setConnectedToPlayerCollection : () => { dispatch(connectedToPlayerCollection())},
+    setConnectedToGameDoc : () => { dispatch(connectedToGameDoc())},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreGame);

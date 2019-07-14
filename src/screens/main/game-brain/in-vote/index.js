@@ -13,18 +13,22 @@ class InVote extends React.Component {
         gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player})
     }
 
-    componentDidUpdate() {
+    shouldComponentUpdate(nextProps) {
 
-        const { allPlayersHaveVoted } = this.props;
+        const { allPlayersHaveVoted, inGamePlayers } = nextProps;
 
         if(allPlayersHaveVoted){
-            this.handleVotingComplete();
+            this.handleVotingComplete(inGamePlayers);
+            return false;
         }
+
+
+        return true;
     }
 
-    handleVotingComplete = () => {
+    handleVotingComplete = (inGamePlayers) => {
 
-        const { inGamePlayers, navigation, gameDoc } = this.props;
+        const { navigation, gameDoc } = this.props;
 
         const votingResults =  inGamePlayers.reduce(function(map, player){
             if(!(player.votingFor.displayName in map)) {
