@@ -6,7 +6,12 @@ import {didMafiasWin, getCurrentPlayer} from "../../../../redux/selectors/index"
 
 class GameOver extends React.Component {
 
-    handleEndGame = () => {}
+    handleEndGame = () => {
+      const { navigation, game } = this.props;
+      game.playersDisconnect()
+      game.gameDisconnect()
+      navigation.navigate('Lobby');
+    }
     handlePlayAgain= () => {}
 
     render() {
@@ -30,6 +35,7 @@ class GameOver extends React.Component {
 
 
 const mapStateToProps = state => ({
+    game: state.game,
     gameData: state.game.gameData,
     gameDoc: state.game.gameDoc,
     currentPlayer: getCurrentPlayer(state),
