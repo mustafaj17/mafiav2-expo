@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create(
   {
     page: {
-      padding: 50,
       display: 'flex',
       width: '100%',
       flex: 1,

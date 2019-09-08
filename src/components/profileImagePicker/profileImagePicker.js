@@ -57,13 +57,15 @@ export default class ProfileImagePicker extends React.Component {
 
     this.setState({loading: true});
 
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        this.setState({hasCameraLibraryPermission: false, loading: false});
-        return;
-      }
+    // if (Constants.platform.ios) {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === 'granted') {
+      this.setState({hasCameraLibraryPermission: true});
+    }else{
+      this.setState({hasCameraLibraryPermission: false, loading: false});
+      return;
     }
+    // }
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -95,7 +97,7 @@ export default class ProfileImagePicker extends React.Component {
   }
 
   render() {
-    let { image, showPic, loading, screenWidth } = this.state;
+    let { image, showPic, loading, screenWidth, hasCameraLibraryPermission } = this.state;
     let { hideProfileImagePicker } = this.props;
     let pictureWidth = screenWidth - 20;
     let pictureBorderRadius = Math.floor(pictureWidth/2);
@@ -142,10 +144,10 @@ export default class ProfileImagePicker extends React.Component {
     }
 
     return (
-      <View style={globalStyles.page}>
+      <View style={{...globalStyles.page}}>
         <Camera
           ref={ ref => this.camera = ref }
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: '100%' }}
           type={Camera.Constants.Type.front}
           onCameraReady={this.prepareCameraRatio}
           ratio={this.state.ratio}>
@@ -196,8 +198,9 @@ export default class ProfileImagePicker extends React.Component {
                 onPress={this.takePicture}
               />
               <Button
-                title="Pick an image from camera roll"
+                title={`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}
                 onPress={this.pickImageFromLibrary}
+                disabled={hasCameraLibraryPermission === false}
               />
             </View>
           </View>
