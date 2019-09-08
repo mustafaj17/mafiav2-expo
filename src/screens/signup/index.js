@@ -1,19 +1,18 @@
 import React from 'react'
 import {
-  StyleSheet,
   Button,
-  TextInput,
   View,
   Text,
-  ActivityIndicator,
-  KeyboardAvoidingView, BackHandler, ToastAndroid,Animated
+  KeyboardAvoidingView,
 } from 'react-native';
 import firebase from '../../services/firebase';
-import ProfileImagePicker from './profileImagePicker';
-import Constants from 'expo-constants';
+import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
 import globalStyles from '../../styles/global'
-import { ProfilePicture } from '../../components/profilePicture';
+import { ProfilePicture } from '../../components/profilePicture/profilePicture';
+import * as Permissions from 'expo-permissions';
+import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
+import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
 
 export default class SignUp extends React.Component {
 
@@ -50,8 +49,14 @@ export default class SignUp extends React.Component {
 
   }
 
-  takeProfilePic = () => {
-    this.setState({profilePicMode: true})
+  takeProfilePic = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    const permissionGranted = status === 'granted';
+    if(permissionGranted){
+      this.setState({ hasCameraPermission: true, profilePicMode: true });
+    }else{
+      this.setState({ hasCameraPermission: false });
+    }
   }
 
   saveProfilePicture = (imageUri) => {
@@ -60,23 +65,25 @@ export default class SignUp extends React.Component {
 
   render() {
 
-    const { displayName, email, password, profilePicMode, imageUri, errorMessage } = this.state;
+    const {
+      displayName,
+      email,
+      password,
+      profilePicMode,
+      imageUri,
+      errorMessage,
+      hasCameraPermission
+    } = this.state;
 
 
 
-    if(this.state.loading){
-      return(
-        <View style={styles.container}>
-          <ActivityIndicator size="large" />
-        </View>
-      )
-    }
+    if(this.state.loading) return( <LoadingScreen/> );
+
 
     if(profilePicMode){
       return <ProfileImagePicker
         savePicture={(image) => this.saveProfilePicture(image)}
-        hideProfileImagePicker={ () => this.setState({profilePicMode: false})}
-      />
+        hideProfileImagePicker={ () => this.setState({profilePicMode: false})}/>
     }
 
     return (
@@ -101,13 +108,19 @@ export default class SignUp extends React.Component {
           value={password}
         />
 
-        <View>
-          <Button
-            title={!imageUri ? 'Add Profile Pic' : 'Change pic'}
-            onPress={this.takeProfilePic}
-          />
+        <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+          { hasCameraPermission === false ?
+            <View>
+              <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+              <Text style={{textAlign: 'center'}}>Please change settings</Text>
+              <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
+            </View> :
+            <Button title={ !imageUri ? 'Add Profile Pic' : 'Change pic' }
+                    onPress={this.takeProfilePic} />
+          }
 
-          {imageUri && <ProfilePicture imageUri={imageUri}/>}
+
+          <ProfilePicture imageUri={imageUri}/>
         </View>
 
         <Button
@@ -122,73 +135,9 @@ export default class SignUp extends React.Component {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
-
-
-class FloatingLabelInput extends React.Component {
-  state = {
-    isFocused: false,
-  };
-
-  componentWillMount() {
-    const isFocused = this.props.value.length > 0;
-    this._animatedIsFocused = new Animated.Value(isFocused ? 1 : 0);
-
-  }
-
-
-  handleFocus = () => this.setState({ isFocused: true });
-  handleBlur = () => this.setState({ isFocused: (this.props.value.length > 0) });
-
-  componentDidUpdate() {
-    Animated.timing(this._animatedIsFocused, {
-      toValue: this.state.isFocused ? 1 : 0,
-      duration: 200,
-    }).start();
-  }
-
-  render() {
-    const { label,value, ...props } = this.props;
-    const labelStyle = {
-      position: 'absolute',
-      left: 0,
-      top: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: [18, 0],
-      }),
-      fontSize: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: [20, 14],
-      }),
-      color: this._animatedIsFocused.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['#aaa', '#000'],
-      }),
-    };
-    return (
-      <View style={{ paddingTop: 18, width: '100%' }}>
-        <Animated.Text style={labelStyle}>
-          {label}
-        </Animated.Text>
-        <TextInput
-          {...props}
-          value={value}
-          style={{marginBottom: 10, height: 26, fontSize: 20, color: '#000', borderBottomWidth: 1, borderBottomColor: '#555' }}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          blurOnSubmit
-        />
-      </View>
-    );
-  }
-}
-
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     paddingTop: Constants.statusBarHeight,
+//   },
+// })

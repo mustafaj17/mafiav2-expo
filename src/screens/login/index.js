@@ -1,10 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator, BackHandler, ToastAndroid } from 'react-native';
+import { KeyboardAvoidingView, Text, Button, BackHandler, ToastAndroid } from 'react-native';
 import firebase from '../../services/firebase';
 import { NavigationEvents } from "react-navigation";
+import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
+import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
+import globalStyles from '../../styles/global';
 
 export default class Login extends React.Component {
 
+  state = {
+    email: '',
+    password: '',
+    errorMessage: null,
+    loading: false
+  }
 
   screenWillFocus = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -19,30 +28,27 @@ export default class Login extends React.Component {
     return true;
   }
 
-  state = { email: '', password: '', errorMessage: null, loading: false }
-  handleLogin = () => {
+
+  handleLogin = async () => {
 
     this.setState({loading: true})
-
     const { email, password } = this.state;
 
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Main'))
-      .catch(error => this.setState({ loading: false, errorMessage: error.message }))
+    try{
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      this.props.navigation.navigate('Main')
+    } catch(error){
+      this.setState({ loading: false, errorMessage: error.message })
+    }
+
   }
+
   render() {
 
-    if(this.state.loading){
-      return(
-        <View style={styles.container}>
-          <ActivityIndicator size="large" />
-        </View>
-      )
-    }
+    if(this.state.loading) return( <LoadingScreen/>);
+
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={globalStyles.page}>
 
         <NavigationEvents
           onWillFocus={this.screenWillFocus}
@@ -54,43 +60,34 @@ export default class Login extends React.Component {
         <Text style={{ color: 'red' }}>
           {this.state.errorMessage}
         </Text>}
-        <TextInput
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Email"
+
+        <FloatingLabelInput
+          label="Email"
           onChangeText={email => this.setState({ email })}
           value={this.state.email}
         />
-        <TextInput
+
+        <FloatingLabelInput
           secureTextEntry
-          style={styles.textInput}
-          autoCapitalize="none"
-          placeholder="Password"
+          label="Password"
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
+
         <Button title="Login" onPress={this.handleLogin} />
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.props.navigation.navigate('SignUp')}
         />
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8
-  }
-})
+
+// const styles = StyleSheet.create({
+//   textInput: {
+//     marginTop: 8
+//   }
+// })
 
 

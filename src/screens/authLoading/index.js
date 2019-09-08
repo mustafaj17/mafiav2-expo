@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
 import firebase from '../../services/firebase';
-import styles from '../../styles/global';
+import globalStyles from '../../styles/global';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/userActions';
 
@@ -22,7 +22,7 @@ class AuthLoading extends React.Component {
 
     render() {
         return (
-          <View style={styles.page}>
+          <View style={globalStyles.page}>
               <Text>Loading</Text>
               <ActivityIndicator size="large" />
           </View>
