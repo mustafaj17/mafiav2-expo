@@ -13,10 +13,11 @@ const AppStack = createStackNavigator({
   headerMode: 'none',
 });
 const AuthStack = createStackNavigator({
-  SignUp : { screen: SignUp},
-  Login : { screen: Login},
+  SignUp : SignUp ,
+  Login : Login ,
 },
   {
+    initialRouteName: 'Login',
     headerMode: 'none',
   });
 

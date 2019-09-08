@@ -8,8 +8,12 @@ import { setUser } from '../../redux/actions/userActions';
 class AuthLoading extends React.Component {
 
     componentDidMount() {
+
+        this.props.navigation.navigate('Login')
+        return;
+
         firebase.auth().onAuthStateChanged(user => {
-            this.props.navigation.navigate(user ? 'Main' : 'SignUp')
+            this.props.navigation.navigate(user ? 'Main' : 'Login')
             if(user){
                 this.props.setUser(user)
             }
@@ -18,10 +22,10 @@ class AuthLoading extends React.Component {
 
     render() {
         return (
-           <View style={styles.page}>
-               <Text>Loading</Text>
-               <ActivityIndicator size="large" />
-           </View>
+          <View style={styles.page}>
+              <Text>Loading</Text>
+              <ActivityIndicator size="large" />
+          </View>
         )
     }
 }

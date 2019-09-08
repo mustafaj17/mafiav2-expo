@@ -1,8 +1,23 @@
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator, BackHandler, ToastAndroid } from 'react-native';
 import firebase from '../../services/firebase';
+import { NavigationEvents } from "react-navigation";
 
 export default class Login extends React.Component {
+
+
+  screenWillFocus = () => {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  screenWillBlur = () => {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+    return true;
+  }
 
   state = { email: '', password: '', errorMessage: null, loading: false }
   handleLogin = () => {
@@ -28,6 +43,12 @@ export default class Login extends React.Component {
     }
     return (
       <View style={styles.container}>
+
+        <NavigationEvents
+          onWillFocus={this.screenWillFocus}
+          onWillBlur={this.screenWillBlur}
+        />
+
         <Text>Login</Text>
         {this.state.errorMessage &&
         <Text style={{ color: 'red' }}>
