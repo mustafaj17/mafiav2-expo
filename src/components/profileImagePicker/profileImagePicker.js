@@ -84,6 +84,7 @@ export default class ProfileImagePicker extends React.Component {
   takePicture = async () => {
 
     let result = await this.camera.takePictureAsync({
+      skipProcessing: true,
       quality: IMAGE_QUALITY
     })
 
@@ -103,6 +104,8 @@ export default class ProfileImagePicker extends React.Component {
     let pictureBorderRadius = Math.floor(pictureWidth/2);
 
     if(loading) return <LoadingScreen/>;
+
+    console.log(image);
 
     if(showPic){
       return(
