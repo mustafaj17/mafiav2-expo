@@ -9,31 +9,28 @@ import {
   BackHandler,
   ToastAndroid,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Camera } from 'expo-camera';
+import { LoadingScreen } from '../loadingScreen/loadingScreen';
+import globalStyles from '../../styles/global';
 
 const DESIRED_RATIO = "16:9";
 const IMAGE_QUALITY = 0.5;
+
+//todo:remove this
 YellowBox.ignoreWarnings(['Setting a timer']);
 
 export default class ProfileImagePicker extends React.Component {
   state = {
     image: null,
-    hasCameraPermission: null,
-    hasCameraLibraryPermission: null,
     screenWidth: Dimensions.get('window').width
   };
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
-
-    //todo: handle permission rejection
   }
 
   componentWillUnmount(){
@@ -47,7 +44,6 @@ export default class ProfileImagePicker extends React.Component {
 
   prepareCameraRatio = async () => {
     if (Constants.platform.android && this.camera) {
-      console.log('pop');
       const ratios = await this.camera.getSupportedRatiosAsync();
 
       // See if the current device has your desired ratio, otherwise get the maximum supported one
@@ -74,8 +70,6 @@ export default class ProfileImagePicker extends React.Component {
       quality: IMAGE_QUALITY
     });
 
-    console.log(result);
-
     if(result.cancelled){
       this.setState({ loading: false });
     }
@@ -85,12 +79,11 @@ export default class ProfileImagePicker extends React.Component {
     }
   };
 
-  _takePicture = async () => {
+  takePicture = async () => {
 
     let result = await this.camera.takePictureAsync({
       quality: IMAGE_QUALITY
     })
-    console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri, showPic: true });
@@ -105,19 +98,13 @@ export default class ProfileImagePicker extends React.Component {
     let { image, showPic, loading, screenWidth } = this.state;
     let { hideProfileImagePicker } = this.props;
     let pictureWidth = screenWidth - 20;
-    let pictureBorderRadius = Math.floor(pictureWidth/2)
+    let pictureBorderRadius = Math.floor(pictureWidth/2);
 
-    if(loading){
-      return(
-        <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" />
-        </View>
-      )
-    }
+    if(loading) return <LoadingScreen/>;
 
     if(showPic){
       return(
-        <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <View style={globalStyles.page}>
 
           <TouchableOpacity
             onPress={hideProfileImagePicker}
@@ -155,7 +142,7 @@ export default class ProfileImagePicker extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={globalStyles.page}>
         <Camera
           ref={ ref => this.camera = ref }
           style={{ flex: 1 }}
@@ -206,7 +193,7 @@ export default class ProfileImagePicker extends React.Component {
             }}>
               <Button
                 title="Take picture"
-                onPress={this._takePicture}
+                onPress={this.takePicture}
               />
               <Button
                 title="Pick an image from camera roll"
