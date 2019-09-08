@@ -27,19 +27,19 @@ export default class SignUp extends React.Component {
   }
 
   handleSignUp = async () => {
+
     this.setState({loading: true})
     const { email, password, displayName, imageUri} = this.state
-
-
     try {
 
-      if(!imageUri){
-        throw Error('Please add profile picture');
-      }
       const userCredentials = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      const blob = await uriToBlob(imageUri);
-      const photoURL = await uploadProfilePictureToFirebase(blob, userCredentials.user.email);
-      userCredentials.user.updateProfile({displayName: displayName, photoURL});
+      if(imageUri) {
+        const blob = await uriToBlob(imageUri);
+        const photoURL = await uploadProfilePictureToFirebase(blob, userCredentials.user.email);
+        userCredentials.user.updateProfile({displayName: displayName, photoURL});
+      } else {
+        userCredentials.user.updateProfile({displayName: displayName});
+      }
       this.props.navigation.navigate('Main')
 
     } catch (error) {
