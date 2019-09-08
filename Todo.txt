@@ -1,0 +1,25 @@
+Play again
+
+Players leaving
+
+ShowTypes
+
+Show who voted who
+
+Loading Screen
+
+Voting self logic
+
+End Game Logic
+
+End game screen / results screen
+
+Profile pic / upload pic or take photo
+
+User profile screen
+
+How to play graphics
+
+Remove testing stuff
+
+Style
