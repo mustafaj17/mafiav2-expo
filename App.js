@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 import AuthLoading from './src/screens/authLoading'
 import SignUp from './src/screens/signup'
+import Terms from './src/screens/signup/terms'
 import Login from './src/screens/login'
 import Main from './src/screens/main';
 import { Provider } from 'react-redux';
@@ -15,6 +16,7 @@ const AppStack = createStackNavigator({
 const AuthStack = createStackNavigator({
   SignUp : SignUp ,
   Login : Login ,
+  Terms: Terms ,
 },
   {
     initialRouteName: 'Login',
