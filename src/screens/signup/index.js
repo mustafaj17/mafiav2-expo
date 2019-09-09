@@ -5,7 +5,6 @@ import {
   Text,
   Switch,
   KeyboardAvoidingView,
-  TouchableOpacity,
 } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
