@@ -71,7 +71,7 @@ class InVote extends React.Component {
 
     render() {
 
-        const { inGamePlayers } = this.props;
+        const { inGamePlayers, user } = this.props;
 
         return (
             <View style={styles.page}>
@@ -82,6 +82,7 @@ class InVote extends React.Component {
                     <FlatList
                         data={inGamePlayers}
                         renderItem={(player) => {
+                            if (player.item.email === user.email) return;
                             return (
                                 <Button
                                     title={player.item.displayName}
