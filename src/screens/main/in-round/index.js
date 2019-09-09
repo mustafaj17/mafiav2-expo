@@ -1,8 +1,8 @@
 import React from 'react'
 import {View, Text, Button,} from 'react-native'
-import styles from '../../../../styles/global';
+import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import {getCurrentPlayer} from "../../../../redux/selectors/index";
+import {getCurrentPlayer} from "../../../redux/selectors";
 
 class InRound extends React.Component {
 

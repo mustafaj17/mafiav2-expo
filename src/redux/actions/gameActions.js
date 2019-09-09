@@ -4,6 +4,7 @@ export const UPDATE_GAME_DATA = 'UPDATE_GAME_DATA';
 export const SET_GAME_DISCONNECT = 'SET_GAME_DISCONNECT';
 export const UPDATE_PLAYERS_DATA = 'UPDATE_PLAYERS_DATA';
 export const SET_PLAYERS_DISCONNECT = 'SET_PLAYERS_DISCONNECT';
+export const TOGGLE_DISPLAY_PLAYER_TYPES = 'TOGGLE_DISPLAY_PLAYER_TYPES';
 
 export const joinGame = gameDoc => {
     return {
@@ -44,5 +45,11 @@ export const setPlayersDisconnect = playersDisconnect => {
     return {
         type: SET_PLAYERS_DISCONNECT,
         payload: playersDisconnect
+    }
+}
+
+export const toggleDisplayPlayerTypes = () => {
+    return {
+        type: TOGGLE_DISPLAY_PLAYER_TYPES
     }
 }

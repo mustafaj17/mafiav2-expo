@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text} from 'react-native'
-import styles from '../../../../styles/global';
+import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
-import {firestore} from "../../../../services/firebase";
-import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
+import {firestore} from "../../../services/firebase";
+import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 
 class VotingResults extends React.Component {
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import {View, Text, Button,} from 'react-native'
-import styles from '../../../../styles/global';
+import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import {didMafiasWin, getCurrentPlayer} from "../../../../redux/selectors/index";
+import {didMafiasWin, getCurrentPlayer} from "../../../redux/selectors";
 
 class GameOver extends React.Component {
 
@@ -10,7 +10,7 @@ class GameOver extends React.Component {
       const { navigation, game } = this.props;
       game.playersDisconnect()
       game.gameDisconnect()
-      navigation.navigate('Lobby');
+      navigation.navigate('Lobby')
     }
     handlePlayAgain= () => {}
 
