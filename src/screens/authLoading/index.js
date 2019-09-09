@@ -8,9 +8,9 @@ import { setUser } from '../../redux/actions/userActions';
 class AuthLoading extends React.Component {
 
     componentDidMount() {
-
-        this.props.navigation.navigate('Login')
-        return;
+        //
+        // this.props.navigation.navigate('Login')
+        // return;
 
         firebase.auth().onAuthStateChanged(user => {
             this.props.navigation.navigate(user ? 'Main' : 'Login')

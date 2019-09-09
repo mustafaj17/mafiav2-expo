@@ -1,46 +1,56 @@
-import { createStackNavigator } from 'react-navigation'
-import Lobby from './lobby';
-import StartGame from './start-game';
-import JoinGame from './join-game';
-import GameBrain from './game-brain';
+import { createSwitchNavigator} from 'react-navigation'
+import LobbyStack from './lobby-stack'
+import PreGame from "./pre-game";
+import PreRound from "./pre-round";
+import InRound from "./in-round";
+import InVote from "./in-vote";
+import VotingResults from "./voting-results";
+import GameOver from "./game-over";
 
-export default createStackNavigator(
-   {
-       Lobby : {
-           screen: Lobby,
-           navigationOptions: () => ({
-               gesturesEnabled: false,
-               header: null,
-           })
-       },
-       StartGame : {
-           screen: StartGame,
-           navigationOptions: () => ({
-               title: 'Start Game',
-           })
-       },
-       JoinGame : {
-           screen: JoinGame,
-           navigationOptions: () => ({
-               title: 'Join Game',
-           })
-       },
-       GameBrain: {
-           screen: GameBrain,
-           navigationOptions: () => ({
-               gesturesEnabled: false,
-               header: null,
-           })
-       },
-   },
+export default createSwitchNavigator(
   {
-    initialRouteName: 'Lobby',
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#28F1A6',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-    }
+    LobbyStack: {
+      screen: LobbyStack,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    PreGame: { screen: PreGame,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    PreRound : { screen: PreRound,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    InRound : {
+      screen: InRound,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    InVote : {
+      screen: InVote,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    VotingResults: {
+      screen: VotingResults,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+    GameOver: {
+      screen: GameOver,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+      })
+    },
+  },
+  {
+    initialRouteName: 'LobbyStack',
   }
 )
