@@ -6,6 +6,7 @@ import PlayersList from '../../../../components/playersList';
 import ReadyButton from '../../../../components/playerReadyButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../../redux/selectors/index";
 import {firestore} from "../../../../services/firebase";
+import { toggleDisplayPlayerTypes } from '../../../../redux/actions/gameActions';
 
 class PreRound extends React.Component {
 
@@ -22,7 +23,7 @@ class PreRound extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer, inGamePlayers, gameDoc  } = this.props;
+        const { gameData, currentPlayer, inGamePlayers, gameDoc, toggleDisplayPlayerTypes } = this.props;
 
         return (
             <View style={styles.page}>
@@ -44,6 +45,8 @@ class PreRound extends React.Component {
                     batch.commit().then( () => {});
                 }}/>
 
+                <Button title='toggle type' onPress={toggleDisplayPlayerTypes} />
+
             </View>
         )
     }
@@ -59,6 +62,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+    toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreRound);
