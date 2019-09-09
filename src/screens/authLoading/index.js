@@ -4,11 +4,12 @@ import firebase from '../../services/firebase';
 import globalStyles from '../../styles/global';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/userActions';
+import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
 
 class AuthLoading extends React.Component {
 
     componentDidMount() {
-        //
+
         // this.props.navigation.navigate('Login')
         // return;
 
@@ -21,12 +22,8 @@ class AuthLoading extends React.Component {
     }
 
     render() {
-        return (
-          <View style={globalStyles.page}>
-              <Text>Loading</Text>
-              <ActivityIndicator size="large" />
-          </View>
-        )
+        return (<LoadingScreen />);
+
     }
 }
 
