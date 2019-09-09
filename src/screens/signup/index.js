@@ -3,7 +3,9 @@ import {
   Button,
   View,
   Text,
+  Switch,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
@@ -23,7 +25,8 @@ export default class SignUp extends React.Component {
     displayName: '',
     imageUri: null,
     loading: false ,
-    profilePicMode : false
+    profilePicMode : false,
+    termsAccepted: false
   }
 
   handleSignUp = async () => {
@@ -72,7 +75,8 @@ export default class SignUp extends React.Component {
       profilePicMode,
       imageUri,
       errorMessage,
-      hasCameraPermission
+      hasCameraPermission,
+      termsAccepted
     } = this.state;
 
 
@@ -123,7 +127,16 @@ export default class SignUp extends React.Component {
           <ProfilePicture imageUri={imageUri}/>
         </View>
 
+        {/*Todo : Create terms page once new StackNavigation is merged into Master*/}
+        <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+          <Text>
+            I have read and agree to the<Text style = {{ color: 'blue', textDecorationLine: 'underline' }}>Terms</Text>.
+          </Text>
+          <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+        </View>
+
         <Button
+          disabled={!termsAccepted}
           title="Create account"
           onPress={this.handleSignUp}
         />
