@@ -128,8 +128,13 @@ export default class SignUp extends React.Component {
 
         {/*Todo : Create terms page once new StackNavigation is merged into Master*/}
         <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-          <Text>
-            I have read and agree to the <Text style = {{ color: 'blue', textDecorationLine: 'underline' }}>Terms & Conditions</Text>.
+          <Text>I have read and agree to the
+            <Text
+              onPress={() => this.props.navigation.navigate('Terms')}
+              style = {{ color: 'blue', textDecorationLine: 'underline' }}
+            >
+              Terms & Conditions
+            </Text>.
           </Text>
           <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
         </View>
