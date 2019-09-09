@@ -135,7 +135,7 @@ class PreGame extends React.Component {
 
     startTestGame = () => {
 
-        const { gameDoc, navigation } = this.props;
+        const { gameDoc, navigation, currentPlayer } = this.props;
 
         const testPlayers = [
             {
@@ -176,6 +176,8 @@ class PreGame extends React.Component {
         testPlayers.forEach(player => {
             batch.set(gameDoc.ref.collection('players').doc(player.email), {...player});
         });
+
+        batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {type : TYPE.MAFIA});
 
         batch.commit().then( () => {
             console.log('game started and player types set');
