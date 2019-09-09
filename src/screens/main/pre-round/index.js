@@ -6,7 +6,7 @@ import PlayersList from '../../../components/playersList';
 import ReadyButton from '../../../components/playerReadyButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
-import { toggleDisplayPlayerTypes } from '../../../../redux/actions/gameActions';
+import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
 
 class PreRound extends React.Component {
 
