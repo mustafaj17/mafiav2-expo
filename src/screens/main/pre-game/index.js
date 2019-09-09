@@ -1,13 +1,13 @@
 import React from 'react'
 import {View, Text, Button} from 'react-native'
-import styles from '../../../../styles/global';
+import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../../redux/actions/gameActions';
-import PlayersList from '../../../../components/playersList';
-import { firestore } from '../../../../services/firebase'
-import {areAllPlayersReady, getCurrentPlayer} from "../../../../redux/selectors/index";
-import {TYPE} from "../../../../constants/index";
-import {connectedToGameDoc, connectedToPlayerCollection, setLoading} from "../../../../redux/actions/loadingActions";
+import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../redux/actions/gameActions';
+import PlayersList from '../../../components/playersList';
+import { firestore } from '../../../services/firebase'
+import {areAllPlayersReady, getCurrentPlayer} from "../../../redux/selectors";
+import {TYPE} from "../../../constants";
+import {connectedToGameDoc, connectedToPlayerCollection, setLoading} from "../../../redux/actions/loadingActions";
 
 class PreGame extends React.Component {
 

@@ -1,4 +1,4 @@
-import {TYPE} from "../../../../constants/index";
+import {TYPE} from "../../../constants";
 export const generateSortedVotes = (players) => {
 
     const votingResults = players.reduce( (result, player ) => {

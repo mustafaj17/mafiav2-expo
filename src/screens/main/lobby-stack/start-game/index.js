@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, ActivityIndicator } from 'react-native';
-import { firestore } from '../../../services/firebase';
-import styles from '../../../styles/global';
+import { firestore } from '../../../../services/firebase';
+import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
-import { startGame } from '../../../redux/actions/gameActions';
-import { setUserIsAdmin } from '../../../redux/actions/userActions';
+import { startGame } from '../../../../redux/actions/gameActions';
+import { setUserIsAdmin } from '../../../../redux/actions/userActions';
 
 class StartGame extends Component{
 
@@ -33,7 +33,7 @@ class StartGame extends Component{
                 });
                 setUserIsAdmin();
                 startGame(doc);
-                navigation.navigate('GameBrain')
+                navigation.navigate('PreGame')
             }
         }).catch( (e) => {
             console.log(e);

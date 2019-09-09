@@ -1,9 +1,9 @@
 import React from 'react'
 import {View, Text, ScrollView, FlatList, Button} from 'react-native'
-import styles from '../../../../styles/global';
+import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { firestore } from '../../../../services/firebase'
-import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../../redux/selectors/index";
+import { firestore } from '../../../services/firebase'
+import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 
 
 class InVote extends React.Component {
