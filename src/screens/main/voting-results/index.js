@@ -78,7 +78,7 @@ class VotingResults extends React.Component {
         return (<View>
             {votingResults.map( result => <View>
                 <Text>
-                    {result[0]} : {result[1]}
+                    {result[1].length} : {result[0]} : {result[1].map(votedBy => <Text>{votedBy} </Text>)}
                 </Text>
             </View>)}
         </View>)

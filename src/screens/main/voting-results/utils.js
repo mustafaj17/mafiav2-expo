@@ -3,9 +3,9 @@ export const generateSortedVotes = (players) => {
 
     const votingResults = players.reduce( (result, player ) => {
         if(!result[player.votingFor.displayName]){
-            result[player.votingFor.displayName] = 0;
+            result[player.votingFor.displayName] = [];
         }
-        result[player.votingFor.displayName]++;
+        result[player.votingFor.displayName].push(player.displayName);
         return result;
     }, {});
 
@@ -14,9 +14,7 @@ export const generateSortedVotes = (players) => {
         sortedResults.push([player, votingResults[player]]);
     }
 
-    sortedResults.sort(function(a, b) {
-        return b[1] - a[1];
-    });
+    sortedResults.sort((a, b) => b[1].length - a[1].length);
 
     return sortedResults;
 
