@@ -15,20 +15,6 @@ export default class Login extends React.Component {
     loading: false
   }
 
-  screenWillFocus = () => {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  screenWillBlur = () => {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton = () => {
-    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-    return true;
-  }
-
-
   handleLogin = async () => {
 
     this.setState({loading: true})
@@ -49,11 +35,6 @@ export default class Login extends React.Component {
 
     return (
       <KeyboardAvoidingView style={globalStyles.page}>
-
-        <NavigationEvents
-          onWillFocus={this.screenWillFocus}
-          onWillBlur={this.screenWillBlur}
-        />
 
         <Text>Login</Text>
         {this.state.errorMessage &&

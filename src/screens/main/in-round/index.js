@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, Text, Button,} from 'react-native'
+import { View, Text, Button } from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {getCurrentPlayer} from "../../../redux/selectors";
+import DisabledBack from "../../../components/disableBack";
 
 class InRound extends React.Component {
 
@@ -74,4 +75,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(InRound);
+export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(InRound));

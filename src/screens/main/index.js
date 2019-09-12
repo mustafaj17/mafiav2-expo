@@ -1,5 +1,4 @@
 import React from 'react'
-import {BackHandler, ToastAndroid} from 'react-native'
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 import LobbyStack from './lobby-stack'
 import PreGame from "./pre-game";
@@ -58,22 +57,4 @@ const Main =  createAppContainer(createSwitchNavigator(
   }
 ))
 
-export default class MainNavigation extends React.Component {
-
-  componentDidMount(){
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  componentWillUnmount(){
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton = () => {
-    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-    return true;
-  }
-
-  render(){
-    return <Main />
-  }
-}
+export default Main

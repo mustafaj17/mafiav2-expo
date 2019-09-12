@@ -1,12 +1,13 @@
 import React from 'react'
-import {View, Text, Button,} from 'react-native'
+import {View, Text, Button} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer} from "../../../redux/selectors";
+import DisabledBack from "../../../components/disableBack";
 
 class GameOver extends React.Component {
 
-    handleEndGame = () => {
+  handleEndGame = () => {
       const { navigation, game } = this.props;
       game.playersDisconnect()
       game.gameDisconnect()
@@ -44,4 +45,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameOver);
+export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(GameOver));

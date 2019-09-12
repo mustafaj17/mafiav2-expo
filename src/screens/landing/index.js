@@ -1,13 +1,14 @@
 import React from 'react'
 import { KeyboardAvoidingView, Text, View, BackHandler, ToastAndroid, Button } from 'react-native';
 import globalStyles from '../../styles/global';
+import {NavigationEvents} from "react-navigation";
 
 export default class Landing extends React.Component {
-  componentDidMount(){
+  screenWillFocus = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
-  componentWillUnmount(){
+  screenWillBlur = () => {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
@@ -20,6 +21,10 @@ export default class Landing extends React.Component {
     const { navigation } = this.props;
     return (
       <KeyboardAvoidingView style={globalStyles.page}>
+        <NavigationEvents
+          onWillFocus={this.screenWillFocus}
+          onWillBlur={this.screenWillBlur}
+        />
         <Text>Welcome to Mafia</Text>
         <Button
             title="Login"

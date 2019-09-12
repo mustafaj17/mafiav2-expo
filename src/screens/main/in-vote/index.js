@@ -4,7 +4,7 @@ import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
-
+import DisabledBack from "../../../components/disableBack";
 
 class InVote extends React.Component {
 
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(InVote);
+export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(InVote));
