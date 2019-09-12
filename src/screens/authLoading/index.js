@@ -10,7 +10,7 @@ class AuthLoading extends React.Component {
 
     componentDidMount() {
 
-        // this.props.navigation.navigate('Login')
+        // this.props.navigation.navigate('Landing')
         // return;
 
         firebase.auth().onAuthStateChanged(user => {
