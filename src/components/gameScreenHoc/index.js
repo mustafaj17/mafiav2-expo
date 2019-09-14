@@ -1,10 +1,13 @@
 import React from "react";
 import {BackHandler, ToastAndroid, View, Modal, Button, Text, TouchableOpacity} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
+import { firestore } from '../../services/firebase';
 
 
-const  DisabledBack = (WrappedComponent) => {
-  return class extends React.Component {
+export default (WrappedComponent) => {
+  class HOC extends React.Component {
 
     state = {
       showModal: false
@@ -35,7 +38,25 @@ const  DisabledBack = (WrappedComponent) => {
       })
     }
 
-    handlePlayerLeaving = () => {
+    handlePlayerLeaving =  async () => {
+
+      const { navigation, game, currentPlayer, gameDoc, inGamePlayers } = this.props;
+      const batch = firestore.batch();
+
+      //todo: maybe add flag to say he left and in the end game summary we can show that he left
+      //todo: also check if he was in the game so we can say 'voted and left'
+      batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {isOut: true});
+
+      if(currentPlayer.isAdmin){
+        // replace admin
+        const newAdmin = inGamePlayers.find( player => player.email !== currentPlayer.email)
+        batch.update(gameDoc.ref.collection('players').doc(newAdmin.email), {isAdmin: true});
+      }
+
+      game.playersDisconnect();
+      game.gameDisconnect();
+      navigation.navigate('Lobby');
+      await batch.commit();
 
     }
 
@@ -60,6 +81,19 @@ const  DisabledBack = (WrappedComponent) => {
       )
     }
   }
+
+  const mapStateToProps = state => ({
+    gameDoc: state.game.gameDoc,
+    game: state.game,
+    inGamePlayers: getInGamePlayers(state),
+    currentPlayer: getCurrentPlayer(state),
+  })
+
+  const mapDispatchToProps = dispatch => ({
+
+  })
+
+  return connect(mapStateToProps,mapDispatchToProps)(HOC);
+
 }
 
-export default DisabledBack;

@@ -6,7 +6,7 @@ import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
 import {firestore} from "../../../services/firebase";
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
-import DisabledBack from "../../../components/disableBack";
+import GameScreenHOC from "../../../components/gameScreenHoc";
 
 class VotingResults extends React.Component {
 
@@ -120,4 +120,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(VotingResults));
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(VotingResults));

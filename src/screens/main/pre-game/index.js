@@ -8,7 +8,7 @@ import { firestore } from '../../../services/firebase'
 import {areAllPlayersReady, getCurrentPlayer} from "../../../redux/selectors";
 import {TYPE} from "../../../constants";
 import {connectedToGameDoc, connectedToPlayerCollection, setLoading} from "../../../redux/actions/loadingActions";
-import DisabledBack from '.././../../components/disableBack'
+import GameScreenHOC from '../../../components/gameScreenHoc'
 
 class PreGame extends React.Component {
 
@@ -193,4 +193,4 @@ const mapDispatchToProps = dispatch => ({
     setConnectedToGameDoc : () => { dispatch(connectedToGameDoc())},
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(PreGame));
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(PreGame));

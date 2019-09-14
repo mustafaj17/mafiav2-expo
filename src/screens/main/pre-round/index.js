@@ -7,7 +7,7 @@ import ReadyButton from '../../../components/playerReadyButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
 import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
-import DisabledBack from "../../../components/disableBack";
+import GameScreenHOC from "../../../components/gameScreenHoc";
 
 class PreRound extends React.Component {
 
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
     toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisabledBack(PreRound));
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(PreRound));
