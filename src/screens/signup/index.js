@@ -91,7 +91,7 @@ export default class SignUp extends React.Component {
 
     return (
 
-      <KeyboardAvoidingView style={{...globalStyles.page, padding: 0}} behavior="padding" enabled>
+      <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
         <Text>{errorMessage}</Text>
 
         <FloatingLabelInput

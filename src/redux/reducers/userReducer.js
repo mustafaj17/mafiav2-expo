@@ -1,4 +1,4 @@
-import { SET_USER, SET_USER_IS_ADMIN } from './../actions/userActions';
+import { SET_USER, SET_USER_IS_ADMIN, UPDATE_USER_PROFILE_PIC } from './../actions/userActions';
 
 const initialState = {
     data: null,
@@ -14,8 +14,16 @@ export default (state = initialState, action) => {
             }
         case SET_USER_IS_ADMIN:
             return {
-               ...state,
+                ...state,
                 isAdmin: true
+            }
+        case UPDATE_USER_PROFILE_PIC:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    photoURL: action.payload
+                }
             }
         default:
             return state;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, BackHandler, ToastAndroid } from 'react-native';
+import { View, Text, Button, BackHandler, ToastAndroid } from 'react-native';
 import styles from '../../../../styles/global';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -28,6 +28,9 @@ class Lobby extends Component {
   }
 
 
+  gotoProfileScreen = () => {
+    this.props.navigation.navigate('UserProfile')
+  }
 
   render(){
 
@@ -42,12 +45,9 @@ class Lobby extends Component {
 
         {user.data && <ProfilePicture imageUri={user.data.photoURL}/>}
         {user.data && <Text>Hello {user.data.email}!</Text>}
-        <TouchableOpacity  onPress={this.handleJoinGame} style={styles.button}>
-          <Text >Join Game</Text>
-        </TouchableOpacity>
-        <TouchableOpacity  onPress={this.handleStartGame} style={styles.button}>
-          <Text >Start New Game</Text>
-        </TouchableOpacity>
+        <Button  title="Join Game" onPress={this.handleJoinGame} style={styles.button} />
+        <Button  title="Start New Game" onPress={this.handleStartGame} style={styles.button} />
+        <Button  title="My Profile" onPress={this.gotoProfileScreen} style={styles.button} />
       </View>
     )
   }
