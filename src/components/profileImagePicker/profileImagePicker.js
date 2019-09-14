@@ -9,6 +9,7 @@ import {
   BackHandler,
   ToastAndroid,
   TouchableOpacity,
+  Modal
 } from 'react-native';
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
@@ -109,60 +110,8 @@ export default class ProfileImagePicker extends React.Component {
 
     if(showPic){
       return(
-        <View style={globalStyles.page}>
-
-          <TouchableOpacity
-            onPress={hideProfileImagePicker}
-            style={{
-              position: 'absolute',
-              width: 50,
-              height: 50,
-              top: Constants.statusBarHeight,
-              right: 0,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{
-              fontSize: 36,
-              color: 'black'
-            }}>X</Text>
-          </TouchableOpacity>
-
-          <View style={{ width: pictureWidth, height: pictureWidth }} >
-            <Image style= {{flex:1 , borderRadius: pictureBorderRadius }}
-                   source={{ uri: image }}
-            />
-          </View>
-          <Button
-            title="Change image"
-            onPress={() => this.setState({showPic: false})}
-          />
-          <Button
-            title="Done"
-            onPress={this.savePicture}
-          />
-        </View>
-      )
-    }
-
-    return (
-      <View style={{...globalStyles.page}}>
-        <Camera
-          ref={ ref => this.camera = ref }
-          style={{ flex: 1, width: '100%' }}
-          type={Camera.Constants.Type.front}
-          onCameraReady={this.prepareCameraRatio}
-          ratio={this.state.ratio}>
-          <View
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              position: 'relative'
-            }}>
+        <Modal>
+          <View style={globalStyles.page}>
 
             <TouchableOpacity
               onPress={hideProfileImagePicker}
@@ -178,37 +127,93 @@ export default class ProfileImagePicker extends React.Component {
               }}>
               <Text style={{
                 fontSize: 36,
-                color: 'white'
+                color: 'black'
               }}>X</Text>
             </TouchableOpacity>
-            <View style={{
-              height: pictureWidth,
-              width:pictureWidth,
-              borderColor: 'white',
-              borderWidth: 1,
-              borderStyle: 'solid',
-              borderRadius: pictureBorderRadius
-            }}/>
-            <View style={{
-              position: 'absolute',
-              width: '100%',
-              backgroundColor: 'white',
-              bottom: 0,
-              left: 0
-            }}>
-              <Button
-                title="Take picture"
-                onPress={this.takePicture}
-              />
-              <Button
-                title={`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}
-                onPress={this.pickImageFromLibrary}
-                disabled={hasCameraLibraryPermission === false}
+
+            <View style={{ width: pictureWidth, height: pictureWidth }} >
+              <Image style= {{flex:1 , borderRadius: pictureBorderRadius }}
+                     source={{ uri: image }}
               />
             </View>
+            <Button
+              title="Change image"
+              onPress={() => this.setState({showPic: false})}
+            />
+            <Button
+              title="Done"
+              onPress={this.savePicture}
+            />
           </View>
-        </Camera>
-      </View>
+        </Modal>
+      )
+    }
+
+    return (
+      <Modal>
+        <View style={{...globalStyles.page, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99}}>
+          <Camera
+            ref={ ref => this.camera = ref }
+            style={{ flex: 1, width: '100%' }}
+            type={Camera.Constants.Type.front}
+            onCameraReady={this.prepareCameraRatio}
+            ratio={this.state.ratio}>
+            <View
+              style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                position: 'relative'
+              }}>
+
+              <TouchableOpacity
+                onPress={hideProfileImagePicker}
+                style={{
+                  position: 'absolute',
+                  width: 50,
+                  height: 50,
+                  top: Constants.statusBarHeight,
+                  right: 0,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{
+                  fontSize: 36,
+                  color: 'white'
+                }}>X</Text>
+              </TouchableOpacity>
+              <View style={{
+                height: pictureWidth,
+                width:pictureWidth,
+                borderColor: 'white',
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderRadius: pictureBorderRadius
+              }}/>
+              <View style={{
+                position: 'absolute',
+                width: '100%',
+                backgroundColor: 'white',
+                bottom: 0,
+                left: 0
+              }}>
+                <Button
+                  title="Take picture"
+                  onPress={this.takePicture}
+                />
+                <Button
+                  title={`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}
+                  onPress={this.pickImageFromLibrary}
+                  disabled={hasCameraLibraryPermission === false}
+                />
+              </View>
+            </View>
+          </Camera>
+        </View>
+      </Modal>
     )
 
   }
