@@ -12,54 +12,6 @@ import DisabledBack from '.././../../components/disableBack'
 
 class PreGame extends React.Component {
 
-
-    componentDidMount(){
-        const { user, gameDoc, setConnectedToPlayerCollection, setConnectedToGameDoc, connectedToPlayersCollection, connectedToGameDoc } = this.props;
-        const playersColRef = gameDoc.ref.collection('players');
-
-        playersColRef.doc(user.data.email).set({
-            uid: user.data.uid,
-            displayName: user.data.displayName,
-            email: user.data.email,
-            isAdmin: !!user.isAdmin
-        });
-
-        const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {
-
-            console.log('players onSnapshot')
-            const players = [];
-
-            querySnapshot.forEach( playerDocument => {
-                players.push(playerDocument.data())
-            })
-
-            this.props.updatePlayersData(players);
-
-            if(!connectedToPlayersCollection){
-                setConnectedToPlayerCollection()
-            }
-        });
-
-        this.props.setPlayersDisconnect(disconnectFromPlayerCollection);
-
-
-
-        const disconnectFromGame = gameDoc.ref.onSnapshot(doc => {
-
-
-
-            console.log('game onSnapshot');
-
-            this.props.updateGameData(doc.data());
-
-            if(!connectedToGameDoc){
-                setConnectedToGameDoc();
-            }
-        });
-
-        this.props.setGameDisconnect(disconnectFromGame);
-    }
-
     setPlayerTypes = () => {
 
         const players = [...this.props.playersData];
@@ -192,7 +144,7 @@ class PreGame extends React.Component {
 
         const { gameData, currentPlayer, connectedToGameDoc, connectedToPlayersCollection } = this.props;
 
-        if(!connectedToGameDoc || !connectedToPlayersCollection){
+        if(!currentPlayer){
             return(<View><Text>Loading</Text></View>)
         }
 

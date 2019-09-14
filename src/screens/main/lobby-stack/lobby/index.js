@@ -43,8 +43,8 @@ class Lobby extends Component {
           onWillBlur={this.screenWillBlur}
         />
 
-        {user.data && <ProfilePicture imageUri={user.data.photoURL}/>}
-        {user.data && <Text>Hello {user.data.email}!</Text>}
+        {user && <ProfilePicture imageUri={user.photoURL}/>}
+        {user && <Text>Hello {user.email}!</Text>}
         <Button  title="Join Game" onPress={this.handleJoinGame} style={styles.button} />
         <Button  title="Start New Game" onPress={this.handleStartGame} style={styles.button} />
         <Button  title="My Profile" onPress={this.gotoProfileScreen} style={styles.button} />

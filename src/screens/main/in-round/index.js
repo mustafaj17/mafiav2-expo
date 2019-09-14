@@ -67,7 +67,7 @@ class InRound extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user.data,
+    user: state.user,
     gameData: state.game.gameData,
     gameDoc: state.game.gameDoc,
     currentPlayer: getCurrentPlayer(state)

@@ -29,7 +29,7 @@ class UserProfile extends React.Component {
 
     try{
       const blob = await uriToBlob(imageUri);
-      const photoURL = await uploadProfilePictureToFirebase(blob, user.data.email);
+      const photoURL = await uploadProfilePictureToFirebase(blob, user.email);
       await firebase.auth().currentUser.updateProfile({photoURL});
       updateProfilePic(photoURL);
     }catch (e) {
@@ -50,17 +50,17 @@ class UserProfile extends React.Component {
 
     return (
       <View style={globalStyles.page}>
-        <ProfilePicture imageUri={user.data.photoURL}/>
+        <ProfilePicture imageUri={user.photoURL}/>
         { hasCameraPermission === false ?
           <View>
             <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
             <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
           </View> :
-          <Button title={ user.data.photoURL ? 'Change picture' : 'Add picture'}
+          <Button title={ user.photoURL ? 'Change picture' : 'Add picture'}
                   onPress={this.takeProfilePic} />
         }
-        <Text>{user.data.email}</Text>
-        <Text>{user.data.displayName}</Text>
+        <Text>{user.email}</Text>
+        <Text>{user.displayName}</Text>
       </View>
     );
   }

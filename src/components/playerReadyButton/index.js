@@ -23,7 +23,7 @@ const playerReadyButton = (props) => {
 
 const mapStateToProps = state => ({
     gameName: state.game.gameData.gameName,
-    playerEmail: state.user.data.email,
+    playerEmail: state.user.email,
     gameDoc: state.game.gameDoc
 })
 

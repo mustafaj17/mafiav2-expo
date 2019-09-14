@@ -98,7 +98,7 @@ class InVote extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user.data,
+    user: state.user,
     gameDoc: state.game.gameDoc,
     inGamePlayers: getInGamePlayers(state),
     allPlayersHaveVoted: haveAllPlayersVoted(state),

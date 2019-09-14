@@ -1,7 +1,7 @@
 import {TYPE} from "../../constants";
 
 export const getCurrentPlayer = state => {
-    return state.game.playersData.find( player => player.email === state.user.data.email);
+    return state.game.playersData.find( player => player.email === state.user.email);
 }
 
 export const getInGamePlayers = state => {
