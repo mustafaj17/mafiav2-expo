@@ -40,21 +40,28 @@ export default (WrappedComponent) => {
 
     handlePlayerLeaving =  async () => {
 
-      const { navigation, game, currentPlayer, gameDoc, inGamePlayers } = this.props;
+      const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players } = this.props;
       const batch = firestore.batch();
 
       //todo: maybe add flag to say he left and in the end game summary we can show that he left
       //todo: also check if he was in the game so we can say 'voted and left'
       batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {isOut: true});
+      //
+      game.playersDisconnect();
+      game.gameDisconnect();
 
-      if(currentPlayer.isAdmin){
-        // replace admin
+      // only admin in the game so lets delete the game doc aswel
+      if(players.length === 1){
+        const playerDocRef = await gameDoc.ref.collection('players').doc(currentPlayer.email);
+        batch.delete(playerDocRef)
+        batch.delete(gameDoc.ref);
+      }
+      //more then one player so set new admin
+      else if(currentPlayer.isAdmin){
         const newAdmin = inGamePlayers.find( player => player.email !== currentPlayer.email)
         batch.update(gameDoc.ref.collection('players').doc(newAdmin.email), {isAdmin: true});
       }
 
-      game.playersDisconnect();
-      game.gameDisconnect();
       navigation.navigate('Lobby');
       await batch.commit();
 
@@ -83,6 +90,7 @@ export default (WrappedComponent) => {
   }
 
   const mapStateToProps = state => ({
+    players: state.game.playersData,
     gameDoc: state.game.gameDoc,
     game: state.game,
     inGamePlayers: getInGamePlayers(state),

@@ -1,7 +1,6 @@
 import {createStackNavigator} from "react-navigation";
 import Lobby from "./lobby";
-import StartGame from "./start-game";
-import JoinGame from "./join-game";
+import StartOrJoinGame from "./start-or-join-game";
 import UserProfile from "./user-profile";
 
 export default createStackNavigator({
@@ -12,17 +11,8 @@ export default createStackNavigator({
         header: null,
       })
     },
-    StartGame : {
-      screen: StartGame,
-      navigationOptions: () => ({
-        title: 'Start Game',
-      })
-    },
-    JoinGame : {
-      screen: JoinGame,
-      navigationOptions: () => ({
-        title: 'Join Game',
-      })
+    StartOrJoinGame : {
+      screen: StartOrJoinGame
     },
     UserProfile : {
       screen: UserProfile,

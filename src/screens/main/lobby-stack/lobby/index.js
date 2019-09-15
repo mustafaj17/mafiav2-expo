@@ -20,11 +20,11 @@ class Lobby extends Component {
   }
 
   handleJoinGame = () => {
-    this.props.navigation.navigate('JoinGame')
+    this.props.navigation.navigate('StartOrJoinGame', {isUserStartingGame: false})
   }
 
   handleStartGame = () => {
-    this.props.navigation.navigate('StartGame')
+    this.props.navigation.navigate('StartOrJoinGame', {isUserStartingGame: true})
   }
 
 

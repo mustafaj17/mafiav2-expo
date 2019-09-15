@@ -1,6 +1,5 @@
 import {
-    START_GAME,
-    JOIN_GAME,
+    SET_GAME_DOCUMENT,
     UPDATE_GAME_DATA,
     SET_GAME_DISCONNECT,
     UPDATE_PLAYERS_DATA,
@@ -22,12 +21,7 @@ const initialState = {
 export default (state = initialState, action) => {
 
     switch (action.type){
-        case START_GAME:
-            return {
-                ...state,
-                gameDoc: action.payload
-            }
-        case JOIN_GAME:
+        case SET_GAME_DOCUMENT:
             return {
                 ...state,
                 gameDoc: action.payload

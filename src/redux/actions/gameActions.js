@@ -1,21 +1,13 @@
-export const JOIN_GAME = 'JOIN_GAME';
-export const START_GAME = 'START_GAME';
+export const SET_GAME_DOCUMENT = 'SET_GAME_DOCUMENT';
 export const UPDATE_GAME_DATA = 'UPDATE_GAME_DATA';
 export const SET_GAME_DISCONNECT = 'SET_GAME_DISCONNECT';
 export const UPDATE_PLAYERS_DATA = 'UPDATE_PLAYERS_DATA';
 export const SET_PLAYERS_DISCONNECT = 'SET_PLAYERS_DISCONNECT';
 export const TOGGLE_DISPLAY_PLAYER_TYPES = 'TOGGLE_DISPLAY_PLAYER_TYPES';
 
-export const joinGame = gameDoc => {
+export const setGameDocument = gameDoc => {
     return {
-        type: JOIN_GAME,
-        payload: gameDoc
-    }
-}
-
-export const startGame = gameDoc => {
-    return {
-        type: START_GAME,
+        type: SET_GAME_DOCUMENT,
         payload: gameDoc
     }
 }
