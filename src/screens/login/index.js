@@ -36,11 +36,7 @@ export default class Login extends React.Component {
     return (
       <KeyboardAvoidingView style={globalStyles.page}>
 
-        <Text>Login</Text>
-        {this.state.errorMessage &&
-        <Text style={{ color: 'red' }}>
-          {this.state.errorMessage}
-        </Text>}
+
 
         <FloatingLabelInput
           label="Email"
@@ -54,6 +50,11 @@ export default class Login extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
+
+        {this.state.errorMessage &&
+        <Text style={{ color: 'red' }}>
+          {this.state.errorMessage}
+        </Text>}
 
         <Button title="Login" onPress={this.handleLogin} />
         <Button

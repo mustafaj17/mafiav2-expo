@@ -61,11 +61,14 @@ class StartOrJoinGame extends Component{
                 }
             }
 
+
+            if(isUserStartingGame){
+                gameDoc.ref.set({
+                    gameName: gameName,
+                    timestamp: new Date()
+                });
+            }
             setGameDoc(gameDoc);
-            gameDoc.ref.set({
-                gameName: gameName,
-                timestamp: new Date()
-            });
 
             const playersColRef = gameDoc.ref.collection('players');
 
@@ -73,7 +76,7 @@ class StartOrJoinGame extends Component{
                 uid: user.uid,
                 displayName: user.displayName,
                 email: user.email,
-                isAdmin: isUserStartingGame ? true : false,
+                isAdmin: !!isUserStartingGame,
                 photoURL: user.photoURL
             });
 
