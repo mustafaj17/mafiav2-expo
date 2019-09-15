@@ -15,7 +15,7 @@ import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Camera } from 'expo-camera';
-import { LoadingScreen } from '../loadingScreen/loadingScreen';
+import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
 
 const DESIRED_RATIO = "16:9";

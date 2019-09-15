@@ -15,7 +15,7 @@ class Player extends React.Component {
 
     if(currentPlayerIsCivilian) {
       return(
-        <View key={player.displayName} style={styles.player}>
+        <View key={player.uid} style={styles.player}>
           <ProfilePicture imageUri={player.photoURL} size={50}/>
           <Text>{player.displayName}</Text>
           {showPlayerTypes &&  <Text>{playerMatch ? player.type : '?'}</Text> }
@@ -23,7 +23,7 @@ class Player extends React.Component {
       )
     }
     return(
-      <View key={player.displayName} style={styles.player}>
+      <View key={player.uid} style={styles.player}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
         <Text>{player.displayName}</Text>
         {showPlayerTypes && <Text>{player.type}</Text>}

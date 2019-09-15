@@ -12,7 +12,7 @@ class PlayersList extends Component {
     return(
       <ScrollView>
         <Text>Players</Text>
-        {inGamePlayers.map( player => <Player player={player} />)}
+        {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
       </ScrollView>
     );
   }

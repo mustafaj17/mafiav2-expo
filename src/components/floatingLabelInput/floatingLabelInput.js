@@ -52,6 +52,8 @@ export class FloatingLabelInput extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           blurOnSubmit
+          autoCorrect={false}
+          spellCheck={false}
         />
       </View>
     );

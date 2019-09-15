@@ -12,7 +12,7 @@ import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
 import globalStyles from '../../styles/global'
 import { ProfilePicture } from '../../components/profilePicture/profilePicture';
 import * as Permissions from 'expo-permissions';
-import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
+import LoadingScreen from '../../components/loadingScreen';
 import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
 
 export default class SignUp extends React.Component {

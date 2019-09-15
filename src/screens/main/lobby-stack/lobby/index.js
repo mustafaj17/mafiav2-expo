@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Button, BackHandler, ToastAndroid } from 'react-native';
+import { View, Button, BackHandler, ToastAndroid } from 'react-native';
 import styles from '../../../../styles/global';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import { ProfilePicture } from '../../../../components/profilePicture/profilePicture';
+import Text from '../../../../components/text';
 
 class Lobby extends Component {
   screenWillFocus= () => {

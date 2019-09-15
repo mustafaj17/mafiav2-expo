@@ -26,7 +26,7 @@ class GameOver extends React.Component {
                    {mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}
                </Text>
 
-               <Button title='Play again' onPress={this.handlePlayAgain}/>
+               {/*<Button title='Play again' onPress={this.handlePlayAgain}/>*/}
                <Button title='End game' onPress={this.handleEndGame}/>
 
            </View>

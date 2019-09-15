@@ -8,40 +8,43 @@ import Landing from './src/screens/landing'
 import Main from './src/screens/main';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import LoadingScreen from './src/components/loadingScreen';
+import * as Font from 'expo-font';
 
 const AppStack = createStackNavigator({
   Main: Main
 }, {
   headerMode: 'none',
 });
+
 const AuthStack = createStackNavigator({
-  Landing: {
-    screen: Landing,
-    navigationOptions: () => ({
-      gesturesEnabled: false,
-      header: null,
-    })
+    Landing: {
+      screen: Landing,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+        header: null,
+      })
+    },
+    SignUp : {
+      screen: SignUp,
+      navigationOptions: () => ({
+        title: 'Sign Up',
+      })
+    } ,
+    Login : {
+      screen: Login,
+      navigationOptions: () => ({
+        title: 'Login',
+      })
+    } ,
+    Terms: {
+      screen: Terms,
+      navigationOptions: () => ({
+        gesturesEnabled: false,
+        header: null,
+      })
+    },
   },
-  SignUp : {
-    screen: SignUp,
-    navigationOptions: () => ({
-      title: 'Sign Up',
-    })
-  } ,
-  Login : {
-    screen: Login,
-    navigationOptions: () => ({
-      title: 'Login',
-    })
-  } ,
-  Terms: {
-    screen: Terms,
-    navigationOptions: () => ({
-      gesturesEnabled: false,
-      header: null,
-    })
-  },
-},
   {
     initialRouteName: 'Landing',
   });
@@ -58,12 +61,32 @@ let Navigation = createAppContainer(createSwitchNavigator(
   }
 ));
 
-const App = () => {
-    return(
-       <Provider store={store}>
-           <Navigation/>
-       </Provider>
+class App extends React.Component{
+
+  state = {
+    loadingFonts: true
+  }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'font-name' : require('./assets/fonts/Oxygen/Oxygen-Regular.ttf'),
+    })
+
+    this.setState({
+      loadingFonts: false
+    })
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        {this.state.loadingFonts ?
+          <LoadingScreen/>
+          :<Navigation/>
+        }
+      </Provider>
     )
+  }
 }
 
 export default App;

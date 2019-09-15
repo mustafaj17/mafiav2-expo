@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Text, Button, BackHandler, ToastAndroid } from 'r
 import firebase from '../../services/firebase';
 import { NavigationEvents } from "react-navigation";
 import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
-import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
+import LoadingScreen from '../../components/loadingScreen';
 import globalStyles from '../../styles/global';
 
 export default class Login extends React.Component {

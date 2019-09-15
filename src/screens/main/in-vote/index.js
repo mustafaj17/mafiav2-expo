@@ -71,34 +71,34 @@ class InVote extends React.Component {
 
     render() {
 
-        const { inGamePlayers, user } = this.props;
+        const { inGamePlayers, currentPlayer } = this.props;
 
         return (
-            <View style={styles.page}>
+          <View style={styles.page}>
 
-                <Text> InVote </Text>
-                <Button onPress={this.testAutoVote} title={'Auto-Vote'}/>
-                <ScrollView>
-                    <FlatList
-                        data={inGamePlayers}
-                        renderItem={(player) => {
-                            if (player.item.email === user.email) return;
-                            return (
-                                <Button
-                                    title={player.item.displayName}
-                                    onPress={ () => { this.voteForPlayer(player.item)}}
-                                />)
-                        }}
-                    />
-                </ScrollView>
-            </View>
+              <Text> InVote </Text>
+              <Button onPress={this.testAutoVote} title={'Auto-Vote'}/>
+              <ScrollView>
+                  <FlatList
+                    data={inGamePlayers}
+                    renderItem={(player) => {
+                        if (player.item.email === currentPlayer.email) return null;
+                        return (
+                          <Button
+                            key={player.item.uid}
+                            title={player.item.displayName}
+                            onPress={ () => { this.voteForPlayer(player.item)}}
+                          />)
+                    }}
+                  />
+              </ScrollView>
+          </View>
         )
     }
 }
 
 
 const mapStateToProps = state => ({
-    user: state.user,
     gameDoc: state.game.gameDoc,
     inGamePlayers: getInGamePlayers(state),
     allPlayersHaveVoted: haveAllPlayersVoted(state),

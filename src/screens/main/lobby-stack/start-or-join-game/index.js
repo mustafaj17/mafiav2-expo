@@ -29,6 +29,12 @@ class StartOrJoinGame extends Component{
     startOrJoinGame = async () => {
 
         const { gameName } = this.state;
+
+        if(gameName.length === 0){
+            this.setState({ errorMessage: "Please enter a game name" });
+            return;
+        }
+
         let { navigation, setGameDoc, user } = this.props;
         const isUserStartingGame = this.props.navigation.getParam('isUserStartingGame', false);
         this.setState({ loading: true })
@@ -118,6 +124,9 @@ class StartOrJoinGame extends Component{
                 label={`Enter game ID`}
                 onChangeText={(text) => setName(text)}
                 value={gameName}
+                onSubmitEditing={this.startOrJoinGame}
+                returnKeyType='go'
+                autoCapitalize='none'
               />
 
               {loading && <ActivityIndicator size="small" />}

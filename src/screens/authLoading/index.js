@@ -4,7 +4,7 @@ import firebase from '../../services/firebase';
 import globalStyles from '../../styles/global';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/userActions';
-import { LoadingScreen } from '../../components/loadingScreen/loadingScreen';
+import LoadingScreen from '../../components/loadingScreen';
 
 class AuthLoading extends React.Component {
 
