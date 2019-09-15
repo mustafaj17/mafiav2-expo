@@ -17,6 +17,8 @@ import * as ImagePicker from 'expo-image-picker'
 import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const DESIRED_RATIO = "16:9";
 const IMAGE_QUALITY = 0.5;
@@ -117,18 +119,10 @@ export default class ProfileImagePicker extends React.Component {
               onPress={hideProfileImagePicker}
               style={{
                 position: 'absolute',
-                width: 50,
-                height: 50,
                 top: Constants.statusBarHeight,
-                right: 0,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                right: 20,
               }}>
-              <Text style={{
-                fontSize: 36,
-                color: 'black'
-              }}>X</Text>
+              <Ionicons name="md-close" size={32} color="black" />
             </TouchableOpacity>
 
             <View style={{ width: pictureWidth, height: pictureWidth }} >
@@ -172,19 +166,12 @@ export default class ProfileImagePicker extends React.Component {
                 onPress={hideProfileImagePicker}
                 style={{
                   position: 'absolute',
-                  width: 50,
-                  height: 50,
                   top: Constants.statusBarHeight,
-                  right: 0,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  right: 20,
                 }}>
-                <Text style={{
-                  fontSize: 36,
-                  color: 'white'
-                }}>X</Text>
+                <Ionicons name="md-close" size={32} color="black" />
               </TouchableOpacity>
+
               <View style={{
                 height: pictureWidth,
                 width:pictureWidth,

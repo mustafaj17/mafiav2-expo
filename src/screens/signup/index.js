@@ -126,7 +126,6 @@ export default class SignUp extends React.Component {
           <ProfilePicture imageUri={imageUri}/>
         </View>
 
-        {/*Todo : Create terms page once new StackNavigation is merged into Master*/}
         <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
           <Text>I have read and agree to the
             <Text
