@@ -16,7 +16,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 
 
 const DESIRED_RATIO = "16:9";
@@ -173,10 +173,29 @@ export default class ProfileImagePicker extends React.Component {
                 height: pictureWidth,
                 width:pictureWidth,
                 borderColor: 'white',
-                borderWidth: 1,
+                borderWidth: 3,
                 borderStyle: 'solid',
                 borderRadius: pictureBorderRadius
               }}/>
+
+              <TouchableOpacity onPress={this.takePicture}>
+                <View style={{
+                  height: 80,
+                  width:80,
+                  borderColor: 'white',
+                  borderWidth: 2,
+                  borderStyle: 'solid',
+                  borderRadius: 40,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 20
+                }}>
+                  <SimpleLineIcons name='camera' size={32} color='white'/>
+                </View>
+
+              </TouchableOpacity>
+
               <View style={{
                 position: 'absolute',
                 width: '100%',
@@ -184,10 +203,6 @@ export default class ProfileImagePicker extends React.Component {
                 bottom: 0,
                 left: 0
               }}>
-                <Button
-                  title="Take picture"
-                  onPress={this.takePicture}
-                />
                 <Button
                   title={`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}
                   onPress={this.pickImageFromLibrary}
