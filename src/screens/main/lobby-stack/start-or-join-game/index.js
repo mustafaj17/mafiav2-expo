@@ -25,7 +25,6 @@ class StartOrJoinGame extends Component{
         loading: false
     }
 
-
     startOrJoinGame = async () => {
 
         const { gameName } = this.state;
@@ -124,6 +123,7 @@ class StartOrJoinGame extends Component{
         return (
           <View style={styles.page}>
               <FloatingLabelInput
+                autoFocus={true}
                 label={`Enter game ID`}
                 onChangeText={(text) => setName(text)}
                 value={gameName}

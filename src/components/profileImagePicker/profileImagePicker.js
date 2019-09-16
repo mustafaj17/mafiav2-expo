@@ -145,7 +145,7 @@ export default class ProfileImagePicker extends React.Component {
 
     return (
       <Modal>
-        <View style={{...globalStyles.page, position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99}}>
+        <View style={globalStyles.page}>
           <Camera
             ref={ ref => this.camera = ref }
             style={{ flex: 1, width: '100%' }}

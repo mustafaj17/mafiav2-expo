@@ -54,7 +54,7 @@ class Lobby extends Component {
           alignItems: 'center'
         }}
                           onPress={this.gotoProfileScreen}>
-          <FontAwesome name='user-circle' size={40}/>
+          <FontAwesome name='user-circle-o' size={40} color='#333333'/>
           <Text>Profile</Text>
         </TouchableOpacity>
 
