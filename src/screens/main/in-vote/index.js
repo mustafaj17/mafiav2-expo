@@ -102,9 +102,7 @@ const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     inGamePlayers: getInGamePlayers(state),
     allPlayersHaveVoted: haveAllPlayersVoted(state),
-    currentPlayer: getCurrentPlayer(state),
-    gameRound: state.game.round
-
+    currentPlayer: getCurrentPlayer(state)
 })
 
 const mapDispatchToProps = dispatch => ({})

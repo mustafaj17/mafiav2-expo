@@ -36,7 +36,7 @@ class InRound extends React.Component {
         const { gameData, gameDoc } = nextProps;
 
         if(gameData.roundSkipped){
-            gameDoc.ref.update( 'roundSkipped', false);
+            gameDoc.ref.update('roundSkipped', false);
             this.endRound();
             return false;
         }
@@ -67,7 +67,6 @@ class InRound extends React.Component {
 
 
 const mapStateToProps = state => ({
-    user: state.user,
     gameData: state.game.gameData,
     gameDoc: state.game.gameDoc,
     currentPlayer: getCurrentPlayer(state)
