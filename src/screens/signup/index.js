@@ -78,8 +78,6 @@ export default class SignUp extends React.Component {
       termsAccepted
     } = this.state;
 
-
-
     if(this.state.loading) return( <LoadingScreen/> );
 
 

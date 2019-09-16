@@ -11,9 +11,13 @@ export class FloatingLabelInput extends React.Component {
     this._animatedIsFocused = new Animated.Value(isFocused ? 1 : 0);
   }
 
+  handleFocus = () => {
+    this.setState({ isFocused: true });
+  }
 
-  handleFocus = () => this.setState({ isFocused: true });
-  handleBlur = () => this.setState({ isFocused: (this.props.value.length > 0) });
+  handleBlur = () => {
+    this.setState({ isFocused: false });
+  }
 
   componentDidUpdate() {
     Animated.timing(this._animatedIsFocused, {

@@ -48,8 +48,8 @@ class Lobby extends Component {
 
         <TouchableOpacity style={{
           position: 'absolute',
-          top: Constants.statusBarHeight + 10,
-          right: 20,
+          top: 10,
+          right: 10,
           display: 'flex',
           alignItems: 'center'
         }}

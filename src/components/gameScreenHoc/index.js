@@ -70,7 +70,7 @@ export default (WrappedComponent) => {
     render() {
       return (
         <View style={{ flex: 1}}>
-          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 30, right: 20, zIndex: 10}}>
+          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 0, right: 10, zIndex: 10}}>
             <Ionicons name="md-close" size={32} color="black" />
           </TouchableOpacity>
 

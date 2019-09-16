@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
+import Constants from 'expo-constants';
+import { View } from 'react-native';
 
 const AppStack = createStackNavigator({
   Main: Main
@@ -47,6 +49,11 @@ const AuthStack = createStackNavigator({
   },
   {
     initialRouteName: 'Landing',
+    defaultNavigationOptions: {
+      headerStyle: {
+        marginTop: -Constants.statusBarHeight,
+      }
+    }
   });
 
 let Navigation = createAppContainer(createSwitchNavigator(
@@ -58,6 +65,11 @@ let Navigation = createAppContainer(createSwitchNavigator(
   {
     initialRouteName: 'AuthLoading',
     headerMode: 'none',
+    defaultNavigationOptions: {
+      headerStyle: {
+        marginTop: -Constants.statusBarHeight,
+      }
+    }
   }
 ));
 
@@ -78,12 +90,20 @@ class App extends React.Component{
   }
 
   render() {
+
     return (
       <Provider store={store}>
-        {this.state.loadingFonts ?
-          <LoadingScreen/>
-          :<Navigation/>
-        }
+        <View style={{
+          paddingTop: Constants.statusBarHeight,
+          flex: 1
+        }}>
+          {this.state.loadingFonts ?
+            <LoadingScreen/>
+            :
+            <Navigation/>
+
+          }
+        </View>
       </Provider>
     )
   }

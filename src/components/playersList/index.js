@@ -11,7 +11,6 @@ class PlayersList extends Component {
     const { inGamePlayers } = this.props;
     return(
       <ScrollView>
-        <Text>Players</Text>
         {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
       </ScrollView>
     );

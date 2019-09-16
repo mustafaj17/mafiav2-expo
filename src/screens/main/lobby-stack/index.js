@@ -2,6 +2,7 @@ import {createStackNavigator} from "react-navigation";
 import Lobby from "./lobby";
 import StartOrJoinGame from "./start-or-join-game";
 import UserProfile from "./user-profile";
+import Constants from 'expo-constants';
 
 export default createStackNavigator({
     Lobby : {
@@ -27,7 +28,8 @@ export default createStackNavigator({
       headerStyle: {
         backgroundColor: '#28F1A6',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
+        marginTop: -Constants.statusBarHeight,
       },
     }
   })

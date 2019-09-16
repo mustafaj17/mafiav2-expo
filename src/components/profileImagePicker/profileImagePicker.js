@@ -3,8 +3,8 @@ import {
   Button,
   Image,
   View,
+  SafeAreaView,
   YellowBox,
-  Text,
   Dimensions,
   BackHandler,
   ToastAndroid,
@@ -108,8 +108,6 @@ export default class ProfileImagePicker extends React.Component {
 
     if(loading) return <LoadingScreen/>;
 
-    console.log(image);
-
     if(showPic){
       return(
         <Modal>
@@ -120,9 +118,9 @@ export default class ProfileImagePicker extends React.Component {
               style={{
                 position: 'absolute',
                 top: Constants.statusBarHeight,
-                right: 20,
+                right: 10,
               }}>
-              <Ionicons name="md-close" size={32} color="black" />
+              <Ionicons name="md-close" size={32} color="red" />
             </TouchableOpacity>
 
             <View style={{ width: pictureWidth, height: pictureWidth }} >
@@ -167,9 +165,9 @@ export default class ProfileImagePicker extends React.Component {
                 style={{
                   position: 'absolute',
                   top: Constants.statusBarHeight,
-                  right: 20,
+                  right: 10,
                 }}>
-                <Ionicons name="md-close" size={32} color="black" />
+                <Ionicons name="md-close" size={32} color="red" />
               </TouchableOpacity>
 
               <View style={{
