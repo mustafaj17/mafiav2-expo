@@ -10,7 +10,7 @@ import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
 import globalStyles from '../../styles/global'
-import { ProfilePicture } from '../../components/profilePicture/profilePicture';
+import ProfilePicture from '../../components/profilePicture/profilePicture';
 import * as Permissions from 'expo-permissions';
 import LoadingScreen from '../../components/loadingScreen';
 import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';

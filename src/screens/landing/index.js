@@ -1,7 +1,8 @@
 import React from 'react'
-import { KeyboardAvoidingView, Text, View, BackHandler, ToastAndroid, Button } from 'react-native';
+import { KeyboardAvoidingView, Text, BackHandler, ToastAndroid } from 'react-native';
 import globalStyles from '../../styles/global';
 import {NavigationEvents} from "react-navigation";
+import Button from '../../components/button';
 
 export default class Landing extends React.Component {
   screenWillFocus = () => {
@@ -27,19 +28,22 @@ export default class Landing extends React.Component {
         />
         <Text>Welcome to Mafia</Text>
         <Button
-            title="Login"
-            onPress={() => navigation.navigate('Login')}
-          />
-          <View style={{margin: 10}}>
-            <Button
-              title="Sign Up"
-              onPress={() => navigation.navigate('SignUp')}
-            />
-          </View>
-          <Button
-            title="How To Play"
-            onPress={() => navigation.navigate('HowToPlay')}
-          />
+          onPress={() => navigation.navigate('Login')}
+        >
+          <Text>Login</Text>
+        </Button>
+
+        <Button
+          onPress={() => navigation.navigate('SignUp')}
+        >
+          <Text>Sign Up</Text>
+        </Button>
+
+        <Button
+          onPress={() => navigation.navigate('HowToPlay')}
+        >
+          <Text>How To Play</Text>
+        </Button>
       </KeyboardAvoidingView>
     )
   }
