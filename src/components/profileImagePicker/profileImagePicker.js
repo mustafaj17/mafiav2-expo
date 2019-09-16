@@ -3,7 +3,6 @@ import {
   Button,
   Image,
   View,
-  SafeAreaView,
   YellowBox,
   Dimensions,
   BackHandler,
