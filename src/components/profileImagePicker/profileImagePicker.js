@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Button,
   Image,
   View,
   YellowBox,
@@ -17,6 +16,8 @@ import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
+import Button from '../button';
+import Text from '../text';
 
 
 const DESIRED_RATIO = "16:9";
@@ -59,7 +60,6 @@ export default class ProfileImagePicker extends React.Component {
 
     this.setState({loading: true});
 
-    // if (Constants.platform.ios) {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     if (status === 'granted') {
       this.setState({hasCameraLibraryPermission: true});
@@ -67,7 +67,6 @@ export default class ProfileImagePicker extends React.Component {
       this.setState({hasCameraLibraryPermission: false, loading: false});
       return;
     }
-    // }
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -127,14 +126,12 @@ export default class ProfileImagePicker extends React.Component {
                      source={{ uri: image }}
               />
             </View>
-            <Button
-              title="Change image"
-              onPress={() => this.setState({showPic: false})}
-            />
-            <Button
-              title="Done"
-              onPress={this.savePicture}
-            />
+            <Button onPress={() => this.setState({showPic: false})}>
+              <Text>Change image</Text>
+            </Button>
+            <Button onPress={this.savePicture}>
+              <Text>Done</Text>
+            </Button>
           </View>
         </Modal>
       )

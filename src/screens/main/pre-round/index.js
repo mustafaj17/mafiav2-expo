@@ -1,13 +1,14 @@
 import React from 'react'
-import {View, Text, Button } from 'react-native'
+import { View, Button, ScrollView } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import PlayersList from '../../../components/playersList';
 import ReadyButton from '../../../components/playerReadyButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
 import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
 import GameScreenHOC from "../../../components/gameScreenHoc";
+import Player from '../../../components/player';
+import Text from '../../../components/text';
 
 class PreRound extends React.Component {
 
@@ -32,7 +33,10 @@ class PreRound extends React.Component {
                 <View><Text>Pre-Round Screen</Text></View>
 
                 <View><Text>{gameData.gameName}</Text></View>
-                <PlayersList/>
+                <ScrollView style={{width: '100%'}}>
+                    {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
+                </ScrollView>
+
 
                 {!currentPlayer.isOut && !currentPlayer.ready &&
                 <ReadyButton/>

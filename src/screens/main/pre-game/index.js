@@ -1,12 +1,14 @@
 import React from 'react'
-import {View, Text, Button} from 'react-native'
+import { View, ScrollView } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import PlayersList from '../../../components/playersList';
 import { firestore } from '../../../services/firebase'
-import {areAllPlayersReady, getCurrentPlayer} from "../../../redux/selectors";
+import { areAllPlayersReady, getCurrentPlayer, getInGamePlayers } from '../../../redux/selectors';
 import {TYPE} from "../../../constants";
 import GameScreenHOC from '../../../components/gameScreenHoc'
+import Player from '../../../components/player';
+import Text from '../../../components/text';
+import Button from '../../../components/button';
 
 class PreGame extends React.Component {
 
@@ -145,7 +147,7 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer } = this.props;
+        const { gameData, currentPlayer, inGamePlayers } = this.props;
 
         if(!currentPlayer){
             return(<View><Text>Loading</Text></View>)
@@ -157,17 +159,21 @@ class PreGame extends React.Component {
               <View><Text>Pre-Game Screen</Text></View>
 
               <View><Text>{gameData.gameName}</Text></View>
-              <PlayersList/>
+
+              <ScrollView style={{width: '100%'}}>
+                  {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
+              </ScrollView>
 
               {currentPlayer.isAdmin &&
-              <Button
-                onPress={this.handleStartGame}
-                title='Start Game'
-              />
+              <Button onPress={this.handleStartGame}>
+                  <Text>Start Test</Text>
+              </Button>
               }
 
+              <Button onPress={this.startTestGame}>
+                  <Text>Start Test Game</Text>
+              </Button>
 
-              <Button onPress={this.startTestGame} title={'Start Test Game'}/>
           </View>
         )
     }
@@ -178,6 +184,7 @@ const mapStateToProps = state => ({
     gameDoc: state.game.gameDoc,
     gameData: state.game.gameData,
     playersData: state.game.playersData,
+    inGamePlayers: getInGamePlayers(state),
     currentPlayer: getCurrentPlayer(state),
     playerRequirementMet: (state.game.playersData.length > 0),
     allPlayersAreReady: areAllPlayersReady(state),

@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from "../../styles/global";
-import {Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
+import Button from '../button';
+import Text from '../text';
 
 const playerReadyButton = (props) => {
 
@@ -13,11 +13,9 @@ const playerReadyButton = (props) => {
     }
 
     return(
-       <TouchableOpacity onPress={setPlayerReady}>
-           <View style={styles.button} >
-               <Text>Ready</Text>
-           </View>
-       </TouchableOpacity>
+      <Button onPress={setPlayerReady}>
+        <Text>Ready</Text>
+      </Button>
     )
 }
 

@@ -1,10 +1,12 @@
 import React from 'react'
-import {View, Text, ScrollView, FlatList, Button} from 'react-native'
+import {View, ScrollView, FlatList} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
+import Button from '../../../components/button';
+import Text from '../../../components/text';
 
 class InVote extends React.Component {
 
@@ -77,21 +79,20 @@ class InVote extends React.Component {
           <View style={styles.page}>
 
               <Text> InVote </Text>
-              <Button onPress={this.testAutoVote} title={'Auto-Vote'}/>
+
               <ScrollView>
-                  <FlatList
-                    data={inGamePlayers}
-                    renderItem={(player) => {
-                        if (player.item.email === currentPlayer.email) return null;
-                        return (
-                          <Button
-                            key={player.item.uid}
-                            title={player.item.displayName}
-                            onPress={ () => { this.voteForPlayer(player.item)}}
-                          />)
-                    }}
-                  />
+
+                  {inGamePlayers.filter( player => player.email !== currentPlayer.email).map( player => (
+                    <Button key={player.uid} onPress={ () => { this.voteForPlayer(player)}}>
+                        <Text>{player.displayName}</Text>
+                    </Button>
+                  ))}
+
               </ScrollView>
+              <Button onPress={this.testAutoVote}>
+                  <Text>Auto-Vote</Text>
+              </Button>
+
           </View>
         )
     }

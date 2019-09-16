@@ -1,35 +1,36 @@
 import React from 'react';
 import { TYPE } from '../../constants';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ProfilePicture  from '../profilePicture/profilePicture';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { connect } from 'react-redux';
+import Text from '../text';
 
-class Player extends React.Component {
+const Player = (props) => {
 
-  render() {
 
-    const { showPlayerTypes, player, currentPlayer } = this.props;
+    const { showPlayerTypes, player, currentPlayer } = props;
     const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
     const playerMatch = currentPlayer.uid === player.uid;
 
-    if(currentPlayerIsCivilian) {
+    const getPlayerType = () => {
+
+      if(!showPlayerTypes) return;
+
+      if(currentPlayerIsCivilian) {
+        return (<Text>{playerMatch ? player.type : '?'}</Text>)
+      }
+
+      return (<Text>{player.type}</Text>)
+    }
+
       return(
         <View key={player.uid} style={styles.player}>
           <ProfilePicture imageUri={player.photoURL} size={50}/>
           <Text>{player.displayName}</Text>
-          {showPlayerTypes &&  <Text>{playerMatch ? player.type : '?'}</Text> }
+          {getPlayerType()}
         </View>
-      )
-    }
-    return(
-      <View key={player.uid} style={styles.player}>
-        <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text>{player.displayName}</Text>
-        {showPlayerTypes && <Text>{player.type}</Text>}
-      </View>
     )
-  }
 }
 
 const mapStateToProps = state => {
@@ -45,11 +46,12 @@ export default connect(mapStateToProps)(Player);
 const styles =  StyleSheet.create({
   player: {
     display: 'flex',
-    width: '100%',
-    height: 60,
     flex: 1,
-    justifyContent: 'center',
+    height: 60,
+    width: '100%',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: 'black'
   },
 });

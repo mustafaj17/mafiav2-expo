@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Text} from 'react-native'
+import { View} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { Button } from 'react-native';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
 import {firestore} from "../../../services/firebase";
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
+import Text from '../../../components/text';
+import Button from '../../../components/button';
 
 class VotingResults extends React.Component {
 
@@ -56,11 +57,11 @@ class VotingResults extends React.Component {
         batch.update(gameDoc.ref, {votingComplete: true});
         inGamePlayers.forEach(player => {
             batch.update(gameDoc.ref.collection('players').doc(player.email),
-                {
-                    votingFor: null,
-                    ready: false,
-                    isOut: (player.email === playerVotedOut)
-                });
+              {
+                  votingFor: null,
+                  ready: false,
+                  isOut: (player.email === playerVotedOut)
+              });
         });
         batch.commit().then( () => {
             console.log('voting complete');
@@ -76,13 +77,17 @@ class VotingResults extends React.Component {
         if( !allPlayersHaveVoted ) return null;
 
         const votingResults = generateSortedVotes(inGamePlayers);
-        return (<View>
-            {votingResults.map( result => <View>
-                <Text>
-                    {result[1].length} : {result[0]} : {result[1].map(votedBy => <Text>{votedBy} </Text>)}
-                </Text>
-            </View>)}
-        </View>)
+        return votingResults.map( result => {
+            const numberOfVotes = result[1].length;
+            const playerName = result[0];
+            return (
+              <View>
+                  <Text>
+                      {playerName} got {numberOfVotes} votes:  : {result[1].map(votedBy => <Text>{votedBy}</Text>)}
+                  </Text>
+              </View>)
+        })
+
     }
 
     render() {
@@ -91,20 +96,24 @@ class VotingResults extends React.Component {
 
 
         return (
-           <View style={styles.page}>
+          <View style={styles.page}>
 
-               <Text> VotingResults </Text>
-               { gameData.votingDraw && <Text>Game was draw </Text> }
+              <Text> VotingResults </Text>
+              { gameData.votingDraw && <Text>Game was draw </Text> }
 
-               { this.getResults() }
+              { this.getResults() }
 
-               { currentPlayer.isAdmin &&
-               (gameData.votingDraw ?
-                   <Button onPress={this.handleRevote} title='Re-vote'/> :
-                   <Button onPress={this.handleNextRound} title='Next'/>
-               ) }
+              { currentPlayer.isAdmin &&
+              (gameData.votingDraw ?
+                  <Button onPress={this.handleRevote} >
+                      <Text>Re-vote</Text>
+                  </Button> :
+                  <Button onPress={this.handleNextRound} >
+                      <Text>Next</Text>
+                  </Button>
+              ) }
 
-           </View>
+          </View>
         )
     }
 }
