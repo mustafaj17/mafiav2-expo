@@ -2,12 +2,10 @@ import React from 'react'
 import {View, Text, Button} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { updateGameData, setGameDisconnect, updatePlayersData, setPlayersDisconnect } from '../../../redux/actions/gameActions';
 import PlayersList from '../../../components/playersList';
 import { firestore } from '../../../services/firebase'
 import {areAllPlayersReady, getCurrentPlayer} from "../../../redux/selectors";
 import {TYPE} from "../../../constants";
-import {connectedToGameDoc, connectedToPlayerCollection, setLoading} from "../../../redux/actions/loadingActions";
 import GameScreenHOC from '../../../components/gameScreenHoc'
 
 class PreGame extends React.Component {
@@ -147,7 +145,7 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer, connectedToGameDoc, connectedToPlayersCollection } = this.props;
+        const { gameData, currentPlayer } = this.props;
 
         if(!currentPlayer){
             return(<View><Text>Loading</Text></View>)
@@ -182,20 +180,10 @@ const mapStateToProps = state => ({
     playersData: state.game.playersData,
     currentPlayer: getCurrentPlayer(state),
     playerRequirementMet: (state.game.playersData.length > 0),
-    user: state.user,
     allPlayersAreReady: areAllPlayersReady(state),
-    connectedToPlayersCollection: state.loading.connectedToPlayersCollection,
-    connectedToGameDoc: state.loading.connectedToGameDoc,
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateGameData: data => dispatch(updateGameData(data)),
-    updatePlayersData: data => dispatch(updatePlayersData(data)),
-    setGameDisconnect: gameDisconnect => dispatch(setGameDisconnect(gameDisconnect)),
-    setPlayersDisconnect: playersDisconnect => dispatch(setPlayersDisconnect(playersDisconnect)),
-    setLoading: loading => dispatch(setLoading(loading)),
-    setConnectedToPlayerCollection : () => { dispatch(connectedToPlayerCollection())},
-    setConnectedToGameDoc : () => { dispatch(connectedToGameDoc())},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(PreGame));

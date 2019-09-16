@@ -1,7 +1,7 @@
 import React from 'react';
 import { TYPE } from '../../constants';
 import { Text, View, StyleSheet } from 'react-native';
-import { ProfilePicture } from '../profilePicture/profilePicture';
+import ProfilePicture  from '../profilePicture/profilePicture';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { connect } from 'react-redux';
 
