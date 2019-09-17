@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import Text from '../text';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
@@ -10,11 +9,11 @@ const Button = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'black',
         margin: 5,
         padding: 10,
-        width: 200
+        width: 200,
+        backgroundColor: 'white',
+        ...props.style
       }}>
         {props.children}
       </View>

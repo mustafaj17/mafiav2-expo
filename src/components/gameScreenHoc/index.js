@@ -1,9 +1,11 @@
 import React from "react";
-import {BackHandler, ToastAndroid, View, Modal, Button, Text, TouchableOpacity} from "react-native";
+import {BackHandler, ToastAndroid, View, Modal, TouchableOpacity} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { firestore } from '../../services/firebase';
+import Text from '../text';
+import Button from '../button';
 
 
 export default (WrappedComponent) => {
@@ -79,8 +81,12 @@ export default (WrappedComponent) => {
           <Modal onRequestClose={this.hideModal} animationType='fade'>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <Text>Are you sure you want to leave?</Text>
-              <Button title='yes' onPress={this.handlePlayerLeaving}/>
-              <Button title='no' onPress={this.hideModal}/>
+              <Button onPress={this.handlePlayerLeaving}>
+                <Text>Yes</Text>
+              </Button>
+              <Button onPress={this.hideModal}>
+                <Text>No</Text>
+              </Button>
             </View>
           </Modal>}
           <WrappedComponent {...this.props} />

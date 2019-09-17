@@ -81,7 +81,9 @@ class App extends React.Component{
 
   async componentDidMount() {
     await Font.loadAsync({
-      'font-name' : require('./assets/fonts/Oxygen/Oxygen-Regular.ttf'),
+      'oxygen-light' : require('./assets/fonts/Oxygen/Oxygen-Light.ttf'),
+      'oxygen-regular' : require('./assets/fonts/Oxygen/Oxygen-Regular.ttf'),
+      'oxygen-bold' : require('./assets/fonts/Oxygen/Oxygen-Bold.ttf'),
     })
 
     this.setState({

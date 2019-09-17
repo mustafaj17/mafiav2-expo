@@ -156,7 +156,7 @@ class PreGame extends React.Component {
         return (
           <View style={styles.page}>
 
-              <View><Text>Pre-Game Screen</Text></View>
+              <View><Text type='bold'>Game Lobby</Text></View>
 
               <View><Text>{gameData.gameName}</Text></View>
 

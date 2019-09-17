@@ -6,7 +6,7 @@ import ProfilePicture from '../../../../components/profilePicture/profilePicture
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import { FontAwesome } from '@expo/vector-icons';
-import Constants from 'expo-constants'
+import { LinearGradient } from 'expo-linear-gradient';
 
 class Lobby extends Component {
   screenWillFocus= () => {
@@ -40,34 +40,39 @@ class Lobby extends Component {
     const { user } = this.props;
 
     return(
-      <View style={styles.page}>
-        <NavigationEvents
-          onWillFocus={this.screenWillFocus}
-          onWillBlur={this.screenWillBlur}
-        />
+      <LinearGradient
+        colors={['#00FFC2', '#9412B5', 'black']}
+        style={{ flex: 1, width: '100%' }}>
+        <View style={styles.page}>
+          <NavigationEvents
+            onWillFocus={this.screenWillFocus}
+            onWillBlur={this.screenWillBlur}
+          />
 
-        <TouchableOpacity style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-                          onPress={this.gotoProfileScreen}>
-          <FontAwesome name='user-circle-o' size={40} color='#333333'/>
-          <Text>Profile</Text>
-        </TouchableOpacity>
 
-        <Text>Hello {user.displayName}!</Text>
-        <ProfilePicture imageUri={user.photoURL} />
-        <Button onPress={this.handleJoinGame}>
-          <Text>Join Game</Text>
-        </Button>
-        <Button onPress={this.handleStartGame} >
-          <Text>Start New Game</Text>
-        </Button>
-        {/*<Button title="My Profile" onPress={this.gotoProfileScreen} />*/}
-      </View>
+
+          <TouchableOpacity style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+                            onPress={this.gotoProfileScreen}>
+            <FontAwesome name='user-circle-o' size={40} color='#333333'/>
+            <Text>Profile</Text>
+          </TouchableOpacity>
+
+          <Text>Hello {user.displayName}!</Text>
+          <ProfilePicture imageUri={user.photoURL} />
+          <Button onPress={this.handleJoinGame}>
+            <Text>Join Game</Text>
+          </Button>
+          <Button onPress={this.handleStartGame} >
+            <Text>Start New Game</Text>
+          </Button>
+        </View>
+      </LinearGradient>
     )
   }
 }

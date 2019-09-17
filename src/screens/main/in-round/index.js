@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View } from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {getCurrentPlayer} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
+import Text from '../../../components/text';
+import Button from '../../../components/button';
 
 class InRound extends React.Component {
 
@@ -48,15 +50,17 @@ class InRound extends React.Component {
         const { currentPlayer, gameDoc } = this.props;
 
         return (
-           <View style={styles.page}>
+           <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-               <Text> InRound </Text>
-               <Text> {this.state.timer} </Text>
+               <Text type='bold'> InRound </Text>
+               <Text type='bold' size='large'>{this.state.timer} </Text>
 
                { currentPlayer.isAdmin &&
-               <Button title="Skip round" onPress={ () => {
+               <Button onPress={ () => {
                    gameDoc.ref.update( 'roundSkipped', true)
-               }} />
+               }} >
+                   <Text>Skip round</Text>
+               </Button>
 
                }
 

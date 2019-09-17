@@ -1,5 +1,5 @@
 import React from 'react'
-import { View} from 'react-native'
+import { ScrollView, View } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
@@ -8,6 +8,7 @@ import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
+import PlayerVoteResult from '../../../components/playerVoteResult';
 
 class VotingResults extends React.Component {
 
@@ -77,17 +78,13 @@ class VotingResults extends React.Component {
         if( !allPlayersHaveVoted ) return null;
 
         const votingResults = generateSortedVotes(inGamePlayers);
-        return votingResults.map( result => {
-            const numberOfVotes = result[1].length;
-            const playerName = result[0];
-            return (
-              <View>
-                  <Text>
-                      {playerName} got {numberOfVotes} votes:  : {result[1].map(votedBy => <Text>{votedBy}</Text>)}
-                  </Text>
-              </View>)
+        return votingResults.map( (result, index) => {
+            return (<PlayerVoteResult
+              key={result[0]}
+              showVoters={index === 0}
+              playerName={result[0]}
+              votedForBy={result[1]}/>)
         })
-
     }
 
     render() {
@@ -96,12 +93,16 @@ class VotingResults extends React.Component {
 
 
         return (
-          <View style={styles.page}>
+          <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-              <Text> VotingResults </Text>
+              <Text type='bold' size='large'> VotingResults </Text>
               { gameData.votingDraw && <Text>Game was draw </Text> }
 
-              { this.getResults() }
+              <ScrollView style={{width: '100%', flex: 1}}>
+                  <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                      { this.getResults() }
+                  </View>
+              </ScrollView>
 
               { currentPlayer.isAdmin &&
               (gameData.votingDraw ?

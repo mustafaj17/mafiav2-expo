@@ -7,6 +7,7 @@ import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Button from '../../../components/button';
 import Text from '../../../components/text';
+import { Player } from '../../../components/player';
 
 class InVote extends React.Component {
 
@@ -80,11 +81,20 @@ class InVote extends React.Component {
 
               <Text> InVote </Text>
 
-              <ScrollView>
+              <ScrollView style={{width: '100%'}}>
 
                   {inGamePlayers.filter( player => player.email !== currentPlayer.email).map( player => (
-                    <Button key={player.uid} onPress={ () => { this.voteForPlayer(player)}}>
-                        <Text>{player.displayName}</Text>
+
+                    <Button key={player.uid}
+                            onPress={ () => { this.voteForPlayer(player)}}
+                            style={{
+                                width: '100%',
+                                padding: 0,
+                                margin: 0,
+                                justifyContent: 'left',
+
+                            }}>
+                        <Player player={player} showTypes={false}/>
                     </Button>
                   ))}
 

@@ -6,12 +6,12 @@ import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Text from '../text';
 
-const Player = (props) => {
+export const Player = (props) => {
 
 
     const { showPlayerTypes, player, currentPlayer } = props;
     const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
-    const playerMatch = currentPlayer.uid === player.uid;
+    const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
 
     const getPlayerType = () => {
 
@@ -27,7 +27,7 @@ const Player = (props) => {
       return(
         <View key={player.uid} style={styles.player}>
           <ProfilePicture imageUri={player.photoURL} size={50}/>
-          <Text>{player.displayName}</Text>
+          <Text style={{marginLeft: 10}}>{player.displayName}</Text>
           {getPlayerType()}
         </View>
     )
@@ -38,6 +38,10 @@ const mapStateToProps = state => {
     currentPlayer: getCurrentPlayer(state),
     showPlayerTypes: state.game.showPlayerTypes
   }
+}
+
+Player.defaultProps = {
+  currentPlayer: false
 }
 
 export default connect(mapStateToProps)(Player);
@@ -51,7 +55,7 @@ const styles =  StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: 'black'
+    paddingLeft: 5,
+    margin: 5,
   },
 });
