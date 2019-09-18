@@ -21,6 +21,7 @@ const Text = (props) => {
     <RNText style={{
       fontFamily: `oxygen-${props.type}`,
       fontSize: size,
+      color: props.color,
       ...props.style
     }}>
       {props.children}
@@ -31,11 +32,13 @@ const Text = (props) => {
 Text.propTypes = {
   type: PropTypes.oneOf(['bold', 'regular', 'light']),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
+  color: PropTypes.string
 }
 
 Text.defaultProps = {
   type: 'regular',
-  size: 'medium'
+  size: 'medium',
+  color: 'black'
 }
 
 export default Text;

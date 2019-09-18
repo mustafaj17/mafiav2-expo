@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import ProfilePicture from '../../../../components/profilePicture/profilePicture';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
-import { FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import logo from '../../../../../assets/logo.png'
 
 class Lobby extends Component {
   screenWillFocus= () => {
@@ -60,15 +60,19 @@ class Lobby extends Component {
             alignItems: 'center'
           }}
                             onPress={this.gotoProfileScreen}>
-            <FontAwesome name='user-circle-o' size={40} color='#333333'/>
-            <Text>Profile</Text>
+            <ProfilePicture size={40} imageUri={user.photoURL}/>
+            <Text size='small' color='white'>Profile</Text>
           </TouchableOpacity>
 
-          <Text>Hello {user.displayName}!</Text>
-          <ProfilePicture imageUri={user.photoURL} />
           <Button onPress={this.handleJoinGame}>
             <Text>Join Game</Text>
           </Button>
+
+          <View style={{height: 120, marginBottom: 30, marginTop: 30}}>
+            <Image source={logo} style={{flex: 1, resizeMode: 'contain'}}/>
+          </View>
+
+
           <Button onPress={this.handleStartGame} >
             <Text>Start New Game</Text>
           </Button>
