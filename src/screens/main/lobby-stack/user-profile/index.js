@@ -7,7 +7,7 @@ import globalStyles from '../../../../styles/global';
 import ProfileImagePicker from '../../../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from '../../../signup/utils';
 import firebase from '../../../../services/firebase';
-import { updateUserProfilePic } from '../../../../redux/actions/userActions';
+import { updateUserProfilePic, loadingUserPhotoToggle } from '../../../../redux/actions/userActions';
 
 class UserProfile extends React.Component {
 
@@ -24,14 +24,16 @@ class UserProfile extends React.Component {
   }
 
   saveProfilePicture = async (imageUri) => {
-    const { user, updateProfilePic } = this.props;
+    const { user, updateProfilePic, loadUserPhotoToggle  } = this.props;
     this.setState({profilePicMode: false});
 
     try{
+      loadUserPhotoToggle();
       const blob = await uriToBlob(imageUri);
       const photoURL = await uploadProfilePictureToFirebase(blob, user.email);
       await firebase.auth().currentUser.updateProfile({photoURL});
       updateProfilePic(photoURL);
+      loadUserPhotoToggle();
     }catch (e) {
       console.log(e);
     }
@@ -71,7 +73,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateProfilePic: photoURL => dispatch(updateUserProfilePic(photoURL))
+  updateProfilePic: photoURL => dispatch(updateUserProfilePic(photoURL)),
+  loadUserPhotoToggle: () => dispatch(loadingUserPhotoToggle())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

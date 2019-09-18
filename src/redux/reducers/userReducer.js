@@ -1,4 +1,4 @@
-import { SET_USER, UPDATE_USER_PROFILE_PIC } from './../actions/userActions';
+import { SET_USER, UPDATE_USER_PROFILE_PIC, LOADING_USER_PHOTO_TOGGLE } from './../actions/userActions';
 
 export default (state = {}, action) => {
 
@@ -9,6 +9,11 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 photoURL: action.payload
+            }
+        case LOADING_USER_PHOTO_TOGGLE:
+            return {
+                ...state,
+                loadingPhoto: !state.loadingPhoto
             }
         default:
             return state;

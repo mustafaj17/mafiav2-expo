@@ -1,14 +1,23 @@
 import React from 'react'
-import { Image, View } from 'react-native';
+import { connect } from 'react-redux';
+import {ActivityIndicator, Image, Text, View} from 'react-native';
 import noProfilePic from '../../../assets/noProfilePic.png'
 import * as PropTypes from 'prop-types';
 
-const ProfilePicture = ({imageUri, size}) => {
+const ProfilePicture = ({imageUri, size, loadingPhoto}) => {
 
   const borderRadius = Math.floor(size / 2);
 
+  if(loadingPhoto) return (
+    <View style={{ width: size, height: size, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+      <ActivityIndicator size="large" color="#28F1A6" />
+      <Text style={{marginTop: 10}}>Loading image...</Text>
+    </View>
+  )
+
   return(
     <View style={{ width: size, height: size }} >
+
 
       <Image style= {{flex:1 , borderRadius: borderRadius, width: '100%' }}
              source={imageUri ? {uri : imageUri} : noProfilePic}/>
@@ -25,4 +34,8 @@ ProfilePicture.defaultProps = {
   size: 150
 }
 
-export default ProfilePicture;
+const mapStateToProps = state => ({
+  loadingPhoto: state.user.loadingPhoto
+})
+
+export default connect(mapStateToProps)(ProfilePicture);

@@ -41,7 +41,8 @@ class Lobby extends Component {
 
     return(
       <LinearGradient
-        colors={['#00FFC2', '#9412B5', 'black']}
+        start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+        colors={['#2916a8', '#9412B5']}
         style={{ flex: 1, width: '100%' }}>
         <View style={styles.page}>
           <NavigationEvents
