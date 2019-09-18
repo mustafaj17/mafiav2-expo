@@ -9,15 +9,15 @@ const Button = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 5,
+        margin: 10,
         borderRadius: 4,
         padding: 15,
         width: 250,
         shadowColor: '#333333',
         shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.5,
+        shadowOpacity: 0.9,
         shadowRadius: 4,
-        backgroundColor: 'white',
+        backgroundColor: '#d5ffff',
         ...props.style
       }}>
         {props.children}
