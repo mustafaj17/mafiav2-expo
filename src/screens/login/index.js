@@ -7,6 +7,7 @@ import globalStyles from '../../styles/global';
 import MafiaBackground from '../../components/mafiaBackground';
 import Button from '../../components/button';
 import Text from '../../components/text';
+import MafiaLogo from '../../components/mafiaLogo';
 
 export default class Login extends React.Component {
 
@@ -38,6 +39,8 @@ export default class Login extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page}>
+
+          <MafiaLogo size={80}/>
 
           {this.state.errorMessage &&
           <Text style={{ color: 'pink' }}>
