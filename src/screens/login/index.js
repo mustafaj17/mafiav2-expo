@@ -1,10 +1,12 @@
 import React from 'react'
-import { KeyboardAvoidingView, Text, Button, BackHandler, ToastAndroid } from 'react-native';
+import { KeyboardAvoidingView, View } from 'react-native';
 import firebase from '../../services/firebase';
-import { NavigationEvents } from "react-navigation";
 import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
 import LoadingScreen from '../../components/loadingScreen';
 import globalStyles from '../../styles/global';
+import MafiaBackground from '../../components/mafiaBackground';
+import Button from '../../components/button';
+import Text from '../../components/text';
 
 export default class Login extends React.Component {
 
@@ -34,34 +36,49 @@ export default class Login extends React.Component {
     if(this.state.loading) return( <LoadingScreen/>);
 
     return (
-      <KeyboardAvoidingView style={globalStyles.page}>
+      <MafiaBackground>
+        <KeyboardAvoidingView style={globalStyles.page}>
+
+          {this.state.errorMessage &&
+          <Text style={{ color: 'pink' }}>
+            {this.state.errorMessage}
+          </Text>}
+
+
+          <FloatingLabelInput
+            label="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+
+          <FloatingLabelInput
+            secureTextEntry
+            label="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
 
 
 
-        <FloatingLabelInput
-          label="Email"
-          onChangeText={email => this.setState({ email })}
-          value={this.state.email}
-        />
 
-        <FloatingLabelInput
-          secureTextEntry
-          label="Password"
-          onChangeText={password => this.setState({ password })}
-          value={this.state.password}
-        />
+          <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-around'}}>
 
-        {this.state.errorMessage &&
-        <Text style={{ color: 'red' }}>
-          {this.state.errorMessage}
-        </Text>}
+            <Button
+              style={{width: 120, backgroundColor: 'none', borderWidth: 1,borderColor: 'white'}}
+              onPress={() => this.props.navigation.navigate('SignUp')}
+            >
+              <Text color='white'>Sign Up</Text>
+            </Button>
 
-        <Button title="Login" onPress={this.handleLogin} />
-        <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
-        />
-      </KeyboardAvoidingView>
+            <Button onPress={this.handleLogin} style={{width: 120}}>
+              <Text>Login</Text>
+            </Button>
+
+
+
+          </View>
+        </KeyboardAvoidingView>
+      </MafiaBackground>
     )
   }
 }
