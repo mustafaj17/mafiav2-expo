@@ -6,6 +6,9 @@ const Text = (props) => {
 
   let size;
   switch (props.size) {
+    case 'xsmall':
+      size= 12;
+      break;
     case 'small':
       size= 18;
       break;
@@ -31,7 +34,7 @@ const Text = (props) => {
 
 Text.propTypes = {
   type: PropTypes.oneOf(['bold', 'regular', 'light']),
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large']),
   color: PropTypes.string
 }
 

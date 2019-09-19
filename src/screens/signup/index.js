@@ -114,34 +114,34 @@ export default class SignUp extends React.Component {
             value={password}
           />
 
-          <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+          <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginTop: 5}}>
+
+            <ProfilePicture imageUri={imageUri} size={125}/>
+
             { hasCameraPermission === false ?
               <View>
                 <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
                 <Text style={{textAlign: 'center'}}>Please change settings</Text>
                 <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
               </View> :
-              <Button onPress={this.takeProfilePic}>
-                <Text>{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
+              <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
+                <Text color='white'>{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
               </Button>
             }
-
-
-            <ProfilePicture imageUri={imageUri}/>
           </View>
 
           <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-            <Text type='light' size='small'>I have read and agree to the
+            <Text type='light' size='xsmall' color='white'>I have read and agree to the
               <Text
                 onPress={() => this.props.navigation.navigate('Terms')}
                 style = {{ color: 'blue', textDecorationLine: 'underline' }}
                 type='light'
-                size='small'
+                size='xsmall'
               >
                 Terms & Conditions
               </Text>.
             </Text>
-            <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+            <Switch value={termsAccepted} style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
           </View>
 
           <Button onPress={this.handleSignUp}>
