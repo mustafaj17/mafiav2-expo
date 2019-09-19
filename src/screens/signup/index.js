@@ -95,7 +95,7 @@ export default class SignUp extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
-          <Text>{errorMessage}</Text>
+          <Text type='bold' color='pink' >{errorMessage}</Text>
 
           <FloatingLabelInput
             label="Display Name"
@@ -139,7 +139,7 @@ export default class SignUp extends React.Component {
                 size='xsmall'
               >
                 Terms & Conditions
-              </Text>.
+              </Text>
             </Text>
             <Switch value={termsAccepted} style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
           </View>
