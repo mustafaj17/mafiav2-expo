@@ -1,8 +1,11 @@
 import React from 'react'
-import { KeyboardAvoidingView, Text, BackHandler, ToastAndroid } from 'react-native';
+import { KeyboardAvoidingView, BackHandler, ToastAndroid } from 'react-native';
 import globalStyles from '../../styles/global';
 import {NavigationEvents} from "react-navigation";
 import Button from '../../components/button';
+import { LinearGradient } from 'expo-linear-gradient';
+import Text from '../../components/text';
+import MafiaLogo from '../../components/mafiaLogo';
 
 export default class Landing extends React.Component {
   screenWillFocus = () => {
@@ -21,12 +24,18 @@ export default class Landing extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
+      <LinearGradient
+        start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+        colors={['#2bbb81', '#3670bf']}
+        style={{ flex: 1, width: '100%' }}>
       <KeyboardAvoidingView style={globalStyles.page}>
         <NavigationEvents
           onWillFocus={this.screenWillFocus}
           onWillBlur={this.screenWillBlur}
         />
-        <Text>Welcome to Mafia</Text>
+
+        <MafiaLogo/>
+
         <Button
           onPress={() => navigation.navigate('Login')}
         >
@@ -45,6 +54,7 @@ export default class Landing extends React.Component {
           <Text>How To Play</Text>
         </Button>
       </KeyboardAvoidingView>
+      </LinearGradient>
     )
   }
 }

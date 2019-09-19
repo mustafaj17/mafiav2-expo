@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { firestore } from '../../../../services/firebase';
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
@@ -12,6 +12,9 @@ import {
 } from '../../../../redux/actions/gameActions';
 import { setUserIsAdmin } from '../../../../redux/actions/userActions';
 import { FloatingLabelInput } from '../../../../components/floatingLabelInput/floatingLabelInput';
+import { LinearGradient } from 'expo-linear-gradient';
+import Button from '../../../../components/button';
+import Text from '../../../../components/text';
 
 class StartOrJoinGame extends Component{
 
@@ -121,27 +124,31 @@ class StartOrJoinGame extends Component{
         const isUserStartingGame = this.props.navigation.getParam('isUserStartingGame');
 
         return (
-          <View style={styles.page}>
-              <FloatingLabelInput
-                autoFocus={true}
-                label={`Enter game ID`}
-                onChangeText={(text) => setName(text)}
-                value={gameName}
-                onSubmitEditing={this.startOrJoinGame}
-                returnKeyType='go'
-                autoCapitalize='none'
-              />
+          <LinearGradient
+            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+            colors={['#2bbb81', '#3670bf']}
+            style={{ flex: 1, width: '100%' }}>
+              <View style={styles.page}>
+                  <FloatingLabelInput
+                    autoFocus={true}
+                    label={`Enter game ID`}
+                    onChangeText={(text) => setName(text)}
+                    value={gameName}
+                    onSubmitEditing={this.startOrJoinGame}
+                    returnKeyType='go'
+                    autoCapitalize='none'
+                  />
 
-              {loading && <ActivityIndicator size="small" />}
+                  {loading && <ActivityIndicator size="small" />}
 
-              <View>
-                  <Text>{errorMessage}</Text>
+                  <View>
+                      <Text>{errorMessage}</Text>
+                  </View>
+                  <Button onPress={this.startOrJoinGame}>
+                      <Text>{isUserStartingGame ? 'Start' : 'Join'}</Text>
+                  </Button>
               </View>
-              <Button onPress={this.startOrJoinGame}
-                      title={`${isUserStartingGame ? 'Start' : 'Join'}`}
-                      style={styles.button}
-                      disabled={loading} />
-          </View>
+          </LinearGradient>
         )
     }
 }

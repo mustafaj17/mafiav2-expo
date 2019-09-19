@@ -17,7 +17,7 @@ const Button = (props) => {
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.9,
         shadowRadius: 4,
-        backgroundColor: '#d5ffff',
+        backgroundColor: '#cbf5f5',
         ...props.style
       }}>
         {props.children}

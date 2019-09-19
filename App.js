@@ -12,11 +12,13 @@ import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
 import Constants from 'expo-constants';
 import { View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const AppStack = createStackNavigator({
   Main: Main
 }, {
   headerMode: 'none',
+  transparentCard: true,
 });
 
 const AuthStack = createStackNavigator({
@@ -50,6 +52,7 @@ const AuthStack = createStackNavigator({
   {
     initialRouteName: 'Landing',
     defaultNavigationOptions: {
+      transparentCard: true,
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }
@@ -66,6 +69,7 @@ let Navigation = createAppContainer(createSwitchNavigator(
     initialRouteName: 'AuthLoading',
     headerMode: 'none',
     defaultNavigationOptions: {
+      transparentCard: true,
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }
@@ -95,6 +99,7 @@ class App extends React.Component{
 
     return (
       <Provider store={store}>
+
         <View style={{
           paddingTop: Constants.statusBarHeight,
           flex: 1
@@ -103,7 +108,6 @@ class App extends React.Component{
             <LoadingScreen/>
             :
             <Navigation/>
-
           }
         </View>
       </Provider>

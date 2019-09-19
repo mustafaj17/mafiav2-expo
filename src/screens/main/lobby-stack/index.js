@@ -26,9 +26,6 @@ export default createStackNavigator({
     initialRouteName: 'Lobby',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#28F1A6',
-        elevation: 0,
-        shadowOpacity: 0,
         marginTop: -Constants.statusBarHeight,
       },
     }

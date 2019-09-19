@@ -1,9 +1,11 @@
 import React from 'react'
-import {View, Text, Button} from 'react-native'
+import {View} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
+import Text from '../../../components/text';
+import Button from '../../../components/button';
 
 class GameOver extends React.Component {
 
@@ -27,7 +29,9 @@ class GameOver extends React.Component {
                </Text>
 
                {/*<Button title='Play again' onPress={this.handlePlayAgain}/>*/}
-               <Button title='End game' onPress={this.handleEndGame}/>
+               <Button onPress={this.handleEndGame}>
+                 <Text>End game</Text>
+               </Button>
 
            </View>
         )
@@ -45,4 +49,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(GameOver));
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(GameOver, true));

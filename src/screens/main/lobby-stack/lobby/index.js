@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import ProfilePicture from '../../../../components/profilePicture/profilePicture';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import { LinearGradient } from 'expo-linear-gradient';
-import logo from '../../../../../assets/logo.png'
+import MafiaLogo from '../../../../components/mafiaLogo';
 
 class Lobby extends Component {
   screenWillFocus= () => {
@@ -40,6 +40,7 @@ class Lobby extends Component {
     const { user } = this.props;
 
     return(
+
       <LinearGradient
         start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
         colors={['#2bbb81', '#3670bf']}
@@ -49,8 +50,6 @@ class Lobby extends Component {
             onWillFocus={this.screenWillFocus}
             onWillBlur={this.screenWillBlur}
           />
-
-
 
           <TouchableOpacity style={{
             position: 'absolute',
@@ -68,9 +67,7 @@ class Lobby extends Component {
             <Text>Join Game</Text>
           </Button>
 
-          <View style={{height: 120, marginBottom: 30, marginTop: 30}}>
-            <Image source={logo} style={{flex: 1, resizeMode: 'contain'}}/>
-          </View>
+        <MafiaLogo/>
 
 
           <Button onPress={this.handleStartGame} >
@@ -89,7 +86,7 @@ const styles = StyleSheet.create(
       width: '100%',
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     }
   }
 );

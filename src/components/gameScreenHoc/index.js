@@ -8,7 +8,7 @@ import Text from '../text';
 import Button from '../button';
 
 
-export default (WrappedComponent) => {
+export default (WrappedComponent, hideCloseButton) => {
   class HOC extends React.Component {
 
     state = {
@@ -72,9 +72,11 @@ export default (WrappedComponent) => {
     render() {
       return (
         <View style={{ flex: 1}}>
+
+          {!hideCloseButton &&
           <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 0, right: 10, zIndex: 10}}>
             <Ionicons name="md-close" size={32} color="black" />
-          </TouchableOpacity>
+          </TouchableOpacity>}
 
           {/*<Button title='Leave game' />*/}
           {this.state.showModal &&

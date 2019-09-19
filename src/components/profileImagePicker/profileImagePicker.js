@@ -61,6 +61,7 @@ export default class ProfileImagePicker extends React.Component {
     this.setState({loading: true});
 
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    console.log(status);
     if (status === 'granted') {
       this.setState({hasCameraLibraryPermission: true});
     }else{
@@ -201,10 +202,12 @@ export default class ProfileImagePicker extends React.Component {
                 left: 0
               }}>
                 <Button
-                  title={`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}
                   onPress={this.pickImageFromLibrary}
                   disabled={hasCameraLibraryPermission === false}
-                />
+                  style={{width: '100%'}}
+                >
+                  <Text size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
+                </Button>
               </View>
             </View>
           </Camera>

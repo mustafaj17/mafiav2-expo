@@ -17,8 +17,6 @@ const ProfilePicture = ({imageUri, size, loadingPhoto}) => {
 
   return(
     <View style={{ width: size, height: size }} >
-
-
       <Image style= {{flex:1 , borderRadius: borderRadius, width: '100%' }}
              source={imageUri ? {uri : imageUri} : noProfilePic}/>
     </View>
