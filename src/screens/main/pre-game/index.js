@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
@@ -109,7 +109,7 @@ class PreGame extends React.Component {
                 email: 'test3@email.com',
                 type: TYPE.CIVILIAN,
                 displayName: 'Pop3',
-                ready: true,
+                ready: false,
                 uid: 3
             },
             {
@@ -167,13 +167,15 @@ class PreGame extends React.Component {
 
               {currentPlayer.isAdmin &&
               <Button onPress={this.handleStartGame}>
-                  <Text color='black'>Start Test</Text>
+                  <Text color='black'>Start Game</Text>
               </Button>
               }
 
-              <Button onPress={this.startTestGame}>
-                  <Text color='black'>Start Test Game</Text>
-              </Button>
+              <TouchableOpacity onPress={this.startTestGame}
+                      style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
+                          display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <Text color='black' size='xsmall'>Test</Text>
+              </TouchableOpacity>
 
           </View>
         )

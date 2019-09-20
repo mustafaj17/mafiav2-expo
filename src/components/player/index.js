@@ -5,11 +5,12 @@ import ProfilePicture  from '../profilePicture/profilePicture';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Text from '../text';
+import { FontAwesome } from '@expo/vector-icons'
 
 export const Player = (props) => {
 
 
-    const { showPlayerTypes, player, currentPlayer } = props;
+    const { showPlayerTypes, player, currentPlayer,showPlayerReady } = props;
     const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
     const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
 
@@ -29,6 +30,10 @@ export const Player = (props) => {
           <ProfilePicture imageUri={player.photoURL} size={50}/>
           <Text style={{marginLeft: 10}}>{player.displayName}</Text>
           {getPlayerType()}
+          {showPlayerReady && player.ready && <View
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , marginLeft: 'auto', marginRight: 20}}>
+            <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
+          </View>}
         </View>
     )
 }
@@ -41,7 +46,8 @@ const mapStateToProps = state => {
 }
 
 Player.defaultProps = {
-  currentPlayer: false
+  currentPlayer: false,
+  showPlayerReady: false
 }
 
 export default connect(mapStateToProps)(Player);

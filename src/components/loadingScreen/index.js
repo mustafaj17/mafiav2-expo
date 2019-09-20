@@ -1,12 +1,17 @@
 import React from 'react'
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import globalStyles from '../../styles/global';
+import AnimateLogo from '../amimatedLogo';
+import MafiaBackground from '../mafiaBackground';
 
 const LoadingScreen = () => {
   return (
-    <View style={globalStyles.page}>
-      <ActivityIndicator size="large" />
-    </View>
+    <MafiaBackground>
+      <View style={globalStyles.page}>
+
+        <AnimateLogo/>
+      </View>
+    </MafiaBackground>
   )
 }
 

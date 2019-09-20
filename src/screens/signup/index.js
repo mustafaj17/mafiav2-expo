@@ -95,7 +95,7 @@ export default class SignUp extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
-          <ScrollView style={{ flex: 1, marginTop: 20}}>
+          <ScrollView style={{ flex: 1, paddingTop: 20}}>
             <Text type='bold' color='pink' >{errorMessage}</Text>
 
             <FloatingLabelInput
