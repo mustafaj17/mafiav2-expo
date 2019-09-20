@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import ProfilePicture from '../../../../components/profilePicture/profilePicture';
 import * as Permissions from 'expo-permissions';
@@ -8,6 +8,9 @@ import ProfileImagePicker from '../../../../components/profileImagePicker/profil
 import { uploadProfilePictureToFirebase, uriToBlob } from '../../../signup/utils';
 import firebase from '../../../../services/firebase';
 import { updateUserProfilePic, loadingUserPhotoToggle } from '../../../../redux/actions/userActions';
+import Text from '../../../../components/text';
+import Button from '../../../../components/button';
+import MafiaBackground from '../../../../components/mafiaBackground';
 
 class UserProfile extends React.Component {
 
@@ -51,19 +54,22 @@ class UserProfile extends React.Component {
     }
 
     return (
-      <View style={globalStyles.page}>
-        <ProfilePicture imageUri={user.photoURL}/>
-        { hasCameraPermission === false ?
-          <View>
-            <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
-            <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
-          </View> :
-          <Button title={ user.photoURL ? 'Change picture' : 'Add picture'}
-                  onPress={this.takeProfilePic} />
-        }
-        <Text>{user.email}</Text>
-        <Text>{user.displayName}</Text>
-      </View>
+      <MafiaBackground>
+        <View style={globalStyles.page}>
+          <ProfilePicture imageUri={user.photoURL} size={250}/>
+          { hasCameraPermission === false ?
+            <View>
+              <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+              <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
+            </View> :
+            <Button onPress={this.takeProfilePic} >
+              <Text color='black'>{ user.photoURL ? 'Change picture' : 'Add picture'}</Text>
+            </Button>
+          }
+          <Text>{user.email}</Text>
+          <Text>{user.displayName}</Text>
+        </View>
+      </MafiaBackground>
     );
   }
 }

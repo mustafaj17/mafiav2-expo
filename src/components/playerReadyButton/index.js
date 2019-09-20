@@ -14,7 +14,7 @@ const playerReadyButton = (props) => {
 
     return(
       <Button onPress={setPlayerReady}>
-        <Text>Ready</Text>
+        <Text color='black'>Ready</Text>
       </Button>
     )
 }

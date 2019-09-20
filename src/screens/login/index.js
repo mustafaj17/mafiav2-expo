@@ -72,11 +72,11 @@ export default class Login extends React.Component {
               style={{width: 120, backgroundColor: 'none', borderWidth: 1,borderColor: 'white'}}
               onPress={() => this.props.navigation.navigate('SignUp')}
             >
-              <Text color='white'>Sign Up</Text>
+              <Text >Sign Up</Text>
             </Button>
 
             <Button onPress={this.handleLogin} style={{width: 120}}>
-              <Text>Login</Text>
+              <Text color='black'>Login</Text>
             </Button>
 
 

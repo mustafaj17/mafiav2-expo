@@ -52,7 +52,9 @@ const AuthStack = createStackNavigator({
   {
     initialRouteName: 'Landing',
     defaultNavigationOptions: {
-      transparentCard: true,
+
+      headerTransparent: true,
+      headerTintColor: 'white',
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }
@@ -69,7 +71,8 @@ let Navigation = createAppContainer(createSwitchNavigator(
     initialRouteName: 'AuthLoading',
     headerMode: 'none',
     defaultNavigationOptions: {
-      transparentCard: true,
+      headerTransparent: true,
+      headerTintColor: 'white',
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }

@@ -18,6 +18,8 @@ import globalStyles from '../../styles/global';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import Button from '../button';
 import Text from '../text';
+import MafiaBackground from '../mafiaBackground';
+import ProfilePicture from '../profilePicture/profilePicture';
 
 
 const DESIRED_RATIO = "16:9";
@@ -102,38 +104,37 @@ export default class ProfileImagePicker extends React.Component {
   render() {
     let { image, showPic, loading, screenWidth, hasCameraLibraryPermission } = this.state;
     let { hideProfileImagePicker } = this.props;
-    let pictureWidth = screenWidth - 20;
-    let pictureBorderRadius = Math.floor(pictureWidth/2);
+    let pictureSize = screenWidth - 60;
+    let pictureBorderRadius = Math.floor(pictureSize/2);
 
     if(loading) return <LoadingScreen/>;
 
     if(showPic){
       return(
         <Modal>
-          <View style={globalStyles.page}>
+          <MafiaBackground>
+            <View style={globalStyles.page}>
 
-            <TouchableOpacity
-              onPress={hideProfileImagePicker}
-              style={{
-                position: 'absolute',
-                top: Constants.statusBarHeight,
-                right: 10,
-              }}>
-              <Ionicons name="md-close" size={32} color="red" />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={hideProfileImagePicker}
+                style={{
+                  position: 'absolute',
+                  top: Constants.statusBarHeight,
+                  right: 10,
+                }}>
+                <Ionicons name="md-close" size={32} color="red" />
+              </TouchableOpacity>
 
-            <View style={{ width: pictureWidth, height: pictureWidth }} >
-              <Image style= {{flex:1 , borderRadius: pictureBorderRadius }}
-                     source={{ uri: image }}
-              />
+              <ProfilePicture imageUri={image} size={pictureSize}/>
+
+              <Button onPress={() => this.setState({showPic: false})}>
+                <Text color='black'>Change image</Text>
+              </Button>
+              <Button onPress={this.savePicture}>
+                <Text color='black'>Done</Text>
+              </Button>
             </View>
-            <Button onPress={() => this.setState({showPic: false})}>
-              <Text>Change image</Text>
-            </Button>
-            <Button onPress={this.savePicture}>
-              <Text>Done</Text>
-            </Button>
-          </View>
+          </MafiaBackground>
         </Modal>
       )
     }
@@ -168,8 +169,8 @@ export default class ProfileImagePicker extends React.Component {
               </TouchableOpacity>
 
               <View style={{
-                height: pictureWidth,
-                width:pictureWidth,
+                height: pictureSize,
+                width:pictureSize,
                 borderColor: 'white',
                 borderWidth: 3,
                 borderStyle: 'solid',
@@ -205,7 +206,7 @@ export default class ProfileImagePicker extends React.Component {
                   disabled={hasCameraLibraryPermission === false}
                   style={{width: '100%', margin: 0}}
                 >
-                  <Text size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
+                  <Text color='black' size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
                 </Button>
               </View>
             </View>

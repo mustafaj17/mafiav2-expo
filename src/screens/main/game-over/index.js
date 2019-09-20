@@ -30,7 +30,7 @@ class GameOver extends React.Component {
 
                {/*<Button title='Play again' onPress={this.handlePlayAgain}/>*/}
                <Button onPress={this.handleEndGame}>
-                 <Text>End game</Text>
+                 <Text color='black'>End game</Text>
                </Button>
 
            </View>

@@ -154,11 +154,12 @@ class PreGame extends React.Component {
         }
 
         return (
+
           <View style={styles.page}>
 
-              <View><Text type='bold'>Game Lobby</Text></View>
+              <View><Text type='bold'  style={{marginTop: 10}}>Game Lobby</Text></View>
 
-              <View><Text>{gameData.gameName}</Text></View>
+              <View><Text >{gameData.gameName}</Text></View>
 
               <ScrollView style={{width: '100%'}}>
                   {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
@@ -166,12 +167,12 @@ class PreGame extends React.Component {
 
               {currentPlayer.isAdmin &&
               <Button onPress={this.handleStartGame}>
-                  <Text>Start Test</Text>
+                  <Text color='black'>Start Test</Text>
               </Button>
               }
 
               <Button onPress={this.startTestGame}>
-                  <Text>Start Test Game</Text>
+                  <Text color='black'>Start Test Game</Text>
               </Button>
 
           </View>

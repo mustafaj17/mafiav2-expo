@@ -6,6 +6,7 @@ import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { firestore } from '../../services/firebase';
 import Text from '../text';
 import Button from '../button';
+import MafiaBackground from '../mafiaBackground';
 
 
 export default (WrappedComponent, hideCloseButton) => {
@@ -84,14 +85,16 @@ export default (WrappedComponent, hideCloseButton) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <Text>Are you sure you want to leave?</Text>
               <Button onPress={this.handlePlayerLeaving}>
-                <Text>Yes</Text>
+                <Text color='black'>Yes</Text>
               </Button>
               <Button onPress={this.hideModal}>
-                <Text>No</Text>
+                <Text color='black'>No</Text>
               </Button>
             </View>
           </Modal>}
-          <WrappedComponent {...this.props} />
+          <MafiaBackground>
+            <WrappedComponent {...this.props} />
+          </MafiaBackground>
         </View>
       )
     }

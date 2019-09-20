@@ -125,13 +125,13 @@ export default class SignUp extends React.Component {
                 <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
               </View> :
               <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
-                <Text color='white'>{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
+                <Text color='black'>{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
               </Button>
             }
           </View>
 
           <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-            <Text type='light' size='xsmall' color='white'>I have read and agree to the
+            <Text type='light' size='xsmall' >I have read and agree to the
               <Text
                 onPress={() => this.props.navigation.navigate('Terms')}
                 style = {{ color: 'blue', textDecorationLine: 'underline' }}
@@ -145,7 +145,7 @@ export default class SignUp extends React.Component {
           </View>
 
           <Button onPress={this.handleSignUp}>
-            <Text>Create account</Text>
+            <Text color='black'>Create account</Text>
           </Button>
 
         </KeyboardAvoidingView>

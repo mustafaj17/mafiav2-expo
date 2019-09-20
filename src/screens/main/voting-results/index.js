@@ -96,21 +96,21 @@ class VotingResults extends React.Component {
           <View style={{...styles.page, justifyContent: 'space-between'}}>
 
               <Text type='bold' size='large'> VotingResults </Text>
-              { gameData.votingDraw && <Text>Game was draw </Text> }
+              { gameData.votingDraw && <Text type='bold' style={{marginBottom: 10, marginTop: 10}}>Game was a draw </Text> }
 
               <ScrollView style={{width: '100%', flex: 1}}>
-                  <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
                       { this.getResults() }
-                  </View>
+
               </ScrollView>
 
               { currentPlayer.isAdmin &&
               (gameData.votingDraw ?
                   <Button onPress={this.handleRevote} >
-                      <Text>Re-vote</Text>
+                      <Text color='black'>Re-vote</Text>
                   </Button> :
                   <Button onPress={this.handleNextRound} >
-                      <Text>Next</Text>
+                      <Text color='black'>Next</Text>
                   </Button>
               ) }
 

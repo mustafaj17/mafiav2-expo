@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import {ActivityIndicator, Image, Text, View} from 'react-native';
+import {ActivityIndicator, Image, View} from 'react-native';
 import noProfilePic from '../../../assets/noProfilePic.png'
 import * as PropTypes from 'prop-types';
+import Text from '../text';
 
 const ProfilePicture = ({imageUri, size, loadingPhoto}) => {
 
@@ -11,7 +12,7 @@ const ProfilePicture = ({imageUri, size, loadingPhoto}) => {
   if(loadingPhoto) return (
     <View style={{ width: size, height: size, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
       <ActivityIndicator size="large" color="#28F1A6" />
-      <Text style={{marginTop: 10}}>Loading image...</Text>
+      <Text style={{marginTop: 10}} >Loading image...</Text>
     </View>
   )
 

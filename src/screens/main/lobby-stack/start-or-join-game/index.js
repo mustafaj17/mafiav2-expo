@@ -15,6 +15,7 @@ import { FloatingLabelInput } from '../../../../components/floatingLabelInput/fl
 import { LinearGradient } from 'expo-linear-gradient';
 import Button from '../../../../components/button';
 import Text from '../../../../components/text';
+import AnimateLogo from '../../../../components/amimatedLogo';
 
 class StartOrJoinGame extends Component{
 
@@ -30,16 +31,20 @@ class StartOrJoinGame extends Component{
 
     startOrJoinGame = async () => {
 
-        const { gameName } = this.state;
+        const { gameName, loading } = this.state;
+
+        if(loading){
+            return;
+        }
 
         if(gameName.length === 0){
             this.setState({ errorMessage: "Please enter a game name" });
             return;
         }
 
+        this.setState({ loading: true })
         let { navigation, setGameDoc, user } = this.props;
         const isUserStartingGame = this.props.navigation.getParam('isUserStartingGame', false);
-        this.setState({ loading: true })
 
         try{
             const gameDoc = await firestore.collection('mafia-games').doc(gameName).get();
@@ -129,24 +134,29 @@ class StartOrJoinGame extends Component{
             colors={['#2bbb81', '#3670bf']}
             style={{ flex: 1, width: '100%' }}>
               <View style={styles.page}>
-                  <FloatingLabelInput
-                    autoFocus={true}
-                    label={`Enter game ID`}
-                    onChangeText={(text) => setName(text)}
-                    value={gameName}
-                    onSubmitEditing={this.startOrJoinGame}
-                    returnKeyType='go'
-                    autoCapitalize='none'
-                  />
 
-                  {loading && <ActivityIndicator size="small" />}
+                  {loading ? <AnimateLogo/> :
 
-                  <View>
-                      <Text>{errorMessage}</Text>
-                  </View>
-                  <Button onPress={this.startOrJoinGame}>
-                      <Text>{isUserStartingGame ? 'Start' : 'Join'}</Text>
-                  </Button>
+                    <>
+                        <FloatingLabelInput
+                          autoFocus={true}
+                          label={`Enter game ID`}
+                          onChangeText={(text) => setName(text)}
+                          value={gameName}
+                          onSubmitEditing={this.startOrJoinGame}
+                          returnKeyType='go'
+                          autoCapitalize='none'
+                        />
+
+
+                        <View>
+                            <Text color='pink'>{errorMessage}</Text>
+                        </View>
+                        <Button onPress={this.startOrJoinGame}>
+                            <Text color='black'>{isUserStartingGame ? 'Start' : 'Join'}</Text>
+                        </Button>
+                    </>
+                  }
               </View>
           </LinearGradient>
         )

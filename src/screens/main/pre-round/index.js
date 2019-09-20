@@ -31,7 +31,7 @@ class PreRound extends React.Component {
     return (
       <View style={styles.page}>
 
-        <View><Text type='bold'>{gameData.gameName}</Text></View>
+        <View><Text type='bold'  style={{marginTop: 10}}>{gameData.gameName}</Text></View>
 
         <ScrollView style={{width: '100%'}}>
           {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
@@ -50,11 +50,11 @@ class PreRound extends React.Component {
           });
           batch.commit().then( () => {});
         }}>
-          <Text>Ready-all</Text>
+          <Text color='black'>Ready-all</Text>
         </Button>
 
         <Button onPress={toggleDisplayPlayerTypes} >
-          <Text>toggle type</Text>
+          <Text color='black'>toggle type</Text>
         </Button>
         </View>
 

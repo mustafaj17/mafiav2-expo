@@ -60,7 +60,7 @@ export default class AnimateLogo extends Component{
     })
 
     return (
-      <View style={styles['spinner-holder']}>
+      <View style={{...styles.spinnerHolder, ...this.props.style}}>
         <Animated.View                 // Special animatable View
           style={{
             top: top,
@@ -71,28 +71,28 @@ export default class AnimateLogo extends Component{
             transform: [{rotate: spin}]
           }}
         >
-          <Image source={hat} style={styles['hat']}></Image>
+          <Image source={hat} style={styles.hat}/>
         </Animated.View>
 
-        <Image source={logo} style={styles['logo']}></Image>
+        <Image source={logo} style={styles.logo}/>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  'spinner-holder':{
+  spinnerHolder:{
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative'
   },
-  'logo':{
+  logo:{
     width: 123,
     height: 80,
     resizeMode: 'contain'
   },
-  'hat':{
+  hat:{
     width: 21,
     height: 16,
     resizeMode: 'contain',

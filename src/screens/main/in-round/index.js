@@ -52,14 +52,14 @@ class InRound extends React.Component {
         return (
            <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-               <Text type='bold'> InRound </Text>
+               <View><Text type='bold'  style={{marginTop: 10}}>InRound</Text></View>
                <Text type='bold' size='large'>{this.state.timer} </Text>
 
                { currentPlayer.isAdmin &&
                <Button onPress={ () => {
                    gameDoc.ref.update( 'roundSkipped', true)
                }} >
-                   <Text>Skip round</Text>
+                   <Text color='black'>Skip round</Text>
                </Button>
 
                }

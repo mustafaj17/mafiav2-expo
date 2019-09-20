@@ -60,18 +60,18 @@ class Lobby extends Component {
           }}
                             onPress={this.gotoProfileScreen}>
             <ProfilePicture size={40} imageUri={user.photoURL}/>
-            <Text size='small' color='white'>Profile</Text>
+            <Text size='small'>Profile</Text>
           </TouchableOpacity>
 
           <Button onPress={this.handleJoinGame}>
-            <Text>Join Game</Text>
+            <Text color='black'>Join Game</Text>
           </Button>
 
         <MafiaLogo/>
 
 
           <Button onPress={this.handleStartGame} >
-            <Text>Start New Game</Text>
+            <Text color='black'>Start New Game</Text>
           </Button>
         </View>
       </LinearGradient>

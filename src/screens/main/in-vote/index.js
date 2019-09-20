@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ScrollView, FlatList} from 'react-native'
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
@@ -8,12 +8,18 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Button from '../../../components/button';
 import Text from '../../../components/text';
 import { Player } from '../../../components/player';
+import AnimateLogo from '../../../components/amimatedLogo';
 
 class InVote extends React.Component {
+
+    state = {
+        playerHasVoted : false
+    }
 
     voteForPlayer = player => {
         const { gameDoc, currentPlayer } = this.props;
         gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player})
+        this.setState({playerHasVoted: true})
     }
 
     shouldComponentUpdate(nextProps) {
@@ -75,32 +81,35 @@ class InVote extends React.Component {
     render() {
 
         const { inGamePlayers, currentPlayer } = this.props;
+        const { playerHasVoted } = this.state;
 
         return (
           <View style={styles.page}>
 
-              <Text> InVote </Text>
+              <View><Text type='bold'  style={{marginTop: 10}}>InVote</Text></View>
 
-              <ScrollView style={{width: '100%'}}>
+              {(!currentPlayer.isOut && !playerHasVoted) ?
 
-                  {inGamePlayers.filter( player => player.email !== currentPlayer.email).map( player => (
+                <ScrollView style={{ width: '100%' }}>
 
-                    <Button key={player.uid}
-                            onPress={ () => { this.voteForPlayer(player)}}
-                            style={{
-                                width: '100%',
-                                padding: 0,
-                                margin: 0,
-                                justifyContent: 'left',
+                    {inGamePlayers.filter(player => player.email !== currentPlayer.email).map(player => (
+                      <TouchableOpacity key={player.uid}
+                                        onPress={() => {
+                                            this.voteForPlayer(player)
+                                        }}>
+                          <Player player={player} showTypes={false}/>
+                      </TouchableOpacity>
+                    ))}
 
-                            }}>
-                        <Player player={player} showTypes={false}/>
-                    </Button>
-                  ))}
+                </ScrollView> :
+                <View style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <AnimateLogo/>
+                    <Text>Voting in progress...</Text>
+                </View>
+              }
 
-              </ScrollView>
               <Button onPress={this.testAutoVote}>
-                  <Text>Auto-Vote</Text>
+                  <Text color='black'>Auto-Vote</Text>
               </Button>
 
           </View>
