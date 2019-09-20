@@ -75,15 +75,16 @@ export default (WrappedComponent, hideCloseButton) => {
         <View style={{ flex: 1}}>
 
           {!hideCloseButton &&
-          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 0, right: 10, zIndex: 10}}>
-            <Ionicons name="md-close" size={32} color="black" />
+          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 5, right: 10, zIndex: 10}}>
+            <Ionicons name="md-close" size={32} color="white" />
           </TouchableOpacity>}
 
           {/*<Button title='Leave game' />*/}
           {this.state.showModal &&
           <Modal onRequestClose={this.hideModal} animationType='fade'>
+            <MafiaBackground>
             <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text>Are you sure you want to leave?</Text>
+              <Text style={{marginBottom: 10}}>Are you sure you want to leave?</Text>
               <Button onPress={this.handlePlayerLeaving}>
                 <Text color='black'>Yes</Text>
               </Button>
@@ -91,6 +92,7 @@ export default (WrappedComponent, hideCloseButton) => {
                 <Text color='black'>No</Text>
               </Button>
             </View>
+            </MafiaBackground>
           </Modal>}
           <MafiaBackground>
             <WrappedComponent {...this.props} />
