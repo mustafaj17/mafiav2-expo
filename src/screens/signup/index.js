@@ -114,7 +114,7 @@ export default class SignUp extends React.Component {
             value={password}
           />
 
-          <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', marginTop: 5}}>
+          <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
 
             <ProfilePicture imageUri={imageUri} size={125}/>
 
@@ -125,7 +125,7 @@ export default class SignUp extends React.Component {
                 <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
               </View> :
               <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
-                <Text color='black'>{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
+                <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
               </Button>
             }
           </View>

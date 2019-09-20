@@ -7,18 +7,14 @@ class PlayerVoteResult extends React.Component {
 
   constructor(props){
     super(props);
-    let initHeight = 0;
-    if(!!props.showVoters){
-      initHeight = props.votedForBy.length * 35;
-    }
+    let maxHeight = props.votedForBy.length * 35;
+    let initHeight = !!props.showVoters ? maxHeight : 0;
 
     this.state = {
       showVoters : !!props.showVoters,
-      maxHeight: props.votedForBy.length * 35
+      maxHeight: maxHeight
     }
 
-
-    console.log(initHeight);
     this.height = new Animated.Value(initHeight);
   }
 
@@ -28,7 +24,7 @@ class PlayerVoteResult extends React.Component {
     this.setState({showVoters : updatedShowVoter})
     Animated.timing(this.height, {
       toValue: updatedShowVoter ? this.state.maxHeight : 0,
-      duration: 150,
+      duration: 150
     }).start();
   }
 
@@ -37,10 +33,6 @@ class PlayerVoteResult extends React.Component {
     const {playerName, votedForBy } = this.props;
     const {showVoters } = this.state;
 
-    // let height = this.height.interpolate({
-    //   inputRange: [0, 100],
-    //   outputRange: [10, 100],
-    // })
     return (
       <TouchableOpacity onPress={ this.handleToggle }>
         <View style={{borderBottomWidth: 1, borderBottomColor: 'white', padding: 10}}>
@@ -56,7 +48,7 @@ class PlayerVoteResult extends React.Component {
           </View>
 
           <Animated.View style={{height: this.height}}>
-            {votedForBy.map(player => <Text type='light' style={{marginTop: 5}}>{player}</Text>)}
+            {votedForBy.map(player => <Text key={player} type='light' style={{marginTop: 5}}>{player}</Text>)}
           </Animated.View>
         </View>
       </TouchableOpacity>

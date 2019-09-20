@@ -36,20 +36,20 @@ export class FloatingLabelInput extends React.Component {
       }),
       top: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [30, 0],
+        outputRange: [28, 0],
       }),
       fontSize: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [20, 14],
+        outputRange: [22, 16],
       }),
       color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: ['#aaa', '#000'],
+        outputRange: ['#f9f9f9', '#ffffff'],
       }),
     };
     return (
       <View style={{ paddingTop: 18, width: '100%' }}>
-        <Animated.Text style={{...labelStyle, color: 'white', fontFamily: 'oxygen-regular'}}>
+        <Animated.Text style={{...labelStyle, fontFamily: 'oxygen-regular'}}>
           {label}
         </Animated.Text>
         <TextInput
@@ -59,7 +59,7 @@ export class FloatingLabelInput extends React.Component {
             marginLeft: 10,
             marginRight: 10,
             marginTop: 5,
-            marginBottom: 5,
+            marginBottom: 10,
             fontSize: 22,
             color: 'white',
             borderWidth: 1,
@@ -67,6 +67,7 @@ export class FloatingLabelInput extends React.Component {
             height: 40,
             padding: 10,
             fontFamily: 'oxygen-regular',
+            ...props.style
           }}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
