@@ -2,7 +2,7 @@ import React from 'react'
 import {
   View,
   Switch,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, ScrollView,
 } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
@@ -95,54 +95,57 @@ export default class SignUp extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
-          <Text type='bold' color='pink' >{errorMessage}</Text>
+          <ScrollView style={{ flex: 1, marginTop: 20}}>
+            <Text type='bold' color='pink' >{errorMessage}</Text>
 
-          <FloatingLabelInput
-            label="Display Name"
-            value={displayName}
-            onChangeText={value => this.setState({ displayName: value })}
-          />
-          <FloatingLabelInput
-            label="Email"
-            onChangeText={ value => this.setState({ email: value })}
-            value={email}
-          />
-          <FloatingLabelInput
-            secureTextEntry={true}
-            label="Password"
-            onChangeText={ value => this.setState({ password: value })}
-            value={password}
-          />
+            <FloatingLabelInput
+              label="Display Name"
+              value={displayName}
+              onChangeText={value => this.setState({ displayName: value })}
+            />
+            <FloatingLabelInput
+              label="Email"
+              onChangeText={ value => this.setState({ email: value })}
+              value={email}
+            />
+            <FloatingLabelInput
+              secureTextEntry={true}
+              label="Password"
+              onChangeText={ value => this.setState({ password: value })}
+              value={password}
+            />
 
-          <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
 
-            <ProfilePicture imageUri={imageUri} size={125}/>
+              <ProfilePicture imageUri={imageUri} size={125}/>
 
-            { hasCameraPermission === false ?
-              <View>
-                <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
-                <Text style={{textAlign: 'center'}}>Please change settings</Text>
-                <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
-              </View> :
-              <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
-                <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
-              </Button>
-            }
-          </View>
+              { hasCameraPermission === false ?
+                <View>
+                  <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+                  <Text style={{textAlign: 'center'}}>Please change settings</Text>
+                  <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
+                </View> :
+                <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
+                  <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
+                </Button>
+              }
+            </View>
 
-          <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-            <Text type='light' size='xsmall' >I have read and agree to the
-              <Text
-                onPress={() => this.props.navigation.navigate('Terms')}
-                style = {{ color: 'blue', textDecorationLine: 'underline' }}
-                type='light'
-                size='xsmall'
-              >
-                Terms & Conditions
+            <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+              <Text type='light' size='xsmall' >I have read and agree to the
+                <Text
+                  onPress={() => this.props.navigation.navigate('Terms')}
+                  style = {{ color: 'blue', textDecorationLine: 'underline' }}
+                  type='light'
+                  size='xsmall'
+                >
+                  Terms & Conditions
+                </Text>
               </Text>
-            </Text>
-            <Switch value={termsAccepted} style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
-          </View>
+              <Switch value={termsAccepted} style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+            </View>
+          </ScrollView>
+
 
           <Button onPress={this.handleSignUp}>
             <Text color='black'>Create account</Text>
