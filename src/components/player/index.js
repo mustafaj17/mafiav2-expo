@@ -31,7 +31,17 @@ export const Player = (props) => {
           <Text style={{marginLeft: 10}}>{player.displayName}</Text>
           {getPlayerType()}
           {showPlayerReady && player.ready && <View
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , marginLeft: 'auto', marginRight: 20}}>
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              left: 40,
+              bottom: 5,
+              backgroundColor: '#008165',
+              borderRadius: 15
+
+            }}>
             <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
           </View>}
         </View>
@@ -63,5 +73,7 @@ const styles =  StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 5,
     margin: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255, 0.4)'
   },
 });

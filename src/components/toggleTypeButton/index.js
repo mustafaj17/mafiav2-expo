@@ -34,15 +34,15 @@ class ToggleTypeButton extends React.Component {
 
   render() {
 
-    const position = -75;
+    const position = -50;
 
     const size = this.size.interpolate({
       inputRange: [0, 1],
-      outputRange: [150, 200]
+      outputRange: [120, 150]
     });
     const borderRadius = this.size.interpolate({
       inputRange: [0, 1],
-      outputRange: [75, 100]
+      outputRange: [60, 75]
     });
 
     const spin = this.size.interpolate({
@@ -51,7 +51,7 @@ class ToggleTypeButton extends React.Component {
     })
     const marginLeft = this.size.interpolate({
       inputRange: [0, 1],
-      outputRange: [-30, 0]
+      outputRange: [-25, 0]
     })
     const marginTop = this.size.interpolate({
       inputRange: [0, 1],
@@ -65,7 +65,7 @@ class ToggleTypeButton extends React.Component {
         alignItems: 'center' ,
         flex: 1,
         position: 'absolute',
-        backgroundColor: '#5538F9',
+        backgroundColor: 'rgba(0,0,0, 0.7)',
         borderWidth: 1,
         borderColor: 'white',
         bottom: position,
@@ -74,6 +74,7 @@ class ToggleTypeButton extends React.Component {
         width: size,
         borderRadius: borderRadius
       }}>
+        {/*<Text size='small' type='light' style={{position: 'absolute', top: -5, left: -20, transform: [{rotate: '-45deg'}]}}>{this.props.showPlayerTypes ? 'hide' : 'show'}</Text>*/}
         <TouchableOpacity onPress={this.props.toggleDisplayPlayerTypes}  style={{flex: 1, width:'100%'}}>
           <Animated.View style={{
             display: 'flex',
@@ -87,7 +88,8 @@ class ToggleTypeButton extends React.Component {
               rotate: spin
             }]
           }}>
-          <AntDesign name='arrowleft' size={50} color='white' style={{}}/>
+
+          <AntDesign name='arrowleft' size={30} color='#31E785'/>
           </Animated.View>
         </TouchableOpacity>
       </Animated.View>
