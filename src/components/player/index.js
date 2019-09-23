@@ -1,13 +1,14 @@
 import React from 'react';
 import { TYPE } from '../../constants';
 import { View, StyleSheet, Image } from 'react-native';
-import ProfilePicture  from '../profilePicture/profilePicture';
+import ProfilePicture  from '../profilePicture';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Text from '../text';
 import { FontAwesome } from '@expo/vector-icons'
-import mafiaIcon from '../../../assets/mafia-icon.png';
+import mafiaIcon from '../../../assets/mafia-icon3.png';
 import civIcon from '../../../assets/civilian-icon.png';
+import AnimatedType from '../animatedType';
 
 export const Player = (props) => {
 
@@ -18,20 +19,22 @@ export const Player = (props) => {
 
   const getPlayerType = () => {
 
-    if(!showPlayerTypes) return;
+    // if(!showPlayerTypes) return;
 
 
-    const playerType= <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
-                             resizeMode='contain'
-                             style= {{flex:1 , borderRadius: 20, width: '100%' }}/>
+    const playerType=
+      <AnimatedType>
+        <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
+               resizeMode='contain'
+               style= {{flex:1 , width: '100%' }}/>
+      </AnimatedType>
 
     if(currentPlayerIsCivilian) {
       if(playerMatch) {
         return (<View style={{
-          height: 40,
-          width: 40,
           marginLeft: 'auto',
           marginRight: 10
+
         }}>{playerType}</View>)
       }
       return null;
@@ -39,10 +42,8 @@ export const Player = (props) => {
 
     if(player.type !== TYPE.CIVILIAN) {
       return (<View style={{
-        height: 40,
-        width: 40,
         marginLeft: 'auto',
-        marginRight: 10
+        marginRight: 10,
       }}>{playerType}</View>)
     }else{
       return null;
@@ -53,8 +54,9 @@ export const Player = (props) => {
     <View key={player.uid} style={styles.player}>
       <ProfilePicture imageUri={player.photoURL} size={50}/>
       <Text style={{marginLeft: 10}}>{player.displayName}</Text>
-      {getPlayerType()}
-      {showPlayerReady && player.ready && <View
+
+      {showPlayerReady && player.ready &&
+      <View
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -68,6 +70,8 @@ export const Player = (props) => {
         }}>
         <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
       </View>}
+
+      {getPlayerType()}
     </View>
   )
 }
@@ -98,6 +102,7 @@ const styles =  StyleSheet.create({
     paddingLeft: 5,
     margin: 5,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255, 0.4)'
+    borderBottomColor: 'rgba(255,255,255, 0.4)',
+    overflow: 'hidden'
   },
 });

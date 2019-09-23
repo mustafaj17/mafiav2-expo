@@ -19,7 +19,7 @@ import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import Button from '../button';
 import Text from '../text';
 import MafiaBackground from '../mafiaBackground';
-import ProfilePicture from '../profilePicture/profilePicture';
+import ProfilePicture from '../profilePicture';
 
 
 const DESIRED_RATIO = "16:9";

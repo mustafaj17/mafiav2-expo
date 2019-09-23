@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import ProfilePicture from '../../../../components/profilePicture/profilePicture';
+import ProfilePicture from '../../../../components/profilePicture';
 import * as Permissions from 'expo-permissions';
 import globalStyles from '../../../../styles/global';
 import ProfileImagePicker from '../../../../components/profileImagePicker/profileImagePicker';

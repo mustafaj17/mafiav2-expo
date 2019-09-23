@@ -12,7 +12,7 @@ import PlayerVoteResult from '../../../components/playerVoteResult';
 
 class VotingResults extends React.Component {
 
-    shouldComponentUpdate(nextProps){
+    shouldComponentUpdate = (nextProps) => {
 
         const { gameData, navigation, gameDoc, inGamePlayers } = nextProps;
 
@@ -100,7 +100,7 @@ class VotingResults extends React.Component {
 
               <ScrollView style={{width: '100%', flex: 1}}>
 
-                      { this.getResults() }
+                  { this.getResults() }
 
               </ScrollView>
 

@@ -22,7 +22,7 @@ class InVote extends React.Component {
         this.setState({playerHasVoted: true})
     }
 
-    shouldComponentUpdate(nextProps) {
+    shouldComponentUpdate= (nextProps) => {
 
         const { allPlayersHaveVoted, inGamePlayers } = nextProps;
 

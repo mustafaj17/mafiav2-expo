@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
-import ProfilePicture from '../../../../components/profilePicture/profilePicture';
+import ProfilePicture from '../../../../components/profilePicture';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
-import { LinearGradient } from 'expo-linear-gradient';
 import MafiaLogo from '../../../../components/mafiaLogo';
+import MafiaBackground from '../../../../components/mafiaBackground';
 
 class Lobby extends Component {
   screenWillFocus= () => {
@@ -41,10 +41,7 @@ class Lobby extends Component {
 
     return(
 
-      <LinearGradient
-        start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
-        colors={['#2bbb81', '#3670bf']}
-        style={{ flex: 1, width: '100%' }}>
+      <MafiaBackground>
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
@@ -67,14 +64,14 @@ class Lobby extends Component {
             <Text color='black'>Join Game</Text>
           </Button>
 
-        <MafiaLogo/>
+          <MafiaLogo/>
 
 
           <Button onPress={this.handleStartGame} >
             <Text color='black'>Start New Game</Text>
           </Button>
         </View>
-      </LinearGradient>
+      </MafiaBackground>
     )
   }
 }
