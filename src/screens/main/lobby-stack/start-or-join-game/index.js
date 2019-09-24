@@ -16,6 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Button from '../../../../components/button';
 import Text from '../../../../components/text';
 import AnimateLogo from '../../../../components/amimatedLogo';
+import MafiaBackground from '../../../../components/mafiaBackground';
 
 class StartOrJoinGame extends Component{
 
@@ -129,10 +130,7 @@ class StartOrJoinGame extends Component{
         const isUserStartingGame = this.props.navigation.getParam('isUserStartingGame');
 
         return (
-          <LinearGradient
-            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
-            colors={['#2bbb81', '#3670bf']}
-            style={{ flex: 1, width: '100%' }}>
+          <MafiaBackground>
               <View style={styles.page}>
 
                   {loading ? <AnimateLogo/> :
@@ -158,7 +156,7 @@ class StartOrJoinGame extends Component{
                     </>
                   }
               </View>
-          </LinearGradient>
+          </MafiaBackground>
         )
     }
 }

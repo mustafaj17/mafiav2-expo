@@ -125,7 +125,7 @@ export default class SignUp extends React.Component {
                   <Text style={{textAlign: 'center'}}>Please change settings</Text>
                   <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
                 </View> :
-                <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white'}}>
+                <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white' , elevation: 0}}>
                   <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
                 </Button>
               }
@@ -142,7 +142,7 @@ export default class SignUp extends React.Component {
                   Terms & Conditions
                 </Text>
               </Text>
-              <Switch value={termsAccepted} style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+              <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
             </View>
           </ScrollView>
 

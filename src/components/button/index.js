@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableHighlight underlayColor='transparent' onPress={props.onPress}>
       <View style={{
         display: 'flex',
         justifyContent: 'center',
@@ -17,12 +17,13 @@ const Button = (props) => {
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.9,
         shadowRadius: 4,
+        elevation: 5,
         backgroundColor: '#cbf5f5',
         ...props.style
       }}>
         {props.children}
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
 

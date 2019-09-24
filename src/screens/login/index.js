@@ -41,8 +41,8 @@ export default class Login extends React.Component {
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page}>
 
-          {/*<MafiaLogo size={80}/>*/}
-          <AnimateLogo/>
+          <MafiaLogo size={80}/>
+          {/*<AnimateLogo/>*/}
 
           {this.state.errorMessage &&
           <Text style={{ color: 'pink' }}>
@@ -69,7 +69,7 @@ export default class Login extends React.Component {
           <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-around'}}>
 
             <Button
-              style={{width: 120, backgroundColor: 'none', borderWidth: 1,borderColor: 'white'}}
+              style={{width: 120, backgroundColor: 'none', borderWidth: 1,borderColor: 'white', elevation: 0}}
               onPress={() => this.props.navigation.navigate('SignUp')}
             >
               <Text >Sign Up</Text>

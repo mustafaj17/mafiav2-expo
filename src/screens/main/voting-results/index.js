@@ -87,6 +87,34 @@ class VotingResults extends React.Component {
         })
     }
 
+    getPlayersWhoDrew = () => {
+        const { inGamePlayers, allPlayersHaveVoted } = this.props;
+
+        if( !allPlayersHaveVoted ) return null;
+
+        const votingResults = generateSortedVotes(inGamePlayers);
+        const playersWhoDrew = votingResults.reduce( (result , voteResult) => {
+            if(!result.length){
+                result.push(voteResult);
+                return result
+            }
+
+            if(result[0][1].length === voteResult[1].length){
+                result.push(voteResult);
+                return result
+            };
+
+            return result;
+        }, []);
+
+        return playersWhoDrew.map( (result, index) => {
+            return (
+              <View>
+                  <Text>{result[0]}</Text>
+              </View>)
+        })
+    }
+
     render() {
 
         const { gameData, currentPlayer } = this.props;
@@ -95,24 +123,36 @@ class VotingResults extends React.Component {
         return (
           <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-              <Text type='bold' size='large'> VotingResults </Text>
-              { gameData.votingDraw && <Text type='bold' style={{marginBottom: 10, marginTop: 10}}>Game was a draw </Text> }
+              <Text type='bold' size='large'> Voting Results </Text>
+              {gameData.votingDraw ?
+                <>
+                    <Text type='bold' style={{ marginBottom: 10, marginTop: 10 }}>
+                        Game was a draw
+                    </Text>
 
-              <ScrollView style={{width: '100%', flex: 1}}>
+                    <ScrollView style={{ width: '100%', flex: 1 }}>
+                        {this.getPlayersWhoDrew()}
+                    </ScrollView>
 
-                  { this.getResults() }
+                    { currentPlayer.isAdmin &&
+                    <Button onPress={this.handleRevote} >
+                        <Text color='black'>Re-vote</Text>
+                    </Button>
+                    }
+                </> :
 
-              </ScrollView>
+                <>
+                    <ScrollView style={{ width: '100%', flex: 1 }}>
+                        {this.getResults()}
+                    </ScrollView>
 
-              { currentPlayer.isAdmin &&
-              (gameData.votingDraw ?
-                  <Button onPress={this.handleRevote} >
-                      <Text color='black'>Re-vote</Text>
-                  </Button> :
-                  <Button onPress={this.handleNextRound} >
-                      <Text color='black'>Next</Text>
-                  </Button>
-              ) }
+                    { currentPlayer.isAdmin &&
+                    <Button onPress={this.handleNextRound} >
+                        <Text color='black'>Next</Text>
+                    </Button>
+                    }
+                </>
+              }
 
           </View>
         )
