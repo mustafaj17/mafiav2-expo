@@ -94,6 +94,7 @@ class playerReadyButton extends React.Component{
                   transform: [
                       { scale: boxScale }
                   ],
+                  elevation: 5
               }}>
                   <Text color='black'> {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
               </Animated.View>
