@@ -57,7 +57,7 @@ class AnimatedType extends React.Component {
         duration: 100,
       }),
         Animated.timing(this.rotate, {
-          toValue: 0,
+          toValue: 1,
           duration: 100,
         })
       ]).start()

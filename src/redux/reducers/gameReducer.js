@@ -4,7 +4,8 @@ import {
     SET_GAME_DISCONNECT,
     UPDATE_PLAYERS_DATA,
     SET_PLAYERS_DISCONNECT,
-    TOGGLE_DISPLAY_PLAYER_TYPES,
+    TOGGLE_DISPLAY_PLAYER_TYPES, END_GAME,
+    USER_HAS_SEEN_TYPE
 } from './../actions/gameActions';
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     playersData: [],
     gameDisconnect: null,
     playersDisconnect: null,
-    showPlayerTypes: false
+    showPlayerTypes: false,
+    userHasSeenType: false
 }
 
 export default (state = initialState, action) => {
@@ -50,6 +52,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 showPlayerTypes: !state.showPlayerTypes
+            }
+        case END_GAME:
+            return {
+                ...initialState
+            }
+        case USER_HAS_SEEN_TYPE:
+            return {
+                ...state,
+                userHasSeenType: true
             }
         default:
             return state;

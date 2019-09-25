@@ -37,6 +37,7 @@ class Lobby extends Component {
 
   render(){
 
+
     const { user } = this.props;
 
     return(
@@ -90,7 +91,8 @@ const styles = StyleSheet.create(
 
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  state: state
 })
 const mapDispatchToProps = dispatch => ({})
 

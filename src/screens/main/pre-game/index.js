@@ -9,6 +9,7 @@ import GameScreenHOC from '../../../components/gameScreenHoc'
 import Player from '../../../components/player';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
+import { userHasSeenType } from '../../../redux/actions/gameActions';
 
 class PreGame extends React.Component {
 
@@ -147,7 +148,7 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer, inGamePlayers } = this.props;
+        const { gameData, currentPlayer, inGamePlayers, userHasSeenType } = this.props;
 
         if(!currentPlayer){
             return(<View><Text>Loading</Text></View>)

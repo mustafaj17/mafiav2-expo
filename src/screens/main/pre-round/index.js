@@ -6,7 +6,7 @@ import ReadyButton from '../../../components/playerReadyButton';
 import ToggleTypeButton from '../../../components/toggleTypeButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
-import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
+import { toggleDisplayPlayerTypes, userHasSeenType } from '../../../redux/actions/gameActions';
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Player from '../../../components/player';
 import Text from '../../../components/text';
@@ -26,10 +26,24 @@ class PreRound extends React.Component {
 
   render() {
 
-    const { gameData, currentPlayer, inGamePlayers, gameDoc, toggleDisplayPlayerTypes } = this.props;
+    const { gameData, currentPlayer, inGamePlayers, gameDoc, userHasSeenType } = this.props;
 
     return (
       <View style={styles.page}>
+
+        {!userHasSeenType &&
+        <View style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(255,255,255, 0.8)',
+          zIndex: 2
+        }}>
+          <Text color='red'> You're type has been set</Text>
+          <Text color='red' type='light' size='small'> click the type toggle to show </Text>
+        </View>}
 
         <View><Text type='bold'  style={{marginTop: 10}}>{gameData.gameName}</Text></View>
 
@@ -39,7 +53,7 @@ class PreRound extends React.Component {
 
 
 
-        {!currentPlayer.isOut &&
+        {!currentPlayer.isOut && userHasSeenType &&
         <View style={{ marginBottom: 10}}>
           <ReadyButton/>
         </View>}
@@ -72,6 +86,7 @@ class PreRound extends React.Component {
 const mapStateToProps = state => ({
   gameData: state.game.gameData,
   gameDoc: state.game.gameDoc,
+  userHasSeenType: state.game.userHasSeenType,
   inGamePlayers: getInGamePlayers(state),
   currentPlayer: getCurrentPlayer(state),
   allPlayersAreReady: areAllPlayersReady(state)

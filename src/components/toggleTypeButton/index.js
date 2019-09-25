@@ -1,7 +1,6 @@
 import React from 'react';
-import { toggleDisplayPlayerTypes } from '../../redux/actions/gameActions';
+import { toggleDisplayPlayerTypes, userHasSeenType } from '../../redux/actions/gameActions';
 import { connect } from 'react-redux';
-import Text from '../text';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
 
@@ -20,16 +19,24 @@ class ToggleTypeButton extends React.Component {
 
   runAnimation = () => {
     if (this.props.showPlayerTypes) {
-          Animated.timing(this.size, {
-            toValue: 1,
-            duration: 200,
-          }).start();
+      Animated.timing(this.size, {
+        toValue: 1,
+        duration: 200,
+      }).start();
     }else{
       Animated.timing(this.size, {
         toValue: 0,
         duration: 200,
       }).start();
     }
+  }
+
+  handleTypeClick = () => {
+    const { userHasSeenType, toggleDisplayPlayerTypes, userSeenType} = this.props;
+    if(!userHasSeenType) {
+      userSeenType();
+    }
+    toggleDisplayPlayerTypes();
   }
 
   render() {
@@ -72,10 +79,11 @@ class ToggleTypeButton extends React.Component {
         right: position,
         height: size,
         width: size,
-        borderRadius: borderRadius
+        borderRadius: borderRadius,
+        zIndex: 3
       }}>
         {/*<Text size='small' type='light' style={{position: 'absolute', top: -5, left: -20, transform: [{rotate: '-45deg'}]}}>{this.props.showPlayerTypes ? 'hide' : 'show'}</Text>*/}
-        <TouchableOpacity onPress={this.props.toggleDisplayPlayerTypes}  style={{flex: 1, width:'100%'}}>
+        <TouchableOpacity onPress={this.handleTypeClick}  style={{flex: 1, width:'100%'}}>
           <Animated.View style={{
             display: 'flex',
             justifyContent: 'center',
@@ -89,7 +97,7 @@ class ToggleTypeButton extends React.Component {
             }]
           }}>
 
-          <AntDesign name='arrowleft' size={30} color='#31E785'/>
+            <AntDesign name='arrowleft' size={30} color='#31E785'/>
           </Animated.View>
         </TouchableOpacity>
       </Animated.View>
@@ -98,11 +106,15 @@ class ToggleTypeButton extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showPlayerTypes: state.game.showPlayerTypes
+  showPlayerTypes: state.game.showPlayerTypes,
+  userHasSeenType: state.game.userHasSeenType,
+
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes())
+  toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes()),
+  userSeenType : () => dispatch(userHasSeenType())
+
 })
 
 

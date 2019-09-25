@@ -4,6 +4,8 @@ export const SET_GAME_DISCONNECT = 'SET_GAME_DISCONNECT';
 export const UPDATE_PLAYERS_DATA = 'UPDATE_PLAYERS_DATA';
 export const SET_PLAYERS_DISCONNECT = 'SET_PLAYERS_DISCONNECT';
 export const TOGGLE_DISPLAY_PLAYER_TYPES = 'TOGGLE_DISPLAY_PLAYER_TYPES';
+export const END_GAME = 'END_GAME';
+export const USER_HAS_SEEN_TYPE = 'USER_HAS_SEEN_TYPE';
 
 export const setGameDocument = gameDoc => {
     return {
@@ -43,5 +45,18 @@ export const setPlayersDisconnect = playersDisconnect => {
 export const toggleDisplayPlayerTypes = () => {
     return {
         type: TOGGLE_DISPLAY_PLAYER_TYPES
+    }
+}
+
+export const endGame = () => {
+    return {
+        type: END_GAME
+    }
+}
+
+
+export const userHasSeenType = () => {
+    return {
+        type: USER_HAS_SEEN_TYPE
     }
 }
