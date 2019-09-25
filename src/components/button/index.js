@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 const Button = (props) => {

@@ -8,6 +8,10 @@ export const getInGamePlayers = state => {
     return state.game.playersData.filter( player => !player.isOut);
 }
 
+export const getAllPlayers = state => {
+    return state.game.playersData;
+}
+
 export const haveAllPlayersVoted = state => {
     return state.game.playersData.filter( player => !player.isOut).reduce( (allVoted ,player) => (allVoted && !!player.votingFor), true);
 }

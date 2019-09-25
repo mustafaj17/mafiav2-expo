@@ -17,7 +17,7 @@ class AnimatedType extends React.Component {
   }
 
   runAnimation = () => {
-    if(this.props.showPlayerTypes){
+    if(this.props.showPlayerTypes || this.props.endGame){
       Animated.parallel([
         // after decay, in parallel:
         Animated.timing(this.top, {

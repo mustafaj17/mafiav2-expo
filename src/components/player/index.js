@@ -2,7 +2,7 @@ import React from 'react';
 import { TYPE } from '../../constants';
 import { View, StyleSheet, Image } from 'react-native';
 import ProfilePicture  from '../profilePicture';
-import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
+import { getCurrentPlayer } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Text from '../text';
 import { FontAwesome } from '@expo/vector-icons'
@@ -13,24 +13,21 @@ import AnimatedType from '../animatedType';
 export const Player = (props) => {
 
 
-  const { showPlayerTypes, player, currentPlayer,showPlayerReady } = props;
+  const { showPlayerTypes, player, currentPlayer,showPlayerReady, endGame } = props;
   const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
   const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
 
   const getPlayerType = () => {
-
     // if(!showPlayerTypes) return;
-
-
     const playerType=
-      <AnimatedType>
+      <AnimatedType endGame={endGame}>
         <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
                resizeMode='contain'
                style= {{flex:1 , width: '100%' }}/>
       </AnimatedType>
 
-    if(currentPlayerIsCivilian) {
-      if(playerMatch) {
+    if(currentPlayerIsCivilian || endGame) {
+      if(playerMatch || endGame) {
         return (<View style={{
           marginLeft: 'auto',
           marginRight: 10
