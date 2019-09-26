@@ -2,13 +2,13 @@ import React from 'react'
 import { ScrollView, View } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import {generateSortedVotes, getHighestVotedPlayer, isGameOver} from "./utils";
+import {generateSortedVotes, getHighestVotedPlayer, isGameOver, getPlayersWhoVotedFor} from "./utils";
 import {firestore} from "../../../services/firebase";
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
-import PlayerVoteResult from '../../../components/playerVoteResult';
+import ProfilePicture from '../../../components/profilePicture';
 
 class VotingResults extends React.Component {
 
@@ -77,15 +77,52 @@ class VotingResults extends React.Component {
 
         if( !allPlayersHaveVoted ) return null;
 
-        const votingResults = generateSortedVotes(inGamePlayers);
-        return votingResults.map( (result, index) => {
-            return (<PlayerVoteResult
-              key={result[0]}
-              showVoters={index === 0}
-              playerName={result[0]}
-              votedForBy={result[1]}/>)
-        })
+        const votedOutPlayerResult = generateSortedVotes(inGamePlayers)[0];
+        const player = inGamePlayers.find(player => player.displayName === votedOutPlayerResult[0]);
+        const votedForBy = votedOutPlayerResult[1];
+
+        return (
+          <View style={{ display: 'flex', justifyContent: 'center'}}>
+              <Text>{player.displayName} is out</Text>
+              <Text>They was a {player.type} </Text>
+              <Text>Voted by</Text>
+              <ScrollView style={{width: '100%'}}>
+                  {votedForBy.map( player => {
+                      const photoUrl = inGamePlayers.find( p => p.displayName === player).photoURL;
+                      return(
+                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row' }}>
+                            <ProfilePicture imageUri={photoUrl} size={50}/>
+                            <Text>{player}</Text>
+                        </View>
+                      )}
+                  )}
+              </ScrollView>
+          </View>
+        )
+
     }
+
+    getPlayersWhoVotedForCurrentPlayer = () => {
+        const { inGamePlayers, allPlayersHaveVoted, currentPlayer } = this.props;
+
+        if( !allPlayersHaveVoted ) return null;
+
+        const voters = getPlayersWhoVotedFor(currentPlayer, inGamePlayers);
+        console.log(voters);
+        if(voters.length === 0 ) {
+            return (
+              <View>
+                  <Text>No one voted for you</Text>
+              </View>
+            )}
+
+        return voters.map( player =>
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <ProfilePicture imageUri={player.photoURL} size={50}/>
+              <Text style={{marginLeft: 10}}>{player.displayName}</Text>
+          </View>)
+    }
+
 
     getPlayersWhoDrew = () => {
         const { inGamePlayers, allPlayersHaveVoted } = this.props;
@@ -108,9 +145,12 @@ class VotingResults extends React.Component {
         }, []);
 
         return playersWhoDrew.map( (result, index) => {
+            const playerDisplayName = result[0];
+            const playerProfilePicUrl = inGamePlayers.find( player => player.displayName === playerDisplayName).photoURL;
             return (
-              <View>
-                  <Text>{result[0]}</Text>
+              <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1, width: '100%', flexDirection: 'row' }}>
+                  <ProfilePicture imageUri={playerProfilePicUrl} size={50}/>
+                  <Text style={{marginLeft: 10}}>{playerDisplayName}</Text>
               </View>)
         })
     }
@@ -142,10 +182,26 @@ class VotingResults extends React.Component {
                 </> :
 
                 <>
-                    <ScrollView style={{ width: '100%', flex: 1 }}>
+                    <View style={{ width: '100%', flex: 1 }}>
                         {this.getResults()}
+                    </View>
+
+                    <View
+                      style={{width: '100%', height: 70, padding: 10, backgroundColor: 'red'}}
+
+                    >
+
+                    <ScrollView
+                      horizontal
+                      pagingEnabled
+                      showsHorizontalScrollIndicator={false}
+                    >
+
+                        {this.getPlayersWhoVotedForCurrentPlayer()}
+
                     </ScrollView>
 
+                    </View>
                     { currentPlayer.isAdmin &&
                     <Button onPress={this.handleNextRound} >
                         <Text color='black'>Next</Text>
