@@ -13,21 +13,30 @@ import AnimatedType from '../animatedType';
 export const Player = (props) => {
 
 
-  const { showPlayerTypes, player, currentPlayer,showPlayerReady, endGame } = props;
+  const { showType, player, currentPlayer,showPlayerReady } = props;
   const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
   const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
 
   const getPlayerType = () => {
-    // if(!showPlayerTypes) return;
+    if(showType){
+      return (
+        <View style={{           marginLeft: 'auto',
+          marginRight: 10, width: 50, height: 50, }}>
+          <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
+                 resizeMode='contain'
+                 style= {{flex:1 , width: '100%' }}/>
+        </View>)
+    }
+
     const playerType=
-      <AnimatedType endGame={endGame}>
+      <AnimatedType>
         <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
                resizeMode='contain'
                style= {{flex:1 , width: '100%' }}/>
       </AnimatedType>
 
-    if(currentPlayerIsCivilian || endGame) {
-      if(playerMatch || endGame) {
+    if(currentPlayerIsCivilian) {
+      if(playerMatch) {
         return (<View style={{
           marginLeft: 'auto',
           marginRight: 10

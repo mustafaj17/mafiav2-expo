@@ -28,7 +28,7 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <Player key={player.uid} player={player}/>
+      <Player key={player.uid} player={player} showType={true}/>
     ))
   }
 

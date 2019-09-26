@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View } from 'react-native';
+import { Image, ScrollView, View } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {generateSortedVotes, getHighestVotedPlayer, isGameOver, getPlayersWhoVotedFor} from "./utils";
@@ -9,6 +9,11 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import ProfilePicture from '../../../components/profilePicture';
+import { Player } from '../../../components/player';
+import { TYPE } from '../../../constants';
+import civIcon from '../../../../assets/civilian-icon.png';
+import mafiaIcon from '../../../../assets/mafia-icon3.png';
+
 
 class VotingResults extends React.Component {
 
@@ -82,21 +87,21 @@ class VotingResults extends React.Component {
         const votedForBy = votedOutPlayerResult[1];
 
         return (
-          <View style={{ display: 'flex', justifyContent: 'center'}}>
-              <Text>{player.displayName} is out</Text>
-              <Text>They was a {player.type} </Text>
-              <Text>Voted by</Text>
-              <ScrollView style={{width: '100%'}}>
-                  {votedForBy.map( player => {
-                      const photoUrl = inGamePlayers.find( p => p.displayName === player).photoURL;
-                      return(
-                        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexDirection: 'row' }}>
-                            <ProfilePicture imageUri={photoUrl} size={50}/>
-                            <Text>{player}</Text>
-                        </View>
+          <View width='100%'>
+              <Text>Voted out</Text>
+              <View style={{width: '100%', flex: 1, height: 'auto'}}>
+              <Player player={player} showPlayerReady={false} showType={true}/>
+              </View>
+              <View style={{width: '100%'}}>
+                  <Text style={{padding: 10}}>Voted by</Text>
+                  <ScrollView style={{width: '100%'}}>
+                      {votedForBy.map( player => {
+                            const playerr = inGamePlayers.find( p => p.displayName === player);
+                            return(<Player player={playerr} showPlayerReady={false}/>)
+                        }
                       )}
-                  )}
-              </ScrollView>
+                  </ScrollView>
+              </View>
           </View>
         )
 
@@ -108,18 +113,17 @@ class VotingResults extends React.Component {
         if( !allPlayersHaveVoted ) return null;
 
         const voters = getPlayersWhoVotedFor(currentPlayer, inGamePlayers);
-        console.log(voters);
         if(voters.length === 0 ) {
             return (
-              <View>
+              <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                   <Text>No one voted for you</Text>
               </View>
             )}
 
         return voters.map( player =>
-          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100}}>
               <ProfilePicture imageUri={player.photoURL} size={50}/>
-              <Text style={{marginLeft: 10}}>{player.displayName}</Text>
+              <Text>{player.displayName}</Text>
           </View>)
     }
 
@@ -146,12 +150,8 @@ class VotingResults extends React.Component {
 
         return playersWhoDrew.map( (result, index) => {
             const playerDisplayName = result[0];
-            const playerProfilePicUrl = inGamePlayers.find( player => player.displayName === playerDisplayName).photoURL;
-            return (
-              <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1, width: '100%', flexDirection: 'row' }}>
-                  <ProfilePicture imageUri={playerProfilePicUrl} size={50}/>
-                  <Text style={{marginLeft: 10}}>{playerDisplayName}</Text>
-              </View>)
+            const player = inGamePlayers.find( player => player.displayName === playerDisplayName);
+            return (<Player player={player} showPlayerReady={false}/>)
         })
     }
 
@@ -161,7 +161,7 @@ class VotingResults extends React.Component {
 
 
         return (
-          <View style={{...styles.page, justifyContent: 'space-between'}}>
+          <View style={{...styles.page}}>
 
               <Text type='bold' size='large'> Voting Results </Text>
               {gameData.votingDraw ?
@@ -186,22 +186,26 @@ class VotingResults extends React.Component {
                         {this.getResults()}
                     </View>
 
-                    <View
-                      style={{width: '100%', height: 70, padding: 10, backgroundColor: 'red'}}
+                    <View style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 'auto',
+                        marginBottom: 10
+                    }}>
+                        <Text style={{padding: 10}}>You're voters</Text>
 
-                    >
-
-                    <ScrollView
-                      horizontal
-                      pagingEnabled
-                      showsHorizontalScrollIndicator={false}
-                    >
-
-                        {this.getPlayersWhoVotedForCurrentPlayer()}
-
-                    </ScrollView>
+                        <ScrollView
+                          style={{backgroundColor: 'black', padding: 10, width: '100%'}}
+                          horizontal
+                          pagingEnabled
+                          showsHorizontalScrollIndicator={false}>
+                            {this.getPlayersWhoVotedForCurrentPlayer()}
+                        </ScrollView>
 
                     </View>
+
                     { currentPlayer.isAdmin &&
                     <Button onPress={this.handleNextRound} >
                         <Text color='black'>Next</Text>
