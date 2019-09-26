@@ -64,7 +64,7 @@ class PreGame extends React.Component {
         const batch = firestore.batch();
         batch.update(gameDoc.ref, {gameStarted: true});
         players.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type});
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type, votedFor: []});
         });
 
         batch.commit().then( () => {
@@ -97,6 +97,7 @@ class PreGame extends React.Component {
                 type: TYPE.CIVILIAN,
                 displayName: 'Pop1',
                 ready: true,
+                votedFor: [],
                 uid: 1
             },
             {
@@ -104,6 +105,7 @@ class PreGame extends React.Component {
                 type: TYPE.CIVILIAN,
                 displayName: 'Pop2',
                 ready: true,
+                votedFor: [],
                 uid: 2
             },
             {
@@ -111,6 +113,7 @@ class PreGame extends React.Component {
                 type: TYPE.CIVILIAN,
                 displayName: 'Pop3',
                 ready: false,
+                votedFor: [],
                 uid: 3
             },
             {
@@ -118,6 +121,7 @@ class PreGame extends React.Component {
                 type: TYPE.MAFIA,
                 displayName: 'Pop4',
                 ready: true,
+                votedFor: [],
                 uid: 4
             },
             {
@@ -125,6 +129,7 @@ class PreGame extends React.Component {
                 type: TYPE.MAFIA,
                 displayName: 'Pop5',
                 ready: true,
+                votedFor: [],
                 uid: 5
             }
         ]
@@ -136,7 +141,7 @@ class PreGame extends React.Component {
             batch.set(gameDoc.ref.collection('players').doc(player.email), {...player});
         });
 
-        batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {type : TYPE.MAFIA});
+        batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {type : TYPE.MAFIA, votedFor: []});
 
         batch.commit().then( () => {
             console.log('game started and player types set');

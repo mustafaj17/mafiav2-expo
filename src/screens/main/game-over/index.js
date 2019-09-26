@@ -23,12 +23,24 @@ class GameOver extends React.Component {
 
   handlePlayAgain= () => {}
 
-  getResults = () => {
+  getMafias = () => {
     const { allPlayers } = this.props;
 
-    return allPlayers.sort(player =>player.type !== TYPE.MAFIA).map(player => (
-      <Player key={player.uid} player={player} endGame/>
+    return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
+      <Player key={player.uid} player={player}/>
     ))
+  }
+
+  getVotesAgainst = () => {
+    const { allPlayers, currentPlayer } = this.props;
+    let voters = []
+
+    allPlayers.forEach(player => {
+      player.votedFor.forEach(vote => {
+        if (vote === currentPlayer.email) voters.push(player.displayName)
+      })
+    })
+    return voters.map(name => <Text>{name}</Text>)
   }
 
   render() {
@@ -43,10 +55,15 @@ class GameOver extends React.Component {
         </Text>
 
         <>
+          <Text size='small' type='bold'>The Mafias</Text>
           <ScrollView style={{ width: '100%', flex: 1 }}>
-            {this.getResults()}
+            {this.getMafias()}
           </ScrollView>
 
+          <View style={{flex: 1}}>
+            <Text size='small' type='bold'>Votes against you</Text>
+            {this.getVotesAgainst()}
+          </View>
           { currentPlayer.isAdmin &&
           <Button onPress={()=> console.log('handlePlayAgain')} >
             <Text color='black'>Play Again</Text>

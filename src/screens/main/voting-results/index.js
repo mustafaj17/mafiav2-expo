@@ -41,7 +41,7 @@ class VotingResults extends React.Component {
         const batch = firestore.batch();
 
         inGamePlayers.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null, votedFor: [...player.votedFor.splice(0, 1)]});
         });
         batch.update(gameDoc.ref, {votingDraw: null, inVote: true});
         batch.commit().then( () => {

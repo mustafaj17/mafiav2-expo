@@ -17,8 +17,8 @@ class InVote extends React.Component {
     }
 
     voteForPlayer = player => {
-        const { gameDoc, currentPlayer } = this.props;
-        gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player})
+        const { gameDoc, currentPlayer, inGamePlayers } = this.props;
+        gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player, votedFor: [player.email, ...currentPlayer.votedFor]})
         this.setState({playerHasVoted: true})
     }
 
@@ -68,7 +68,9 @@ class InVote extends React.Component {
         }
         const batch = firestore.batch();
         inGamePlayers.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: getRandomPlayer()});
+            const currentTestPlayer = inGamePlayers.filter(p => p.email === player.email)
+            const randomPlayer =  getRandomPlayer()
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: randomPlayer, votedFor: [randomPlayer.email, ...currentTestPlayer[0].votedFor]});
         });
 
         batch.commit().then( () => {
