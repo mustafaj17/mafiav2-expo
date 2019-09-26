@@ -19,6 +19,18 @@ export const generateSortedVotes = (players) => {
     return sortedResults;
 
 }
+export const getPlayersWhoVotedFor = (currentPlayer, inGamePlayers) => {
+
+    const voters = inGamePlayers.reduce( (result, player ) => {
+        if(player.votingFor.email === currentPlayer.email){
+            result.push(player);
+        }
+        return result;
+    }, []);
+
+    return voters;
+
+}
 
 export const getHighestVotedPlayer = (players) => {
     const votingResults = players.reduce( (result, player ) => {

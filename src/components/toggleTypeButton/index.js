@@ -80,7 +80,7 @@ class ToggleTypeButton extends React.Component {
         height: size,
         width: size,
         borderRadius: borderRadius,
-        zIndex: 3
+        zIndex: 6
       }}>
         {/*<Text size='small' type='light' style={{position: 'absolute', top: -5, left: -20, transform: [{rotate: '-45deg'}]}}>{this.props.showPlayerTypes ? 'hide' : 'show'}</Text>*/}
         <TouchableOpacity onPress={this.handleTypeClick}  style={{flex: 1, width:'100%'}}>

@@ -75,7 +75,7 @@ export default (WrappedComponent, hideCloseButton) => {
         <View style={{ flex: 1}}>
 
           {!hideCloseButton &&
-          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 5, right: 10, zIndex: 10}}>
+          <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 5, right: 10, zIndex: 2}}>
             <Ionicons name="md-close" size={32} color="white" />
           </TouchableOpacity>}
 

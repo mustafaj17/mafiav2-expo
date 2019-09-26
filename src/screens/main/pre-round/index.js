@@ -39,7 +39,7 @@ class PreRound extends React.Component {
           position: 'absolute',
           top: 0, left: 0, right: 0, bottom: 0,
           backgroundColor: 'rgba(255,255,255, 0.8)',
-          zIndex: 2
+          zIndex: 5
         }}>
           <Text color='red'> You're type has been set</Text>
           <Text color='red' type='light' size='small'> click the type toggle to show </Text>
