@@ -10,6 +10,7 @@ import { endGame } from '../../../redux/actions/gameActions';
 import { TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import Player from'../../../components/player'
+import { sortGameStats, generateStatsObj } from './utils';
 
 class GameOver extends React.Component {
 
@@ -31,21 +32,17 @@ class GameOver extends React.Component {
     ))
   }
 
-  getVotesAgainst = () => {
-    const { allPlayers, currentPlayer } = this.props;
-    let voters = []
+  getVotesStats = () => {
+    const { allPlayers } = this.props;
+    const sortedResults = sortGameStats(allPlayers);
+    return generateStatsObj(allPlayers, sortedResults)
+  };
 
-    allPlayers.forEach(player => {
-      player.votedFor.forEach(vote => {
-        if (vote === currentPlayer.email) voters.push(player.displayName)
-      })
-    })
-    return voters.map(name => <Text>{name}</Text>)
-  }
 
   render() {
 
     const { mafiasWon, currentPlayer } = this.props;
+    const stats = this.getVotesStats();
 
     return (
       <View style={styles.page}>
@@ -60,9 +57,15 @@ class GameOver extends React.Component {
             {this.getMafias()}
           </ScrollView>
 
-          <View style={{flex: 1}}>
-            <Text size='small' type='bold'>Votes against you</Text>
-            {this.getVotesAgainst()}
+          <View style={{flex: 1, alignItems: ''}}>
+            <Text size='small' type='bold'>Stats</Text>
+
+            <Text size='small' type='bold'>Most voted: </Text>
+            {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+
+            <Text size='small' type='bold'>Least voted: </Text>
+            {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+
           </View>
           { currentPlayer.isAdmin &&
           <Button onPress={()=> console.log('handlePlayAgain')} >
