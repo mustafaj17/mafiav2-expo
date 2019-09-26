@@ -38,6 +38,20 @@ class GameOver extends React.Component {
     return generateStatsObj(allPlayers, sortedResults)
   };
 
+  getVotesAgainst = () => {
+    const { allPlayers, currentPlayer } = this.props;
+    let voters = []
+
+    allPlayers.forEach(player => {
+      player.votedFor.forEach(vote => {
+        if (vote === currentPlayer.displayName) voters.push(player.displayName)
+      })
+    })
+
+    if (!voters.length) return <Text>No one voted you</Text>;
+    return voters.map(name => <Text>{name}</Text>)
+  }
+
 
   render() {
 
@@ -57,16 +71,25 @@ class GameOver extends React.Component {
             {this.getMafias()}
           </ScrollView>
 
-          <View style={{flex: 1, alignItems: ''}}>
+          <ScrollView style={{width: '100%', flex: 1}}>
             <Text size='small' type='bold'>Stats</Text>
 
-            <Text size='small' type='bold'>Most voted: </Text>
-            {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+            <View style={{marginBottom: 10}}>
+              <Text size='small' type='bold'>Most voted: </Text>
+              {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+            </View>
 
-            <Text size='small' type='bold'>Least voted: </Text>
-            {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+            <View style={{marginBottom: 10}}>
+              <Text size='small' type='bold'>Least voted: </Text>
+              {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+            </View>
 
-          </View>
+            <View style={{marginBottom: 10}}>
+              <Text size='small' type='bold'>Votes against you</Text>
+              {this.getVotesAgainst()}
+            </View>
+
+          </ScrollView>
           { currentPlayer.isAdmin &&
           <Button onPress={()=> console.log('handlePlayAgain')} >
             <Text color='black'>Play Again</Text>
