@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native'
+import {KeyboardAvoidingView, ScrollView, View} from 'react-native'
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
@@ -11,6 +11,7 @@ import { TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import Player from'../../../components/player'
 import { sortGameStats, generateStatsObj } from './utils';
+import ProfilePicture from "../../../components/profilePicture";
 
 class GameOver extends React.Component {
 
@@ -28,7 +29,10 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <Player key={player.uid} player={player} showType={true}/>
+      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100}}>
+        <ProfilePicture imageUri={player.photoURL} size={50}/>
+        <Text>{player.displayName}</Text>
+      </View>
     ))
   }
 
@@ -67,40 +71,51 @@ class GameOver extends React.Component {
 
         <>
           <Text size='small' type='bold'>The Mafias</Text>
-          <ScrollView style={{ width: '100%', flex: 1 }}>
+          <ScrollView
+            style={{backgroundColor: 'black', padding: 10, width: '100%', flex: 0.2}}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}>
+            {this.getMafias()}
+            {this.getMafias()}
             {this.getMafias()}
           </ScrollView>
 
-          <ScrollView style={{width: '100%', flex: 1}}>
-            <Text size='small' type='bold'>Stats</Text>
-
-            <View style={{marginBottom: 10}}>
-              <Text size='small' type='bold'>Most voted: </Text>
-              {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+          <ScrollView style={{width: '100%'}}>
+            <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Text type='bold'>Stats</Text>
             </View>
 
-            <View style={{marginBottom: 10}}>
-              <Text size='small' type='bold'>Least voted: </Text>
-              {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
-            </View>
+            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+              <View style={{marginBottom: 10}}>
+                <Text size='small' type='bold'>Most voted: </Text>
+                {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+              </View>
 
-            <View style={{marginBottom: 10}}>
+              <View style={{marginBottom: 10}}>
+                <Text size='small' type='bold'>Least voted: </Text>
+                {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
+              </View>
+            </View>
+            <View style={{marginBottom: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <Text size='small' type='bold'>Votes against you</Text>
               {this.getVotesAgainst()}
             </View>
 
           </ScrollView>
+        </>
+
+        <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>
+
           { currentPlayer.isAdmin &&
-          <Button onPress={()=> console.log('handlePlayAgain')} >
+          <Button onPress={()=> console.log('handlePlayAgain')} style={{width: 150}}>
             <Text color='black'>Play Again</Text>
           </Button>
           }
-        </>
-
-        {/*<Button title='Play again' onPress={this.handlePlayAgain}/>*/}
-        <Button onPress={this.handleEndGame}>
-          <Text color='black'>End game</Text>
-        </Button>
+          <Button onPress={this.handleEndGame} style={{width: 150}}>
+            <Text color='black'>End Game</Text>
+          </Button>
+        </View>
 
       </View>
     )
