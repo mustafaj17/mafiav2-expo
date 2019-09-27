@@ -7,6 +7,7 @@ import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import MafiaLogo from '../../../../components/mafiaLogo';
 import MafiaBackground from '../../../../components/mafiaBackground';
+import PlayerOut from '../../../../components/playerOut';
 
 class Lobby extends Component {
   screenWillFocus= () => {

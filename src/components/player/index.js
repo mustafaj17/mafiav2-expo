@@ -20,11 +20,15 @@ export const Player = (props) => {
   const getPlayerType = () => {
     if(showType){
       return (
-        <View style={{           marginLeft: 'auto',
-          marginRight: 10, width: 50, height: 50, }}>
-          <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
-                 resizeMode='contain'
-                 style= {{flex:1 , width: '100%' }}/>
+        <View style={{
+          marginLeft: 'auto',
+          marginRight: 10,
+        }}>
+          <AnimatedType alwaysAnimate={true}>
+            <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
+                   resizeMode='contain'
+                   style= {{flex:1 , width: '100%' }}/>
+          </AnimatedType>
         </View>)
     }
 
@@ -91,7 +95,9 @@ const mapStateToProps = state => {
 
 Player.defaultProps = {
   currentPlayer: false,
-  showPlayerReady: false
+  showPlayerReady: false,
+  showType: false
+
 }
 
 export default connect(mapStateToProps)(Player);

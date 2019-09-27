@@ -13,6 +13,8 @@ import { Player } from '../../../components/player';
 import { TYPE } from '../../../constants';
 import civIcon from '../../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../../assets/mafia-icon3.png';
+import TextBar from '../../../components/textBar';
+import PlayerOut from '../../../components/playerOut';
 
 
 class VotingResults extends React.Component {
@@ -87,21 +89,20 @@ class VotingResults extends React.Component {
         const votedForBy = votedOutPlayerResult[1];
 
         return (
-          <View width='100%'>
-              <Text>Voted out</Text>
-              <View style={{width: '100%', flex: 1, height: 'auto'}}>
-              <Player player={player} showPlayerReady={false} showType={true}/>
-              </View>
-              <View style={{width: '100%'}}>
-                  <Text style={{padding: 10}}>Voted by</Text>
-                  <ScrollView style={{width: '100%'}}>
-                      {votedForBy.map( player => {
-                            const playerr = inGamePlayers.find( p => p.displayName === player);
-                            return(<Player player={playerr} showPlayerReady={false}/>)
-                        }
-                      )}
-                  </ScrollView>
-              </View>
+          <View style={{display: 'flex', flex: 1}}>
+
+              {/*<View style={{display: 'flex', flex: 1}}>*/}
+              <PlayerOut player={player}/>
+              {/*</View>*/}
+              {/**/}
+              {/*<TextBar title='Voted by'/>*/}
+              {/*<ScrollView style={{width: '100%'}}>*/}
+                  {/*{votedForBy.map( player => {*/}
+                        {/*const playerr = inGamePlayers.find( p => p.displayName === player);*/}
+                        {/*return(<Player player={playerr} showPlayerReady={false}/>)*/}
+                    {/*}*/}
+                  {/*)}*/}
+              {/*</ScrollView>*/}
           </View>
         )
 
@@ -163,7 +164,7 @@ class VotingResults extends React.Component {
         return (
           <View style={{...styles.page}}>
 
-              <Text type='bold' size='large'> Voting Results </Text>
+              <Text size='large' style={{ marginTop: 10,marginBottom: 10}}> Voting Results </Text>
               {gameData.votingDraw ?
                 <>
                     <Text type='bold' style={{ marginBottom: 10, marginTop: 10 }}>
@@ -194,10 +195,16 @@ class VotingResults extends React.Component {
                         height: 'auto',
                         marginBottom: 10
                     }}>
-                        <Text style={{padding: 10}}>You're voters</Text>
+                        <TextBar title="You're voters"/>
 
                         <ScrollView
-                          style={{backgroundColor: 'black', padding: 10, width: '100%'}}
+                          style={{
+                              borderTopWidth: 1,
+                              borderBottomWidth:1,
+                              borderColor: 'white',
+                              padding: 10,
+                              width: '100%',
+                          }}
                           horizontal
                           pagingEnabled
                           showsHorizontalScrollIndicator={false}>
