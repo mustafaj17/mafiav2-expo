@@ -37,7 +37,7 @@ class InVote extends React.Component {
 
     handleVotingComplete = (inGamePlayers) => {
 
-        const { navigation, gameDoc } = this.props;
+        const { navigation } = this.props;
 
         const votingResults =  inGamePlayers.reduce(function(map, player){
             if(!(player.votingFor.displayName in map)) {
@@ -54,10 +54,12 @@ class InVote extends React.Component {
         });
 
         if(highestVotedForPlayers.length > 1){
-            gameDoc.ref.update({ votingDraw: true })
+            navigation.navigate('VotingDraw');
+        }else{
+            navigation.navigate('VotingResults');
         }
 
-        navigation.navigate('VotingResults');
+
     }
 
     testAutoVote = () => {

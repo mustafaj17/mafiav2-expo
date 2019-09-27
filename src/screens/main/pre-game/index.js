@@ -9,7 +9,6 @@ import GameScreenHOC from '../../../components/gameScreenHoc'
 import Player from '../../../components/player';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
-import { userHasSeenType } from '../../../redux/actions/gameActions';
 
 class PreGame extends React.Component {
 
@@ -51,6 +50,8 @@ class PreGame extends React.Component {
     }
 
     handleStartGame = () => {
+
+        //todo: add logic to start game when there is 3 players or more
         const { gameDoc } = this.props;
 
         const players = this.setPlayerTypes();
@@ -153,7 +154,7 @@ class PreGame extends React.Component {
 
     render() {
 
-        const { gameData, currentPlayer, inGamePlayers, userHasSeenType } = this.props;
+        const { gameData, currentPlayer, inGamePlayers } = this.props;
 
         if(!currentPlayer){
             return(<View><Text>Loading</Text></View>)
@@ -173,13 +174,13 @@ class PreGame extends React.Component {
 
               {currentPlayer.isAdmin &&
               <Button onPress={this.handleStartGame}>
-                  <Text color='black'>Start Game</Text>
+                    <Text color='black'>{inGamePlayers.length > 2 ? 'Start Game' : '3 players needed...' }</Text>
               </Button>
               }
 
               <TouchableOpacity onPress={this.startTestGame}
-                      style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
-                          display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
+                                    display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                   <Text color='black' size='xsmall'>Test</Text>
               </TouchableOpacity>
 
