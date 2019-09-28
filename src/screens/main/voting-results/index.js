@@ -44,7 +44,7 @@ class VotingResults extends React.Component {
       batch.update(gameDoc.ref.collection('players').doc(player.email),
         {
           votingFor: null,
-          votedFor: [...player.votedFor, player.votingFor],
+          votedFor: [...player.votedFor, player.votingFor.displayName],
           ready: false,
           isOut: (player.email === playerVotedOut)
         });

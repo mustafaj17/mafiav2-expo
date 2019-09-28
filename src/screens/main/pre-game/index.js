@@ -65,7 +65,7 @@ class PreGame extends React.Component {
         const batch = firestore.batch();
         batch.update(gameDoc.ref, {gameStarted: true});
         players.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type, votedFor: []});
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type});
         });
 
         batch.commit().then( () => {
