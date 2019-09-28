@@ -7,6 +7,7 @@ import { firestore } from '../../services/firebase';
 import Text from '../text';
 import Button from '../button';
 import MafiaBackground from '../mafiaBackground';
+import { endGame } from '../../redux/actions/gameActions';
 
 
 export default (WrappedComponent, hideCloseButton) => {
@@ -43,7 +44,7 @@ export default (WrappedComponent, hideCloseButton) => {
 
     handlePlayerLeaving =  async () => {
 
-      const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players } = this.props;
+      const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players, endGame } = this.props;
       const batch = firestore.batch();
 
       //todo: maybe add flag to say he left and in the end game summary we can show that he left
@@ -65,6 +66,7 @@ export default (WrappedComponent, hideCloseButton) => {
         batch.update(gameDoc.ref.collection('players').doc(newAdmin.email), {isAdmin: true});
       }
 
+      endGame();
       navigation.navigate('Lobby');
       await batch.commit();
 
@@ -110,8 +112,9 @@ export default (WrappedComponent, hideCloseButton) => {
     currentPlayer: getCurrentPlayer(state),
   })
 
-  const mapDispatchToProps = dispatch => ({
 
+  const mapDispatchToProps = dispatch => ({
+    endGame : () => dispatch(endGame())
   })
 
   return connect(mapStateToProps,mapDispatchToProps)(HOC);

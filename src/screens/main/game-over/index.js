@@ -12,6 +12,7 @@ import {getAllPlayers} from "../../../redux/selectors";
 import Player from'../../../components/player'
 import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
 import ProfilePicture from "../../../components/profilePicture";
+import PageTitle from '../../../components/pageTitle';
 
 class GameOver extends React.Component {
 
@@ -55,7 +56,7 @@ class GameOver extends React.Component {
 
     return (
       <View style={styles.page}>
-        <Text>Game Over</Text>
+        <PageTitle title='Game Over'/>
         <Text>
           {mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}
         </Text>

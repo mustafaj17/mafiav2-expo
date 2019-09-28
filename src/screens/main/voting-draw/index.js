@@ -10,6 +10,8 @@ import { firestore } from '../../../services/firebase';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import TextBar from '../../../components/textBar';
+import PageTitle from '../../../components/pageTitle';
+import InfoText from '../../../components/infoBox';
 
 class VotingDraw extends React.Component {
 
@@ -61,8 +63,10 @@ class VotingDraw extends React.Component {
     return (
       <View style={{...styles.page}}>
 
-        <Text size='large' style={{ marginTop: 10,marginBottom: 10}}> Voting Results </Text>
-        <TextBar title='Game was a draw'/>
+        <PageTitle title='Voting Results '/>
+        <InfoText>
+          <Text>Game was a draw</Text>
+        </InfoText>
 
         <ScrollView style={{ width: '100%', flex: 1 }}>
           {this.getPlayersWhoDrew()}

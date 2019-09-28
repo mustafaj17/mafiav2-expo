@@ -11,6 +11,8 @@ import Button from '../../../components/button';
 import ProfilePicture from '../../../components/profilePicture';
 import TextBar from '../../../components/textBar';
 import PlayerOut from '../../../components/playerOut';
+import PageTitle from '../../../components/pageTitle';
+import InfoText from '../../../components/infoBox';
 
 
 class VotingResults extends React.Component {
@@ -88,7 +90,7 @@ class VotingResults extends React.Component {
       )}
 
     return voters.map( player =>
-      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100}}>
+      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100, marginRight: 10}}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
         <Text>{player.displayName}</Text>
       </View>)
@@ -103,7 +105,8 @@ class VotingResults extends React.Component {
     return (
       <View style={{...styles.page}}>
 
-        <Text size='large' style={{ marginTop: 10,marginBottom: 10}}> Voting Results </Text>
+        <PageTitle title='Voting Results'/>
+
         <View style={{ width: '100%', flex: 1 }}>
           {this.getResults()}
         </View>
@@ -118,13 +121,11 @@ class VotingResults extends React.Component {
           height: 'auto',
           marginBottom: 10
         }}>
+
           <TextBar title="You're voters"/>
 
           <ScrollView
             style={{
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
-              borderColor: 'white',
               padding: 10,
               width: '100%',
             }}

@@ -7,6 +7,7 @@ import { TYPE } from '../../constants';
 import civIcon from '../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../assets/mafia-icon3.png';
 import questionMark from '../../../assets/question-mark.png';
+import InfoText from '../infoBox';
 
 class PlayerOut extends React.Component {
 
@@ -86,7 +87,10 @@ class PlayerOut extends React.Component {
 
     return (
       <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1, width: '100%'}}>
-        <Text size='large' style={{marginBottom: 10}}>Voted out</Text>
+        <InfoText style={{marginBottom: 10}}>
+          <Text size='large' >Voted out</Text>
+        </InfoText>
+
         <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
 
           <ProfilePicture imageUri={player.photoURL}/>

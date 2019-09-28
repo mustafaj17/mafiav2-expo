@@ -10,6 +10,7 @@ import { toggleDisplayPlayerTypes, userHasSeenType } from '../../../redux/action
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Player from '../../../components/player';
 import Text from '../../../components/text';
+import PageTitle from '../../../components/pageTitle';
 
 class PreRound extends React.Component {
 
@@ -31,21 +32,8 @@ class PreRound extends React.Component {
     return (
       <View style={styles.page}>
 
-        {!userHasSeenType &&
-        <View style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'absolute',
-          top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(255,255,255, 0.8)',
-          zIndex: 5
-        }}>
-          <Text color='red'> You're type has been set</Text>
-          <Text color='red' type='light' size='small'> click the type toggle to show </Text>
-        </View>}
 
-        <View><Text type='bold'  style={{marginTop: 10}}>{gameData.gameName}</Text></View>
+        <PageTitle title={gameData.gameName}/>
 
         <ScrollView style={{width: '100%', flex: 1}}>
           {inGamePlayers.map( player => <Player key={player.uid} player={player} showPlayerReady={true}/>)}
@@ -60,6 +48,21 @@ class PreRound extends React.Component {
 
 
         <ToggleTypeButton />
+
+
+        {!userHasSeenType &&
+        <View style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(255,255,255, 0.8)',
+          zIndex: 5
+        }}>
+          <Text color='red'> You're type has been set</Text>
+          <Text color='red' type='light' size='small'> click the type toggle to show </Text>
+        </View>}
 
 
         <TouchableOpacity onPress={ () => {

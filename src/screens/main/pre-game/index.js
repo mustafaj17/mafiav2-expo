@@ -9,6 +9,8 @@ import GameScreenHOC from '../../../components/gameScreenHoc'
 import Player from '../../../components/player';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
+import PageTitle from '../../../components/pageTitle';
+import TextBar from '../../../components/textBar';
 
 class PreGame extends React.Component {
 
@@ -65,7 +67,7 @@ class PreGame extends React.Component {
         const batch = firestore.batch();
         batch.update(gameDoc.ref, {gameStarted: true});
         players.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type});
+            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type, votedFor: []});
         });
 
         batch.commit().then( () => {
@@ -80,7 +82,7 @@ class PreGame extends React.Component {
     shouldComponentUpdate(nextProps){
         const { navigation, gameData } = nextProps;
 
-        if(gameData.gameStarted) {
+        if(gameData && gameData.gameStarted) {
             navigation.navigate('PreRound');
             return false;
         }
@@ -96,7 +98,7 @@ class PreGame extends React.Component {
             {
                 email: 'test1@email.com',
                 type: TYPE.CIVILIAN,
-                displayName: 'Pop1',
+                displayName: 'Abu Yassir',
                 ready: true,
                 votedFor: [],
                 uid: 1
@@ -104,7 +106,7 @@ class PreGame extends React.Component {
             {
                 email: 'test2@email.com',
                 type: TYPE.CIVILIAN,
-                displayName: 'Pop2',
+                displayName: 'Ali',
                 ready: true,
                 votedFor: [],
                 uid: 2
@@ -112,26 +114,42 @@ class PreGame extends React.Component {
             {
                 email: 'test3@email.com',
                 type: TYPE.CIVILIAN,
-                displayName: 'Pop3',
+                displayName: 'Stunna Jay',
                 ready: false,
                 votedFor: [],
                 uid: 3
             },
             {
                 email: 'test4@email.com',
-                type: TYPE.CIVILIAN,
-                displayName: 'Pop4',
+                type: TYPE.MAFIA,
+                displayName: 'Muk',
                 ready: true,
                 votedFor: [],
                 uid: 4
             },
             {
                 email: 'test5@email.com',
-                type: TYPE.CIVILIAN,
-                displayName: 'Pop5',
+                type: TYPE.MAFIA,
+                displayName: 'Big Jimmy Jones',
                 ready: true,
                 votedFor: [],
                 uid: 5
+            },
+            {
+                email: 'test6@email.com',
+                type: TYPE.CIVILIAN,
+                displayName: 'big civilian man',
+                ready: true,
+                votedFor: [],
+                uid: 6
+            },
+            {
+                email: 'test5@email.com',
+                type: TYPE.CIVILIAN,
+                displayName: 'civilian brudda',
+                ready: true,
+                votedFor: [],
+                uid: 7
             }
         ]
 
@@ -163,10 +181,9 @@ class PreGame extends React.Component {
         return (
 
           <View style={styles.page}>
+              <PageTitle title='Game Lobby'/>
 
-              <View><Text type='bold'  style={{marginTop: 10}}>Game Lobby</Text></View>
-
-              <View><Text >{gameData.gameName}</Text></View>
+              <TextBar title={gameData.gameName}/>
 
               <ScrollView style={{width: '100%'}}>
                   {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}

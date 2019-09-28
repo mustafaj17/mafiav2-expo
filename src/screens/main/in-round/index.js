@@ -6,6 +6,7 @@ import {getCurrentPlayer} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
+import PageTitle from '../../../components/pageTitle';
 
 class InRound extends React.Component {
 
@@ -52,7 +53,8 @@ class InRound extends React.Component {
         return (
            <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-               <View><Text type='bold'  style={{marginTop: 10}}>InRound</Text></View>
+               <PageTitle title='In Round'/>
+
                <Text type='bold' size='large'>{this.state.timer} </Text>
 
                { currentPlayer.isAdmin &&
