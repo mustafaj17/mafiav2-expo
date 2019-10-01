@@ -119,7 +119,7 @@ class PreGame extends React.Component {
             },
             {
                 email: 'test4@email.com',
-                type: TYPE.MAFIA,
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop4',
                 ready: true,
                 votedFor: [],
@@ -127,7 +127,7 @@ class PreGame extends React.Component {
             },
             {
                 email: 'test5@email.com',
-                type: TYPE.MAFIA,
+                type: TYPE.CIVILIAN,
                 displayName: 'Pop5',
                 ready: true,
                 votedFor: [],

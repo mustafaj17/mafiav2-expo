@@ -7,14 +7,22 @@ export const sortGameStats = players => {
     })
   });
 
-  let sortedResults = []
+  return sortObjectToArray(voters)
+}
 
-  for (let player in voters) {
-    sortedResults.push([player, voters[player]]);
-  }
-  sortedResults.sort((a, b) => b[1] - a[1]);
+export const getVotesAgainstPlayer = (players, currentPlayer) => {
+  let voters = {};
+  players.forEach(player => {
+    player.votedFor.forEach(vote => {
+      if (vote === currentPlayer.displayName) {
+        if (!voters[player.displayName]) voters[player.displayName] = 0;
+        voters[player.displayName] ++
+      }
+    })
+  });
 
-  return sortedResults
+  let sortedResults = sortObjectToArray(voters);
+  return sortedResults.filter(vote => vote[1] === sortedResults[0][1])
 }
 
 export const generateStatsObj = (players, sortedResults) => {
@@ -40,4 +48,15 @@ export const generateStatsObj = (players, sortedResults) => {
   }
 
   return stats
+}
+
+const sortObjectToArray = obj => {
+  let sortedResults = [];
+
+  for (let item in obj) {
+    sortedResults.push([item, obj[item]]);
+  }
+  sortedResults.sort((a, b) => b[1] - a[1]);
+
+  return sortedResults
 }

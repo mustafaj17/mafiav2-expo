@@ -10,7 +10,7 @@ import { endGame } from '../../../redux/actions/gameActions';
 import { TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import Player from'../../../components/player'
-import { sortGameStats, generateStatsObj } from './utils';
+import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
 import ProfilePicture from "../../../components/profilePicture";
 
 class GameOver extends React.Component {
@@ -44,16 +44,7 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    let voters = []
-
-    allPlayers.forEach(player => {
-      player.votedFor.forEach(vote => {
-        if (vote === currentPlayer.displayName) voters.push(player.displayName)
-      })
-    })
-
-    if (!voters.length) return <Text>No one voted you</Text>;
-    return voters.map(name => <Text>{name}</Text>)
+    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(player => <Text>{player[0]}: {player[1]}</Text>)
   }
 
 
@@ -77,8 +68,6 @@ class GameOver extends React.Component {
             pagingEnabled
             showsHorizontalScrollIndicator={false}>
             {this.getMafias()}
-            {this.getMafias()}
-            {this.getMafias()}
           </ScrollView>
 
           <ScrollView style={{width: '100%'}}>
@@ -98,7 +87,7 @@ class GameOver extends React.Component {
               </View>
             </View>
             <View style={{marginBottom: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text size='small' type='bold'>Votes against you</Text>
+              <Text size='small' type='bold'>Most votes against you</Text>
               {this.getVotesAgainst()}
             </View>
 
