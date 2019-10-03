@@ -61,10 +61,7 @@ export class FloatingLabelInput extends React.Component {
             marginTop: 5,
             marginBottom: 10,
             fontSize: 22,
-            // color: 'white',
             borderWidth: 1,
-            // borderColor: 'white',
-            height: 40,
             padding: 10,
             fontFamily: 'oxygen-regular',
             ...props.style

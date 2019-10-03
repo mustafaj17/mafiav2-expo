@@ -91,7 +91,7 @@ class InVote extends React.Component {
 
     return (
       <View style={styles.page}>
-        {playerHasVoted ?
+        {playerHasVoted || currentPlayer.isOut ?
           <>
             <AnimateLogo/>
             <Text>Voting in progress...</Text>

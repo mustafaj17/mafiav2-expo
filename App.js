@@ -54,7 +54,7 @@ const AuthStack = createStackNavigator({
     defaultNavigationOptions: {
 
       headerTransparent: true,
-      headerTintColor: 'white',
+      headerTintColor: 'black',
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }
@@ -72,7 +72,7 @@ let Navigation = createAppContainer(createSwitchNavigator(
     headerMode: 'none',
     defaultNavigationOptions: {
       headerTransparent: true,
-      headerTintColor: 'white',
+      headerTintColor: 'black',
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }

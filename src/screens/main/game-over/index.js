@@ -9,7 +9,7 @@ import Button from '../../../components/button';
 import { endGame } from '../../../redux/actions/gameActions';
 import { TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
-import { sortGameStats, generateStatsObj } from './utils';
+import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
 import ProfilePicture from "../../../components/profilePicture";
 import PageTitle from '../../../components/pageTitle';
 
