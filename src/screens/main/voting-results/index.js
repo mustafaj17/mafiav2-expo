@@ -36,6 +36,19 @@ class VotingResults extends React.Component {
     return true;
   }
 
+  componentWillMount() {
+
+    const { inGamePlayers } = this.props;
+
+    const votedOutPlayerResult = generateSortedVotes(inGamePlayers)[0];
+    const player = inGamePlayers.find(player => player.displayName === votedOutPlayerResult[0]);
+    const votedForBy = votedOutPlayerResult[1];
+
+    this.setState({
+      votedOutPlayer : player
+    })
+  }
+
 
   handleNextRound = () => {
     const { inGamePlayers, gameDoc } = this.props;
@@ -59,23 +72,6 @@ class VotingResults extends React.Component {
     })
   }
 
-  getResults = () => {
-    const { inGamePlayers, allPlayersHaveVoted } = this.props;
-
-    if( !allPlayersHaveVoted ) return null;
-
-    const votedOutPlayerResult = generateSortedVotes(inGamePlayers)[0];
-    const player = inGamePlayers.find(player => player.displayName === votedOutPlayerResult[0]);
-    const votedForBy = votedOutPlayerResult[1];
-
-    return (
-      <View style={{display: 'flex', flex: 1}}>
-        <PlayerOut player={player}/>
-      </View>
-    )
-
-  }
-
   getPlayersWhoVotedForCurrentPlayer = () => {
     const { inGamePlayers, allPlayersHaveVoted, currentPlayer } = this.props;
 
@@ -84,22 +80,33 @@ class VotingResults extends React.Component {
     const voters = getPlayersWhoVotedFor(currentPlayer, inGamePlayers);
     if(voters.length === 0 ) {
       return (
-        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ display: 'flex', alignItems: 'center'}}>
           <Text>No one voted for you</Text>
         </View>
       )}
 
     return voters.map( player =>
-      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100, marginRight: 10}}>
+      <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: 100,
+        marginRight: 10,
+        borderRadius: 4,
+        borderColor: '#c1c1c1',
+        borderWidth: 1,
+        backgroundColor: 'white',
+        padding: 5
+      }}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text>{player.displayName}</Text>
+        <Text type='light'>{player.displayName}</Text>
       </View>)
   }
 
 
   render() {
 
-    const { gameData, currentPlayer } = this.props;
+    const { currentPlayer } = this.props;
 
 
     return (
@@ -107,22 +114,24 @@ class VotingResults extends React.Component {
 
         <PageTitle title='Voting Results'/>
 
-        <View style={{ width: '100%', flex: 1 }}>
-          {this.getResults()}
+        <View style={{display: 'flex', width: '100%',flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <PlayerOut player={this.state.votedOutPlayer}/>
         </View>
 
 
-        {!currentPlayer.isOut &&
+        {!currentPlayer.isOut && false &&
         <View style={{
           width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           height: 'auto',
-          marginBottom: 10
+          marginBottom: 10,
+          backgroundColor: '#fafafa',
+          borderTopColor: '#ebebeb',
+          borderTopWidth: 1
         }}>
 
-          <TextBar title="You're voters"/>
+          <View style={{ marginLeft: 10}}>
+            <Text type='light' letterSpacing={2}>You're voters </Text>
+          </View>
 
           <ScrollView
             style={{
@@ -130,7 +139,6 @@ class VotingResults extends React.Component {
               width: '100%',
             }}
             horizontal
-            pagingEnabled
             showsHorizontalScrollIndicator={false}>
             {this.getPlayersWhoVotedForCurrentPlayer()}
           </ScrollView>

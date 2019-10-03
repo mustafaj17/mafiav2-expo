@@ -25,6 +25,7 @@ const Text = (props) => {
       fontFamily: `oxygen-${props.type}`,
       fontSize: size,
       color: props.color,
+      letterSpacing: props.letterSpacing,
       ...props.style
     }}>
       {props.children}
@@ -35,13 +36,15 @@ const Text = (props) => {
 Text.propTypes = {
   type: PropTypes.oneOf(['bold', 'regular', 'light']),
   size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large']),
-  color: PropTypes.string
+  color: PropTypes.string,
+  letterSpacing: PropTypes.number
 }
 
 Text.defaultProps = {
   type: 'regular',
   size: 'medium',
-  color: 'black'
+  color: 'black',
+  letterSpacing: 1
 }
 
 export default Text;

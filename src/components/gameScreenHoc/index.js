@@ -85,12 +85,23 @@ export default (WrappedComponent, hideCloseButton) => {
             <MafiaBackground>
               <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{marginBottom: 10}}>Are you sure you want to leave?</Text>
-                <Button onPress={this.handlePlayerLeaving}>
-                  <Text color='black'>Yes</Text>
-                </Button>
-                <Button onPress={this.hideModal}>
-                  <Text color='black'>No</Text>
-                </Button>
+                <View style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center' }}>
+
+                  <Button onPress={this.handlePlayerLeaving}
+                          style={{ width: 120}}>
+                    <Text color='black'>Yes</Text>
+                  </Button>
+
+                  <Button onPress={this.hideModal}
+                          style={{ width: 120}}>
+                    <Text color='black'>No</Text>
+                  </Button>
+
+                </View>
               </View>
             </MafiaBackground>
           </Modal>}

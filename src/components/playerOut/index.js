@@ -8,6 +8,7 @@ import civIcon from '../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../assets/mafia-icon3.png';
 import questionMark from '../../../assets/question-mark.png';
 import InfoText from '../infoBox';
+import AnimatedType from '../animatedType';
 
 class PlayerOut extends React.Component {
 
@@ -24,39 +25,39 @@ class PlayerOut extends React.Component {
     Animated.sequence([
         Animated.timing(this.rotate, {
           toValue: 0,
-          duration: 400
+          duration: 200
         }),
         Animated.timing(this.rotate, {
           toValue: 1,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 2,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 1,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 0,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 1,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 2,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 1,
-          duration: 400
+          duration: 300
         }),
         Animated.timing(this.rotate, {
           toValue: 0,
-          duration: 400
+          duration: 300
         }),
       ]
     ).start( () => {
@@ -86,16 +87,33 @@ class PlayerOut extends React.Component {
     })
 
     return (
-      <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1, width: '100%'}}>
-        <InfoText style={{marginBottom: 10}}>
-          <Text size='large' >Voted out</Text>
-        </InfoText>
+      <>
+        <Text size='large' type='bold' letterSpacing={4}>Out</Text>
+        <View style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: '#d9d9d9',
+          borderRadius: 4,
+          borderWidth: 1,
+          padding: 40,
+          margin: 20
+        }}>
 
-        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}} >
+
+
+
+
 
           <ProfilePicture imageUri={player.photoURL}/>
 
-          <Text style={{marginTop: 10}} >{player.displayName}</Text>
+          <Text style={{marginTop: 10,marginBottom: 10}} >{player.displayName}</Text>
+
+          {/*<AnimatedType alwaysAnimate={true}>*/}
+          {/*<Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}*/}
+          {/*resizeMode='contain'*/}
+          {/*style= {{flex:1 , width: '100%', borderRadius: 35 }}/>*/}
+          {/*</AnimatedType>*/}
 
           <Animated.View style={{
             display: 'flex',
@@ -103,14 +121,15 @@ class PlayerOut extends React.Component {
             alignItems: 'center' ,
             height : 70,
             width: 70,
-            position: 'absolute',
-            top: 0,
-            right: -20,
-            zIndex: 2,
+            // position: 'absolute',
+            // top: 0,
+            // right: -20,
+            // zIndex: 2,
             transform: [
               {rotateY: rotate},
             ]
           }}>
+
             <Animated.View style={{
               height : 70,
               width: 70,
@@ -124,6 +143,7 @@ class PlayerOut extends React.Component {
                      resizeMode='contain'
                      style= {{flex:1 , width: '100%', borderRadius: 35 }}/>
             </Animated.View>
+
             <Animated.View style={{
               height : 70,
               width: 70,
@@ -140,9 +160,11 @@ class PlayerOut extends React.Component {
 
 
           </Animated.View>
-        </View>
 
-      </View>
+
+
+        </View>
+      </>
     );
   }
 }
