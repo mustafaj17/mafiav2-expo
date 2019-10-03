@@ -100,11 +100,6 @@ class PlayerOut extends React.Component {
           margin: 20
         }}>
 
-
-
-
-
-
           <ProfilePicture imageUri={player.photoURL}/>
 
           <Text style={{marginTop: 10,marginBottom: 10}} >{player.displayName}</Text>
@@ -157,11 +152,7 @@ class PlayerOut extends React.Component {
                      style= {{flex:1 , width: '100%',borderRadius: 35 }}/>
             </Animated.View>
 
-
-
           </Animated.View>
-
-
 
         </View>
       </>
