@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View, Image, Animated, StyleSheet} from 'react-native';
-import logo from '../../../assets/logo-hatless.png'
+import logo from '../../../assets/logo.png'
 import hat from '../../../assets/hat.png'
 
 
