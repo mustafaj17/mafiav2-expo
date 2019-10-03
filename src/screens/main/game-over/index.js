@@ -12,6 +12,7 @@ import {getAllPlayers} from "../../../redux/selectors";
 import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
 import ProfilePicture from "../../../components/profilePicture";
 import PageTitle from '../../../components/pageTitle';
+import StatBox from "../../../components/statBox";
 
 class GameOver extends React.Component {
 
@@ -29,7 +30,7 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minWidth: 100}}>
+      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 150, minWidth: 100}}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
         <Text>{player.displayName}</Text>
       </View>
@@ -44,9 +45,8 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(player => <Text>{player[0]}: {player[1]}</Text>)
+    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(player => <StatBox title='Your hater' name={player[0]} number={player[1]} />)
   }
-
 
   render() {
 
@@ -54,7 +54,10 @@ class GameOver extends React.Component {
     const stats = this.getVotesStats();
 
     return (
-      <View style={styles.page}>
+      <View style={{ display: 'flex',
+        width: '100%',
+        flex: 1,
+        alignItems: 'center'}}>
         <PageTitle title='Game Over'/>
         <Text>
           {mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}
@@ -62,37 +65,31 @@ class GameOver extends React.Component {
 
         <>
           <Text size='small' type='bold'>The Mafias</Text>
-          <ScrollView
-            style={{backgroundColor: 'black', padding: 10, width: '100%', flex: 0.2}}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}>
-            {this.getMafias()}
-          </ScrollView>
+          <View style={{backgroundColor: 'whitesmoke', padding: 10, height: 150, width: '100%'}}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}>
+              {this.getMafias()}
+            </ScrollView>
+          </View>
 
-          <ScrollView style={{width: '100%'}}>
+          <View style={{width: '100%'}}>
             <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <Text type='bold'>Stats</Text>
             </View>
 
-            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-              <View style={{marginBottom: 10}}>
-                <Text size='small' type='bold'>Most voted: </Text>
-                {stats.mostVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
-              </View>
-
-              <View style={{marginBottom: 10}}>
-                <Text size='small' type='bold'>Least voted: </Text>
-                {stats.leastVoted.map(arr => <Text>{arr[0]}, {arr[1]} votes</Text>)}
-              </View>
-            </View>
-            <View style={{marginBottom: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text size='small' type='bold'>Most votes against you</Text>
+            <ScrollView
+              style={{backgroundColor: 'black', padding: 10, width: '100%'}}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {stats.mostVoted.map(arr => <StatBox title='Most voted' name={arr[0]} number={arr[1]} />)}
+              {stats.leastVoted.map(arr => <StatBox title='Least voted' name={arr[0]} number={arr[1]} />)}
               {this.getVotesAgainst()}
-            </View>
-
-          </ScrollView>
+            </ScrollView>
+          </View>
         </>
+
 
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>
 
