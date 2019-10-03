@@ -78,7 +78,7 @@ export default (WrappedComponent, hideCloseButton) => {
 
           {!hideCloseButton &&
           <TouchableOpacity onPress={this.showModal} style={{ position: 'absolute' , top: 5, right: 10, zIndex: 2}}>
-            <Ionicons name="md-close" size={32} color="white" />
+            <Ionicons name="md-close" size={32} color="black" />
           </TouchableOpacity>}
 
           {/*<Button title='Leave game' />*/}

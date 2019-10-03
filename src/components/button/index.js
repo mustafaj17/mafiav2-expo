@@ -13,12 +13,16 @@ const Button = (props) => {
         borderRadius: 4,
         padding: 15,
         width: 250,
-        shadowColor: '#333333',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.9,
+        borderColor: '#525358',
+        borderWidth:1,
+        shadowColor: '#aaaaaa',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 5,
-        backgroundColor: '#cbf5f5',
+        backgroundColor: '#fffdfd',
+        borderBottomColor: '#777777',
+        borderBottomWidth: 2,
         ...props.style
       }}>
         {props.children}

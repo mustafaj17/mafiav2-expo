@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import styles from '../../../styles/global';
 import { generateSortedVotes } from '../voting-results/utils';
-import { Player } from '../../../components/player';
+import Player from '../../../components/player/Player';
 import { getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted } from '../../../redux/selectors';
 import { connect } from 'react-redux';
 import GameScreenHOC from '../../../components/gameScreenHoc';

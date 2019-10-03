@@ -3,6 +3,7 @@ import { toggleDisplayPlayerTypes, userHasSeenType } from '../../redux/actions/g
 import { connect } from 'react-redux';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
+import Text from '../text';
 
 class ToggleTypeButton extends React.Component {
 
@@ -64,6 +65,40 @@ class ToggleTypeButton extends React.Component {
       inputRange: [0, 1],
       outputRange: [-50, 0]
     })
+    const bottom = this.size.interpolate({
+      inputRange: [0, 1],
+      outputRange: [-20, 0]
+    })
+
+    return (
+      <Animated.View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
+        width: 80,
+        position:'absolute',
+        right: 10,
+        bottom: bottom
+      }}>
+
+        <TouchableOpacity onPress={this.handleTypeClick}  style={{flex: 1, width:'100%'}}>
+        <View style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+          backgroundColor: '#646464',
+          padding: 5
+        }}>
+          <Text  size='small'> toggle</Text>
+          <Text  size='small'> type</Text>
+        </View>
+        <View style={{
+          width: '100%',
+          flex: 1,
+          backgroundColor: '#31d08a',
+          height: 20
+        }}>
+
+        </View>
+        </TouchableOpacity>
+
+      </Animated.View>
+    )
 
     return (
       <Animated.View style={{

@@ -79,25 +79,34 @@ class playerReadyButton extends React.Component{
 
         return (
           <TouchableOpacity onPress={this.setPlayerReady}>
-              <Animated.View style={{
-                  display: 'flex',
+              <View style={{ display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: '#00FFC2',
-                  height: height,
-                  width: width,
-                  borderRadius: boxRadius,
-                  shadowOffset: { width: 2, height: 4 },
-                  shadowRadius: 2,
-                  shadowColor: 'rgba(34, 23, 83, 0.27)',
-                  shadowOpacity: 1,
-                  transform: [
-                      { scale: boxScale }
-                  ],
-                  elevation: 5
-              }}>
-                  <Text color='black'> {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
-              </Animated.View>
+                  position: 'absolute',
+                  width: '100%',
+                  flex: 1,
+                  bottom: 0,
+                  left: 0,}}>
+                  <Animated.View style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: '#00FFC2',
+                      height: height,
+                      width: width,
+                      borderRadius: boxRadius,
+                      shadowOffset: { width: 2, height: 4 },
+                      shadowRadius: 2,
+                      shadowColor: 'rgba(34, 23, 83, 0.27)',
+                      shadowOpacity: 1,
+                      transform: [
+                          { scale: boxScale }
+                      ],
+                      elevation: 5
+                  }}>
+                      <Text color='black'> {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
+                  </Animated.View>
+              </View>
           </TouchableOpacity>
         )
     }

@@ -1,20 +1,15 @@
 import React from 'react'
-import { View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
 import {getCurrentPlayer, getInGamePlayers, haveAllPlayersVoted} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
-import ProfilePicture from '../../../components/profilePicture';
-import Carousel, { Pagination }  from 'react-native-snap-carousel';
-import { Dimensions } from "react-native";
 import Button from '../../../components/button';
 import Text from '../../../components/text';
-import TextBar from '../../../components/textBar';
 import PageTitle from '../../../components/pageTitle';
-import { LinearGradient } from 'expo-linear-gradient';
 import AnimateLogo from '../../../components/amimatedLogo';
-import InfoText from '../../../components/infoBox';
+import Player from '../../../components/player/Player';
 
 class InVote extends React.Component {
 
@@ -88,66 +83,33 @@ class InVote extends React.Component {
     })
   }
 
-  renderPlayer = (data, index) => {
-
-    const player = data.item;
-    return (
-      <View style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        flex: 1,
-        borderRadius: 50
-      }}>
-
-        <ProfilePicture imageUri={player.photoURL}/>
-        <Text style={{marginTop: 20, marginBottom: 10}}>{player.displayName}</Text>
-        <Button
-          // style={{backgroundColor: 'none', borderWidth: 1,borderColor: 'white', elevation: 0}}
-          onPress={() => this.voteForPlayer(player)}>
-          <Text color='black'>Vote</Text>
-        </Button>
-      </View>
-    )
-  }
-
   render() {
 
     const { inGamePlayers, currentPlayer } = this.props;
-    const { activeSlide } = this.state;
     const { playerHasVoted } = this.state;
-    const screenWidth = Dimensions.get('window').width;
     const votablePlayers = inGamePlayers.filter(player => player.uid !== currentPlayer.uid);
 
     return (
       <View style={styles.page}>
         {playerHasVoted ?
           <>
-          <AnimateLogo/>
-          <Text>Voting in progress...</Text>
+            <AnimateLogo/>
+            <Text>Voting in progress...</Text>
           </>
           :
           <>
             <PageTitle title='Please Vote'/>
 
-
-            <InfoText>
-              <Text>{`Player ${activeSlide + 1} of ${votablePlayers.length}`}</Text>
-            </InfoText>
-
-            <Carousel
-              ref={(c) => { this._carousel = c; }}
-              layout={'stack'}
-              layoutCardOffset={screenWidth - 120}
-              data={votablePlayers}
-              renderItem={this.renderPlayer}
-              sliderWidth={screenWidth}
-              itemWidth={screenWidth - 20}
-              onSnapToItem={(index) => this.setState({ activeSlide: index }) }
-            />
-
-
+            <ScrollView style={{width: '100%', flex: 1}}>
+              {votablePlayers.map( player => (
+                <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
+                  <Player player={player} >
+                    <View style={{marginLeft: 'auto', marginRight: 10}}>
+                      <Text size='small' type='light'>Tap to vote</Text>
+                    </View>
+                  </Player>
+                </TouchableOpacity>))}
+            </ScrollView>
           </>}
         <Button onPress={this.testAutoVote}>
           <Text color='black'>Auto-Vote</Text>

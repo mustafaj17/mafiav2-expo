@@ -43,37 +43,53 @@ class Lobby extends Component {
 
     return(
 
-      <MafiaBackground>
-        <View style={styles.page}>
-          <NavigationEvents
-            onWillFocus={this.screenWillFocus}
-            onWillBlur={this.screenWillBlur}
-          />
+      <View style={styles.page}>
+        <NavigationEvents
+          onWillFocus={this.screenWillFocus}
+          onWillBlur={this.screenWillBlur}
+        />
 
-          <TouchableOpacity style={{
+        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginBottom: 40}}>
+          <Text size='large' color={'#2e2e2e'} style={{letterSpacing: 12, fontSize: 72}}>
+            MAFIA
+          </Text>
+
+          <View style={{
+            height: 30,
+            width: 30,
+            backgroundColor: 'red',
+            borderWidth: 9,
+            borderColor: 'white',
+            borderRadius: 15,
             position: 'absolute',
-            top: 10,
-            right: 10,
-            display: 'flex',
-            alignItems: 'center'
-          }}
-                            onPress={this.gotoProfileScreen}>
-            <ProfilePicture size={40} imageUri={user.photoURL}/>
-            <Text size='small'>Profile</Text>
-          </TouchableOpacity>
-
-          <Button onPress={this.handleJoinGame}>
-            <Text color='black'>Join Game</Text>
-          </Button>
-
-          <MafiaLogo/>
-
-
-          <Button onPress={this.handleStartGame} >
-            <Text color='black'>Start New Game</Text>
-          </Button>
+            top: 12,
+            right: 65
+          }}/>
         </View>
-      </MafiaBackground>
+
+        <TouchableOpacity style={{
+          position: 'absolute',
+          top: 10,
+          right: 10,
+          display: 'flex',
+          alignItems: 'center'
+        }}
+                          onPress={this.gotoProfileScreen}>
+          <ProfilePicture size={40} imageUri={user.photoURL}/>
+          <Text size='small' color='black'>Profile</Text>
+        </TouchableOpacity>
+
+        <Button onPress={this.handleJoinGame}>
+          <Text color='black' style={{letterSpacing: 2}}>Join Game</Text>
+        </Button>
+
+        <MafiaLogo/>
+
+
+        <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
+          <Text color='black' style={{letterSpacing: 2}}>Start New Game</Text>
+        </Button>
+      </View>
     )
   }
 }

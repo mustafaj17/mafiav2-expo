@@ -6,11 +6,11 @@ import ReadyButton from '../../../components/playerReadyButton';
 import ToggleTypeButton from '../../../components/toggleTypeButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
-import { toggleDisplayPlayerTypes, userHasSeenType } from '../../../redux/actions/gameActions';
+import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
 import GameScreenHOC from "../../../components/gameScreenHoc";
-import Player from '../../../components/player';
 import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
+import PlayerWithToggleType from '../../../components/player/PlayerWithToggleType';
 
 class PreRound extends React.Component {
 
@@ -36,7 +36,8 @@ class PreRound extends React.Component {
         <PageTitle title={gameData.gameName}/>
 
         <ScrollView style={{width: '100%', flex: 1}}>
-          {inGamePlayers.map( player => <Player key={player.uid} player={player} showPlayerReady={true}/>)}
+          {inGamePlayers.map( player => <PlayerWithToggleType key={player.uid} player={player} />)}
+          <View style={{height: 100}}/>
         </ScrollView>
 
 

@@ -15,7 +15,7 @@ const PageTitle = (props) => {
       borderBottomWidth: 1,
       borderBottomColor: 'lightgrey'
     }}>
-      <Text size='large'>{props.title}</Text>
+      <Text size='large' color='black'>{props.title}</Text>
     </View>
   )
 }

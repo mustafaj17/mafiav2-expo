@@ -41,7 +41,7 @@ Text.propTypes = {
 Text.defaultProps = {
   type: 'regular',
   size: 'medium',
-  color: 'white'
+  color: 'black'
 }
 
 export default Text;

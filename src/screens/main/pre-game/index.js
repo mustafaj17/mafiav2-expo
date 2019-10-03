@@ -6,11 +6,12 @@ import { firestore } from '../../../services/firebase'
 import { areAllPlayersReady, getCurrentPlayer, getInGamePlayers } from '../../../redux/selectors';
 import {TYPE} from "../../../constants";
 import GameScreenHOC from '../../../components/gameScreenHoc'
-import Player from '../../../components/player';
+import Player from '../../../components/player/Player';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import PageTitle from '../../../components/pageTitle';
 import TextBar from '../../../components/textBar';
+import LoadingScreen from '../../../components/loadingScreen';
 
 class PreGame extends React.Component {
 
@@ -175,7 +176,7 @@ class PreGame extends React.Component {
         const { gameData, currentPlayer, inGamePlayers } = this.props;
 
         if(!currentPlayer){
-            return(<View><Text>Loading</Text></View>)
+            return(<LoadingScreen/>)
         }
 
         return (
