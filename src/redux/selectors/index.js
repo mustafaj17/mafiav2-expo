@@ -5,7 +5,7 @@ export const getCurrentPlayer = state => {
 }
 
 export const getInGamePlayers = state => {
-    return state.game.playersData.filter( player => !player.isOut);
+    return state.game.playersData.filter( player => !player.isOut && !player.leftGame);
 }
 
 export const getAllPlayers = state => {
@@ -13,7 +13,7 @@ export const getAllPlayers = state => {
 }
 
 export const haveAllPlayersVoted = state => {
-    return state.game.playersData.filter( player => !player.isOut).reduce( (allVoted ,player) => (allVoted && !!player.votingFor), true);
+    return getInGamePlayers(state).reduce( (allVoted ,player) => (allVoted && !!player.votingFor), true);
 }
 export const areAllPlayersReady = state => {
     return getInGamePlayers(state).reduce( (allReady,player) => (allReady && !!player.ready), true)

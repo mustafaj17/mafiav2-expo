@@ -111,9 +111,12 @@ class InVote extends React.Component {
                 </TouchableOpacity>))}
             </ScrollView>
           </>}
-        <Button onPress={this.testAutoVote}>
-          <Text color='black'>Auto-Vote</Text>
-        </Button>
+
+        <TouchableOpacity onPress={this.testAutoVote}
+                          style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
+                            display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Text size='xsmall'>Auto vote</Text>
+        </TouchableOpacity>
       </View>
     )
   }

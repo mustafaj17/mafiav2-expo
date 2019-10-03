@@ -182,12 +182,11 @@ class PreGame extends React.Component {
         return (
 
           <View style={styles.page}>
-              <PageTitle title='Game Lobby'/>
-
-              <TextBar title={gameData.gameName}/>
+              <PageTitle title={gameData.gameName}/>
 
               <ScrollView style={{width: '100%'}}>
                   {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
+                  <View style={{height: 100}}></View>
               </ScrollView>
 
               {currentPlayer.isAdmin &&

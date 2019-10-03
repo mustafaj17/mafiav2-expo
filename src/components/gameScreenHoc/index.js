@@ -47,9 +47,6 @@ export default (WrappedComponent, hideCloseButton) => {
       const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players, endGame } = this.props;
       const batch = firestore.batch();
 
-      //todo: maybe add flag to say he left and in the end game summary we can show that he left
-      //todo: also check if he was in the game so we can say 'voted and left'
-      batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {isOut: true});
       //
       game.playersDisconnect();
       game.gameDisconnect();
@@ -64,6 +61,7 @@ export default (WrappedComponent, hideCloseButton) => {
       else if(currentPlayer.isAdmin){
         const newAdmin = inGamePlayers.find( player => player.email !== currentPlayer.email)
         batch.update(gameDoc.ref.collection('players').doc(newAdmin.email), {isAdmin: true});
+        batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {leftGame: true});
       }
 
       endGame();
@@ -85,15 +83,15 @@ export default (WrappedComponent, hideCloseButton) => {
           {this.state.showModal &&
           <Modal onRequestClose={this.hideModal} animationType='fade'>
             <MafiaBackground>
-            <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{marginBottom: 10}}>Are you sure you want to leave?</Text>
-              <Button onPress={this.handlePlayerLeaving}>
-                <Text color='black'>Yes</Text>
-              </Button>
-              <Button onPress={this.hideModal}>
-                <Text color='black'>No</Text>
-              </Button>
-            </View>
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{marginBottom: 10}}>Are you sure you want to leave?</Text>
+                <Button onPress={this.handlePlayerLeaving}>
+                  <Text color='black'>Yes</Text>
+                </Button>
+                <Button onPress={this.hideModal}>
+                  <Text color='black'>No</Text>
+                </Button>
+              </View>
             </MafiaBackground>
           </Modal>}
           <MafiaBackground>
