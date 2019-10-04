@@ -30,7 +30,26 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 150, minWidth: 100}}>
+      <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 150,
+        minWidth: 100,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
+        backgroundColor:'white',
+        borderWidth: 1,
+        borderColor: '#e2e2e2',
+        padding: 10,
+        marginRight: 10
+      }}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
         <Text>{player.displayName}</Text>
       </View>
@@ -57,16 +76,17 @@ class GameOver extends React.Component {
       <View style={{ display: 'flex',
         width: '100%',
         flex: 1,
-        alignItems: 'center'}}>
-        <PageTitle title='Game Over'/>
-        <Text>
-          {mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}
-        </Text>
+        justifyContent: 'space-between'
+      }}>
+        <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
 
-        <>
-          <Text size='small' type='bold'>The Mafias</Text>
-          <View style={{backgroundColor: 'whitesmoke', padding: 10, height: 150, width: '100%'}}>
+
+          <View style={{width: '100%'}}>
+            <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Text type='bold'>The Mafias</Text>
+            </View>
             <ScrollView
+              style={{ padding: 10, width: '100%'}}
               horizontal
               showsHorizontalScrollIndicator={false}>
               {this.getMafias()}
@@ -79,7 +99,7 @@ class GameOver extends React.Component {
             </View>
 
             <ScrollView
-              style={{backgroundColor: 'black', padding: 10, width: '100%'}}
+              style={{ padding: 10, width: '100%'}}
               horizontal
               showsHorizontalScrollIndicator={false}
             >
@@ -88,7 +108,6 @@ class GameOver extends React.Component {
               {this.getVotesAgainst()}
             </ScrollView>
           </View>
-        </>
 
 
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>

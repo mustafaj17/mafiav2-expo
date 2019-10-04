@@ -94,10 +94,20 @@ class PlayerOut extends React.Component {
           justifyContent: 'center',
           alignItems: 'center',
           borderColor: '#d9d9d9',
+          backgroundColor: 'white',
           borderRadius: 4,
           borderWidth: 1,
           padding: 40,
-          margin: 20
+          margin: 20,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 4,
+          },
+          shadowOpacity: 0.32,
+          shadowRadius: 5.46,
+
+          elevation: 9,
         }}>
 
           <ProfilePicture imageUri={player.photoURL}/>

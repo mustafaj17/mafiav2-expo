@@ -5,14 +5,16 @@ import { getCurrentPlayer } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Text from '../text';
 import { FontAwesome } from '@expo/vector-icons'
+import styles from './styles';
 
-export const Player = (props) => {
+const Player = (props) => {
 
 
   const { player,showPlayerReady } = props;
 
   return(
-    <View key={player.uid} style={styles.player}>
+    <View key={player.uid} style={styles.container}>
+    <View style={styles.player}>
       <ProfilePicture imageUri={player.photoURL} size={50}/>
       <Text style={{marginLeft: 10}} color='black'>{player.displayName}</Text>
 
@@ -34,6 +36,8 @@ export const Player = (props) => {
 
       {props.children}
     </View>
+
+    </View>
   )
 }
 
@@ -46,18 +50,3 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(Player);
 
 
-const styles =  StyleSheet.create({
-  player: {
-    display: 'flex',
-    flex: 1,
-    height: 60,
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingLeft: 5,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#8b8b8b',
-    overflow: 'hidden',
-    borderRadius: 5
-  },
-});
