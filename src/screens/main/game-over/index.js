@@ -34,7 +34,6 @@ class GameOver extends React.Component {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 150,
         minWidth: 100,
         shadowColor: "#000",
         shadowOffset: {
@@ -51,7 +50,7 @@ class GameOver extends React.Component {
         marginRight: 10
       }}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text>{player.displayName}</Text>
+        <Text size='small'>{player.displayName}</Text>
       </View>
     ))
   }
