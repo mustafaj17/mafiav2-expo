@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
-import ProfilePicture from '../../../../components/profilePicture';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import MafiaLogo from '../../../../components/mafiaLogo';
-import MafiaBackground from '../../../../components/mafiaBackground';
-import PlayerOut from '../../../../components/playerOut';
+import {FontAwesome} from "@expo/vector-icons";
 
 class Lobby extends Component {
   screenWillFocus= () => {
@@ -67,16 +65,17 @@ class Lobby extends Component {
           }}/>
         </View>
 
-        <TouchableOpacity style={{
-          position: 'absolute',
-          top: 10,
-          right: 10,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-                          onPress={this.gotoProfileScreen}>
-          <ProfilePicture size={40} imageUri={user.photoURL}/>
-          <Text size='small' color='black'>Profile</Text>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+          onPress={this.gotoProfileScreen}
+        >
+          <FontAwesome name='user-circle-o' color='#000' size={34}/>
         </TouchableOpacity>
 
         <Button onPress={this.handleJoinGame}>

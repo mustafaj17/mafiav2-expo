@@ -11,6 +11,7 @@ import { updateUserProfilePic, loadingUserPhotoToggle } from '../../../../redux/
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import MafiaBackground from '../../../../components/mafiaBackground';
+import {FloatingLabelInput} from "../../../../components/floatingLabelInput/floatingLabelInput";
 
 class UserProfile extends React.Component {
 
@@ -58,26 +59,18 @@ class UserProfile extends React.Component {
         <View style={{alignSelf: 'center', marginTop: 50}}>
           <ProfilePicture imageUri={user.photoURL} size={200}/>
         </View>
-        <View style={{marginTop: 25, marginLeft: 25}}>
-          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text type='bold' size='small'>DisplayName:</Text>
-            <Text size='small' style={{marginLeft: 8}}>{user.displayName}</Text>
-          </View>
-          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Text type='bold' size='small'>Email:</Text>
-            <Text size='small' style={{marginLeft: 8}}>{user.email}</Text>
-          </View>
-        </View>
+        <FloatingLabelInput style={{backgroundColor: '#e2e2e2', opacity: 0.7}} editable={false} label='Email' value={user.email} size='small'/>
+        <FloatingLabelInput style={{backgroundColor: '#e2e2e2', opacity: 0.7}}  editable={false} label='Display Name' value={user.displayName}/>
         <View style={{alignSelf: 'center', marginTop: 25}}>
-        { hasCameraPermission === false ?
-          <View >
-            <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
-            <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
-          </View> :
-          <Button onPress={this.takeProfilePic} >
-            <Text color='black'>{ user.photoURL ? 'Change picture' : 'Add picture'}</Text>
-          </Button>
-        }
+          { hasCameraPermission === false ?
+            <View >
+              <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+              <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
+            </View> :
+            <Button onPress={this.takeProfilePic} >
+              <Text color='black'>{ user.photoURL ? 'Change picture' : 'Add picture'}</Text>
+            </Button>
+          }
         </View>
       </MafiaBackground>
     );
