@@ -10,20 +10,41 @@ const ProfilePicture = ({imageUri, size, loadingPhoto}) => {
   const borderRadius = Math.floor(size / 2);
 
   if(loadingPhoto) return (
-    <View style={{ width: size, height: size, display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
-      <ActivityIndicator size="large" color="#28F1A6" />
-      <Text style={{marginTop: 10}} >Loading image...</Text>
+    <View style={{
+      width: size,
+      height: size,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.20,
+      shadowRadius: 1.41,
+      elevation: 2,
+      borderWidth: 1,
+      borderColor: '#e2e2e2',
+      borderRadius: Math.floor(size/2)
+    }} >
+      <ActivityIndicator size={0} color="#28F1A6" />
     </View>
   )
 
   return(
-    <View style={{ width: size, height: size,   shadowColor: "#000",
+    <View style={{ width: size, height: size,
       shadowOffset: {
-        width: 0,
-        height: 4,
-      },
-      shadowOpacity: 0.32,
-      shadowRadius: 5.46, }} >
+      width: 0,
+      height: 1,
+    },
+      shadowOpacity: 0.20,
+      shadowRadius: 1.41,
+      elevation: 2,
+      borderWidth: 1,
+      borderColor: '#e2e2e2',
+      borderRadius: Math.floor(size/2)
+    }} >
       <Image style= {{flex:1 , borderRadius: borderRadius, width: '100%' }}
              source={imageUri ? {uri : imageUri} : noProfilePic}/>
     </View>
