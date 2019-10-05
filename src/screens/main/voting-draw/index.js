@@ -12,10 +12,17 @@ import Button from '../../../components/button';
 import TextBar from '../../../components/textBar';
 import PageTitle from '../../../components/pageTitle';
 import InfoText from '../../../components/infoBox';
+import LoadingScreen from '../../../components/loadingScreen';
 
 class VotingDraw extends React.Component {
 
+  state = {
+    loading: false
+  }
+
   handleRevote = () => {
+
+    this.setState({loading: true});
     const { inGamePlayers, gameDoc,navigation } = this.props;
     const batch = firestore.batch();
 
@@ -59,6 +66,13 @@ class VotingDraw extends React.Component {
   render() {
 
     const { currentPlayer } = this.props;
+    const { loading } = this.state;
+
+    if(loading){
+      return (
+        <LoadingScreen/>
+      )
+    }
 
     return (
       <View style={{...styles.page}}>
@@ -78,6 +92,7 @@ class VotingDraw extends React.Component {
         </Button>
         }
       </View>
+
     );
   }
 }

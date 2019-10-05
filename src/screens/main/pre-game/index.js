@@ -128,30 +128,30 @@ class PreGame extends React.Component {
                 votedFor: [],
                 uid: 4
             },
-            // {
-            //     email: 'test5@email.com',
-            //     type: TYPE.MAFIA,
-            //     displayName: 'Big Jimmy Jones',
-            //     ready: true,
-            //     votedFor: [],
-            //     uid: 5
-            // },
-            // {
-            //     email: 'test6@email.com',
-            //     type: TYPE.MAFIA,
-            //     displayName: 'big civilian man',
-            //     ready: true,
-            //     votedFor: [],
-            //     uid: 6
-            // },
-            // {
-            //     email: 'test5@email.com',
-            //     type: TYPE.CIVILIAN,
-            //     displayName: 'civilian brudda',
-            //     ready: true,
-            //     votedFor: [],
-            //     uid: 7
-            // }
+            {
+                email: 'test5@email.com',
+                type: TYPE.MAFIA,
+                displayName: 'Big Jimmy Jones',
+                ready: true,
+                votedFor: [],
+                uid: 5
+            },
+            {
+                email: 'test6@email.com',
+                type: TYPE.CIVILIAN,
+                displayName: 'big civilian man',
+                ready: true,
+                votedFor: [],
+                uid: 6
+            },
+            {
+                email: 'test5@email.com',
+                type: TYPE.CIVILIAN,
+                displayName: 'civilian brudda',
+                ready: true,
+                votedFor: [],
+                uid: 7
+            }
         ]
 
         const batch = firestore.batch();
