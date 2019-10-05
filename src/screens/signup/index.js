@@ -16,6 +16,8 @@ import MafiaBackground from '../../components/mafiaBackground';
 import Text from '../../components/text';
 import Button from '../../components/button';
 
+const DISPLAY_NAME_LIMIT = 12;
+
 export default class SignUp extends React.Component {
 
   state = {
@@ -26,7 +28,8 @@ export default class SignUp extends React.Component {
     imageUri: null,
     loading: false ,
     profilePicMode : false,
-    termsAccepted: false
+    termsAccepted: false,
+    usernameLimitReached: false
   }
 
   handleSignUp = async () => {
@@ -80,7 +83,8 @@ export default class SignUp extends React.Component {
       imageUri,
       errorMessage,
       hasCameraPermission,
-      termsAccepted
+      termsAccepted,
+      usernameLimitReached
     } = this.state;
 
     if(this.state.loading) return( <LoadingScreen/> );
@@ -98,11 +102,27 @@ export default class SignUp extends React.Component {
           <ScrollView style={{ flex: 1, paddingTop: 20}}>
             <Text type='bold' color='pink' >{errorMessage}</Text>
 
+            <View>
             <FloatingLabelInput
               label="Display Name"
               value={displayName}
-              onChangeText={value => this.setState({ displayName: value })}
+              onChangeText={value => {
+                if(value.length > DISPLAY_NAME_LIMIT){
+                  this.setState({usernameLimitReached: true})
+                  return;
+                }
+                this.setState({ displayName: value, usernameLimitReached: false })
+              }}
             />
+              <Text size='small' type='light'
+                    style={{
+                      position: 'absolute',
+                      bottom: -5,
+                      left: 20,
+                      color: (usernameLimitReached ? 'red' : 'grey')
+                    }}>Max 12 characters</Text>
+            </View>
+
             <FloatingLabelInput
               label="Email"
               onChangeText={ value => this.setState({ email: value })}

@@ -24,10 +24,6 @@ export default class Landing extends React.Component {
   render() {
     const { navigation } = this.props;
     return (
-      <LinearGradient
-        start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
-        colors={['#2bbb81', '#3670bf']}
-        style={{ flex: 1, width: '100%' }}>
       <KeyboardAvoidingView style={globalStyles.page}>
         <NavigationEvents
           onWillFocus={this.screenWillFocus}
@@ -54,7 +50,6 @@ export default class Landing extends React.Component {
           <Text color='black'>How To Play</Text>
         </Button>
       </KeyboardAvoidingView>
-      </LinearGradient>
     )
   }
 }

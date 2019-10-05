@@ -36,7 +36,7 @@ export class FloatingLabelInput extends React.Component {
       }),
       top: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [28, 0],
+        outputRange: [34, 0],
       }),
       fontSize: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
@@ -72,6 +72,7 @@ export class FloatingLabelInput extends React.Component {
           autoCorrect={false}
           spellCheck={false}
         />
+        {props.children}
       </View>
     );
   }
