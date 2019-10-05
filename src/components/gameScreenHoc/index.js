@@ -62,12 +62,21 @@ export default (WrappedComponent, hideCloseButton) => {
         const newAdmin = inGamePlayers.find( player => player.email !== currentPlayer.email)
         batch.update(gameDoc.ref.collection('players').doc(newAdmin.email), {isAdmin: true});
         batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {leftGame: true});
+        this.updateUserStats();
       }
 
       endGame();
       navigation.navigate('Lobby');
       await batch.commit();
 
+    }
+
+    updateUserStats = async () => {
+      await firestore.collection('user-stats').doc(currentPlayer.email).update({
+        ...stats,
+        gamesPlayed : stats.gamesPlayed + 1,
+        gamesLeft: stats.gamesLeft + 1
+      });
     }
 
     render() {
@@ -119,6 +128,7 @@ export default (WrappedComponent, hideCloseButton) => {
     game: state.game,
     inGamePlayers: getInGamePlayers(state),
     currentPlayer: getCurrentPlayer(state),
+    stats: state.user.stats,
   })
 
 

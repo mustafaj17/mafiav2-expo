@@ -20,7 +20,8 @@ class Lobby extends Component {
       const newStats = {
         gamesPlayed: 0,
         gamesWon: 0,
-        gamesWonAsMafia: 0
+        gamesWonAsMafia: 0,
+        gamesLeft: 0
       };
       firestore.collection('user-stats').doc(user.email).set(newStats)
       this.props.setUserStats(newStats);

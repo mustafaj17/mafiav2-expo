@@ -42,6 +42,7 @@ class GameOver extends React.Component {
 
 
     await firestore.collection('user-stats').doc(currentPlayer.email).update({
+      ...stats,
       gamesPlayed : stats.gamesPlayed + 1,
       gamesWon: userWon ? stats.gamesWon + 1 : stats.gamesWon,
       gamesWonAsMafia : userWonAsMafia ? stats.gamesWonAsMafia + 1 : stats.gamesWonAsMafia

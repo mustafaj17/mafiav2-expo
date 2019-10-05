@@ -62,7 +62,8 @@ class UserProfile extends React.Component {
           <Text>Games Played : {user.stats.gamesPlayed}</Text>
           <Text>Games Won : {user.stats.gamesWon}</Text>
           <Text>Games Won as Mafia : {user.stats.gamesWonAsMafia}</Text>
-          <Text>Games Won as Civilian : {user.stats.gamesPlayed - user.stats.gamesWonAsMafia}</Text>
+          <Text>Games Won as Civilian : {user.stats.gamesPlayed - user.stats.gamesWonAsMafia - user.stats.gamesLeft}</Text>
+          <Text>Games Left : {user.stats.gamesLeft}</Text>
         </View>
         <View style={{alignSelf: 'center', marginTop: 50}}>
           <ProfilePicture imageUri={user.photoURL} size={200}/>
