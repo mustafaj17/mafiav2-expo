@@ -6,15 +6,31 @@ import Text from '../../../../components/text';
 import Button from '../../../../components/button';
 import MafiaLogo from '../../../../components/mafiaLogo';
 import {FontAwesome} from "@expo/vector-icons";
+import { firestore } from '../../../../services/firebase';
+import { setUserStats } from '../../../../redux/actions/userActions';
 
 class Lobby extends Component {
-  screenWillFocus= () => {
+  screenWillFocus= async () => {
+    const { user } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    const userStats = await firestore.collection('user-stats').doc(user.email).get();
+    if(userStats.exists) {
+      this.props.setUserStats(userStats.data());
+    }else {
+      const newStats = {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        gamesWonAsMafia: 0
+      };
+      firestore.collection('user-stats').doc(user.email).set(newStats)
+      this.props.setUserStats(newStats);
+    }
   }
 
   handleBackButton = () => {
     ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
+
   }
 
   screenWillBlur = () => {
@@ -110,6 +126,8 @@ const mapStateToProps = state => ({
   user: state.user,
   state: state
 })
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  setUserStats : stats => dispatch(setUserStats(stats))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);

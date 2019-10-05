@@ -1,7 +1,5 @@
 import React from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
 import firebase from '../../services/firebase';
-import globalStyles from '../../styles/global';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/userActions';
 import LoadingScreen from '../../components/loadingScreen';
@@ -10,14 +8,14 @@ class AuthLoading extends React.Component {
 
     componentDidMount() {
 
-        this.props.navigation.navigate('Landing')
-        return;
+        // this.props.navigation.navigate('Landing')
+        // return;
 
-        firebase.auth().onAuthStateChanged(user => {
-            this.props.navigation.navigate(user ? 'Main' : 'Landing')
+        firebase.auth().onAuthStateChanged(async (user) => {
             if(user){
-                this.props.setUser(user)
+                this.props.setUser(user);
             }
+            this.props.navigation.navigate(user ? 'Main' : 'Landing')
         })
     }
 

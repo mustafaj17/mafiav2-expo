@@ -73,6 +73,14 @@ export default class SignUp extends React.Component {
     this.setState({imageUri, profilePicMode: false});
   }
 
+  handleDisplayNameInput = value => {
+    if(value.length > DISPLAY_NAME_LIMIT){
+      this.setState({usernameLimitReached: true})
+      return;
+    }
+    this.setState({ displayName: value, usernameLimitReached: false })
+  }
+
   render() {
 
     const {
@@ -103,24 +111,18 @@ export default class SignUp extends React.Component {
             <Text type='bold' color='pink' >{errorMessage}</Text>
 
             <View>
-            <FloatingLabelInput
-              label="Display Name"
-              value={displayName}
-              onChangeText={value => {
-                if(value.length > DISPLAY_NAME_LIMIT){
-                  this.setState({usernameLimitReached: true})
-                  return;
-                }
-                this.setState({ displayName: value, usernameLimitReached: false })
-              }}
-            />
+              <FloatingLabelInput
+                label="Display Name"
+                value={displayName}
+                onChangeText={this.handleDisplayNameInput}
+              />
               <Text size='small' type='light'
                     style={{
                       position: 'absolute',
                       bottom: -5,
                       left: 20,
                       color: (usernameLimitReached ? 'red' : 'grey')
-                    }}>Max 12 characters</Text>
+                    }}>Max {DISPLAY_NAME_LIMIT} characters</Text>
             </View>
 
             <FloatingLabelInput

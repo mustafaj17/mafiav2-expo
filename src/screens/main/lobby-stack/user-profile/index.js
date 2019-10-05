@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import ProfilePicture from '../../../../components/profilePicture';
 import * as Permissions from 'expo-permissions';
@@ -55,7 +55,14 @@ class UserProfile extends React.Component {
     }
 
     return (
-      <MafiaBackground>
+      <ScrollView>
+
+        <View style={{marginTop: 40}}>
+          <Text>Games Played : {user.stats.gamesPlayed}</Text>
+          <Text>Games Won : {user.stats.gamesWon}</Text>
+          <Text>Games Won as Mafia : {user.stats.gamesWonAsMafia}</Text>
+          <Text>Games Won as Civilian : {user.stats.gamesPlayed - user.stats.gamesWonAsMafia}</Text>
+        </View>
         <View style={{alignSelf: 'center', marginTop: 50}}>
           <ProfilePicture imageUri={user.photoURL} size={200}/>
         </View>
@@ -72,7 +79,7 @@ class UserProfile extends React.Component {
             </Button>
           }
         </View>
-      </MafiaBackground>
+      </ScrollView>
     );
   }
 }

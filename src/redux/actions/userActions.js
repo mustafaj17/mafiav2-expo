@@ -1,6 +1,7 @@
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER_PROFILE_PIC = 'UPDATE_USER_PROFILE_PIC';
 export const LOADING_USER_PHOTO_TOGGLE = 'LOADING_USER_PHOTO_TOGGLE';
+export const SET_USER_STATS = 'SET_USER_STATS';
 
 export const setUser = user => {
     return {
@@ -19,5 +20,12 @@ export const updateUserProfilePic = photoURL => {
 export const loadingUserPhotoToggle = () => {
     return {
         type: LOADING_USER_PHOTO_TOGGLE,
+    }
+}
+
+export const setUserStats = stats => {
+    return {
+        type: SET_USER_STATS,
+        payload: stats
     }
 }

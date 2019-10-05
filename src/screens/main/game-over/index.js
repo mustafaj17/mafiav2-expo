@@ -13,15 +13,34 @@ import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils'
 import ProfilePicture from "../../../components/profilePicture";
 import PageTitle from '../../../components/pageTitle';
 import StatBox from "../../../components/statBox";
+import { firestore } from '../../../services/firebase';
 
 class GameOver extends React.Component {
 
-  handleEndGame = () => {
+  handleEndGame = async  () => {
     const { navigation, game } = this.props;
+    this.updateUserStats()
     game.playersDisconnect();
     game.gameDisconnect();
     this.props.endGame();
     navigation.navigate('Lobby')
+  }
+
+  updateUserStats = async () => {
+
+    const { mafiasWon, currentPlayer, stats } = this.props;
+
+    const userWonAsMafia = mafiasWon && (currentPlayer.type === TYPE.MAFIA);
+    const userWonAsCivilian = !mafiasWon && (currentPlayer.type === TYPE.CIVILIAN);
+    const userWon = userWonAsMafia || userWonAsCivilian;
+
+
+    await firestore.collection('user-stats').doc(currentPlayer.email).update({
+      gamesPlayed : stats.gamesPlayed + 1,
+      gamesWon: userWon ? stats.gamesWon + 1 : stats.gamesWon,
+      gamesWonAsMafia : userWonAsMafia ? stats.gamesWonAsMafia + 1 : stats.gamesWonAsMafia
+    });
+
   }
 
   handlePlayAgain= () => {}
@@ -134,7 +153,8 @@ const mapStateToProps = state => ({
   currentPlayer: getCurrentPlayer(state),
   inGamePlayers: getInGamePlayers(state),
   allPlayers: getAllPlayers(state),
-  mafiasWon: didMafiasWin(state)
+  mafiasWon: didMafiasWin(state),
+  stats: state.user.stats
 })
 
 const mapDispatchToProps = dispatch => ({
