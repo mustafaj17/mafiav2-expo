@@ -20,7 +20,7 @@ class InVote extends React.Component {
 
   voteForPlayer = player => {
     const { gameDoc, currentPlayer, inGamePlayers } = this.props;
-    gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player, votedFor: [player.displayName, ...currentPlayer.votedFor]})
+    gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player,})
     this.setState({playerHasVoted: true})
   }
 
@@ -73,7 +73,7 @@ class InVote extends React.Component {
     inGamePlayers.forEach(player => {
       const currentTestPlayer = inGamePlayers.filter(p => p.email === player.email)
       const randomPlayer =  getRandomPlayer()
-      batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: randomPlayer, votedFor: [randomPlayer.displayName, ...currentTestPlayer[0].votedFor]});
+      batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: randomPlayer, });
     });
 
     batch.commit().then( () => {
