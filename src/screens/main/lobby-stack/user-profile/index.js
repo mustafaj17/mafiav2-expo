@@ -53,6 +53,7 @@ class UserProfile extends React.Component {
         savePicture={(image) => this.saveProfilePicture(image)}
         hideProfileImagePicker={ () => this.setState({profilePicMode: false})}/>
     }
+    console.log('********photo', user.photoURL)
 
     return (
       <ScrollView>

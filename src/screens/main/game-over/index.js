@@ -1,6 +1,5 @@
 import React from 'react'
-import {KeyboardAvoidingView, ScrollView, View} from 'react-native'
-import styles from '../../../styles/global';
+import { ScrollView, View} from 'react-native'
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
@@ -10,14 +9,21 @@ import { endGame } from '../../../redux/actions/gameActions';
 import { TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
-import ProfilePicture from "../../../components/profilePicture";
 import PageTitle from '../../../components/pageTitle';
 import StatBox from "../../../components/statBox";
 import { firestore } from '../../../services/firebase';
+import Player from "../../../components/player/Player";
+import MafiaLogo from "../../../components/mafiaLogo";
+import Overlay from "../../../components/overlay";
+import StatsModal from "../../../components/statsModal";
 
 class GameOver extends React.Component {
 
-  handleEndGame = async  () => {
+  state={
+    modalVisible: false,
+  }
+
+  handleEndGame = () => {
     const { navigation, game } = this.props;
     this.updateUserStats()
     game.playersDisconnect();
@@ -49,28 +55,7 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <View style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minWidth: 100,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
-        backgroundColor:'white',
-        borderWidth: 1,
-        borderColor: '#e2e2e2',
-        padding: 10,
-        marginRight: 10
-      }}>
-        <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text size='small'>{player.displayName}</Text>
-      </View>
+      <Player player={player}/>
     ))
   }
 
@@ -85,6 +70,8 @@ class GameOver extends React.Component {
     return getVotesAgainstPlayer(allPlayers, currentPlayer).map(player => <StatBox title='Your hater' name={player[0]} number={player[1]} />)
   }
 
+  toggleModal = () => this.setState({modalVisible: !this.state.modalVisible})
+
   render() {
 
     const { mafiasWon, currentPlayer } = this.props;
@@ -94,40 +81,24 @@ class GameOver extends React.Component {
       <View style={{ display: 'flex',
         width: '100%',
         flex: 1,
-        justifyContent: 'space-between'
+        alignItems: 'center',
       }}>
+        <StatsModal visible={this.state.modalVisible} stats={stats} toggleModal={this.toggleModal} getVotesAgainst={this.getVotesAgainst}/>
         <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
+        <MafiaLogo/>
 
-
-          <View style={{width: '100%'}}>
-            <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text type='bold'>The Mafias</Text>
-            </View>
-            <ScrollView
-              style={{ padding: 10, width: '100%'}}
-              horizontal
-              showsHorizontalScrollIndicator={false}>
-              {this.getMafias()}
-            </ScrollView>
+        <View style={{width: '100%'}}>
+          <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <Text type='bold'>The Mafias</Text>
           </View>
+        </View>
+        <ScrollView style={{width: '100%', flex: 1}}>
+          {this.getMafias()}
+        </ScrollView>
 
-          <View style={{width: '100%'}}>
-            <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text type='bold'>Stats</Text>
-            </View>
-
-            <ScrollView
-              style={{ padding: 10, width: '100%'}}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            >
-              {stats.mostVoted.map(arr => <StatBox title='Most voted' name={arr[0]} number={arr[1]} />)}
-              {stats.leastVoted.map(arr => <StatBox title='Least voted' name={arr[0]} number={arr[1]} />)}
-              {this.getVotesAgainst()}
-            </ScrollView>
-          </View>
-
-
+        <Button onPress={this.toggleModal} style={{width: 150}}>
+          <Text color='black'>Stats</Text>
+        </Button>
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>
 
           { currentPlayer.isAdmin &&
@@ -139,7 +110,9 @@ class GameOver extends React.Component {
             <Text color='black'>End Game</Text>
           </Button>
         </View>
-
+        {this.state.modalVisible &&
+        <Overlay/>
+        }
       </View>
     )
   }

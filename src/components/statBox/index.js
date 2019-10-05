@@ -24,16 +24,17 @@ export default class StatBox extends React.Component {
           borderColor: '#e2e2e2',
           borderRadius: 4,
           height: 150,
-          width: 150,
+          minWidth: 150,
           overflow: 'hidden',
           marginRight: 10,
+          marginBottom: 15,
         }}>
           <View style={{backgroundColor: '#eeeeee', padding: 4, marginBottom: 4, width: '100%' }}>
             <Text style={{letterSpacing: 2, textAlign: 'center'}}>{title}</Text>
           </View>
           <ProfilePicture size={50} imageUri={pic} />
-          <Text size='small'>{name}</Text>
-          <Text size='small'>{number} votes</Text>
+          <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{name}</Text>
+          <Text size='xsmall'>{number} votes</Text>
         </View>
       </View>
     )
