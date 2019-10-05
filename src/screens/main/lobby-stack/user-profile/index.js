@@ -55,19 +55,29 @@ class UserProfile extends React.Component {
 
     return (
       <MafiaBackground>
-        <View style={globalStyles.page}>
-          <ProfilePicture imageUri={user.photoURL} size={250}/>
-          { hasCameraPermission === false ?
-            <View>
-              <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
-              <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
-            </View> :
-            <Button onPress={this.takeProfilePic} >
-              <Text color='black'>{ user.photoURL ? 'Change picture' : 'Add picture'}</Text>
-            </Button>
-          }
-          <Text>{user.email}</Text>
-          <Text>{user.displayName}</Text>
+        <View style={{alignSelf: 'center', marginTop: 50}}>
+          <ProfilePicture imageUri={user.photoURL} size={200}/>
+        </View>
+        <View style={{marginTop: 25, marginLeft: 25}}>
+          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
+            <Text type='bold' size='small'>DisplayName:</Text>
+            <Text size='small' style={{marginLeft: 8}}>{user.displayName}</Text>
+          </View>
+          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
+            <Text type='bold' size='small'>Email:</Text>
+            <Text size='small' style={{marginLeft: 8}}>{user.email}</Text>
+          </View>
+        </View>
+        <View style={{alignSelf: 'center', marginTop: 25}}>
+        { hasCameraPermission === false ?
+          <View >
+            <Text style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+            <Text style={{textAlign: 'center'}}>Please change settings to add picture</Text>
+          </View> :
+          <Button onPress={this.takeProfilePic} >
+            <Text color='black'>{ user.photoURL ? 'Change picture' : 'Add picture'}</Text>
+          </Button>
+        }
         </View>
       </MafiaBackground>
     );
