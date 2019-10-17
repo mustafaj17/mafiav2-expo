@@ -75,8 +75,6 @@ class PreRound extends React.Component {
           <Text color='black' size='xsmall'>Ready-all</Text>
         </TouchableOpacity>
 
-
-
       </View>
 
     )

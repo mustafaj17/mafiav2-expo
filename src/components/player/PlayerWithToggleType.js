@@ -1,6 +1,6 @@
 import React from 'react';
 import { TYPE } from '../../constants';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import ProfilePicture  from '../profilePicture';
 import { getCurrentPlayer } from '../../redux/selectors';
 import { connect } from 'react-redux';
@@ -10,15 +10,35 @@ import mafiaIcon from '../../../assets/mafia-icon3.png';
 import civIcon from '../../../assets/civilian-icon.png';
 import AnimatedType from '../animatedType';
 import styles from './styles';
+import { setModalData } from '../../redux/actions/modalActions';
 
-export const PlayerWithToggleType = (props) => {
+export class PlayerWithToggleType extends React.Component{
 
 
-  const { player, currentPlayer } = props;
-  const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
-  const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
+  openPlayerInfoModal = () => {
 
-  const getPlayerType = () => {
+    const { setModalData, player } = this.props;
+
+    this.elem.measure( (fx, fy, width, height, px, py) => {
+      // console.log('Component width is: ' + width)
+      // console.log('Component height is: ' + height)
+      // console.log('X offset to page: ' + px)
+      // console.log('Y offset to page: ' + py)
+
+      setModalData({
+        top:py,
+        left:px,
+        height,
+        width
+      }, player)
+    })
+  }
+
+  getPlayerType = () => {
+
+    const { player, currentPlayer } = this.props;
+    const currentPlayerIsCivilian = currentPlayer.type === TYPE.CIVILIAN;
+    const playerMatch = currentPlayer && (currentPlayer.uid === player.uid);
 
     const playerType = (<View style={{ marginLeft: 'auto', marginRight: 10 }}>
       <AnimatedType>
@@ -42,32 +62,39 @@ export const PlayerWithToggleType = (props) => {
     }
   }
 
-  return(
-    <View key={player.uid} style={styles.container}>
-      <View style={styles.player}>
-        <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text style={{marginLeft: 10}} color='black'>{player.displayName}</Text>
+  render = () => {
 
-        {player.ready &&
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            left: 40,
-            bottom: 5,
-            backgroundColor: '#008165',
-            borderRadius: 15
+    const { player } = this.props;
 
-          }}>
-          <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
-        </View>}
+    return(
+      <TouchableOpacity onPress={this.openPlayerInfoModal}>
+        <View key={player.uid} style={styles.container} ref={ elem => this.elem = elem}>
+          <View style={styles.player}>
+            <ProfilePicture imageUri={player.photoURL} size={50}/>
+            <Text style={{marginLeft: 10}} color='black'>{player.displayName}</Text>
 
-        {getPlayerType()}
-      </View>
-    </View>
-  )
+            {player.ready &&
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'absolute',
+                left: 40,
+                bottom: 5,
+                backgroundColor: '#008165',
+                borderRadius: 15
+
+              }}>
+              <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
+            </View>}
+
+            {this.getPlayerType()}
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 }
 
 const mapStateToProps = state => {
@@ -77,9 +104,14 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setModalData : (data, player) => dispatch(setModalData(data, player))
+})
+
 PlayerWithToggleType.defaultProps = {
   currentPlayer: false
 }
 
-export default connect(mapStateToProps)(PlayerWithToggleType);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerWithToggleType);
 

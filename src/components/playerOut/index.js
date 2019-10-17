@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import Text from '../text';
 import ProfilePicture from '../profilePicture';
-import { Animated } from 'react-native';
 import { TYPE } from '../../constants';
 import civIcon from '../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../assets/mafia-icon3.png';

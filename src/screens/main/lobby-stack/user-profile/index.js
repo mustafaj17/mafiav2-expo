@@ -48,28 +48,45 @@ class UserProfile extends React.Component {
     const { hasCameraPermission, profilePicMode  } = this.state;
     const { user } = this.props;
 
+    console.log(user.displayName);
+    console.log(user.email);
+
     if(profilePicMode){
       return <ProfileImagePicker
         savePicture={(image) => this.saveProfilePicture(image)}
         hideProfileImagePicker={ () => this.setState({profilePicMode: false})}/>
     }
-    console.log('********photo', user.photoURL)
 
     return (
       <ScrollView>
 
+        {user.stats &&
         <View style={{marginTop: 40}}>
           <Text>Games Played : {user.stats.gamesPlayed}</Text>
           <Text>Games Won : {user.stats.gamesWon}</Text>
           <Text>Games Won as Mafia : {user.stats.gamesWonAsMafia}</Text>
           <Text>Games Won as Civilian : {user.stats.gamesPlayed - user.stats.gamesWonAsMafia - user.stats.gamesLeft}</Text>
           <Text>Games Left : {user.stats.gamesLeft}</Text>
-        </View>
+        </View>}
+
         <View style={{alignSelf: 'center', marginTop: 50}}>
           <ProfilePicture imageUri={user.photoURL} size={200}/>
         </View>
-        <FloatingLabelInput style={{backgroundColor: '#e2e2e2', opacity: 0.7}} editable={false} label='Email' value={user.email} size='small'/>
-        <FloatingLabelInput style={{backgroundColor: '#e2e2e2', opacity: 0.7}}  editable={false} label='Display Name' value={user.displayName}/>
+
+        <FloatingLabelInput
+          style={{backgroundColor: '#e2e2e2', opacity: 0.7}}
+          editable={false}
+          label='Email'
+          value={user.email}
+        />
+
+        <FloatingLabelInput
+          style={{backgroundColor: '#e2e2e2', opacity: 0.7}}
+          editable={false}
+          label='Display Name'
+          value={user.displayName}
+        />
+
         <View style={{alignSelf: 'center', marginTop: 25}}>
           { hasCameraPermission === false ?
             <View >

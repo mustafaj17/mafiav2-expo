@@ -8,6 +8,7 @@ import Text from '../text';
 import Button from '../button';
 import MafiaBackground from '../mafiaBackground';
 import { endGame } from '../../redux/actions/gameActions';
+import PlayerInfoModal from '../playerInfoModal';
 
 
 export default (WrappedComponent, hideCloseButton) => {
@@ -117,6 +118,9 @@ export default (WrappedComponent, hideCloseButton) => {
           <MafiaBackground>
             <WrappedComponent {...this.props} />
           </MafiaBackground>
+
+          <PlayerInfoModal/>
+
         </View>
       )
     }
