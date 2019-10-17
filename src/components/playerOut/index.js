@@ -1,13 +1,11 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, Animated } from 'react-native';
 import Text from '../text';
 import ProfilePicture from '../profilePicture';
 import { TYPE } from '../../constants';
 import civIcon from '../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../assets/mafia-icon3.png';
 import questionMark from '../../../assets/question-mark.png';
-import InfoText from '../infoBox';
-import AnimatedType from '../animatedType';
 
 class PlayerOut extends React.Component {
 

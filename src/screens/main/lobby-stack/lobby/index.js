@@ -31,7 +31,6 @@ class Lobby extends Component {
   handleBackButton = () => {
     ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
-
   }
 
   screenWillBlur = () => {

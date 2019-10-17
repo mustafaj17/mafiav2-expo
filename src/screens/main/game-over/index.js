@@ -25,11 +25,14 @@ class GameOver extends React.Component {
 
   handleEndGame = () => {
     const { navigation, game } = this.props;
-    this.updateUserStats()
     game.playersDisconnect();
     game.gameDisconnect();
     this.props.endGame();
     navigation.navigate('Lobby')
+  }
+
+  componentDidMount = () => {
+    this.updateUserStats()
   }
 
   updateUserStats = async () => {
@@ -68,7 +71,10 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(player => <StatBox title='Your hater' name={player[0]} number={player[1]} />)
+    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(
+      player =>
+        <StatBox title='Your hater' name={player[0]} number={player[1]} />
+    )
   }
 
   toggleModal = () => this.setState({modalVisible: !this.state.modalVisible})
@@ -84,8 +90,15 @@ class GameOver extends React.Component {
         flex: 1,
         alignItems: 'center',
       }}>
-        <StatsModal visible={this.state.modalVisible} stats={stats} toggleModal={this.toggleModal} getVotesAgainst={this.getVotesAgainst}/>
+        <StatsModal
+          visible={this.state.modalVisible}
+          stats={stats}
+          toggleModal={this.toggleModal}
+          getVotesAgainst={this.getVotesAgainst}
+        />
+
         <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
+
         <MafiaLogo/>
 
         <View style={{width: '100%'}}>
@@ -97,18 +110,18 @@ class GameOver extends React.Component {
           {this.getMafias()}
         </ScrollView>
 
-        <Button onPress={this.toggleModal} style={{width: 150}}>
-          <Text color='black'>Stats</Text>
-        </Button>
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>
 
-          { currentPlayer.isAdmin &&
           <Button onPress={()=> console.log('handlePlayAgain')} style={{width: 150}}>
-            <Text color='black'>Play Again</Text>
+            <Text>Play Again</Text>
           </Button>
-          }
+
+          <Button onPress={this.toggleModal} style={{width: 150}}>
+            <Text color='black'>Stats</Text>
+          </Button>
+
           <Button onPress={this.handleEndGame} style={{width: 150}}>
-            <Text color='black'>End Game</Text>
+            <Text>End Game</Text>
           </Button>
         </View>
         {this.state.modalVisible &&
