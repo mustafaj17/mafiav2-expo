@@ -4,7 +4,7 @@ import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase'
 import { areAllPlayersReady, getCurrentPlayer, getInGamePlayers } from '../../../redux/selectors';
-import {TYPE} from "../../../constants";
+import { COLLECTIONS, TYPE } from '../../../constants';
 import GameScreenHOC from '../../../components/gameScreenHoc'
 import Player from '../../../components/player/Player';
 import Text from '../../../components/text';
@@ -68,7 +68,7 @@ class PreGame extends React.Component {
         const batch = firestore.batch();
         batch.update(gameDoc.ref, {gameStarted: true});
         players.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {type: player.type, votedFor: []});
+            batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {type: player.type, votedFor: []});
         });
 
         batch.commit().then( () => {
@@ -158,10 +158,10 @@ class PreGame extends React.Component {
 
         batch.update(gameDoc.ref, {gameStarted: true});
         testPlayers.forEach(player => {
-            batch.set(gameDoc.ref.collection('players').doc(player.email), {...player});
+            batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {...player});
         });
 
-        batch.update(gameDoc.ref.collection('players').doc(currentPlayer.email), {type : TYPE.MAFIA, votedFor: []});
+        batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email), {type : TYPE.MAFIA, votedFor: []});
 
         batch.commit().then( () => {
             console.log('game started and player types set');

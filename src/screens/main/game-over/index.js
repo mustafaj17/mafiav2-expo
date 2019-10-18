@@ -6,7 +6,7 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import { endGame } from '../../../redux/actions/gameActions';
-import { TYPE } from '../../../constants';
+import { COLLECTIONS, TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
 import PageTitle from '../../../components/pageTitle';
@@ -44,7 +44,7 @@ class GameOver extends React.Component {
     const userWon = userWonAsMafia || userWonAsCivilian;
 
 
-    await firestore.collection('user-stats').doc(currentPlayer.email).update({
+    await firestore.collection(COLLECTIONS.STATS).doc(currentPlayer.email).update({
       ...stats,
       gamesPlayed : stats.gamesPlayed + 1,
       gamesWon: userWon ? stats.gamesWon + 1 : stats.gamesWon,

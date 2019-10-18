@@ -12,7 +12,6 @@ import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
 import Constants from 'expo-constants';
 import { View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const AppStack = createStackNavigator({
   Main: Main

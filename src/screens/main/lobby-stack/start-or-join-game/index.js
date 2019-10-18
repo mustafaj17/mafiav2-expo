@@ -17,6 +17,7 @@ import Button from '../../../../components/button';
 import Text from '../../../../components/text';
 import AnimateLogo from '../../../../components/amimatedLogo';
 import MafiaBackground from '../../../../components/mafiaBackground';
+import { COLLECTIONS } from '../../../../constants';
 
 class StartOrJoinGame extends Component{
 
@@ -48,7 +49,7 @@ class StartOrJoinGame extends Component{
         const isUserStartingGame = this.props.navigation.getParam('isUserStartingGame', false);
 
         try{
-            const gameDoc = await firestore.collection('mafia-games').doc(gameName).get();
+            const gameDoc = await firestore.collection(COLLECTIONS.GAMES).doc(gameName).get();
 
             //starting game - name taken
             if (gameDoc.exists && isUserStartingGame) {
@@ -78,7 +79,7 @@ class StartOrJoinGame extends Component{
             }
             setGameDoc(gameDoc);
 
-            const playersColRef = gameDoc.ref.collection('players');
+            const playersColRef = gameDoc.ref.collection(COLLECTIONS.PLAYERS);
 
             playersColRef.doc(user.email).set({
                 uid: user.uid,

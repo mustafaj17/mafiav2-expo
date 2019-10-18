@@ -8,12 +8,13 @@ import MafiaLogo from '../../../../components/mafiaLogo';
 import {FontAwesome} from "@expo/vector-icons";
 import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
+import { COLLECTIONS } from '../../../../constants';
 
 class Lobby extends Component {
   screenWillFocus= async () => {
     const { user } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    const userStats = await firestore.collection('user-stats').doc(user.email).get();
+    const userStats = await firestore.collection(COLLECTIONS.STATS).doc(user.email).get();
     if(userStats.exists) {
       this.props.setUserStats(userStats.data());
     }else {
@@ -23,7 +24,7 @@ class Lobby extends Component {
         gamesWonAsMafia: 0,
         gamesLeft: 0
       };
-      firestore.collection('user-stats').doc(user.email).set(newStats)
+      firestore.collection(COLLECTIONS.STATS).doc(user.email).set(newStats)
       this.props.setUserStats(newStats);
     }
   }

@@ -11,6 +11,7 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
 import PlayerWithToggleType from '../../../components/player/PlayerWithToggleType';
+import { COLLECTIONS } from '../../../constants';
 
 class PreRound extends React.Component {
 
@@ -66,7 +67,7 @@ class PreRound extends React.Component {
         <TouchableOpacity onPress={ () => {
           const batch = firestore.batch();
           inGamePlayers.forEach(player => {
-            batch.update(gameDoc.ref.collection('players').doc(player.email), {ready: true});
+            batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {ready: true});
           });
           batch.commit().then( () => {});
         }}

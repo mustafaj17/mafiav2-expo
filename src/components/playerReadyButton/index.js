@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Text from '../text';
 import { getCurrentPlayer } from '../../redux/selectors';
 import { TouchableOpacity, View, Animated } from 'react-native';
+import { COLLECTIONS } from '../../constants';
 
 class playerReadyButton extends React.Component{
 
@@ -19,7 +20,7 @@ class playerReadyButton extends React.Component{
 
         if (currentPlayer.ready) return;
 
-        gameDoc.ref.collection('players').doc(currentPlayer.email).update({
+        gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email).update({
             ready: true
         })
     }

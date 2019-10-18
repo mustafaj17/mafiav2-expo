@@ -10,6 +10,7 @@ import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
 import AnimateLogo from '../../../components/amimatedLogo';
 import Player from '../../../components/player/Player';
+import { COLLECTIONS } from '../../../constants';
 
 class InVote extends React.Component {
 
@@ -20,7 +21,7 @@ class InVote extends React.Component {
 
   voteForPlayer = player => {
     const { gameDoc, currentPlayer, inGamePlayers } = this.props;
-    gameDoc.ref.collection('players').doc(currentPlayer.email).update({votingFor: player,})
+    gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email).update({votingFor: player,})
     this.setState({playerHasVoted: true})
   }
 
@@ -73,7 +74,7 @@ class InVote extends React.Component {
     inGamePlayers.forEach(player => {
       const currentTestPlayer = inGamePlayers.filter(p => p.email === player.email)
       const randomPlayer =  getRandomPlayer()
-      batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: randomPlayer, });
+      batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {votingFor: randomPlayer, });
     });
 
     batch.commit().then( () => {

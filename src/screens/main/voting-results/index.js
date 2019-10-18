@@ -13,6 +13,7 @@ import TextBar from '../../../components/textBar';
 import PlayerOut from '../../../components/playerOut';
 import PageTitle from '../../../components/pageTitle';
 import InfoText from '../../../components/infoBox';
+import { COLLECTIONS } from '../../../constants';
 
 
 class VotingResults extends React.Component {
@@ -56,7 +57,7 @@ class VotingResults extends React.Component {
     const playerVotedOut = getHighestVotedPlayer(inGamePlayers);
     batch.update(gameDoc.ref, {votingComplete: true});
     inGamePlayers.forEach(player => {
-      batch.update(gameDoc.ref.collection('players').doc(player.email),
+      batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
         {
           votingFor: null,
           votedFor: [...player.votedFor, player.votingFor.displayName],

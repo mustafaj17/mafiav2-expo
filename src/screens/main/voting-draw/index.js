@@ -13,6 +13,7 @@ import TextBar from '../../../components/textBar';
 import PageTitle from '../../../components/pageTitle';
 import InfoText from '../../../components/infoBox';
 import LoadingScreen from '../../../components/loadingScreen';
+import { COLLECTIONS } from '../../../constants';
 
 class VotingDraw extends React.Component {
 
@@ -27,7 +28,7 @@ class VotingDraw extends React.Component {
     const batch = firestore.batch();
 
     inGamePlayers.forEach(player => {
-      batch.update(gameDoc.ref.collection('players').doc(player.email), {votingFor: null});
+      batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {votingFor: null});
     });
     batch.commit().then( () => {
       navigation.navigate('InVote')
