@@ -106,7 +106,7 @@ class InVote extends React.Component {
                 <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
                   <Player player={player} >
                     <View style={{marginLeft: 'auto', marginRight: 10}}>
-                      <Text size='small' type='light'>Tap to vote</Text>
+                      <Text size={'xsmall'} type='light'>Tap to vote</Text>
                     </View>
                   </Player>
                 </TouchableOpacity>))}

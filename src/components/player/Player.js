@@ -16,7 +16,7 @@ const Player = (props) => {
       <ProfilePicture imageUri={player.photoURL} size={50}/>
       <Text
         style={{marginLeft: 10}}
-        color='black'>
+        >
         {player.displayName}
       </Text>
       {props.children}

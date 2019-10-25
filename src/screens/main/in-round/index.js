@@ -61,7 +61,7 @@ class InRound extends React.Component {
                <Button onPress={ () => {
                    gameDoc.ref.update( 'roundSkipped', true)
                }} >
-                   <Text color='black'>Skip to voting</Text>
+                   <Text >Skip to voting</Text>
                </Button>
 
                }

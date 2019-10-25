@@ -76,7 +76,7 @@ export default class Login extends React.Component {
             </Button>
 
             <Button onPress={this.handleLogin} style={{width: 120}}>
-              <Text color='black'>Login</Text>
+              <Text>Login</Text>
             </Button>
 
 

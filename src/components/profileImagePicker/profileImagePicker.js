@@ -128,10 +128,10 @@ export default class ProfileImagePicker extends React.Component {
               <ProfilePicture imageUri={image} size={pictureSize}/>
 
               <Button onPress={() => this.setState({showPic: false})}>
-                <Text color='black'>Change image</Text>
+                <Text >Change image</Text>
               </Button>
               <Button onPress={this.savePicture}>
-                <Text color='black'>Done</Text>
+                <Text >Done</Text>
               </Button>
             </View>
           </MafiaBackground>
@@ -206,7 +206,7 @@ export default class ProfileImagePicker extends React.Component {
                   disabled={hasCameraLibraryPermission === false}
                   style={{width: '100%', margin: 0}}
                 >
-                  <Text color='black' size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
+                  <Text  size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
                 </Button>
               </View>
             </View>

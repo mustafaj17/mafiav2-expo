@@ -30,6 +30,7 @@ export default class Overlay extends React.Component {
     return (
       <Animated.View style={{position:'absolute', backgroundColor: 'black', opacity: this.state.fadeAnim, height: '100%', width: '100%' }} />
 
+
     )
   }
 }

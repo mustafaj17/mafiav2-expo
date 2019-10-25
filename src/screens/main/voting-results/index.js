@@ -131,7 +131,7 @@ class VotingResults extends React.Component {
         }}>
 
           <View style={{ marginLeft: 10}}>
-            <Text type='light' letterSpacing={2}>You're voters </Text>
+            <Text type='light'>You're voters </Text>
           </View>
 
           <ScrollView
@@ -149,7 +149,7 @@ class VotingResults extends React.Component {
 
         { currentPlayer.isAdmin &&
         <Button onPress={this.handleNextRound} >
-          <Text color='black'>Next</Text>
+          <Text >Next</Text>
         </Button>
         }
 

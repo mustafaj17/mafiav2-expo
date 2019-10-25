@@ -35,19 +35,19 @@ export default class Landing extends React.Component {
         <Button
           onPress={() => navigation.navigate('Login')}
         >
-          <Text color='black'>Login</Text>
+          <Text >Login</Text>
         </Button>
 
         <Button
           onPress={() => navigation.navigate('SignUp')}
         >
-          <Text color='black'>Sign Up</Text>
+          <Text >Sign Up</Text>
         </Button>
 
         <Button
           onPress={() => navigation.navigate('HowToPlay')}
         >
-          <Text color='black'>How To Play</Text>
+          <Text >How To Play</Text>
         </Button>
       </KeyboardAvoidingView>
     )

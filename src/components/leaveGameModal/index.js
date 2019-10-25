@@ -79,12 +79,12 @@ class LeaveGameModal extends React.Component {
 
               <Button onPress={this.handlePlayerLeaving}
                       style={{ width: 120}}>
-                <Text color='black'>Yes</Text>
+                <Text >Yes</Text>
               </Button>
 
               <Button onPress={this.props.hideModal}
                       style={{ width: 120}}>
-                <Text color='black'>No</Text>
+                <Text >No</Text>
               </Button>
 
             </View>

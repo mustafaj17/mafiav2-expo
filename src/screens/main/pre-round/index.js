@@ -73,7 +73,7 @@ class PreRound extends React.Component {
         }}
                           style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
                             display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <Text color='black' size='xsmall'>Ready-all</Text>
+          <Text  size='xsmall'>Ready-all</Text>
         </TouchableOpacity>
 
       </View>

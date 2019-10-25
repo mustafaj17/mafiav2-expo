@@ -170,7 +170,7 @@ export default class SignUp extends React.Component {
 
 
           <Button onPress={this.handleSignUp}>
-            <Text color='black'>Create account</Text>
+            <Text >Create account</Text>
           </Button>
 
         </KeyboardAvoidingView>

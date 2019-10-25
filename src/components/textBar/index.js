@@ -15,7 +15,7 @@ const TextBar = (props) => {
       marginBottom: 10,
       marginTop: 10
     }}>
-      <Text color='black'>{props.title}</Text>
+      <Text >{props.title}</Text>
     </View>
 
   )

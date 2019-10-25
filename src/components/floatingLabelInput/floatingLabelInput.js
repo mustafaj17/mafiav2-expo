@@ -49,7 +49,7 @@ export class FloatingLabelInput extends React.Component {
     };
     return (
       <View style={{ paddingTop: 18, width: '100%', padding: 10 }}>
-        <Animated.Text style={{...labelStyle, fontFamily: 'oxygen-regular'}}>
+        <Animated.Text style={{...labelStyle, fontFamily: 'oxygen-regular', letterSpacing: 2}}>
           {label}
         </Animated.Text>
         <TextInput
@@ -64,6 +64,7 @@ export class FloatingLabelInput extends React.Component {
             borderWidth: 1,
             padding: 10,
             fontFamily: 'oxygen-regular',
+            letterSpacing: 2,
             ...props.style
           }}
           onFocus={this.handleFocus}

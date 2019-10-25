@@ -21,9 +21,9 @@ import { COLLECTIONS } from '../../../../constants';
 
 class StartOrJoinGame extends Component{
 
-    static navigationOptions = ({navigation}) => ({
-        title: navigation.getParam('isUserStartingGame') ? 'Start Game' : 'Join Game'
-    })
+    // static navigationOptions = ({navigation}) => ({
+    //     title: navigation.getParam('isUserStartingGame') ? 'Start Game' : 'Join Game'
+    // })
 
     state = {
         gameName : '',
@@ -138,6 +138,13 @@ class StartOrJoinGame extends Component{
                   {loading ? <AnimateLogo/> :
 
                     <>
+
+                        <Text size={'large'} style={{
+                            marginBottom: 50
+                        }}>
+                            {isUserStartingGame ? 'Start Game' : 'Join Game'}
+                        </Text>
+
                         <FloatingLabelInput
                           autoFocus={true}
                           label={`Enter game ID`}
@@ -153,7 +160,7 @@ class StartOrJoinGame extends Component{
                             <Text color='pink'>{errorMessage}</Text>
                         </View>
                         <Button onPress={this.startOrJoinGame}>
-                            <Text color='black'>{isUserStartingGame ? 'Start' : 'Join'}</Text>
+                            <Text >{isUserStartingGame ? 'Start' : 'Join'}</Text>
                         </Button>
                     </>
                   }

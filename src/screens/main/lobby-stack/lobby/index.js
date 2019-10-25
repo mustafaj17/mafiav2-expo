@@ -96,14 +96,14 @@ class Lobby extends Component {
         </TouchableOpacity>
 
         <Button onPress={this.handleJoinGame}>
-          <Text color='black' style={{letterSpacing: 2}}>Join Game</Text>
+          <Text  style={{letterSpacing: 2}}>Join Game</Text>
         </Button>
 
         <MafiaLogo/>
 
 
         <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
-          <Text color='black' style={{letterSpacing: 2}}>Start New Game</Text>
+          <Text  style={{letterSpacing: 2}}>Start New Game</Text>
         </Button>
       </View>
     )

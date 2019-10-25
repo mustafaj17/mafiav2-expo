@@ -44,7 +44,7 @@ Text.defaultProps = {
   type: 'regular',
   size: 'medium',
   color: 'black',
-  letterSpacing: 1
+  letterSpacing: 2
 }
 
 export default Text;

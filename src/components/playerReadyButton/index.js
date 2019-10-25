@@ -106,7 +106,7 @@ class playerReadyButton extends React.Component{
                       ],
                       elevation: 5
                   }}>
-                      <Text color='black'> {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
+                      <Text > {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
                   </Animated.View>
               </TouchableOpacity>
           </View>

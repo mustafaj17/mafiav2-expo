@@ -189,16 +189,18 @@ class PreGame extends React.Component {
                   <View style={{height: 100}}></View>
               </ScrollView>
 
-              {currentPlayer.isAdmin &&
-              <Button onPress={this.handleStartGame}>
-                    <Text color='black'>{inGamePlayers.length > 2 ? 'Start Game' : '3 players needed...' }</Text>
-              </Button>
-              }
+              {currentPlayer.isAdmin && (
+                inGamePlayers.length > 2 ?
+                  <Button onPress={this.handleStartGame}>
+                      <Text >Start Game</Text>
+                  </Button> :
+                  <Text style={{marginBottom: 20}}>3 players needed... </Text>
+              )}
 
               <TouchableOpacity onPress={this.startTestGame}
                                 style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
                                     display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                  <Text color='black' size='xsmall'>Test</Text>
+                  <Text  size='xsmall'>Test</Text>
               </TouchableOpacity>
 
           </View>

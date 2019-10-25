@@ -27,7 +27,7 @@ export default class StatsModal extends React.Component {
               {getVotesAgainst()}
             </ScrollView>
             <Button onPress={toggleModal} style={{width: 150}}>
-              <Text color='black'>Close</Text>
+              <Text >Close</Text>
             </Button>
           </View>
         </View>

@@ -86,7 +86,7 @@ class VotingDraw extends React.Component {
 
         { currentPlayer.isAdmin &&
         <Button onPress={this.handleRevote} >
-          <Text color='black'>Re-vote</Text>
+          <Text >Re-vote</Text>
         </Button>
         }
       </View>

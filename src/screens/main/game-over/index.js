@@ -117,7 +117,7 @@ class GameOver extends React.Component {
           </Button>
 
           <Button onPress={this.toggleModal} style={{width: 150}}>
-            <Text color='black'>Stats</Text>
+            <Text >Stats</Text>
           </Button>
 
           <Button onPress={this.handleEndGame} style={{width: 150}}>
