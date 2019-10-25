@@ -64,6 +64,7 @@ export class FloatingLabelInput extends React.Component {
             borderWidth: 1,
             padding: 10,
             fontFamily: 'oxygen-regular',
+            borderRadius: 5,
             letterSpacing: 2,
             ...props.style
           }}

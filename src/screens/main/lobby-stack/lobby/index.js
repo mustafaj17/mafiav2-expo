@@ -46,15 +46,11 @@ class Lobby extends Component {
     this.props.navigation.navigate('StartOrJoinGame', {isUserStartingGame: true})
   }
 
-
   gotoProfileScreen = () => {
     this.props.navigation.navigate('UserProfile')
   }
 
   render(){
-
-
-    const { user } = this.props;
 
     return(
 
@@ -101,7 +97,6 @@ class Lobby extends Component {
 
         <MafiaLogo/>
 
-
         <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
           <Text  style={{letterSpacing: 2}}>Start New Game</Text>
         </Button>
@@ -124,8 +119,7 @@ const styles = StyleSheet.create(
 
 
 const mapStateToProps = state => ({
-  user: state.user,
-  state: state
+  user: state.user
 })
 const mapDispatchToProps = dispatch => ({
   setUserStats : stats => dispatch(setUserStats(stats))

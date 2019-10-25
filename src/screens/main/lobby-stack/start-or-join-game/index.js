@@ -18,6 +18,7 @@ import Text from '../../../../components/text';
 import AnimateLogo from '../../../../components/amimatedLogo';
 import MafiaBackground from '../../../../components/mafiaBackground';
 import { COLLECTIONS } from '../../../../constants';
+import ErrorMessage from '../../../../components/errorMessage';
 
 class StartOrJoinGame extends Component{
 
@@ -155,13 +156,13 @@ class StartOrJoinGame extends Component{
                           autoCapitalize='none'
                         />
 
+                        <ErrorMessage errorMessage={errorMessage}/>
 
-                        <View>
-                            <Text color='pink'>{errorMessage}</Text>
-                        </View>
                         <Button onPress={this.startOrJoinGame}>
                             <Text >{isUserStartingGame ? 'Start' : 'Join'}</Text>
                         </Button>
+
+
                     </>
                   }
               </View>

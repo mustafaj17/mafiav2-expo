@@ -15,6 +15,7 @@ import { FloatingLabelInput } from '../../components/floatingLabelInput/floating
 import MafiaBackground from '../../components/mafiaBackground';
 import Text from '../../components/text';
 import Button from '../../components/button';
+import ErrorMessage from '../../components/errorMessage';
 
 const DISPLAY_NAME_LIMIT = 12;
 
@@ -107,8 +108,7 @@ export default class SignUp extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
-          <ScrollView style={{ flex: 1, paddingTop: 20}}>
-            <Text type='bold' color='pink' >{errorMessage}</Text>
+          <ScrollView style={{ flex: 1, paddingTop: 50,  paddingBottom: 50, width: '100%'}}>
 
             <View>
               <FloatingLabelInput
@@ -139,7 +139,7 @@ export default class SignUp extends React.Component {
 
             <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
 
-              <ProfilePicture imageUri={imageUri} size={125}/>
+              <ProfilePicture imageUri={imageUri} size={100}/>
 
               { hasCameraPermission === false ?
                 <View>
@@ -147,27 +147,30 @@ export default class SignUp extends React.Component {
                   <Text style={{textAlign: 'center'}}>Please change settings</Text>
                   <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
                 </View> :
-                <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', borderWidth: 1, borderColor: 'white' , elevation: 0}}>
+                <Button onPress={this.takeProfilePic} style={{borderWidth: 1, padding: 10 }}>
                   <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
                 </Button>
               }
             </View>
 
-            <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
-              <Text type='light' size='xsmall' >I have read and agree to the
-                <Text
-                  onPress={() => this.props.navigation.navigate('Terms')}
-                  style = {{ color: 'blue', textDecorationLine: 'underline' }}
-                  type='light'
-                  size='xsmall'
-                >
-                  Terms & Conditions
-                </Text>
-              </Text>
-              <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
-            </View>
           </ScrollView>
+          <View style={
+            {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'row',
+            }
+          }>
 
+            <Text type='light' size='xsmall' style={{marginRight: 10}}>
+              I agree to the Terms & Conditions
+            </Text>
+
+            <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+          </View>
+
+          {errorMessage && <ErrorMessage errorMessage={errorMessage}/>}
 
           <Button onPress={this.handleSignUp}>
             <Text >Create account</Text>
