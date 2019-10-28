@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View} from 'react-native'
+import {ScrollView, View} from 'react-native'
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
@@ -15,12 +15,13 @@ import { firestore } from '../../../services/firebase';
 import Player from "../../../components/player/Player";
 import MafiaLogo from "../../../components/mafiaLogo";
 import Overlay from "../../../components/overlay";
-import StatsModal from "../../../components/statsModal";
+import EndGameTabs from "../../../components/endGameTabs";
 
 class GameOver extends React.Component {
 
   state={
     modalVisible: false,
+    currentPage: 'results',
   }
 
   handleEndGame = () => {
@@ -81,8 +82,10 @@ class GameOver extends React.Component {
 
   render() {
 
-    const { mafiasWon, currentPlayer } = this.props;
+    const { mafiasWon } = this.props;
+    const { currentPage } = this.state;
     const stats = this.getVotesStats();
+    const tabs = [{ name: 'results', title: 'Results' }, { name: 'stats', title: 'Stats' }];
 
     return (
       <View style={{ display: 'flex',
@@ -90,34 +93,38 @@ class GameOver extends React.Component {
         flex: 1,
         alignItems: 'center',
       }}>
-        <StatsModal
-          visible={this.state.modalVisible}
-          stats={stats}
-          toggleModal={this.toggleModal}
-          getVotesAgainst={this.getVotesAgainst}
-        />
-
         <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
 
-        <MafiaLogo/>
+        <EndGameTabs onChangePage={(page) => this.setState({currentPage: page})} currentPage={currentPage} tabs={tabs}/>
 
-        <View style={{width: '100%'}}>
-          <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Text type='bold'>The Mafias</Text>
+        {currentPage === "results" ?
+          <>
+            <MafiaLogo/>
+            <View style={{width: '100%'}}>
+              <View style={{margin: 10, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Text type='bold'>The Mafias</Text>
+              </View>
+            </View>
+            <ScrollView style={{width: '100%', flex: 1}}>
+              {this.getMafias()}
+            </ScrollView>
+          </>
+          :
+          <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <ScrollView
+              style={{ padding: 10, width: '100%', display: 'flex', flexWrap: 'wrap'}}
+              showsHorizontalScrollIndicator={false}
+            >
+              {stats.mostVoted.map(arr => <StatBox title='Most voted' name={arr[0]} number={arr[1]} />)}
+              {stats.leastVoted.map(arr => <StatBox title='Least voted' name={arr[0]} number={arr[1]} />)}
+              {this.getVotesAgainst()}
+            </ScrollView>
           </View>
-        </View>
-        <ScrollView style={{width: '100%', flex: 1}}>
-          {this.getMafias()}
-        </ScrollView>
+        }
 
         <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 20, justifyContent: 'space-around'}}>
-
           <Button onPress={()=> console.log('handlePlayAgain')} style={{width: 150}}>
             <Text>Play Again</Text>
-          </Button>
-
-          <Button onPress={this.toggleModal} style={{width: 150}}>
-            <Text >Stats</Text>
           </Button>
 
           <Button onPress={this.handleEndGame} style={{width: 150}}>
