@@ -58,25 +58,25 @@ class UserProfile extends React.Component {
     }
 
     return (
-      <ScrollView>
-        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 
-          {user.stats &&
-          <View style={{marginTop: 40}}>
-            <Text>Games Played : {user.stats.gamesPlayed}</Text>
-            <Text>Games Won : {user.stats.gamesWon}</Text>
-            <Text>Games Won as Mafia : {user.stats.gamesWonAsMafia}</Text>
-            <Text>Games Won as Civilian : {user.stats.gamesPlayed - user.stats.gamesWonAsMafia - user.stats.gamesLeft}</Text>
-            <Text>Games Left : {user.stats.gamesLeft}</Text>
-          </View>}
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flex: 1,
+        }}
+      >
 
-          <View style={{marginTop: 30}}>
+        <View style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1
+        }}>
+
+          <View style={{margin: 10, marginTop: 50}}>
             <ProfilePicture imageUri={user.photoURL} size={200}/>
-            { hasCameraPermission === false ?
-              <View >
-                <Text size='small' style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
-                <Text size='small' style={{textAlign: 'center'}}>Please change settings to add picture</Text>
-              </View> :
+
               <TouchableOpacity onPress={this.takeProfilePic} >
                 <View style={{
                   position: 'absolute',
@@ -84,29 +84,64 @@ class UserProfile extends React.Component {
                   right: 0
                 }}>
                   { user.photoURL ?
-                    <MaterialIcons name='edit' color='#000' size={34}/> :
-                    <FontAwesome name='plus' color='#000' size={34}/>
+                    <MaterialIcons name='edit' color='#000' size={28}/> :
+                    <FontAwesome name='plus' color='#000' size={28}/>
                   }
                 </View>
               </TouchableOpacity>
-            }
           </View>
 
-          <FloatingLabelInput
-            style={{backgroundColor: '#e2e2e2', opacity: 0.7}}
-            editable={false}
-            label='Email'
-            value={user.email}
-          />
 
-          <FloatingLabelInput
-            style={{backgroundColor: '#e2e2e2', opacity: 0.7}}
-            editable={false}
-            label='Display Name'
-            value={user.displayName}
-          />
+
+          <View>
+            <Text style={{textAlign: 'center'}}>{user.displayName}</Text>
+            <Text style={{textAlign: 'center'}} size='small' color='grey'>{user.email}</Text>
+          </View>
+
+
+          {(hasCameraPermission === false) &&
+          <View style={{marginTop: 10}}>
+            <Text size='small' type='light' style={{textAlign: 'center'}}>Mafia needs camera permissions</Text>
+            <Text size='small' type='light' style={{textAlign: 'center'}}>Please change settings to add picture</Text>
+          </View> }
         </View>
-      </ScrollView>
+
+        {user.stats &&
+        <View style={{margin: 20}}>
+
+          <View style={{marginBottom: 10}}>
+          <Text type='bold'>Stats</Text>
+          </View>
+
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={{marginRight: 10}}>{user.stats.gamesPlayed}</Text>
+            <Text color='grey'>Games Played</Text>
+          </View>
+
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={{marginRight: 10}}>{user.stats.gamesWon}</Text>
+            <Text color='grey'>Games Won</Text>
+          </View>
+
+
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={{marginRight: 10}}>{user.stats.gamesWonAsMafia}</Text>
+            <Text color='grey'>Games Won as Mafia</Text>
+          </View>
+
+
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={{marginRight: 10}}>{user.stats.gamesPlayed - user.stats.gamesWonAsMafia}</Text>
+            <Text color='grey'>Games Won as Civilian</Text>
+          </View>
+
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={{marginRight: 10}}>{user.stats.gamesLeft}</Text>
+            <Text color='grey'>Quit games</Text>
+          </View>
+
+        </View>}
+      </View>
     );
   }
 }

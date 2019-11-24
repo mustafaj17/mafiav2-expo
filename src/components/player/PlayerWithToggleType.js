@@ -78,8 +78,8 @@ export class PlayerWithToggleType extends React.Component{
               position: 'absolute',
               left: 40,
               bottom: 5,
-              backgroundColor: '#008165',
-              borderRadius: 15
+              // backgroundColor: '#008165',
+              // borderRadius: 15
 
             }}>
             <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
