@@ -8,8 +8,6 @@ class AuthLoading extends React.Component {
 
     componentDidMount() {
 
-        // this.props.navigation.navigate('Landing')
-        // return;
 
         // firebase.auth().signOut();
 
@@ -18,6 +16,7 @@ class AuthLoading extends React.Component {
                 this.props.setUser(user);
             }
             this.props.navigation.navigate(user ? 'Main' : 'Landing')
+            // this.props.navigation.navigate('Landing')
         })
     }
 

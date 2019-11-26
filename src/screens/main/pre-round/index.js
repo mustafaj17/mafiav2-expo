@@ -43,7 +43,16 @@ class PreRound extends React.Component {
 
 
 
-        {!currentPlayer.isOut && userHasSeenType && <View><ReadyButton/></View>}
+        {!currentPlayer.isOut && userHasSeenType &&
+        <View style={{
+          position: 'absolute',
+          width: '100%',
+          flex: 1,
+          bottom: 10,
+          left: 0,
+        }}>
+          <ReadyButton/>
+        </View>}
 
 
         <ToggleTypeButton />

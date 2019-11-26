@@ -47,7 +47,10 @@ class ToggleTypeButton extends React.Component {
     })
 
     return (
-      <Animated.View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
+      <Animated.View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: 80,
         position:'absolute',
         right: 10,
@@ -55,22 +58,26 @@ class ToggleTypeButton extends React.Component {
       }}>
 
         <TouchableOpacity onPress={this.handleTypeClick}  style={{flex: 1, width:'100%'}}>
-        <View style={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center',
-          backgroundColor: '#646464',
-          padding: 5
-        }}>
-          <Text  size='small' color='white'> toggle</Text>
-          <Text  size='small' color='white'> type</Text>
-        </View>
-        <View style={{
-          width: '100%',
-          flex: 1,
-          backgroundColor: '#31d08a',
-          height: 20
-        }}>
+          <View style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#646464',
+            padding: 5,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+          }}>
+            <Text  size='small' color='white'>toggle</Text>
+            <Text  size='small' color='white'>type</Text>
+          </View>
+          <View style={{
+            width: '100%',
+            flex: 1,
+            backgroundColor: '#31d08a',
+            height: 20
+          }}>
 
-        </View>
+          </View>
         </TouchableOpacity>
 
       </Animated.View>

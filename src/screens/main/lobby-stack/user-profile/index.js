@@ -52,9 +52,9 @@ class UserProfile extends React.Component {
     console.log(user.email);
 
     if(profilePicMode){
-      return <ProfileImagePicker
+      return (<ProfileImagePicker
         savePicture={(image) => this.saveProfilePicture(image)}
-        hideProfileImagePicker={ () => this.setState({profilePicMode: false})}/>
+        hideProfileImagePicker={ () => this.setState({profilePicMode: false})}/>)
     }
 
     return (
@@ -77,12 +77,12 @@ class UserProfile extends React.Component {
           <View style={{margin: 10, marginTop: 50}}>
             <ProfilePicture imageUri={user.photoURL} size={200}/>
 
-              <TouchableOpacity onPress={this.takeProfilePic} >
-                <View style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  right: 0
-                }}>
+              <TouchableOpacity onPress={this.takeProfilePic} style={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+              }}>
+                <View >
                   { user.photoURL ?
                     <MaterialIcons name='edit' color='#000' size={28}/> :
                     <FontAwesome name='plus' color='#000' size={28}/>

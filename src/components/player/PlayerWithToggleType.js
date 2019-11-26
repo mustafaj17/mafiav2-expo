@@ -9,6 +9,7 @@ import civIcon from '../../../assets/civilian-icon.png';
 import AnimatedType from '../animatedType';
 import { setModalData } from '../../redux/actions/modalActions';
 import Player from './Player';
+import Text from '../text';
 
 export class PlayerWithToggleType extends React.Component{
 
@@ -73,16 +74,19 @@ export class PlayerWithToggleType extends React.Component{
           <View
             style={{
               display: 'flex',
+              flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
               position: 'absolute',
-              left: 40,
-              bottom: 5,
+              right: 5,
+              top: 2,
+              zIndex:10
               // backgroundColor: '#008165',
               // borderRadius: 15
 
             }}>
-            <FontAwesome name='check-circle' color='#00FFC2' size={24}/>
+            <Text size='xsmall' color='#00FFC2' style={{marginRight: 5}}>ready</Text>
+            <FontAwesome name='check-circle' color='#00FFC2' size={18}/>
           </View>}
 
           {this.getPlayerType()}

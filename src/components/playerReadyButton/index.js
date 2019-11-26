@@ -80,15 +80,14 @@ class playerReadyButton extends React.Component{
 
         return (
 
-          <View >
-              <TouchableOpacity style={{ display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  width: '100%',
-                  flex: 1,
-                  bottom: 10,
-                  left: 0,}} onPress={this.setPlayerReady}>
+
+          <TouchableOpacity
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+            onPress={this.setPlayerReady}>
                   <Animated.View style={{
                       display: 'flex',
                       justifyContent: 'center',
@@ -108,8 +107,7 @@ class playerReadyButton extends React.Component{
                   }}>
                       <Text > {currentPlayer.ready ? 'Waiting...' : 'Ready'}</Text>
                   </Animated.View>
-              </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         )
     }
 }
