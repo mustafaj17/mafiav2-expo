@@ -7,35 +7,23 @@ export default class StatBox extends React.Component {
   render() {
     const { title, name, number, pic} = this.props;
     return (
-      <View style={{ display: 'flex',         shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
+      <View style={{
+        display: 'flex',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#e2e2e2',
+        height: 150,
+        overflow: 'hidden',
+        marginBottom: 10,
+        width: '100%',
+        flex: 1
       }}>
-        <View style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor:'white',
-          borderWidth: 1,
-          borderColor: '#e2e2e2',
-          borderRadius: 4,
-          height: 150,
-          minWidth: 150,
-          overflow: 'hidden',
-          marginRight: 10,
-          marginBottom: 15,
-        }}>
-          <View style={{backgroundColor: '#eeeeee', padding: 4, marginBottom: 4, width: '100%' }}>
-            <Text style={{letterSpacing: 2, textAlign: 'center'}}>{title}</Text>
-          </View>
-          <ProfilePicture size={50} imageUri={pic} />
-          <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{name}</Text>
-          <Text size='xsmall'>{number} votes</Text>
+        <View style={{backgroundColor: '#eeeeee', padding: 4, marginBottom: 4, width: '100%' }}>
+          <Text style={{letterSpacing: 2, textAlign: 'center'}}>{title}</Text>
         </View>
+        <ProfilePicture size={50} imageUri={pic} />
+        <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{name}</Text>
+        <Text size='xsmall'>{number} votes</Text>
       </View>
     )
   }

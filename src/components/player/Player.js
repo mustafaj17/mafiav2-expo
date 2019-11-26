@@ -12,16 +12,15 @@ const Player = (props) => {
 
   return(
     <View key={player.uid} style={styles.container}>
-    <View style={styles.player}>
-      <ProfilePicture imageUri={player.photoURL} size={50}/>
-      <Text
-        style={{marginLeft: 15}}
+      <View style={styles.player}>
+        <ProfilePicture imageUri={player.photoURL} size={50}/>
+        <Text
+          style={{marginLeft: 15}}
         >
-        {player.displayName}
-      </Text>
-      {props.children}
-    </View>
-
+          {player.displayName}
+        </Text>
+        {props.children}
+      </View>
     </View>
   )
 }

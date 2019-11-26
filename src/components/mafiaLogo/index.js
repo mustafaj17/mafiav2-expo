@@ -4,7 +4,15 @@ import logo from '../../../assets/logo.png';
 
 const MafiaLogo = (props) => {
     return (
-      <View style={{height: props.size, marginBottom: 20, marginTop: 20, ...props.styles}}>
+      <View style={{
+        display: 'flex',
+        justifyContent:'center',
+        alignItems: 'center',
+        height: props.size,
+        marginBottom: 20,
+        marginTop: 20,
+        ...props.styles
+      }}>
         <Image source={logo} style={{flex: 1, resizeMode: 'contain'}}/>
       </View>
     );
