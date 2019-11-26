@@ -14,102 +14,65 @@ class PlayerOut extends React.Component {
     this.state= {
       showType: false
     }
-    this.rotate = new Animated.Value(0);
-    this.opacity = new Animated.Value(0);
+    this.opacityTop = new Animated.Value(0);
+    this.opacityMiddle = new Animated.Value(0);
+    this.opacityBottom = new Animated.Value(0);
   }
 
   componentDidMount = () => {
     Animated.sequence([
-        Animated.timing(this.rotate, {
-          toValue: 0,
-          duration: 200
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 1,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 2,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 1,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 0,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 1,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 2,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 1,
-          duration: 300
-        }),
-        Animated.timing(this.rotate, {
-          toValue: 0,
-          duration: 300
-        }),
-      ]
-    ).start( () => {
-      Animated.timing(this.opacity, {
+      Animated.timing(this.opacityTop, {
         toValue: 1,
         duration: 500
-      }).start()
-    });
+      }),
+      Animated.timing(this.opacityMiddle, {
+        toValue: 1,
+        duration: 500
+      }),
+      Animated.timing(this.opacityBottom, {
+        toValue: 1,
+        duration: 500
+      })
+    ]).start()
   }
 
   render() {
     const { player } = this.props;
 
-    const rotate = this.rotate.interpolate({
-      inputRange: [0,1,2],
-      outputRange: ['0deg', '180deg','360deg']
-    })
-
-    const typeOpacity = this.opacity.interpolate({
+    const topOpacity = this.opacityTop.interpolate({
       inputRange: [0,1],
       outputRange: [0, 1]
     })
 
-    const questionMarkOpacity = this.opacity.interpolate({
+    const middleOpacity = this.opacityMiddle.interpolate({
       inputRange: [0,1],
-      outputRange: [1, 0]
+      outputRange: [0, 1]
     })
+
+    const bottomOpacity = this.opacityBottom.interpolate({
+      inputRange: [0,1],
+      outputRange: [0, 1]
+    })
+
 
     return (
       <>
         <Text size='large' type='bold' letterSpacing={4}>Out</Text>
-        <View style={{
+        <Animated.View style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          borderColor: '#d9d9d9',
           backgroundColor: 'white',
-          borderRadius: 4,
-          borderWidth: 1,
           padding: 40,
           margin: 20,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 4,
-          },
-          shadowOpacity: 0.32,
-          shadowRadius: 5.46,
-
-          elevation: 9,
         }}>
+          <Animated.View style={{opacity: topOpacity}}>
+            <ProfilePicture imageUri={player.photoURL}/>
+          </Animated.View>
 
-          <ProfilePicture imageUri={player.photoURL}/>
-
-          <Text style={{marginTop: 10,marginBottom: 10}} >{player.displayName}</Text>
+          <Animated.View style={{opacity: middleOpacity}}>
+            <Text style={{marginTop: 10,marginBottom: 10 }} >{player.displayName}</Text>
+          </Animated.View>
 
           {/*<AnimatedType alwaysAnimate={true}>*/}
           {/*<Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}*/}
@@ -123,45 +86,23 @@ class PlayerOut extends React.Component {
             alignItems: 'center' ,
             height : 70,
             width: 70,
-            // position: 'absolute',
-            // top: 0,
-            // right: -20,
-            // zIndex: 2,
-            transform: [
-              {rotateY: rotate},
-            ]
+            opacity: bottomOpacity
           }}>
 
-            <Animated.View style={{
+            <View style={{
               height : 70,
               width: 70,
-
               position: 'absolute',
               top: 0,
               left: 0,
-              opacity: typeOpacity
             }}>
               <Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
                      resizeMode='contain'
                      style= {{flex:1 , width: '100%', borderRadius: 35 }}/>
-            </Animated.View>
-
-            <Animated.View style={{
-              height : 70,
-              width: 70,
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              opacity: questionMarkOpacity
-            }}>
-              <Image source={questionMark}
-                     resizeMode='contain'
-                     style= {{flex:1 , width: '100%',borderRadius: 35 }}/>
-            </Animated.View>
-
+            </View>
           </Animated.View>
 
-        </View>
+        </Animated.View>
       </>
     );
   }
