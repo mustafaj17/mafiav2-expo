@@ -1,12 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import ProfilePicture  from '../profilePicture';
-import { connect } from 'react-redux';
 import Text from '../text';
 import styles from './styles';
 
 const Player = (props) => {
-
 
   const { player } = props;
 
@@ -14,9 +12,7 @@ const Player = (props) => {
     <View key={player.uid} style={styles.container}>
       <View style={styles.player}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text
-          style={{marginLeft: 15}}
-        >
+        <Text style={{marginLeft: 15}}>
           {player.displayName}
         </Text>
         {props.children}

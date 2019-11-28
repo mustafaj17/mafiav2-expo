@@ -4,10 +4,7 @@ export default (state = null, action) => {
 
   switch (action.type){
     case SET_MODAL_DATA:
-      return {
-        data: action.elementData,
-        player: action.player
-      };
+      return action.player
     case CLEAR_MODAL_DATA:
       return null;
     default:

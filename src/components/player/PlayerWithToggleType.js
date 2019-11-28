@@ -15,22 +15,8 @@ export class PlayerWithToggleType extends React.Component{
 
 
   openPlayerInfoModal = () => {
-
     const { setModalData, player } = this.props;
-
-    this.elem.measure( (fx, fy, width, height, px, py) => {
-      // console.log('Component width is: ' + width)
-      // console.log('Component height is: ' + height)
-      // console.log('X offset to page: ' + px)
-      // console.log('Y offset to page: ' + py)
-
-      setModalData({
-        top:py,
-        left:px,
-        height,
-        width
-      }, player)
-    })
+    setModalData(player)
   }
 
   getPlayerType = () => {
@@ -67,7 +53,7 @@ export class PlayerWithToggleType extends React.Component{
     const { player } = this.props;
 
     return(
-      <TouchableOpacity onPress={this.openPlayerInfoModal} ref={ elem => this.elem = elem}>
+      <TouchableOpacity onPress={this.openPlayerInfoModal} >
         <Player player={player} >
 
           {player.ready &&
@@ -81,9 +67,6 @@ export class PlayerWithToggleType extends React.Component{
               right: 5,
               top: 2,
               zIndex:10
-              // backgroundColor: '#008165',
-              // borderRadius: 15
-
             }}>
             <Text size='xsmall' color='#00FFC2' style={{marginRight: 5}}>ready</Text>
             <FontAwesome name='check-circle' color='#00FFC2' size={18}/>
