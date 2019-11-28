@@ -78,7 +78,7 @@ class PreRound extends React.Component {
         <ToggleTypeButton />
 
 
-        {!userHasSeenType && hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
+        {!userHasSeenType && !hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
 
 
         <TouchableOpacity onPress={ () => {
