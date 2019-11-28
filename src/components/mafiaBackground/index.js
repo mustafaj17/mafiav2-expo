@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 const MafiaBackground = props =>{
     return (
-      <View style={{ flex: 1, width: '100%', backgroundColor: 'white' }}>
+      <View style={{ flex: 1, width: '100%', backgroundColor: '#f0f0f0' }}>
         {props.children}
       </View>
       )

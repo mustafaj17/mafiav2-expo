@@ -17,7 +17,7 @@ const initialState = {
     gameDisconnect: null,
     playersDisconnect: null,
     showPlayerTypes: false,
-    userHasSeenType: true
+    userHasSeenType: false
 }
 
 export default (state = initialState, action) => {

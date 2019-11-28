@@ -1,19 +1,27 @@
 import React from 'react'
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import ReadyButton from '../../../components/playerReadyButton';
 import ToggleTypeButton from '../../../components/toggleTypeButton';
 import {areAllPlayersReady, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import {firestore} from "../../../services/firebase";
-import { toggleDisplayPlayerTypes } from '../../../redux/actions/gameActions';
+import {toggleDisplayPlayerTypes, userHasSeenType} from '../../../redux/actions/gameActions';
 import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
 import PlayerWithToggleType from '../../../components/player/PlayerWithToggleType';
 import { COLLECTIONS } from '../../../constants';
+import CheckTypeMessage from "../../../components/checkTypeMessage";
 
 class PreRound extends React.Component {
+  state = {
+    hideMessage: false
+  };
+
+  componentDidMount() {
+    this.hasHiddenToggleMessage()
+  }
 
   shouldComponentUpdate(nextProps){
     const { navigation, allPlayersAreReady } = nextProps;
@@ -26,9 +34,21 @@ class PreRound extends React.Component {
     return true;
   }
 
+  hasHiddenToggleMessage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('hideToggleType');
+      if (value !== null) {
+        this.setState({ hideMessage: true })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   render() {
 
-    const { gameData, currentPlayer, inGamePlayers, gameDoc, userHasSeenType } = this.props;
+    const { gameData, currentPlayer, inGamePlayers, gameDoc, userHasSeenType, userSeenType } = this.props;
+    const { hideMessage } = this.state;
 
     return (
       <View style={styles.page}>
@@ -58,19 +78,7 @@ class PreRound extends React.Component {
         <ToggleTypeButton />
 
 
-        {!userHasSeenType &&
-        <View style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          position: 'absolute',
-          top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(255,255,255, 0.8)',
-          zIndex: 5
-        }}>
-          <Text color='red'> You're type has been set</Text>
-          <Text color='red' type='light' size='small'> click the type toggle to show </Text>
-        </View>}
+        {!userHasSeenType && hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
 
 
         <TouchableOpacity onPress={ () => {
@@ -102,7 +110,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes())
+  toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes()),
+  userSeenType : () => dispatch(userHasSeenType())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameScreenHOC(PreRound));
