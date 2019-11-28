@@ -67,18 +67,24 @@ class LeaveGameModal extends React.Component {
             height: '80%',
             padding: 20,
             borderRadius: 4,
-            backgroundColor: 'red',
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
+            backgroundColor: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: 'black'
           }}>
-            <Text style={{marginBottom: 10}}>Are you sure you want to leave?</Text>
+            <Text style={{marginBottom: 10}}>
+              Are you sure you want to leave?
+            </Text>
+
             <View style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center' }}>
 
-              <Button onPress={this.handlePlayerLeaving}
-                      style={{ width: 120}}>
+              <Button onPress={this.handlePlayerLeaving} style={{ width: 120}}>
                 <Text >Yes</Text>
               </Button>
 
