@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from "react-redux";
 import {
   View,
   Switch,
@@ -16,10 +17,11 @@ import MafiaBackground from '../../components/mafiaBackground';
 import Text from '../../components/text';
 import Button from '../../components/button';
 import ErrorMessage from '../../components/errorMessage';
+import {setUser} from "../../redux/actions/userActions";
 
 const DISPLAY_NAME_LIMIT = 12;
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 
   state = {
     email: '',
@@ -48,6 +50,7 @@ export default class SignUp extends React.Component {
         const blob = await uriToBlob(imageUri);
         const photoURL = await uploadProfilePictureToFirebase(blob, userCredentials.user.email);
         userCredentials.user.updateProfile({displayName: displayName, photoURL});
+        this.props.setUser({ photoURL, displayName })
       } else {
         userCredentials.user.updateProfile({displayName: displayName});
       }
@@ -183,6 +186,11 @@ export default class SignUp extends React.Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(SignUp)
 
 // const styles = StyleSheet.create({
 //   container: {
