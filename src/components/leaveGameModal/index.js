@@ -14,7 +14,7 @@ class LeaveGameModal extends React.Component {
 
   handlePlayerLeaving =  async () => {
 
-    const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players, endGame } = this.props;
+    const { navigation, game, currentPlayer, gameDoc, inGamePlayers, players, endGameAction} = this.props;
     const batch = firestore.batch();
 
     //
@@ -34,7 +34,7 @@ class LeaveGameModal extends React.Component {
       batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email), {leftGame: true});
     }
 
-    endGame();
+    endGameAction();
     navigation.navigate('Lobby');
     await this.updateUserStats();
     await batch.commit();
@@ -64,7 +64,7 @@ class LeaveGameModal extends React.Component {
         }}>
           <View style={{
             width: '80%',
-            height: '80%',
+            height: 200,
             padding: 20,
             borderRadius: 4,
             backgroundColor: 'white',
@@ -112,7 +112,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-  endGame : () => dispatch(endGame())
+  endGameAction : () => dispatch(endGame())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(LeaveGameModal))
