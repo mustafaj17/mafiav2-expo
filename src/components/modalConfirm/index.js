@@ -5,8 +5,9 @@ import Button from "../button";
 import PropTypes from "prop-types";
 
 const ModalConfirm = ({visible, onConfirm, onCancel}) => {
-  const confirm = () => {
+  const confirmAndClose = () => {
     onConfirm();
+    onCancel();
   };
 
   return(
@@ -36,7 +37,7 @@ const ModalConfirm = ({visible, onConfirm, onCancel}) => {
         }}>
           <Text style={{marginBottom: 10}}>Are you sure you want to sign out?</Text>
           <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Button width={100} onPress={confirm}>
+            <Button width={100} onPress={confirmAndClose}>
               <Text size='small'>Yes</Text>
             </Button>
             <Button width={100} onPress={onCancel}>
