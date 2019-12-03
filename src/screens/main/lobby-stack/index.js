@@ -17,9 +17,6 @@ export default createStackNavigator({
     },
     UserProfile : {
       screen: UserProfile,
-      navigationOptions: () => ({
-        title: 'User Profile',
-      })
     },
   },
   {
@@ -27,6 +24,7 @@ export default createStackNavigator({
     defaultNavigationOptions: {
       headerTransparent: true,
       headerTintColor: 'black',
+      headerBackTitle: null,
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       },

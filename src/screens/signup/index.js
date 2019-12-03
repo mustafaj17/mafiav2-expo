@@ -53,6 +53,8 @@ class SignUp extends React.Component {
         this.props.setUser({ photoURL, displayName })
       } else {
         userCredentials.user.updateProfile({displayName: displayName});
+        this.props.setUser({ displayName })
+
       }
       this.props.navigation.navigate('Main')
 

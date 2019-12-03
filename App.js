@@ -12,6 +12,7 @@ import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
 import Constants from 'expo-constants';
 import { View } from 'react-native';
+import Text from "./src/components/text";
 
 const AppStack = createStackNavigator({
   Main: Main
@@ -31,13 +32,13 @@ const AuthStack = createStackNavigator({
     SignUp : {
       screen: SignUp,
       navigationOptions: () => ({
-        title: 'Sign Up',
+        headerTitle: () => <Text type='bold' size='small'>Sign Up</Text>,
       })
     } ,
     Login : {
       screen: Login,
       navigationOptions: () => ({
-        title: 'Login',
+        headerTitle: () => <Text type='bold' size='small'>Login</Text>,
       })
     } ,
     Terms: {
@@ -51,7 +52,7 @@ const AuthStack = createStackNavigator({
   {
     initialRouteName: 'Landing',
     defaultNavigationOptions: {
-
+      headerBackTitle: null,
       headerTransparent: true,
       headerTintColor: 'black',
       headerStyle: {
@@ -70,6 +71,7 @@ let Navigation = createAppContainer(createSwitchNavigator(
     initialRouteName: 'AuthLoading',
     headerMode: 'none',
     defaultNavigationOptions: {
+      headerBackTitle: null,
       headerTransparent: true,
       headerTintColor: 'black',
       headerStyle: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import ProfilePicture from '../../../../components/profilePicture';
 import * as Permissions from 'expo-permissions';
@@ -8,14 +8,31 @@ import { uploadProfilePictureToFirebase, uriToBlob } from '../../../signup/utils
 import firebase from '../../../../services/firebase';
 import { updateUserProfilePic, loadingUserPhotoToggle } from '../../../../redux/actions/userActions';
 import Text from '../../../../components/text';
-import Button from '../../../../components/button';
-import {FloatingLabelInput} from "../../../../components/floatingLabelInput/floatingLabelInput";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
+import ModalConfirm from "../../../../components/modalConfirm";
 
 
 class UserProfile extends React.Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      // headerTitle instead of title
+      headerTitle: () => <Text type='bold' size='small'>User Profile</Text>,
+      headerBackTitle: () => <Text>sdfds</Text>,
+      headerRight: (
+        <TouchableOpacity style={{marginRight: 8}} onPress={navigation.getParam('openModal')}>
+          <MaterialIcons name='exit-to-app' color='#000' size={28}/>
+        </TouchableOpacity>
+      )
+    }
+  };
 
-  state ={}
+  state ={
+    signOutModal: false,
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ openModal: () => this.setState({ signOutModal: true }) });
+  }
 
   takeProfilePic = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -45,11 +62,8 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { hasCameraPermission, profilePicMode  } = this.state;
+    const { hasCameraPermission, profilePicMode, signOutModal  } = this.state;
     const { user } = this.props;
-
-    console.log(user.displayName);
-    console.log(user.email);
 
     if(profilePicMode){
       return (<ProfileImagePicker
@@ -64,8 +78,14 @@ class UserProfile extends React.Component {
           display: 'flex',
           justifyContent: 'space-between',
           flex: 1,
+          opacity: signOutModal ? 0.3 : 1
         }}
       >
+        <ModalConfirm
+          visible={signOutModal}
+          onConfirm={()=>firebase.auth().signOut()}
+          onCancel={()=>this.setState({ signOutModal: false })}
+        />
 
         <View style={{
           display: 'flex',
@@ -77,18 +97,18 @@ class UserProfile extends React.Component {
           <View style={{margin: 10, marginTop: 50}}>
             <ProfilePicture imageUri={user.photoURL} size={200}/>
 
-              <TouchableOpacity onPress={this.takeProfilePic} style={{
-                position: 'absolute',
-                bottom: 0,
-                right: 0,
-              }}>
-                <View >
-                  { user.photoURL ?
-                    <MaterialIcons name='edit' color='#000' size={28}/> :
-                    <FontAwesome name='plus' color='#000' size={28}/>
-                  }
-                </View>
-              </TouchableOpacity>
+            <TouchableOpacity onPress={this.takeProfilePic} style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+            }}>
+              <View >
+                { user.photoURL ?
+                  <MaterialIcons name='edit' color='#000' size={28}/> :
+                  <FontAwesome name='plus' color='#000' size={28}/>
+                }
+              </View>
+            </TouchableOpacity>
           </View>
 
 
@@ -110,7 +130,7 @@ class UserProfile extends React.Component {
         <View style={{margin: 20}}>
 
           <View style={{marginBottom: 10}}>
-          <Text type='bold'>Stats</Text>
+            <Text type='bold'>Stats</Text>
           </View>
 
           <View style={{ display: 'flex', flexDirection: 'row' }}>

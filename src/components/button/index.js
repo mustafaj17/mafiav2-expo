@@ -12,7 +12,7 @@ const Button = (props) => {
         margin: 10,
         borderRadius: 30,
         padding: 15,
-        width: 250,
+        width: props.width || 250,
         borderColor: '#9c0010',
         borderWidth:2,
         // shadowColor: '#aaaaaa',
