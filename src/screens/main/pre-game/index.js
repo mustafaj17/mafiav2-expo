@@ -161,7 +161,7 @@ class PreGame extends React.Component {
             batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {...player});
         });
 
-        batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email), {type : TYPE.CIVILIAN, votedFor: []});
+        batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email), {type : TYPE.MAFIA, votedFor: []});
 
         batch.commit().then( () => {
             console.log('game started and player types set');

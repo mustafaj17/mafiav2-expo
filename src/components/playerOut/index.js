@@ -4,8 +4,7 @@ import Text from '../text';
 import ProfilePicture from '../profilePicture';
 import { TYPE } from '../../constants';
 import civIcon from '../../../assets/civilian-icon.png';
-import mafiaIcon from '../../../assets/mafia-icon3.png';
-import questionMark from '../../../assets/question-mark.png';
+import mafiaIcon from '../../../assets/mafia-icon.png';
 
 class PlayerOut extends React.Component {
 
@@ -62,7 +61,7 @@ class PlayerOut extends React.Component {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: 'white',
+          // backgroundColor: 'white',
           padding: 40,
           margin: 20,
         }}>
@@ -74,31 +73,25 @@ class PlayerOut extends React.Component {
             <Text style={{marginTop: 10,marginBottom: 10 }} >{player.displayName}</Text>
           </Animated.View>
 
-          {/*<AnimatedType alwaysAnimate={true}>*/}
-          {/*<Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}*/}
-          {/*resizeMode='contain'*/}
-          {/*style= {{flex:1 , width: '100%', borderRadius: 35 }}/>*/}
-          {/*</AnimatedType>*/}
-
           <Animated.View style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center' ,
-            height : 70,
-            width: 70,
+            height : 200,
+            width: 200,
             opacity: bottomOpacity
           }}>
 
             <View style={{
-              height : 70,
-              width: 70,
+              height : 200,
+              width: 200,
               position: 'absolute',
               top: 0,
               left: 0,
             }}>
               <Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
                      resizeMode='contain'
-                     style= {{flex:1 , width: '100%', borderRadius: 35 }}/>
+                     style= {{flex:1 , width: '100%' }}/>
             </View>
           </Animated.View>
 

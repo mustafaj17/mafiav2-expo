@@ -66,15 +66,15 @@ class AnimatedType extends React.Component {
 
   render() {
 
-    const height = 50;
+    const height = 70;
 
     const top = this.top.interpolate({
       inputRange: [0,1],
-      outputRange: [height + 10, 20]
+      outputRange: [height + 10, 10]
     })
     const rotate = this.rotate.interpolate({
       inputRange: [0,1,2],
-      outputRange: ['-30deg','0deg' ,'30deg']
+      outputRange: ['-5deg','0deg' ,'5deg']
     })
     return (
       <Animated.View
@@ -83,7 +83,7 @@ class AnimatedType extends React.Component {
           justifyContent: 'center',
           alignItems: 'center',
           // position: 'absolute',
-          width: 50,
+          width: 70,
           height: height,
           top: top,
           left: 0,
