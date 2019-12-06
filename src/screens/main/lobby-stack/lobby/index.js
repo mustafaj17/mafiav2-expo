@@ -62,6 +62,7 @@ class Lobby extends Component {
           />
 
           <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginBottom: 40}}>
+            <MafiaLogo/>
             <Text size='large' color={'#2e2e2e'} style={{letterSpacing: 12, fontSize: 72}}>
               MAFIA
             </Text>
@@ -95,8 +96,6 @@ class Lobby extends Component {
           <Button onPress={this.handleJoinGame}>
             <Text  style={{letterSpacing: 2}}>Join Game</Text>
           </Button>
-
-          <MafiaLogo/>
 
           <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
             <Text  style={{letterSpacing: 2}}>Start New Game</Text>

@@ -1,36 +1,49 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native';
+import {Image, View} from 'react-native';
 import Text from '../../components/text'
 import ProfilePicture from "../profilePicture";
+import {TYPE} from "../../constants";
+import mafiaIcon from '../../../assets/mafia-type-icon.png';
+import civIcon from '../../../assets/civilian-type-icon.png';;
 
-export default class StatBox extends React.Component {
-  render() {
-    const { title, pic, players} = this.props;
-    return (
+
+const StatBox = ({title, players}) => {
+  console.log('**********players', players)
+  if (!players.length) return null;
+  return (
+    <View style={{
+      display: 'flex',
+      marginBottom: 10,
+      justifyContent: 'flex-start',
+      flexDirection: 'column',
+      overflow: 'hidden',
+      width: '100%',
+      flex: 1
+    }}>
       <View style={{
-        display: 'flex',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#e2e2e2',
-        height: 150,
-        overflow: 'hidden',
-        marginBottom: 10,
+        backgroundColor: '#eeeeee',
+        padding: 4,
+        marginBottom: 4,
         width: '100%',
-        flex: 1
+        borderBottomWidth: 1,
+        borderBottomColor: 'grey'
       }}>
-        <View style={{backgroundColor: '#eeeeee', padding: 4, marginBottom: 4, width: '100%' }}>
-          <Text style={{letterSpacing: 2, textAlign: 'center'}}>{title}</Text>
-        </View>
-        <ScrollView horizontal >
-          {players.map(player => (
-            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <ProfilePicture size={50} imageUri={player[0].photoURL} />
-              <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{player[0].displayName}</Text>
-              <Text size='xsmall'>{player[1]} votes</Text>
-            </View>
-          ))}
-        </ScrollView>
+        <Text style={{letterSpacing: 2}}>{title}</Text>
       </View>
-    )
-  }
-}
+      {players.map(player => (
+        <View style={{display: 'flex', flexDirection: 'row', marginBottom: 6, justifyContent: 'center'}}>
+          <ProfilePicture size={45} imageUri={player[0].photoURL} />
+          <View style={{marginLeft: 12, justifyContent: 'center'}}>
+            <Text size='small'>{player[0].displayName}</Text>
+            <Text size='xsmall'>{player[1]} votes</Text>
+          </View>
+          <Image source={player[0].type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
+                 resizeMode='contain'
+                 style= {{height: 40, width: 40, marginLeft: 'auto'}}/>
+        </View>
+      ))}
+    </View>
+  )
+};
+
+export default StatBox;

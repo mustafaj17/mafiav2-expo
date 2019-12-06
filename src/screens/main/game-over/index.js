@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native'
+import {Image, ScrollView, View} from 'react-native'
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
@@ -15,6 +15,8 @@ import { firestore } from '../../../services/firebase';
 import Player from "../../../components/player/Player";
 import MafiaLogo from "../../../components/mafiaLogo";
 import ProfilePicture from '../../../components/profilePicture';
+import civIcon from "../../../../assets/civilian-type-icon.png";
+import mafiaIcon from "../../../../assets/mafia-type-icon.png";
 
 class GameOver extends React.Component {
 
@@ -60,7 +62,7 @@ class GameOver extends React.Component {
         alignItems:'center',
         marginBottom: 5
       }}>
-        <ProfilePicture imageUri={player.photoURL} size={40}/>
+        <ProfilePicture imageUri={player.photoURL} size={45}/>
         <Text
           type='light'
           style={{marginLeft: 15}}
@@ -89,25 +91,23 @@ class GameOver extends React.Component {
     const { mafiasWon } = this.props;
     const stats = this.getVotesStats();
 
+    console.log('*****stats', JSON.stringify(stats))
     return (
       <ScrollView style={{width: '100%', flex: 1, padding: 5}}>
         <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
 
         <MafiaLogo/>
 
-        <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10}}>
+        <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Image source={mafiaIcon}
+                 resizeMode='contain'
+                 style= {{height: 60, width: 70, borderColor: 'grey', borderBottomWidth: 1}}/>
           <Text>
             The Mafias
           </Text>
         </View>
 
         {this.getMafias()}
-
-        <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, marginTop: 20}}>
-          <Text>
-            Stats
-          </Text>
-        </View>
 
         <View >
           <StatBox title='Most voted' players={stats.mostVoted} />

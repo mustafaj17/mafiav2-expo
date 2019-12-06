@@ -10,7 +10,6 @@ const MafiaLogo = (props) => {
         alignItems: 'center',
         height: props.size,
         marginBottom: 20,
-        marginTop: 20,
         ...props.styles
       }}>
         <Image source={logo} style={{flex: 1, resizeMode: 'contain'}}/>

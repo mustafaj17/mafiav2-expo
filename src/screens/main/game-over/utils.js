@@ -29,7 +29,9 @@ export const getVotesAgainstPlayer = (players, currentPlayer) => {
     })
   });
 
+
   let sortedResults = sortObjectToArray(voters);
+  console.log('sortedresults***', sortedResults)
   return sortedResults.map(vote => {
     if (vote[1] === sortedResults[0][1]) {
       return [players.find(play => play.displayName === vote[0]), vote[1]]
