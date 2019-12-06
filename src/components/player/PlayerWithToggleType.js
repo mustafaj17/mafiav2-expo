@@ -4,7 +4,7 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import { getCurrentPlayer } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import { FontAwesome } from '@expo/vector-icons'
-import mafiaIcon from '../../../assets/mafia-icon3.png';
+import mafiaIcon from '../../../assets/mafia-icon.png';
 import civIcon from '../../../assets/civilian-icon.png';
 import AnimatedType from '../animatedType';
 import { setModalData } from '../../redux/actions/modalActions';
