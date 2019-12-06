@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, BackHandler, ToastAndroid, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import Text from '../../../../components/text';
@@ -8,8 +8,10 @@ import MafiaLogo from '../../../../components/mafiaLogo';
 import {FontAwesome} from "@expo/vector-icons";
 import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
-import { COLLECTIONS } from '../../../../constants';
+import { COLLECTIONS, TYPE } from '../../../../constants';
 import MafiaBackground from "../../../../components/mafiaBackground";
+import civIcon from '../../../../../assets/civilian-icon.png';
+import mafiaIcon from '../../../../../assets/mafia-icon.png';
 
 class Lobby extends Component {
   screenWillFocus= async () => {
@@ -61,23 +63,11 @@ class Lobby extends Component {
             onWillBlur={this.screenWillBlur}
           />
 
-          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginBottom: 40}}>
-            <MafiaLogo/>
-            <Text size='large' color={'#2e2e2e'} style={{letterSpacing: 12, fontSize: 72}}>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 50}}>
+            {/*<MafiaLogo size={55} styles={{marginBottom: -5}}/>*/}
+            <Text size='large' color={'#2e2e2e'} style={{letterSpacing: 12, fontSize: 60}}>
               MAFIA
             </Text>
-
-            <View style={{
-              height: 30,
-              width: 30,
-              backgroundColor: 'red',
-              borderWidth: 9,
-              borderColor: 'white',
-              borderRadius: 15,
-              position: 'absolute',
-              top: 12,
-              right: 65
-            }}/>
           </View>
 
           <TouchableOpacity
@@ -93,37 +83,47 @@ class Lobby extends Component {
             <FontAwesome name='user-circle-o' color='#000' size={34}/>
           </TouchableOpacity>
 
-          <Button onPress={this.handleJoinGame}>
-            <Text  style={{letterSpacing: 2}}>Join Game</Text>
-          </Button>
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 80 }}>
+            <Button onPress={this.handleJoinGame}>
+              <Text  style={{letterSpacing: 2}}>Join Game</Text>
+            </Button>
 
-          <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
-            <Text  style={{letterSpacing: 2}}>Start New Game</Text>
-          </Button>
+            <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
+              <Text  style={{letterSpacing: 2}}>Start New Game</Text>
+            </Button>
+          </View>
+
+
+          <Image source={civIcon}
+                 resizeMode='contain'
+                 style= {{flex:1, width: 150, height: 300, position: 'absolute', bottom: -50, left: -10  }}/>
+          <Image source={mafiaIcon}
+                 resizeMode='contain'
+                 style= {{flex:1 , width: 150, height: 300, position: 'absolute', bottom: -50, right: -30 }}/>
+
         </View>
       </MafiaBackground>
-    )
+  )
   }
-}
+  }
 
-const styles = StyleSheet.create(
+  const styles = StyleSheet.create(
   {
     page: {
-      display: 'flex',
-      width: '100%',
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }
+    display: 'flex',
+    width: '100%',
+    flex: 1,
+    alignItems: 'center',
   }
-);
+  }
+  );
 
 
-const mapStateToProps = state => ({
-  user: state.user
-})
-const mapDispatchToProps = dispatch => ({
-  setUserStats : stats => dispatch(setUserStats(stats))
-})
+  const mapStateToProps = state => ({
+    user: state.user
+  })
+  const mapDispatchToProps = dispatch => ({
+    setUserStats : stats => dispatch(setUserStats(stats))
+  })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
+  export default connect(mapStateToProps, mapDispatchToProps)(Lobby);

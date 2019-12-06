@@ -9,10 +9,11 @@ const MafiaLogo = (props) => {
         justifyContent:'center',
         alignItems: 'center',
         height: props.size,
-        marginBottom: 20,
+        marginBottom: 10,
+        width: 100,
         ...props.styles
       }}>
-        <Image source={logo} style={{flex: 1, resizeMode: 'contain'}}/>
+        <Image source={logo} resizeMode='contain' style={{flex: 1}}/>
       </View>
     );
 }

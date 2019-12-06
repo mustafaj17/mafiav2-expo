@@ -9,10 +9,8 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import ProfilePicture from '../../../components/profilePicture';
-import TextBar from '../../../components/textBar';
 import PlayerOut from '../../../components/playerOut';
 import PageTitle from '../../../components/pageTitle';
-import InfoText from '../../../components/infoBox';
 import { COLLECTIONS } from '../../../constants';
 
 

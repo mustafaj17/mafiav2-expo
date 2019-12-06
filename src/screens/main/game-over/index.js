@@ -94,10 +94,7 @@ class GameOver extends React.Component {
     console.log('*****stats', JSON.stringify(stats))
     return (
       <ScrollView style={{width: '100%', flex: 1, padding: 5}}>
-        <PageTitle title={mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}/>
-
-        <MafiaLogo/>
-
+        <Text size='large'>{mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}</Text>
         <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
           <Image source={mafiaIcon}
                  resizeMode='contain'
