@@ -88,7 +88,8 @@ class StartOrJoinGame extends Component{
                 email: user.email,
                 isAdmin: !!isUserStartingGame,
                 photoURL: user.photoURL,
-                stats: user.stats
+                stats: user.stats,
+                votedFor: [],
             });
 
             const disconnectFromPlayerCollection = playersColRef.onSnapshot(querySnapshot => {

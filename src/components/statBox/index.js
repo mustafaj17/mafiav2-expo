@@ -1,11 +1,11 @@
 import React from 'react'
-import { View } from 'react-native';
+import {ScrollView, View} from 'react-native';
 import Text from '../../components/text'
 import ProfilePicture from "../profilePicture";
 
 export default class StatBox extends React.Component {
   render() {
-    const { title, name, number, pic} = this.props;
+    const { title, pic, players} = this.props;
     return (
       <View style={{
         display: 'flex',
@@ -21,9 +21,15 @@ export default class StatBox extends React.Component {
         <View style={{backgroundColor: '#eeeeee', padding: 4, marginBottom: 4, width: '100%' }}>
           <Text style={{letterSpacing: 2, textAlign: 'center'}}>{title}</Text>
         </View>
-        <ProfilePicture size={50} imageUri={pic} />
-        <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{name}</Text>
-        <Text size='xsmall'>{number} votes</Text>
+        <ScrollView horizontal >
+          {players.map(player => (
+            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <ProfilePicture size={50} imageUri={pic} />
+              <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{player[0]}</Text>
+              <Text size='xsmall'>{player[1]} votes</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     )
   }

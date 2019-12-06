@@ -67,7 +67,7 @@ class PlayerOut extends React.Component {
           margin: 20,
         }}>
           <Animated.View style={{opacity: topOpacity}}>
-            <ProfilePicture imageUri={player.photoURL}/>
+            <ProfilePicture size={70} imageUri={player.photoURL}/>
           </Animated.View>
 
           <Animated.View style={{opacity: middleOpacity}}>

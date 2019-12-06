@@ -80,10 +80,7 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return getVotesAgainstPlayer(allPlayers, currentPlayer).map(
-      player =>
-        <StatBox title='Your hater' name={player[0]} number={player[1]} />
-    )
+    return <StatBox title='Your hater' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} />;
   }
 
 
@@ -113,8 +110,8 @@ class GameOver extends React.Component {
         </View>
 
         <View >
-          {stats.mostVoted.map(arr => <StatBox title='Most voted' name={arr[0]} number={arr[1]} />)}
-          {stats.leastVoted.map(arr => <StatBox title='Least voted' name={arr[0]} number={arr[1]} />)}
+          <StatBox title='Most voted' players={stats.mostVoted} />
+          <StatBox title='Least voted' players={stats.leastVoted}  />
           {this.getVotesAgainst()}
         </View>
 

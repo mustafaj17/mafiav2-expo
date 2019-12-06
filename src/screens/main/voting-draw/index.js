@@ -21,6 +21,11 @@ class VotingDraw extends React.Component {
     loading: false
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { currentPlayer, navigation } = this.props;
+    if (!this.getPlayersWhoDrew()) navigation.navigate('InVote')
+  }
+
   handleRevote = () => {
 
     this.setState({loading: true});
