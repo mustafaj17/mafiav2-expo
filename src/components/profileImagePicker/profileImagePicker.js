@@ -23,7 +23,7 @@ import ProfilePicture from '../profilePicture';
 
 
 const DESIRED_RATIO = "16:9";
-const IMAGE_QUALITY = 0.5;
+const IMAGE_QUALITY = 0.1;
 
 //todo:remove this
 YellowBox.ignoreWarnings(['Setting a timer']);
