@@ -24,8 +24,8 @@ export default class StatBox extends React.Component {
         <ScrollView horizontal >
           {players.map(player => (
             <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <ProfilePicture size={50} imageUri={pic} />
-              <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{player[0]}</Text>
+              <ProfilePicture size={50} imageUri={player[0].photoURL} />
+              <Text style={{marginLeft: 4, marginRight: 4, marginTop: 8}} size='small'>{player[0].displayName}</Text>
               <Text size='xsmall'>{player[1]} votes</Text>
             </View>
           ))}
