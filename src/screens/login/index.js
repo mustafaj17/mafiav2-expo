@@ -9,6 +9,7 @@ import Button from '../../components/button';
 import Text from '../../components/text';
 import MafiaLogo from '../../components/mafiaLogo';
 import AnimateLogo from '../../components/amimatedLogo';
+import ErrorMessage from '../../components/errorMessage';
 
 export default class Login extends React.Component {
 
@@ -41,13 +42,6 @@ export default class Login extends React.Component {
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page}>
 
-          <MafiaLogo size={80}/>
-          {/*<AnimateLogo/>*/}
-
-          {this.state.errorMessage &&
-          <Text style={{ color: 'pink' }}>
-            {this.state.errorMessage}
-          </Text>}
 
 
           <FloatingLabelInput
@@ -63,19 +57,17 @@ export default class Login extends React.Component {
             value={this.state.password}
           />
 
-
-
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 10 }}>
+          {this.state.errorMessage && <ErrorMessage errorMessage={this.state.errorMessage}/> }
+          </View>
 
           <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-around'}}>
 
-            <Button
-              style={{width: 120, backgroundColor: 'none', borderWidth: 1,borderColor: 'white', elevation: 0}}
-              onPress={() => this.props.navigation.navigate('SignUp')}
-            >
+            <Button onPress={() => this.props.navigation.navigate('SignUp')} style={{margin: 5, width: 'auto'}}>
               <Text >Sign Up</Text>
             </Button>
 
-            <Button onPress={this.handleLogin} style={{width: 120}}>
+            <Button onPress={this.handleLogin} style={{margin: 5, width: 'auto'}}>
               <Text>Login</Text>
             </Button>
 
