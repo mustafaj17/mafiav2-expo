@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {View, Image, Animated, StyleSheet} from 'react-native';
-import logo from '../../../assets/logo.png'
-import hat from '../../../assets/hat.png'
+import logo from '../../../assets/mafia-logo-no-hat.png'
+import hat from '../../../assets/mafia-logo-hat.png'
 
 
 export default class AnimateLogo extends Component{
   state = {
-    top: new Animated.Value(-5),  // Initial value for opacity: 0
+    top: new Animated.Value(0),  // Initial value for opacity: 0
     rotation: new Animated.Value(0),  // Initial value for opacity: 0
   }
 
@@ -32,7 +32,7 @@ export default class AnimateLogo extends Component{
         Animated.parallel([
           // after decay, in parallel:
           Animated.timing(this.state.top, {
-            toValue: -5,                   // Animate to opacity: 1 (opaque)
+            toValue: 0,                   // Animate to opacity: 1 (opaque)
             duration: 300,
           }),
           Animated.timing(this.state.rotation, {

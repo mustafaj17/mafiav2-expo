@@ -5,7 +5,7 @@ import Text from '../text';
 const ErrorMessage = ({errorMessage}) =>
 {
   return (
-    <View style={{height: 30, paddingLeft: 10}}>
+    <View style={{height: 30}}>
       <Text size='small' color='#ff5722'>{errorMessage}</Text>
     </View>
   );

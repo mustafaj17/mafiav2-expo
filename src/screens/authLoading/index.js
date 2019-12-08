@@ -10,14 +10,14 @@ class AuthLoading extends React.Component {
 
 
         // firebase.auth().signOut();
-
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if(user){
-                this.props.setUser(user);
-            }
-            this.props.navigation.navigate(user ? 'Main' : 'Landing')
-            // this.props.navigation.navigate('Landing')
-        })
+        //
+        // firebase.auth().onAuthStateChanged(async (user) => {
+        //     if(user){
+        //         this.props.setUser(user);
+        //     }
+        //     this.props.navigation.navigate(user ? 'Main' : 'Landing')
+        //     // this.props.navigation.navigate('Landing')
+        // })
     }
 
     render() {

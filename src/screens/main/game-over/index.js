@@ -60,7 +60,9 @@ class GameOver extends React.Component {
         display:'flex',
         flexDirection: 'row',
         alignItems:'center',
-        marginBottom: 5
+        marginBottom: 5,
+        borderColor: 'grey',
+        borderBottomWidth: 1
       }}>
         <ProfilePicture imageUri={player.photoURL} size={45}/>
         <Text
@@ -93,18 +95,25 @@ class GameOver extends React.Component {
 
     console.log('*****stats', JSON.stringify(stats))
     return (
-      <ScrollView style={{width: '100%', flex: 1, padding: 5}}>
-        <Text size='large'>{mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}</Text>
-        <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
-          <Image source={mafiaIcon}
-                 resizeMode='contain'
-                 style= {{height: 60, width: 70, borderColor: 'grey', borderBottomWidth: 1}}/>
-          <Text>
-            The Mafias
-          </Text>
+      <ScrollView style={{width: '100%',flex: 1, padding: 5,backgroundColor: 'black'}}>
+        <View style={{backgroundColor: 'white', margin: 5, padding: 10, width: '100%'}}>
+          <Text size='large'>{mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}</Text>
         </View>
 
-        {this.getMafias()}
+        <View style={{backgroundColor: 'white', margin: 5, padding: 10, width: '100%'}}>
+          <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
+            <Image source={mafiaIcon}
+                   resizeMode='contain'
+                   style= {{height: 60, width: 70, borderColor: 'grey', borderBottomWidth: 1}}/>
+            <Text>
+              The Mafias
+            </Text>
+          </View>
+          <View>
+            {this.getMafias()}
+          </View>
+        </View>
+
 
         <View >
           <StatBox title='Most voted' players={stats.mostVoted} />

@@ -80,6 +80,7 @@ class LeaveGameModal extends React.Component {
 
             <View style={{
               display: 'flex',
+              width: '100%',
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center' }}>
