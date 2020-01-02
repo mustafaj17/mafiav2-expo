@@ -54,24 +54,7 @@ export class PlayerWithToggleType extends React.Component{
 
     return(
       <TouchableOpacity onPress={this.openPlayerInfoModal} >
-        <Player player={player} >
-
-          {player.ready &&
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'absolute',
-              right: 5,
-              top: 2,
-              zIndex:10
-            }}>
-            <Text size='xsmall' color='#00FFC2' style={{marginRight: 5}}>ready</Text>
-            <FontAwesome name='check-circle' color='#00FFC2' size={18}/>
-          </View>}
-
+        <Player player={player} subText={player.ready ? 'ready' : 'not ready...'} greenSubText={player.ready}>
           {this.getPlayerType()}
         </Player>
       </TouchableOpacity>
@@ -87,7 +70,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setModalData : (data, player) => dispatch(setModalData(data, player))
+  setModalData : (player) => dispatch(setModalData(player))
 })
 
 PlayerWithToggleType.defaultProps = {

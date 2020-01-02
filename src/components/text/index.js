@@ -43,7 +43,7 @@ Text.propTypes = {
 Text.defaultProps = {
   type: 'regular',
   size: 'medium',
-  color: 'black',
+  color: 'white',
   letterSpacing: 2
 }
 

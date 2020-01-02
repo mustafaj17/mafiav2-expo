@@ -6,15 +6,20 @@ import styles from './styles';
 
 const Player = (props) => {
 
-  const { player } = props;
+  const { player, subText, greenSubText } = props;
 
   return(
     <View key={player.uid} style={styles.container}>
       <View style={styles.player}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <Text style={{marginLeft: 15}}>
-          {player.displayName}
-        </Text>
+        <View style={{marginLeft: 15}}>
+          <Text >
+            {player.displayName}
+          </Text>
+          <Text color='#999999' size='small' letterSpacing={1} color={greenSubText ? '#00EB0A' : '#999999'}>
+            {subText}
+          </Text>
+        </View>
         {props.children}
       </View>
     </View>

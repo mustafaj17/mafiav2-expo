@@ -6,50 +6,6 @@ import Text from '../text';
 
 class ToggleTypeButton extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.isOpen = new Animated.Value(props.showPlayerTypes ? 1 : 0);
-    this.isPulsating = new Animated.Value(props.userHasSeenType ? 1 : 0)
-    this.runAnimation()
-  }
-
-  componentDidUpdate = () => {
-    this.runAnimation()
-  }
-
-
-  runAnimation = () => {
-    if (this.props.showPlayerTypes) {
-      Animated.timing(this.isOpen, {
-        toValue: 1,
-        duration: 200,
-      }).start();
-    }else{
-      Animated.timing(this.isOpen, {
-        toValue: 0,
-        duration: 200,
-      }).start();
-    }
-
-    if(!this.props.userHasSeenType){
-      Animated.loop(
-        Animated.sequence(
-          [
-            Animated.timing(this.isPulsating,{
-              toValue: 1,
-              duration: 400,
-            }),
-            Animated.timing(this.isPulsating,{
-              toValue: 0,
-              duration: 400,
-            })
-          ]
-        )
-      ).start()
-    } else {
-        this.isPulsating.stopAnimation()
-    }
-  }
 
   handleTypeClick = () => {
     const { userHasSeenType, toggleDisplayPlayerTypes, userSeenType} = this.props;
@@ -61,53 +17,22 @@ class ToggleTypeButton extends React.Component {
 
   render() {
 
-    const bottom = this.isOpen.interpolate({
-      inputRange: [0, 1],
-      outputRange: [-20, 0]
-    })
-
-    const pulsate = this.isPulsating.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 1.1]
-    })
-
+    const { showPlayerTypes } = this.props
     return (
-      <Animated.View style={{
+      <TouchableOpacity onPress={this.handleTypeClick} style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 80,
-        position: 'absolute',
-        right: 10,
-        bottom: bottom,
+        width: 120,
         zIndex: 999,
-        transform: [{ scaleX: pulsate}, {scaleY: pulsate }]
+        borderColor: '#31d08a',
+        borderWidth: 1,
+        borderTopWidth: showPlayerTypes ? 5 : 1
+
       }}>
-
-        <TouchableOpacity onPress={this.handleTypeClick}  style={{flex: 1, width:'100%'}}>
-          <View style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#646464',
-            padding: 5,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-          }}>
-            <Text  size='small' color='white'>toggle</Text>
-            <Text  size='small' color='white'>type</Text>
-          </View>
-          <View style={{
-            width: '100%',
-            flex: 1,
-            backgroundColor: '#31d08a',
-            height: 20
-          }}>
-
-          </View>
-        </TouchableOpacity>
-
-      </Animated.View>
+        <Text  size='small' color='white'>{ showPlayerTypes ? 'HIDE' : 'SHOW' }</Text>
+        <Text  size='small' color='white'>TYPE</Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -121,7 +46,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   toggleDisplayPlayerTypes: () => dispatch(toggleDisplayPlayerTypes()),
   userSeenType : () => dispatch(userHasSeenType())
-
 })
 
 

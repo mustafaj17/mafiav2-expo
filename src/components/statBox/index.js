@@ -28,7 +28,7 @@ const StatBox = ({title, players}) => {
         borderBottomWidth: 1,
         borderBottomColor: 'grey'
       }}>
-        <Text style={{letterSpacing: 2}}>{title}</Text>
+        <Text>{title}</Text>
       </View>
       {players.map(player => (
         <View style={{display: 'flex', flexDirection: 'row', marginBottom: 6, justifyContent: 'center'}}>

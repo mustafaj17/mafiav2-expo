@@ -11,7 +11,7 @@ import GameScreenHOC from "../../../components/gameScreenHoc";
 import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
 import PlayerWithToggleType from '../../../components/player/PlayerWithToggleType';
-import { COLLECTIONS } from '../../../constants';
+import { COLLECTIONS, TYPE } from '../../../constants';
 import CheckTypeMessage from "../../../components/checkTypeMessage";
 
 class PreRound extends React.Component {
@@ -45,6 +45,18 @@ class PreRound extends React.Component {
     }
   };
 
+  getMafiaCount = () => {
+    const {inGamePlayers} = this.props;
+
+    return inGamePlayers.reduce((acc, player) => {
+      if(player.type === TYPE.MAFIA){
+        return acc + 1
+      }
+      return acc
+    },0)
+  }
+
+
   render() {
 
     const { gameData, currentPlayer, inGamePlayers, gameDoc, userHasSeenType, userSeenType } = this.props;
@@ -54,7 +66,13 @@ class PreRound extends React.Component {
       <View style={styles.page}>
 
 
-        <PageTitle title={gameData.gameName}/>
+        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
+          <PageTitle title={gameData.gameName}/>
+          <View style={{ display: 'flex', flexDirection: 'row'}}>
+            <Text color='#00EB0A' style={{marginRight: 5}}>{this.getMafiaCount()}</Text>
+            <Text>Mafia's remaining</Text>
+          </View>
+        </View>
 
         <ScrollView style={{width: '100%', flex: 1}}>
           {inGamePlayers.map( player => <PlayerWithToggleType key={player.uid} player={player} />)}
@@ -63,22 +81,26 @@ class PreRound extends React.Component {
 
 
 
-        {!currentPlayer.isOut && userHasSeenType &&
+        {!currentPlayer.isOut &&
         <View style={{
           position: 'absolute',
           width: '100%',
+          height: 80,
           flex: 1,
           bottom: 10,
           left: 0,
+          display: 'flex',
+          flexDirection: 'row',
+          padding: 10
         }}>
           <ReadyButton/>
+          <ToggleTypeButton />
         </View>}
 
 
-        <ToggleTypeButton />
 
 
-        {!userHasSeenType && !hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
+        {false && !userHasSeenType && !hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
 
 
         <TouchableOpacity onPress={ () => {

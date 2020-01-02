@@ -63,10 +63,6 @@ export default class Login extends React.Component {
 
           <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-around'}}>
 
-            <Button onPress={() => this.props.navigation.navigate('SignUp')} style={{margin: 5, width: 'auto'}}>
-              <Text >Sign Up</Text>
-            </Button>
-
             <Button onPress={this.handleLogin} style={{margin: 5, width: 'auto'}}>
               <Text>Login</Text>
             </Button>

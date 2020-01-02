@@ -21,7 +21,7 @@ class InVote extends React.Component {
 
   voteForPlayer = player => {
     const { gameDoc, currentPlayer, inGamePlayers } = this.props;
-    gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email).update({votingFor: player,})
+    gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email).update({votingFor: player})
     this.setState({playerHasVoted: true})
   }
 
@@ -31,10 +31,8 @@ class InVote extends React.Component {
 
     if(allPlayersHaveVoted){
       this.handleVotingComplete(inGamePlayers);
-      return false;
+      // return false;
     }
-
-
     return true;
   }
 
@@ -72,9 +70,8 @@ class InVote extends React.Component {
     }
     const batch = firestore.batch();
     inGamePlayers.forEach(player => {
-      const currentTestPlayer = inGamePlayers.filter(p => p.email === player.email)
       const randomPlayer =  getRandomPlayer()
-      batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {votingFor: randomPlayer, });
+      batch.update(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {votingFor: randomPlayer});
     });
 
     batch.commit().then( () => {
@@ -94,8 +91,15 @@ class InVote extends React.Component {
       <View style={styles.page}>
         {playerHasVoted || currentPlayer.isOut ?
           <>
-            <AnimateLogo/>
-            <Text>Voting in progress...</Text>
+            <PageTitle title='Voting in progress'/>
+            <ScrollView style={{width: '100%', flex: 1}}>
+              {inGamePlayers.map( player => (
+                <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
+                  <Player player={player}
+                          subText={player.votingFor ? 'voted' : 'waiting...'}
+                          greenSubText={player.votingFor}/>
+                </TouchableOpacity>))}
+            </ScrollView>
           </>
           :
           <>
@@ -104,11 +108,7 @@ class InVote extends React.Component {
             <ScrollView style={{width: '100%', flex: 1}}>
               {votablePlayers.map( player => (
                 <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
-                  <Player player={player} >
-                    <View style={{marginLeft: 'auto', marginRight: 10}}>
-                      <Text size={'xsmall'} type='light'>Tap to vote</Text>
-                    </View>
-                  </Player>
+                  <Player player={player} subText='Tap to vote' greenSubText={true}/>
                 </TouchableOpacity>))}
             </ScrollView>
           </>}

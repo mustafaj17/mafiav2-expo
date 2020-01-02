@@ -99,7 +99,7 @@ class PreGame extends React.Component {
             {
                 email: 'test1@email.com',
                 type: TYPE.CIVILIAN,
-                displayName: 'Abu Yassir',
+                displayName: 'Amoori',
                 ready: true,
                 votedFor: [],
                 uid: 1
@@ -185,7 +185,11 @@ class PreGame extends React.Component {
               <PageTitle title={gameData.gameName}/>
 
               <ScrollView style={{width: '100%'}}>
-                  {inGamePlayers.map( player => <Player key={player.uid} player={player} />)}
+                  {inGamePlayers.map( player =>
+                    <Player
+                      key={player.uid}
+                      player={player}/>
+                  )}
                   <View style={{height: 100}}></View>
               </ScrollView>
 

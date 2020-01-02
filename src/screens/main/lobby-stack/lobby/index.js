@@ -4,14 +4,12 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
-import MafiaLogo from '../../../../components/mafiaLogo';
 import {FontAwesome} from "@expo/vector-icons";
 import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
 import MafiaBackground from "../../../../components/mafiaBackground";
-import civIcon from '../../../../../assets/civilian-icon.png';
-import mafiaIcon from '../../../../../assets/mafia-icon.png';
+import logo from '../../../../../assets/mafia-lobby-logo.png';
 
 class Lobby extends Component {
   screenWillFocus= async () => {
@@ -63,13 +61,6 @@ class Lobby extends Component {
             onWillBlur={this.screenWillBlur}
           />
 
-          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 50}}>
-            {/*<MafiaLogo size={55} styles={{marginBottom: -5}}/>*/}
-            <Text size='large' color={'#2e2e2e'} style={{letterSpacing: 12, fontSize: 60}}>
-              MAFIA
-            </Text>
-          </View>
-
           <TouchableOpacity
             style={{
               position: 'absolute',
@@ -80,26 +71,25 @@ class Lobby extends Component {
             }}
             onPress={this.gotoProfileScreen}
           >
-            <FontAwesome name='user-circle-o' color='#000' size={34}/>
+            <FontAwesome name='user-circle-o' color='#fff' size={34}/>
           </TouchableOpacity>
 
-          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 80 }}>
-            <Button onPress={this.handleJoinGame}>
-              <Text  style={{letterSpacing: 2}}>Join Game</Text>
+          <View style={{ flex:1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+
+            <Button onPress={this.handleStartGame}>
+              <Text>START GAME</Text>
             </Button>
 
-            <Button onPress={this.handleStartGame} style={{marginBottom: 80}}>
-              <Text  style={{letterSpacing: 2}}>Start New Game</Text>
+            <Image source={logo}
+                   resizeMode='contain'
+                   style= {{width: 300, height: 150, marginTop: 40, marginBottom: 40 }}/>
+
+
+            <Button onPress={this.handleJoinGame}>
+              <Text>JOIN GAME</Text>
             </Button>
           </View>
-
-
-          <Image source={civIcon}
-                 resizeMode='contain'
-                 style= {{flex:1, width: 150, height: 300, position: 'absolute', bottom: -50, left: -10  }}/>
-          <Image source={mafiaIcon}
-                 resizeMode='contain'
-                 style= {{flex:1 , width: 150, height: 300, position: 'absolute', bottom: -50, right: -30 }}/>
 
         </View>
       </MafiaBackground>
