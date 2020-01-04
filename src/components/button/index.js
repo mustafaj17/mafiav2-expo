@@ -10,18 +10,13 @@ const Button = (props) => {
         justifyContent: 'center',
         alignItems: 'center',
         margin: 10,
-        borderRadius: 5,
+        borderRadius: 2,
         padding: 15,
         width: props.width || 250,
         borderWidth:1,
-        backgroundColor : '#1A1A1A',
-        borderStyle : 'solid',
-        borderColor : '#F2F2F2',
-        shadowColor: 'rgba(0, 0, 0, 0.75)',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 5,
+        backgroundColor : '#001302',
+        // borderStyle : 'solid',
+        borderColor : '#505050',
         ...props.style
       }}>
         {props.children}

@@ -53,9 +53,9 @@ class InRound extends React.Component {
         return (
            <View style={{...styles.page, justifyContent: 'space-between'}}>
 
-               <PageTitle title='In Round'/>
+               <PageTitle title=''/>
 
-               <Text type='bold' size='large'>{this.state.timer} </Text>
+               <Text type='bold' size='xlarge'>{this.state.timer} </Text>
 
                { currentPlayer.isAdmin &&
                <Button onPress={ () => {

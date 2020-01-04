@@ -8,40 +8,37 @@ import civIcon from '../../../assets/civilian-type-icon.png';;
 
 
 const StatBox = ({title, players}) => {
-  console.log('**********players', players)
+
   if (!players.length) return null;
   return (
     <View style={{
+      backgroundColor: '#1A1A1A',
       display: 'flex',
-      marginBottom: 10,
-      justifyContent: 'flex-start',
-      flexDirection: 'column',
-      overflow: 'hidden',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 5,
+      marginBottom: 5,
       width: '100%',
-      flex: 1
+      flex: 1,
+      padding: 10
     }}>
       <View style={{
-        backgroundColor: '#eeeeee',
-        padding: 4,
-        marginBottom: 4,
-        width: '100%',
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey'
+        marginBottom: 10,
       }}>
-        <Text>{title}</Text>
+        <Text color='white' type='bold'>{title}</Text>
       </View>
-      {players.map(player => (
-        <View style={{display: 'flex', flexDirection: 'row', marginBottom: 6, justifyContent: 'center'}}>
-          <ProfilePicture size={45} imageUri={player[0].photoURL} />
-          <View style={{marginLeft: 12, justifyContent: 'center'}}>
-            <Text size='small'>{player[0].displayName}</Text>
-            <Text size='xsmall'>{player[1]} votes</Text>
+
+      <View>
+        {players.map(player => (
+          <View style={{display: 'flex', flexDirection: 'row', marginBottom: 5}}>
+            <ProfilePicture size={45} imageUri={player[0].photoURL} />
+            <View style={{marginLeft: 10, justifyContent: 'center'}}>
+              <Text size='small'>{player[0].displayName}</Text>
+              <Text size='xsmall' color='#00EB0A'>{player[1]} votes</Text>
+            </View>
           </View>
-          <Image source={player[0].type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
-                 resizeMode='contain'
-                 style= {{height: 40, width: 40, marginLeft: 'auto'}}/>
-        </View>
-      ))}
+        ))}
+      </View>
     </View>
   )
 };

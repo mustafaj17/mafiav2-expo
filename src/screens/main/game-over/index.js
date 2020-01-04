@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, ScrollView, View} from 'react-native'
+import { Image, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import {didMafiasWin, getCurrentPlayer, getInGamePlayers} from "../../../redux/selectors";
 import GameScreenHOC from "../../../components/gameScreenHoc";
@@ -9,14 +9,13 @@ import { endGame } from '../../../redux/actions/gameActions';
 import { COLLECTIONS, TYPE } from '../../../constants';
 import {getAllPlayers} from "../../../redux/selectors";
 import { sortGameStats, generateStatsObj, getVotesAgainstPlayer } from './utils';
-import PageTitle from '../../../components/pageTitle';
 import StatBox from "../../../components/statBox";
 import { firestore } from '../../../services/firebase';
-import Player from "../../../components/player/Player";
-import MafiaLogo from "../../../components/mafiaLogo";
 import ProfilePicture from '../../../components/profilePicture';
-import civIcon from "../../../../assets/civilian-type-icon.png";
-import mafiaIcon from "../../../../assets/mafia-type-icon.png";
+import civIcon from "../../../../assets/civilian-icon.png";
+import mafiaIcon from "../../../../assets/mafia-icon.png";
+import MafiaBackground from '../../../components/mafiaBackground';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class GameOver extends React.Component {
 
@@ -61,18 +60,36 @@ class GameOver extends React.Component {
         flexDirection: 'row',
         alignItems:'center',
         marginBottom: 5,
-        borderColor: 'grey',
-        borderBottomWidth: 1
       }}>
         <ProfilePicture imageUri={player.photoURL} size={45}/>
         <Text
           type='light'
-          style={{marginLeft: 15}}
+          style={{marginLeft: 10}}
         >
           {player.displayName}
         </Text>
       </View>
-      // <Player player={player}/>
+    ))
+  }
+
+  getCivilians = () => {
+    const { allPlayers } = this.props;
+
+    return allPlayers.filter(player =>player.type === TYPE.CIVILIAN).map(player => (
+      <View style={{
+        display:'flex',
+        flexDirection: 'row',
+        alignItems:'center',
+        marginBottom: 5,
+      }}>
+        <ProfilePicture imageUri={player.photoURL} size={45}/>
+        <Text
+          type='light'
+          style={{marginLeft: 10}}
+        >
+          {player.displayName}
+        </Text>
+      </View>
     ))
   }
 
@@ -84,7 +101,7 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return <StatBox title='Your hater' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} />;
+    return <StatBox title='HATERS' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} />;
   }
 
 
@@ -93,45 +110,94 @@ class GameOver extends React.Component {
     const { mafiasWon } = this.props;
     const stats = this.getVotesStats();
 
-    console.log('*****stats', JSON.stringify(stats))
     return (
-      <ScrollView style={{width: '100%',flex: 1, padding: 5,backgroundColor: 'black'}}>
-        <View style={{backgroundColor: 'white', margin: 5, padding: 10, width: '100%'}}>
-          <Text size='large'>{mafiasWon ? 'MAFIAS WON' : 'CIVILIANS WON'}</Text>
-        </View>
 
-        <View style={{backgroundColor: 'white', margin: 5, padding: 10, width: '100%'}}>
-          <View style={{borderBottomWidth: 1, borderBottomColor: 'grey', marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Image source={mafiaIcon}
+      <MafiaBackground>
+        <ScrollView style={{width: '100%',flex: 1}}>
+
+          <LinearGradient
+            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+            colors={mafiasWon
+              ? ['#811C24', '#DB1C24']
+              : ['#0000FF', '#000054']}
+            style={{
+              flex: 1,
+              width: '100%',
+              paddingTop: 10,
+              paddingBottom: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center' ,
+              position: 'relative'
+            }}>
+
+            <Image source={mafiasWon ? mafiaIcon : civIcon}
                    resizeMode='contain'
-                   style= {{height: 60, width: 70, borderColor: 'grey', borderBottomWidth: 1}}/>
-            <Text>
-              The Mafias
-            </Text>
+                   style= {{
+                     height: 150,
+                     width: 150,
+                     position: 'absolute',
+                     opacity: 0.5,
+                     bottom: 0,
+                     right: 10
+                   }}/>
+            <Text type='bold' style={{marginBottom:10}}>WINNERS</Text>
+            <View>
+              {mafiasWon ? this.getMafias() : this.getCivilians()}
+            </View>
+          </LinearGradient>
+
+          <LinearGradient
+            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+            colors={mafiasWon
+              ? ['#0000FF', '#000054']
+              : ['#811C24', '#DB1C24']}
+            style={{
+              flex: 1,
+              width: '100%',
+              paddingTop: 10,
+              paddingBottom: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center' ,
+              position: 'relative'
+            }}>
+
+            <Image source={mafiasWon ?  civIcon : mafiaIcon}
+                   resizeMode='contain'
+                   style= {{
+                     height: 150,
+                     width: 150,
+                     position: 'absolute',
+                     opacity: 0.5,
+                     bottom: 0,
+                     right: 10
+                   }}/>
+            <Text type='bold' style={{marginBottom:10}}>LOSERS</Text>
+            <View>
+              {mafiasWon ? this.getCivilians() : this.getMafias()}
+            </View>
+          </LinearGradient>
+
+
+          <View >
+            <StatBox title='MOST VOTED' players={stats.mostVoted} />
+            <StatBox title='LEAST VOTED' players={stats.leastVoted}  />
+            {this.getVotesAgainst()}
           </View>
-          <View>
-            {this.getMafias()}
+
+          <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-between'}}>
+            <Button onPress={()=> console.log('handlePlayAgain')} style={{width: '100%', margin: 5}}>
+              <Text>Play Again</Text>
+            </Button>
+
+            <Button onPress={this.handleEndGame} style={{width: '100%', margin: 5}}>
+              <Text>End Game</Text>
+            </Button>
           </View>
-        </View>
 
-
-        <View >
-          <StatBox title='Most voted' players={stats.mostVoted} />
-          <StatBox title='Least voted' players={stats.leastVoted}  />
-          {this.getVotesAgainst()}
-        </View>
-
-        <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-between'}}>
-          <Button onPress={()=> console.log('handlePlayAgain')} style={{width: '100%', margin: 5}}>
-            <Text>Play Again</Text>
-          </Button>
-
-          <Button onPress={this.handleEndGame} style={{width: '100%', margin: 5}}>
-            <Text>End Game</Text>
-          </Button>
-        </View>
-
-      </ScrollView>
+        </ScrollView>
+      </MafiaBackground>
 
     )
   }

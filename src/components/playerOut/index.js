@@ -5,6 +5,7 @@ import ProfilePicture from '../profilePicture';
 import { TYPE } from '../../constants';
 import civIcon from '../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../assets/mafia-icon.png';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class PlayerOut extends React.Component {
 
@@ -55,48 +56,59 @@ class PlayerOut extends React.Component {
 
 
     return (
-      <>
-        <Text size='large' type='bold' letterSpacing={4}>Out</Text>
+      <Animated.View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+      }}>
+        <Animated.View style={{opacity: topOpacity}}>
+          <ProfilePicture size={150} imageUri={player.photoURL}/>
+        </Animated.View>
+
+        <Animated.View style={{opacity: middleOpacity}}>
+          <Text style={{marginTop: 10,marginBottom: 10 }} >{player.displayName}</Text>
+        </Animated.View>
+
         <Animated.View style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          // backgroundColor: 'white',
-          padding: 40,
-          margin: 20,
+          alignItems: 'center' ,
+          height : 250,
+          width: '100%',
+          opacity: bottomOpacity
         }}>
-          <Animated.View style={{opacity: topOpacity}}>
-            <ProfilePicture size={70} imageUri={player.photoURL}/>
-          </Animated.View>
 
-          <Animated.View style={{opacity: middleOpacity}}>
-            <Text style={{marginTop: 10,marginBottom: 10 }} >{player.displayName}</Text>
-          </Animated.View>
-
-          <Animated.View style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center' ,
-            height : 200,
-            width: 200,
-            opacity: bottomOpacity
-          }}>
-
-            <View style={{
-              height : 200,
-              width: 200,
-              position: 'absolute',
-              top: 0,
-              left: 0,
+          {player.type === TYPE.MAFIA
+            ?<Text color='#FF0000'>MAFIA ELIMINATED</Text>
+            :<Text color='#0089FF'>CIVILIAN ELIMINATED</Text>
+          }
+          <LinearGradient
+            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+            colors={player.type === TYPE.MAFIA
+              ? ['#811C24', '#DB1C24']
+              : ['#0000FF', '#000054']
+            }
+            style={{ flex: 1, width: '100%',
+              marginTop: 10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center' ,
             }}>
-              <Image source={this.props.player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
+            <View style={{
+              height : 150,
+              width: 150,
+            }}>
+              <Image source={player.type === TYPE.CIVILIAN ? civIcon : mafiaIcon}
                      resizeMode='contain'
                      style= {{flex:1 , width: '100%' }}/>
             </View>
-          </Animated.View>
+          </LinearGradient>
+
 
         </Animated.View>
-      </>
+
+      </Animated.View>
     );
   }
 }

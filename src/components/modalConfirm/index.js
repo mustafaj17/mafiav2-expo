@@ -3,6 +3,7 @@ import {Modal, View} from "react-native";
 import Text from "../text";
 import Button from "../button";
 import PropTypes from "prop-types";
+import MafiaBackground from '../mafiaBackground';
 
 const ModalConfirm = ({visible, onConfirm, onCancel}) => {
   const confirmAndClose = () => {
@@ -26,24 +27,24 @@ const ModalConfirm = ({visible, onConfirm, onCancel}) => {
         <View style={{
           width: '80%',
           height: 200,
-          padding: 20,
           borderRadius: 4,
-          backgroundColor: 'white',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           borderWidth: 1,
           borderColor: 'black'
         }}>
-          <Text style={{marginBottom: 10}}>Are you sure you want to sign out?</Text>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Button width={100} onPress={confirmAndClose}>
-              <Text size='small'>Yes</Text>
-            </Button>
-            <Button width={100} onPress={onCancel}>
-              <Text size='small'>No</Text>
-            </Button>
-          </View>
+          <MafiaBackground style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{marginBottom: 10}}>Are you sure you want to sign out?</Text>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Button width={100} onPress={confirmAndClose}>
+                <Text size='small'>Yes</Text>
+              </Button>
+              <Button width={100} onPress={onCancel}>
+                <Text size='small'>No</Text>
+              </Button>
+            </View>
+          </MafiaBackground>
         </View>
       </View>
     </Modal>

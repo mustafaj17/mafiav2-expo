@@ -111,7 +111,7 @@ class VotingResults extends React.Component {
     return (
       <View style={{...styles.page}}>
 
-        <PageTitle title='Voting Results'/>
+        <PageTitle title='VOTING RESULTS'/>
 
         <View style={{display: 'flex', width: '100%',flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <PlayerOut player={this.state.votedOutPlayer}/>

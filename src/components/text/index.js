@@ -18,6 +18,9 @@ const Text = (props) => {
     case 'large':
       size= 26;
       break;
+    case 'xlarge':
+      size= 52;
+      break;
   }
 
   return (

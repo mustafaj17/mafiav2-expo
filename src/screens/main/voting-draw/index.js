@@ -83,7 +83,7 @@ class VotingDraw extends React.Component {
     return (
       <View style={{...styles.page}}>
 
-        <PageTitle title='Game was a draw'/>
+        <PageTitle title='DRAW'/>
 
         <ScrollView style={{ width: '100%', flex: 1 }}>
           {this.getPlayersWhoDrew()}
