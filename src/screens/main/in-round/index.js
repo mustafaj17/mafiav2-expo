@@ -11,7 +11,7 @@ import PageTitle from '../../../components/pageTitle';
 class InRound extends React.Component {
 
     state = {
-        timer: 10
+        timer: 59
     }
 
     componentDidMount(){
@@ -51,22 +51,22 @@ class InRound extends React.Component {
         const { currentPlayer, gameDoc } = this.props;
 
         return (
-           <View style={{...styles.page, justifyContent: 'space-between'}}>
+          <View style={{...styles.page, justifyContent: 'center', alignItems: 'center'}}>
 
-               <PageTitle title=''/>
 
-               <Text type='bold' size='xlarge'>{this.state.timer} </Text>
+              <Text type='bold' style={{fontSize: 240, textAlign: 'center'}}>{this.state.timer} </Text>
 
-               { currentPlayer.isAdmin &&
-               <Button onPress={ () => {
-                   gameDoc.ref.update( 'roundSkipped', true)
-               }} >
-                   <Text >Skip to voting</Text>
-               </Button>
+              { currentPlayer.isAdmin &&
+              <View style={{position: 'absolute', marginBottom: 10, bottom: 0}} >
+                  <Button onPress={ () => {
+                      gameDoc.ref.update( 'roundSkipped', true)
+                  }} >
+                      <Text >Skip to voting</Text>
+                  </Button>
+              </View>
+              }
 
-               }
-
-           </View>
+          </View>
         )
     }
 }
