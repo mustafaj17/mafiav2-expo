@@ -18,6 +18,7 @@ import Text from '../../components/text';
 import Button from '../../components/button';
 import ErrorMessage from '../../components/errorMessage';
 import {setUser} from "../../redux/actions/userActions";
+import PageTitle from '../../components/pageTitle';
 
 const DISPLAY_NAME_LIMIT = 12;
 
@@ -31,16 +32,11 @@ class SignUp extends React.Component {
     imageUri: null,
     loading: false ,
     profilePicMode : false,
-    termsAccepted: false,
     usernameLimitReached: false
   }
 
   handleSignUp = async () => {
 
-    if(!this.state.termsAccepted){
-      this.setState({errorMessage: 'Please accept terms'})
-      return;
-    }
     this.setState({loading: true})
     const { email, password, displayName, imageUri} = this.state
     try {
@@ -97,7 +93,6 @@ class SignUp extends React.Component {
       imageUri,
       errorMessage,
       hasCameraPermission,
-      termsAccepted,
       usernameLimitReached
     } = this.state;
 
@@ -113,7 +108,8 @@ class SignUp extends React.Component {
     return (
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
-          <ScrollView style={{ flex: 1, paddingTop: 50,  paddingBottom: 50, width: '100%'}}>
+          <PageTitle title='SIGN UP'/>
+          <ScrollView style={{ flex: 1, paddingTop: 20,  paddingBottom: 50, width: '100%'}}>
 
             <View>
               <FloatingLabelInput
@@ -121,11 +117,11 @@ class SignUp extends React.Component {
                 value={displayName}
                 onChangeText={this.handleDisplayNameInput}
               />
-              <Text size='small' type='light'
+              <Text size='xsmall' type='light'
                     style={{
                       position: 'absolute',
                       bottom: -5,
-                      left: 20,
+                      right: 20,
                       color: (usernameLimitReached ? 'red' : 'grey')
                     }}>Max {DISPLAY_NAME_LIMIT} characters</Text>
             </View>
@@ -142,9 +138,9 @@ class SignUp extends React.Component {
               value={password}
             />
 
-            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
+            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: 20}}>
 
-              <ProfilePicture imageUri={imageUri} size={100}/>
+              <ProfilePicture imageUri={imageUri} size={60}/>
 
               { hasCameraPermission === false ?
                 <View>
@@ -152,30 +148,36 @@ class SignUp extends React.Component {
                   <Text style={{textAlign: 'center'}}>Please change settings</Text>
                   <Text style={{textAlign: 'center'}}>You can do this later if you like.</Text>
                 </View> :
-                <Button onPress={this.takeProfilePic} style={{borderWidth: 1, padding: 10 }}>
+                <Button onPress={this.takeProfilePic} style={{backgroundColor: 'none', padding: 10, borderColor: 'whitesmoke'}}>
                   <Text >{ !imageUri ? 'Add Profile Pic' : 'Change pic' }</Text>
                 </Button>
               }
             </View>
 
+            <View style={
+              {
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'row',
+                padding: 20,
+              }
+            }>
+
+              <Text type='light' size='small' letterSpacing={1}>
+                By creating an account you are accepting our terms and conditions.
+              </Text>
+
+            </View>
+
           </ScrollView>
-          <View style={
-            {
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'row',
-            }
-          }>
 
-            <Text type='light' size='xsmall' style={{marginRight: 10}}>
-              I agree to the Terms & Conditions
-            </Text>
 
-            <Switch value={termsAccepted} onChange={()=>this.setState({termsAccepted: !termsAccepted})}/>
+          {errorMessage &&
+          <View style={{paddingLeft: 10, paddingRight: 10}}>
+            <ErrorMessage errorMessage={errorMessage}/>
           </View>
+          }
 
-          {errorMessage && <ErrorMessage errorMessage={errorMessage}/>}
 
           <Button onPress={this.handleSignUp}>
             <Text >Create account</Text>

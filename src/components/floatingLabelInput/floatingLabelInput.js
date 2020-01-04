@@ -48,10 +48,7 @@ export class FloatingLabelInput extends React.Component {
       }),
     };
     return (
-      <View style={{ paddingTop: 18, width: '100%', padding: 10 }}>
-        <Animated.Text style={labelStyle}>
-          {label}
-        </Animated.Text>
+      <View style={{ width: '100%', padding: 10 }}>
         <TextInput
           {...props}
           value={value}
@@ -61,11 +58,12 @@ export class FloatingLabelInput extends React.Component {
             marginTop: 5,
             marginBottom: 10,
             fontSize: 22,
-            borderWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: 'whitesmoke',
             padding: 10,
             color: 'white',
             fontFamily: 'oxygen-regular',
-            borderRadius: 5,
+            borderRadius: 2,
             ...props.style
           }}
           onFocus={this.handleFocus}
@@ -73,6 +71,8 @@ export class FloatingLabelInput extends React.Component {
           blurOnSubmit
           autoCorrect={false}
           spellCheck={false}
+          placeholder={label}
+          placeholderTextColor='grey'
         />
         {props.children}
       </View>

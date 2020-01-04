@@ -69,7 +69,8 @@ class Lobby extends Component {
               top: 10,
               right: 10,
               display: 'flex',
-              alignItems: 'center'
+              alignItems: 'center',
+              zIndex: 99
             }}
             onPress={this.gotoProfileScreen}
           >

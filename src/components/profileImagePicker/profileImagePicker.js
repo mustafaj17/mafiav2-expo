@@ -122,17 +122,27 @@ export default class ProfileImagePicker extends React.Component {
                   top: Constants.statusBarHeight,
                   right: 10,
                 }}>
-                <Ionicons name="md-close" size={32} color="red" />
+                <Ionicons name="md-close" size={32} color="white" />
               </TouchableOpacity>
 
               <ProfilePicture imageUri={image} size={pictureSize}/>
 
-              <Button onPress={() => this.setState({showPic: false})}>
-                <Text >Change image</Text>
+              <View style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                width: '100%',
+                marginTop: 20
+
+              }}>
+              <Button onPress={() => this.setState({showPic: false})} style={{width: 'auto', marginRight: 20, backgroundColor: 'none', borderColor: 'whitesmoke'}}>
+                <Text>Change Image</Text>
               </Button>
-              <Button onPress={this.savePicture}>
-                <Text >Done</Text>
+              <Button onPress={this.savePicture} style={{width: 'auto'}}>
+                <Text>Done</Text>
               </Button>
+              </View>
             </View>
           </MafiaBackground>
         </Modal>
@@ -165,7 +175,7 @@ export default class ProfileImagePicker extends React.Component {
                   top: Constants.statusBarHeight,
                   right: 10,
                 }}>
-                <Ionicons name="md-close" size={32} color="red" />
+                <Ionicons name="md-close" size={32} color="white" />
               </TouchableOpacity>
 
               <View style={{

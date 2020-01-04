@@ -31,15 +31,11 @@ const AuthStack = createStackNavigator({
     },
     SignUp : {
       screen: SignUp,
-      navigationOptions: () => ({
-        headerTitle: () => <Text type='bold' size='small'>Sign Up</Text>,
-      })
+
     } ,
     Login : {
       screen: Login,
-      navigationOptions: () => ({
-        headerTitle: () => <Text type='bold' size='small'>Login</Text>,
-      })
+
     } ,
     Terms: {
       screen: Terms,

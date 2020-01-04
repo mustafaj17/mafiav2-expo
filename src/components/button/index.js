@@ -16,7 +16,7 @@ const Button = (props) => {
         borderWidth:1,
         backgroundColor : '#001302',
         // borderStyle : 'solid',
-        borderColor : '#15D600',
+        borderColor : '#0f9600',
         ...props.style
       }}>
         {props.children}
