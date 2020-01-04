@@ -105,7 +105,7 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return <StatBox title='HATERS' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} key={currentPlayer.uid}/>;
+    return <StatBox title='VOTED FOR YOU' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} key={currentPlayer.uid}/>;
   }
 
 
