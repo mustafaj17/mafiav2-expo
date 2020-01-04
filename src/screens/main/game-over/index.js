@@ -55,12 +55,14 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.MAFIA).map(player => (
-      <View style={{
-        display:'flex',
-        flexDirection: 'row',
-        alignItems:'center',
-        marginBottom: 5,
-      }}>
+      <View
+        key={player.uid}
+        style={{
+          display:'flex',
+          flexDirection: 'row',
+          alignItems:'center',
+          marginBottom: 5,
+        }}>
         <ProfilePicture imageUri={player.photoURL} size={45}/>
         <Text
           type='light'
@@ -76,12 +78,14 @@ class GameOver extends React.Component {
     const { allPlayers } = this.props;
 
     return allPlayers.filter(player =>player.type === TYPE.CIVILIAN).map(player => (
-      <View style={{
-        display:'flex',
-        flexDirection: 'row',
-        alignItems:'center',
-        marginBottom: 5,
-      }}>
+      <View
+        key={player.uid}
+        style={{
+          display:'flex',
+          flexDirection: 'row',
+          alignItems:'center',
+          marginBottom: 5,
+        }}>
         <ProfilePicture imageUri={player.photoURL} size={45}/>
         <Text
           type='light'
@@ -101,7 +105,7 @@ class GameOver extends React.Component {
 
   getVotesAgainst = () => {
     const { allPlayers, currentPlayer } = this.props;
-    return <StatBox title='HATERS' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} />;
+    return <StatBox title='HATERS' players={getVotesAgainstPlayer(allPlayers, currentPlayer)} key={currentPlayer.uid}/>;
   }
 
 

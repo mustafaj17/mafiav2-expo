@@ -94,7 +94,7 @@ class InVote extends React.Component {
             <PageTitle title='VOTING...'/>
             <ScrollView style={{width: '100%', flex: 1}}>
               {inGamePlayers.map( player => (
-                <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
+                <TouchableOpacity onPress={() => this.voteForPlayer(player)} key={player.uid}>
                   <Player player={player}
                           subText={player.votingFor ? 'voted' : 'waiting...'}
                           greenSubText={player.votingFor}/>
@@ -107,7 +107,7 @@ class InVote extends React.Component {
 
             <ScrollView style={{width: '100%', flex: 1}}>
               {votablePlayers.map( player => (
-                <TouchableOpacity onPress={() => this.voteForPlayer(player)}>
+                <TouchableOpacity onPress={() => this.voteForPlayer(player)} key={player.uid}>
                   <Player player={player} subText='Tap to vote' greenSubText={true}/>
                 </TouchableOpacity>))}
             </ScrollView>

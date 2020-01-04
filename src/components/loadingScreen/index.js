@@ -5,8 +5,7 @@ import AnimateLogo from '../amimatedLogo';
 
 const LoadingScreen = () => {
   return (
-      <View style={{...globalStyles.page}}>
-
+      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flex:1, backgroundColor: 'white' }}>
         <AnimateLogo/>
       </View>
   )

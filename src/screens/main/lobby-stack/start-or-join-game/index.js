@@ -19,6 +19,7 @@ import AnimateLogo from '../../../../components/amimatedLogo';
 import MafiaBackground from '../../../../components/mafiaBackground';
 import { COLLECTIONS } from '../../../../constants';
 import ErrorMessage from '../../../../components/errorMessage';
+import LoadingScreen from '../../../../components/loadingScreen';
 
 class StartOrJoinGame extends Component{
 
@@ -137,7 +138,9 @@ class StartOrJoinGame extends Component{
           <MafiaBackground>
               <View style={styles.page}>
 
-                  {loading ? <AnimateLogo/> :
+                  {loading ?
+                    <LoadingScreen/>
+                    :
 
                     <>
 

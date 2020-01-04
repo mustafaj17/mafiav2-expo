@@ -29,7 +29,7 @@ const StatBox = ({title, players}) => {
 
       <View style={{minWidth: 200}}>
         {players.map(player => (
-          <View style={{display: 'flex', flexDirection: 'row', marginBottom: 5}}>
+          <View key={player.uid} style={{display: 'flex', flexDirection: 'row', marginBottom: 5}}>
             <ProfilePicture size={45} imageUri={player[0].photoURL} />
             <View style={{marginLeft: 10, justifyContent: 'center'}}>
               <Text size='small'>{player[0].displayName}</Text>

@@ -65,7 +65,7 @@ class VotingDraw extends React.Component {
     return playersWhoDrew.map( (result, index) => {
       const playerDisplayName = result[0];
       const player = inGamePlayers.find( player => player.displayName === playerDisplayName);
-      return (<Player player={player}/>)
+      return (<Player player={player} key={player.uid}/>)
     })
   }
 
