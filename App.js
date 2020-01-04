@@ -13,6 +13,7 @@ import * as Font from 'expo-font';
 import Constants from 'expo-constants';
 import { View } from 'react-native';
 import Text from "./src/components/text";
+import MafiaBackground from "./src/components/mafiaBackground";
 
 const AppStack = createStackNavigator({
   Main: Main
@@ -50,7 +51,7 @@ const AuthStack = createStackNavigator({
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTransparent: true,
-      headerTintColor: 'hite',
+      headerTintColor: 'white',
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       }
@@ -99,7 +100,10 @@ class App extends React.Component{
 
     return (
       <Provider store={store}>
-
+        <MafiaBackground style={{
+          backgroundColor: '#4d4d4d',
+          flex: 1
+        }}>
         <View style={{
           paddingTop: Constants.statusBarHeight,
           flex: 1
@@ -110,6 +114,7 @@ class App extends React.Component{
             <Navigation/>
           }
         </View>
+        </MafiaBackground>
       </Provider>
     )
   }
