@@ -126,6 +126,7 @@ class GameOver extends React.Component {
               paddingTop: 10,
               paddingBottom: 10,
               display: 'flex',
+              minHeight: 160,
               justifyContent: 'center',
               alignItems: 'center' ,
               position: 'relative'
@@ -156,6 +157,7 @@ class GameOver extends React.Component {
               flex: 1,
               width: '100%',
               paddingTop: 10,
+              minHeight: 160,
               paddingBottom: 10,
               display: 'flex',
               justifyContent: 'center',
@@ -186,12 +188,8 @@ class GameOver extends React.Component {
             {this.getVotesAgainst()}
           </View>
 
-          <View style={{display: 'flex', flexDirection: 'row', width: '100%', padding: 10, justifyContent: 'space-between'}}>
-            <Button onPress={()=> console.log('handlePlayAgain')} style={{width: '100%', margin: 5}}>
-              <Text>Play Again</Text>
-            </Button>
-
-            <Button onPress={this.handleEndGame} style={{width: '100%', margin: 5}}>
+          <View style={{display: 'flex', flex: 1, width: '100%', alignItems: 'center'}}>
+            <Button onPress={this.handleEndGame}>
               <Text>End Game</Text>
             </Button>
           </View>

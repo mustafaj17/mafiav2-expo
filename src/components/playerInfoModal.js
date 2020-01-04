@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import Text from './text';
 import ProfilePicture from './profilePicture';
+import MafiaBackground from './mafiaBackground';
 
 class PlayerInfoModal extends React.Component {
 
@@ -25,29 +26,33 @@ class PlayerInfoModal extends React.Component {
         visible={player !== null}
       >
 
-        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-        { player &&
-        <>
-          <TouchableOpacity onPress={this.closeModal} style={{ position: 'absolute' , top: 25, right: 10, zIndex: 2}}>
-            <Ionicons name="md-close" size={32} color="black" />
-          </TouchableOpacity>
+        <MafiaBackground>
+
+          <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+            { player &&
+            <>
+              <TouchableOpacity onPress={this.closeModal} style={{ position: 'absolute' , top: 25, right: 10, zIndex: 2}}>
+                <Ionicons name="md-close" size={32} color="black" />
+              </TouchableOpacity>
 
 
-          <Text style={{marginBottom: 10}}>{player.displayName}</Text>
-          <ProfilePicture imageUri={player.photoURL}/>
+              <Text style={{marginBottom: 10}}>{player.displayName}</Text>
+              <ProfilePicture imageUri={player.photoURL}/>
 
 
-          {player.stats &&
-          <View style={{marginTop: 40}}>
-            <Text size='small'>Games Played : {player.stats.gamesPlayed}</Text>
-            <Text size='small'>Games Won : {player.stats.gamesWon}</Text>
-            <Text size='small'>Games Won as Mafia : {player.stats.gamesWonAsMafia}</Text>
-            <Text size='small'>Games Won as Civilian : {player.stats.gamesPlayed - player.stats.gamesWonAsMafia - player.stats.gamesLeft}</Text>
-            <Text size='small'>Games Left : {player.stats.gamesLeft}</Text>
-          </View>}
-        </>
-        }
-        </View>
+              {player.stats &&
+              <View style={{marginTop: 40}}>
+                <Text size='small'>Games Played : {player.stats.gamesPlayed}</Text>
+                <Text size='small'>Games Won : {player.stats.gamesWon}</Text>
+                <Text size='small'>Games Won as Mafia : {player.stats.gamesWonAsMafia}</Text>
+                <Text size='small'>Games Won as Civilian : {player.stats.gamesWon - player.stats.gamesWonAsMafia - player.stats.gamesLeft}</Text>
+                <Text size='small'>Games Lost : {player.stats.gamesPlayed - player.stats.gamesWon}</Text>
+                <Text size='small'>Games Left : {player.stats.gamesLeft}</Text>
+              </View>}
+            </>
+            }
+          </View>
+        </MafiaBackground>
       </Modal>
     );
   }

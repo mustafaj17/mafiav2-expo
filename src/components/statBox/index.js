@@ -16,8 +16,7 @@ const StatBox = ({title, players}) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 5,
-      marginBottom: 5,
+      marginTop: 10,
       width: '100%',
       flex: 1,
       padding: 10
