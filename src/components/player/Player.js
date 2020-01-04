@@ -12,13 +12,13 @@ const Player = (props) => {
     <View key={player.uid} style={styles.container}>
       <View style={styles.player}>
         <ProfilePicture imageUri={player.photoURL} size={50}/>
-        <View style={{marginLeft: 15}}>
+        <View style={{marginLeft: 15, display: 'flex', justifyContent: 'center'}}>
           <Text >
             {player.displayName}
           </Text>
-          <Text color='#999999' size='small' letterSpacing={1} color={greenSubText ? '#00EB0A' : '#999999'}>
+          { subText && <Text color='#999999' size='small' letterSpacing={1} color={greenSubText ? '#00EB0A' : '#999999'}>
             {subText}
-          </Text>
+          </Text>}
         </View>
         {props.children}
       </View>
