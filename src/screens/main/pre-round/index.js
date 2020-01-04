@@ -61,6 +61,7 @@ class PreRound extends React.Component {
 
     const { gameData, currentPlayer, inGamePlayers, gameDoc, userHasSeenType, userSeenType } = this.props;
     const { hideMessage } = this.state;
+    const mafiaCount = this.getMafiaCount();
 
     return (
       <View style={styles.page}>
@@ -69,8 +70,8 @@ class PreRound extends React.Component {
         <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
           <PageTitle title={gameData.gameName}/>
           <View style={{ display: 'flex', flexDirection: 'row'}}>
-            <Text color='#00EB0A' style={{marginRight: 5}}>{this.getMafiaCount()}</Text>
-            <Text>Mafia's remaining</Text>
+            <Text color='#00EB0A' style={{marginRight: 5}}>{mafiaCount}</Text>
+            <Text>Mafia{mafiaCount > 1 && "'s" } remaining</Text>
           </View>
         </View>
 
