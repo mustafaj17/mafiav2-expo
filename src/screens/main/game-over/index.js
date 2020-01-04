@@ -142,7 +142,7 @@ class GameOver extends React.Component {
                      right: 10
                    }}/>
             <Text type='bold' style={{marginBottom:10}}>WINNERS</Text>
-            <View>
+            <View style={{minWidth: 200}}>
               {mafiasWon ? this.getMafias() : this.getCivilians()}
             </View>
           </LinearGradient>
@@ -174,7 +174,7 @@ class GameOver extends React.Component {
                      right: 10
                    }}/>
             <Text type='bold' style={{marginBottom:10}}>LOSERS</Text>
-            <View>
+            <View style={{minWidth: 200}}>
               {mafiasWon ? this.getCivilians() : this.getMafias()}
             </View>
           </LinearGradient>

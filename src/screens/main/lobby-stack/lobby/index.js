@@ -9,7 +9,9 @@ import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
 import MafiaBackground from "../../../../components/mafiaBackground";
-import logo from '../../../../../assets/mafia-lobby-logo.png';
+import logo from '../../../../../assets/mafia-lobby-logo2.png';
+import mafia from '../../../../../assets/mafia-icon.png';
+import civilian from '../../../../../assets/civilian-icon.png';
 
 class Lobby extends Component {
   screenWillFocus= async () => {
@@ -81,10 +83,17 @@ class Lobby extends Component {
               <Text>START GAME</Text>
             </Button>
 
+            <View style={{ display: 'flex',  alignItems: 'center', flexDirection: 'row', marginBottom: 20, marginTop: 20  }}>
+              <Image source={mafia}
+                     resizeMode='contain'
+                     style= {{width: 40, height: 150}}/>
             <Image source={logo}
                    resizeMode='contain'
-                   style= {{width: 300, height: 150, marginTop: 40, marginBottom: 40 }}/>
-
+                   style= {{width: 250, height: 150 }}/>
+              <Image source={civilian}
+                     resizeMode='contain'
+                     style= {{width: 40, height: 150 }}/>
+            </View>
 
             <Button onPress={this.handleJoinGame}>
               <Text>JOIN GAME</Text>

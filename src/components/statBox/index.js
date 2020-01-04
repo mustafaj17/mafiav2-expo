@@ -28,7 +28,7 @@ const StatBox = ({title, players}) => {
         <Text color='white' type='bold'>{title}</Text>
       </View>
 
-      <View>
+      <View style={{minWidth: 200}}>
         {players.map(player => (
           <View style={{display: 'flex', flexDirection: 'row', marginBottom: 5}}>
             <ProfilePicture size={45} imageUri={player[0].photoURL} />

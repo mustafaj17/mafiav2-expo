@@ -8,6 +8,7 @@ import { endGame } from '../../redux/actions/gameActions';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { COLLECTIONS } from '../../constants';
+import MafiaBackground from '../mafiaBackground';
 
 
 class LeaveGameModal extends React.Component {
@@ -65,36 +66,41 @@ class LeaveGameModal extends React.Component {
           <View style={{
             width: '80%',
             height: 200,
-            padding: 20,
+
             borderRadius: 4,
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
             borderWidth: 1,
             borderColor: 'black'
           }}>
-            <Text style={{marginBottom: 10}}>
-              Are you sure you want to leave?
-            </Text>
+            <MafiaBackground>
+              <View style={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: 20,
+                alignItems: 'center'
+              }}>
+                <Text style={{marginBottom: 10}}>
+                  Are you sure you want to leave?
+                </Text>
 
-            <View style={{
-              display: 'flex',
-              width: '100%',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center' }}>
+                <View style={{
+                  display: 'flex',
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center' }}>
 
-              <Button onPress={this.handlePlayerLeaving} style={{ width: 120}}>
-                <Text >Yes</Text>
-              </Button>
+                  <Button onPress={this.handlePlayerLeaving} style={{ width: 120}}>
+                    <Text >Yes</Text>
+                  </Button>
 
-              <Button onPress={this.props.hideModal}
-                      style={{ width: 120}}>
-                <Text >No</Text>
-              </Button>
+                  <Button onPress={this.props.hideModal}
+                          style={{ width: 120}}>
+                    <Text >No</Text>
+                  </Button>
 
-            </View>
+                </View>
+              </View>
+            </MafiaBackground>
           </View>
         </View>
       </Modal>

@@ -28,13 +28,16 @@ const ModalConfirm = ({visible, onConfirm, onCancel}) => {
           width: '80%',
           height: 200,
           borderRadius: 4,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           borderWidth: 1,
           borderColor: 'black'
         }}>
           <MafiaBackground style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 20
+            }}>
             <Text style={{marginBottom: 10}}>Are you sure you want to sign out?</Text>
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <Button width={100} onPress={confirmAndClose}>
@@ -43,6 +46,7 @@ const ModalConfirm = ({visible, onConfirm, onCancel}) => {
               <Button width={100} onPress={onCancel}>
                 <Text size='small'>No</Text>
               </Button>
+            </View>
             </View>
           </MafiaBackground>
         </View>

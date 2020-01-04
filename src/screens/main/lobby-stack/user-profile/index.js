@@ -152,7 +152,7 @@ class UserProfile extends React.Component {
 
 
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{marginRight: 10}}>{user.stats.gamesPlayed - user.stats.gamesWonAsMafia}</Text>
+              <Text style={{marginRight: 10}}>{user.stats.gamesWon - user.stats.gamesWonAsMafia}</Text>
               <Text color='grey'>Games Won as Civilian</Text>
             </View>
 
