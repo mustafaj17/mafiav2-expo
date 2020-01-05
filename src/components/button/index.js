@@ -9,14 +9,14 @@ const Button = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 10,
+        margin: props.margin || 10,
         borderRadius: 2,
-        padding: 15,
+        padding: props.padding || 15,
         width: props.width || 250,
         borderWidth:1,
-        backgroundColor : '#001302',
+        backgroundColor : props.secondary ? '#0f9600' : '#001302' ,
         // borderStyle : 'solid',
-        borderColor : '#0f9600',
+        borderColor : props.secondary ? '#001302' : '#0f9600' ,
         ...props.style
       }}>
         {props.children}
@@ -27,7 +27,12 @@ const Button = (props) => {
 
 Button.propTypes = {
   onPress: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  secondary: PropTypes.bool,
+}
+
+Button.defaultProps = {
+  secondary: false
 }
 
 export default Button;

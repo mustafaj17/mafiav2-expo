@@ -33,7 +33,7 @@ const StatBox = ({title, players}) => {
             <ProfilePicture size={45} imageUri={player[0].photoURL} />
             <View style={{marginLeft: 10, justifyContent: 'center'}}>
               <Text size='small'>{player[0].displayName}</Text>
-              <Text size='xsmall' color='#00EB0A'>{player[1]} votes</Text>
+              <Text size='xxsmall' color='#00EB0A'>{player[1]} votes</Text>
             </View>
           </View>
         ))}

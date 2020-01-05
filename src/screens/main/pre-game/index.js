@@ -204,7 +204,7 @@ class PreGame extends React.Component {
               <TouchableOpacity onPress={this.startTestGame}
                                 style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
                                     display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                  <Text  size='xsmall'>Test</Text>
+                  <Text  size='xxsmall'>Test</Text>
               </TouchableOpacity>
 
           </View>

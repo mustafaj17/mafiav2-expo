@@ -100,7 +100,12 @@ class PreRound extends React.Component {
 
 
 
-        {false && !userHasSeenType && !hideMessage && <CheckTypeMessage userSeenType={userSeenType}/>}
+        {!userHasSeenType && !hideMessage &&
+        <CheckTypeMessage
+          hideMessage={() => this.setState({ hideMessage: true })}
+          userSeenType={userSeenType}
+        />
+        }
 
 
         <TouchableOpacity onPress={ () => {
@@ -112,7 +117,7 @@ class PreRound extends React.Component {
         }}
                           style={{position: 'absolute', bottom: 100, left: 10, width: 50, height: 50, borderRadius: 25, backgroundColor: 'pink',
                             display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <Text  size='xsmall'>Ready-all</Text>
+          <Text  size='xxsmall'>Ready-all</Text>
         </TouchableOpacity>
 
       </View>
