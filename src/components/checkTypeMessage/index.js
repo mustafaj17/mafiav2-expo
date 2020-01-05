@@ -26,7 +26,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
         position: 'absolute',
         height: '100%',
         width: '100%',
-        backgroundColor: 'rgba(77,77,77, 0.99)',
+        backgroundColor: 'rgba(77,77,77, 0.9)',
         paddingTop: 40,
         paddingBottom: 40,
       }}>
