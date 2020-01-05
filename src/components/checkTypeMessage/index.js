@@ -19,7 +19,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
 
   return (
     <View style={{width: '100%'}}>
-      <Modal visible transparent sty>
+      <Modal visible transparent animationType="slide">
         <View style={{
           zIndex: 99999,
           display: 'flex',
@@ -101,8 +101,8 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
               <Button onPress={handleDoNotShowMessage} margin={2}>
                 <Text size='xsmall' color='white' width='100%'>DON'T SHOW AGAIN</Text>
               </Button>
-              <Button secondary onPress={hideMessage} width='100%' margin={2}>
-                <Text size='xsmall'>OKAY</Text>
+              <Button secondary onPress={hideMessage} width={100} margin={2}>
+                <Text size='xsmall'>OK</Text>
               </Button>
             </View>
           </View>
