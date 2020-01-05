@@ -21,7 +21,6 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
     <View style={{width: '100%'}}>
       <Modal visible transparent animationType="slide">
         <View style={{
-          zIndex: 99999,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
