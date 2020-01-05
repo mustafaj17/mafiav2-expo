@@ -39,7 +39,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
           }}>
             <Text size='large' type='bold'> LET'S PLAY</Text>
             <View style={{padding: 10}}>
-              <Text>CHECK IF YOU'RE A <Text color='red'>MAFIA</Text> OR <Text color='blue'>CIVILIAN</Text> BY PRESSING THE SHOW TYPE BUTTON IN THE BOTTOM RIGHT CORNER</Text>
+              <Text>CHECK IF YOU ARE A <Text color='red'>MAFIA</Text> OR <Text color='blue'>CIVILIAN</Text> BY PRESSING THE SHOW TYPE BUTTON IN THE BOTTOM RIGHT CORNER</Text>
             </View>
 
             <View style={{width: '100%'}}>
@@ -64,7 +64,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
                        }}/>
                 <View style={{width: '60%'}}>
                   <Text size='xxsmall' style={{marginBottom:10}}>
-                    IF YOU'RE A MAFIA YOU WILL BE ABLE TO SEE OTHER MAFIA'S - YOU MUST TRICK EVERYONE INTO BELIEVING YOU ARE A CIVILIAN - WORK WITH OTHER MAFIA'S TO ELIMINATE ALL THE CIVILIANS
+                    IF YOU ARE A MAFIA YOU WILL BE ABLE TO SEE OTHER MAFIAS - YOU MUST TRICK EVERYONE INTO BELIEVING YOU ARE A CIVILIAN - WORK WITH OTHER MAFIAS TO ELIMINATE ALL THE CIVILIANS
                   </Text>
                 </View>
               </LinearGradient>
@@ -90,7 +90,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
                        }}/>
                 <View style={{width: '60%'}}>
                   <Text size='xxsmall' style={{marginBottom:10}}>
-                    IF YOU'RE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIA'S - BE SMART AND ATTENTIVE AND SEE WHO'S ACTING STRANGELY
+                    IF YOU ARE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIAS - BE SMART AND ATTENTIVE AND SEE WHO IS ACTING STRANGELY
                   </Text>
                 </View>
               </LinearGradient>
