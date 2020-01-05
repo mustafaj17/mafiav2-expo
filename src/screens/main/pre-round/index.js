@@ -16,7 +16,7 @@ import CheckTypeMessage from "../../../components/checkTypeMessage";
 
 class PreRound extends React.Component {
   state = {
-    hideMessage: false
+    hideMessage: true
   };
 
   componentDidMount() {
@@ -37,8 +37,8 @@ class PreRound extends React.Component {
   hasHiddenToggleMessage = async () => {
     try {
       const value = await AsyncStorage.getItem('hideToggleType');
-      if (value !== null) {
-        this.setState({ hideMessage: true })
+      if (value !== 'true') {
+        this.setState({ hideMessage: false })
       }
     } catch (error) {
       console.log(error)

@@ -33,7 +33,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
 
         <Text size='large' type='bold'> LET'S PLAY</Text>
         <View style={{padding: 10}}>
-          <Text>CHECK IF YOU ARE A <Text color='red'>MAFIA</Text> OR <Text color='blue'>CIVILIAN</Text> BY PRESSING THE SHOW TYPE BUTTON IN THE BOTTOM RIGHT CORNER</Text>
+          <Text>CHECK IF YOU ARE A <Text color='#DB1C24' type='bold'>MAFIA</Text> OR <Text type='bold' color='#0000FF'>CIVILIAN</Text> BY PRESSING THE SHOW TYPE BUTTON IN THE BOTTOM RIGHT CORNER</Text>
         </View>
 
         <View style={{width: '100%'}}>
