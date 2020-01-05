@@ -84,7 +84,7 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
                    }}/>
             <View style={{width: '60%'}}>
               <Text size='xxsmall' style={{marginBottom:10}}>
-                IF YOU ARE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIAS - BE SMART AND ATTENTIVE AND SEE WHO IS ACTING STRANGELY
+                IF YOU ARE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIAS - BE SMART AND PAY ATTENTION TO SEE WHO IS ACTING STRANGELY
               </Text>
             </View>
           </LinearGradient>
