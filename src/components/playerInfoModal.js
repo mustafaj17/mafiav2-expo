@@ -45,7 +45,7 @@ class PlayerInfoModal extends React.Component {
                 <Text size='small'>Games Played : {player.stats.gamesPlayed}</Text>
                 <Text size='small'>Games Won : {player.stats.gamesWon}</Text>
                 <Text size='small'>Games Won as Mafia : {player.stats.gamesWonAsMafia}</Text>
-                <Text size='small'>Games Won as Civilian : {player.stats.gamesWon - player.stats.gamesWonAsMafia - player.stats.gamesLeft}</Text>
+                <Text size='small'>Games Won as Civilian : {player.stats.gamesWon - player.stats.gamesWonAsMafia}</Text>
                 <Text size='small'>Games Lost : {player.stats.gamesPlayed - player.stats.gamesWon}</Text>
                 <Text size='small'>Games Left : {player.stats.gamesLeft}</Text>
               </View>}
