@@ -33,7 +33,7 @@ const Text = (props) => {
       color: props.color,
       letterSpacing: props.letterSpacing,
       ...props.style
-    }}>
+    }} onPress={props.onPress}>
       {props.children}
     </RNText>
   );

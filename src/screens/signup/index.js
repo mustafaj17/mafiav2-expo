@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from "react-redux";
 import {
   View,
-  Switch,
-  KeyboardAvoidingView, ScrollView,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
@@ -19,6 +19,7 @@ import Button from '../../components/button';
 import ErrorMessage from '../../components/errorMessage';
 import {setUser} from "../../redux/actions/userActions";
 import PageTitle from '../../components/pageTitle';
+import TermsModal from "../../components/termsModal";
 
 const DISPLAY_NAME_LIMIT = 12;
 
@@ -32,7 +33,8 @@ class SignUp extends React.Component {
     imageUri: null,
     loading: false ,
     profilePicMode : false,
-    usernameLimitReached: false
+    usernameLimitReached: false,
+    termsModalVisible: false
   }
 
   handleSignUp = async () => {
@@ -93,7 +95,8 @@ class SignUp extends React.Component {
       imageUri,
       errorMessage,
       hasCameraPermission,
-      usernameLimitReached
+      usernameLimitReached,
+      termsModalVisible
     } = this.state;
 
     if(this.state.loading) return( <LoadingScreen/> );
@@ -107,6 +110,10 @@ class SignUp extends React.Component {
 
     return (
       <MafiaBackground>
+        <TermsModal
+          termsModalVisible={termsModalVisible}
+          closeModal={() => this.setState({termsModalVisible: false})}
+        />
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
           <PageTitle title='SIGN UP'/>
           <ScrollView style={{ flex: 1, paddingTop: 20,  paddingBottom: 50, width: '100%'}}>
@@ -163,10 +170,13 @@ class SignUp extends React.Component {
               }
             }>
 
-              <Text type='light' size='small' letterSpacing={1}>
-                By creating an account you are accepting our terms and conditions.
+              <Text  type='light' size='small' letterSpacing={1}>
+                {'By creating an account you are accepting our '}
+                <Text onPress={()=>this.setState({termsModalVisible: true})} color='#00EB0A' type='light' size='small' letterSpacing={1}>
+                  terms and conditions
+                </Text>
+                .
               </Text>
-
             </View>
 
           </ScrollView>
