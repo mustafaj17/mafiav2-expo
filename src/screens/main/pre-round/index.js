@@ -20,7 +20,7 @@ class PreRound extends React.Component {
   };
 
   componentDidMount() {
-    this.hasHiddenToggleMessage()
+    if (!this.props.gameData.votingComplete) this.hasHiddenToggleMessage()
   }
 
   shouldComponentUpdate(nextProps){
