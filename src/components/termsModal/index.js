@@ -5,7 +5,7 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 
 const TermsModal = ({termsModalVisible, closeModal}) => (
-  <Modal visible={termsModalVisible}>
+  <Modal visible={termsModalVisible} animationType='slide'>
     <MafiaBackground>
       <View style={{paddingTop: 40, paddingLeft: 16}}>
         <Text style={{paddingBottom: 10}} type='bold'>Terms and Conditions</Text>

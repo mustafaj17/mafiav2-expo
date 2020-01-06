@@ -20,6 +20,7 @@ import ErrorMessage from '../../components/errorMessage';
 import {setUser} from "../../redux/actions/userActions";
 import PageTitle from '../../components/pageTitle';
 import TermsModal from "../../components/termsModal";
+import PrivacyModal from "../../components/privacyModal";
 
 const DISPLAY_NAME_LIMIT = 12;
 
@@ -34,7 +35,8 @@ class SignUp extends React.Component {
     loading: false ,
     profilePicMode : false,
     usernameLimitReached: false,
-    termsModalVisible: false
+    termsModalVisible: false,
+    privacyModalVisible: false
   }
 
   handleSignUp = async () => {
@@ -96,7 +98,8 @@ class SignUp extends React.Component {
       errorMessage,
       hasCameraPermission,
       usernameLimitReached,
-      termsModalVisible
+      termsModalVisible,
+      privacyModalVisible
     } = this.state;
 
     if(this.state.loading) return( <LoadingScreen/> );
@@ -113,6 +116,10 @@ class SignUp extends React.Component {
         <TermsModal
           termsModalVisible={termsModalVisible}
           closeModal={() => this.setState({termsModalVisible: false})}
+        />
+        <PrivacyModal
+          privacyModalVisible={privacyModalVisible}
+          closeModal={() => this.setState({privacyModalVisible: false})}
         />
         <KeyboardAvoidingView style={globalStyles.page} behavior="padding" enabled>
           <PageTitle title='SIGN UP'/>
@@ -171,9 +178,13 @@ class SignUp extends React.Component {
             }>
 
               <Text  type='light' size='small' letterSpacing={1}>
-                {'By creating an account you are accepting our '}
+                {'By creating an account you are agreeing to our '}
                 <Text onPress={()=>this.setState({termsModalVisible: true})} color='#00EB0A' type='light' size='small' letterSpacing={1}>
                   terms and conditions
+                </Text>
+                {' and '}
+                <Text onPress={()=>this.setState({privacyModalVisible: true})} color='#00EB0A' type='light' size='small' letterSpacing={1}>
+                  privacy policy
                 </Text>
                 .
               </Text>
