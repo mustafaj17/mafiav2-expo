@@ -54,9 +54,9 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
                    resizeMode='contain'
                    style= {{
                      height: 150,
-                     width: 150,
+                     width: '25%',
                    }}/>
-            <View style={{width: '60%'}}>
+            <View style={{width: '70%'}}>
               <Text size='xxsmall' style={{marginBottom:10}}>
                 IF YOU ARE A MAFIA YOU WILL BE ABLE TO SEE OTHER MAFIAS - YOU MUST TRICK EVERYONE INTO BELIEVING YOU ARE A CIVILIAN - WORK WITH OTHER MAFIAS TO ELIMINATE ALL THE CIVILIANS
               </Text>
@@ -80,9 +80,9 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
                    resizeMode='contain'
                    style= {{
                      height: 150,
-                     width: 150,
+                     width: '25%',
                    }}/>
-            <View style={{width: '60%'}}>
+            <View style={{width: '70%'}}>
               <Text size='xxsmall' style={{marginBottom:10}}>
                 IF YOU ARE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIAS - BE SMART AND PAY ATTENTION TO SEE WHO IS ACTING STRANGELY
               </Text>
