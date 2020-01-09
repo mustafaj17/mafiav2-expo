@@ -14,6 +14,7 @@ import Constants from 'expo-constants';
 import { View } from 'react-native';
 import Text from "./src/components/text";
 import MafiaBackground from "./src/components/mafiaBackground";
+import HowToPlay from "./src/screens/signup/howToPlay";
 
 const AppStack = createStackNavigator({
   Main: Main
@@ -32,11 +33,9 @@ const AuthStack = createStackNavigator({
     },
     SignUp : {
       screen: SignUp,
-
     } ,
     Login : {
       screen: Login,
-
     } ,
     Terms: {
       screen: Terms,
@@ -45,6 +44,9 @@ const AuthStack = createStackNavigator({
         header: null,
       })
     },
+    HowToPlay: {
+      screen: HowToPlay
+    }
   },
   {
     initialRouteName: 'Landing',

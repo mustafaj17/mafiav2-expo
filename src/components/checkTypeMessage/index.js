@@ -1,10 +1,14 @@
-import { View, AsyncStorage, Modal, Image } from "react-native";
+import {View, AsyncStorage, Modal, Image, TouchableOpacity} from "react-native";
 import Text from "../text";
 import React from "react";
 import Button from "../button";
 import {LinearGradient} from "expo-linear-gradient";
 import mafiaIcon from "../../../assets/mafia-icon.png";
 import civIcon from "../../../assets/civilian-icon.png";
+import MafiaBackground from "../mafiaBackground";
+import Constants from 'expo-constants';
+import {Ionicons} from "@expo/vector-icons";
+
 
 const CheckTypeMessage = ({userSeenType, hideMessage}) => {
 
@@ -18,87 +22,81 @@ const CheckTypeMessage = ({userSeenType, hideMessage}) => {
   };
 
   return (
-    <Modal visible transparent animationType="slide">
-      <View style={{
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        position: 'absolute',
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'rgba(77,77,77, 0.95)',
-        paddingTop: 40,
-        paddingBottom: 40,
-      }}>
+    <Modal visible transparent animationType="fade">
+      <View style={{flex: 1, width: '100%', padding: 12, paddingTop: 12 + Constants.statusBarHeight, backgroundColor: 'rgba(0,0,0, 0.7)'}}>
+        <MafiaBackground style={{borderRadius: 4, borderColor: '#00EB0A', borderWidth: 1}}>
+          <View style={{height: '100%', width: '100%', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, paddingBottom: 10}}>
+            <TouchableOpacity onPress={hideMessage} style={{ position: 'absolute' , top: 4, right: 10, zIndex: 2}}>
+              <Ionicons name="md-close" size={32} color="white" />
+            </TouchableOpacity>
 
-        <Text size='large' type='bold'> LET'S PLAY</Text>
-        <View style={{padding: 10}}>
-          <Text>CHECK IF YOU ARE A <Text color='#DB1C24' type='bold'>MAFIA</Text> OR <Text type='bold' color='#0000FF'>CIVILIAN</Text> BY PRESSING THE SHOW TYPE BUTTON IN THE BOTTOM RIGHT CORNER</Text>
-        </View>
-
-        <View style={{width: '100%'}}>
-          <LinearGradient
-            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
-            colors={['#811C24', '#DB1C24']}
-            style={{
-              width: '100%',
-              display: 'flex',
-              paddingTop: 10,
-              paddingBottom: 10,
-              justifyContent: 'center',
-              alignItems: 'center' ,
-              position: 'relative',
-              flexDirection: 'row'
-            }}>
-            <Image source={mafiaIcon}
-                   resizeMode='contain'
-                   style= {{
-                     height: 150,
-                     width: '25%',
-                   }}/>
-            <View style={{width: '70%'}}>
-              <Text size='xxsmall' style={{marginBottom:10}}>
-                IF YOU ARE A MAFIA YOU WILL BE ABLE TO SEE OTHER MAFIAS - YOU MUST TRICK EVERYONE INTO BELIEVING YOU ARE A CIVILIAN - WORK WITH OTHER MAFIAS TO ELIMINATE ALL THE CIVILIANS
-              </Text>
+            <Text size='large' type='bold'> LET'S PLAY</Text>
+            <View style={{padding: 10}}>
+              <Text>Check if you are <Text color='#FF0000' type='bold'>Mafia</Text> or <Text type='bold' color='#0089FF'>Civilian</Text> by pressing the show type button in the bottom right corner</Text>
             </View>
-          </LinearGradient>
 
-          <LinearGradient
-            start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
-            colors={['#0000FF', '#000054']}
-            style={{
-              width: '100%',
-              display: 'flex',
-              paddingTop: 10,
-              paddingBottom: 10,
-              justifyContent: 'center',
-              alignItems: 'center' ,
-              position: 'relative',
-              flexDirection: 'row'
-            }}>
-            <Image source={civIcon}
-                   resizeMode='contain'
-                   style= {{
-                     height: 150,
-                     width: '25%',
-                   }}/>
-            <View style={{width: '70%'}}>
-              <Text size='xxsmall' style={{marginBottom:10}}>
-                IF YOU ARE A CIVILIAN YOU MUST TRY TO FIND AND ELIMINATE THE MAFIAS - BE SMART AND PAY ATTENTION TO SEE WHO IS ACTING STRANGELY
-              </Text>
+            <View style={{width: '100%'}}>
+              <LinearGradient
+                start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+                colors={['#811C24', '#DB1C24']}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  justifyContent: 'space-between',
+                  alignItems: 'center' ,
+                  position: 'relative',
+                  flexDirection: 'row'
+                }}>
+                <Image source={mafiaIcon}
+                       resizeMode='contain'
+                       style= {{
+                         height: 150,
+                         width: '30%',
+                       }}/>
+                <View style={{width: '70%'}}>
+                  <Text size='xsmall' style={{marginBottom:10}}>
+                    If you are a mafia you will be able to see other mafias - You must trick everyone into believing you are a civilian - Work with other mafias to eliminate all the civilians
+                  </Text>
+                </View>
+              </LinearGradient>
+
+              <LinearGradient
+                start={{x: 0, y: -0.5}} end={{x: 0, y: 1}}
+                colors={['#0000FF', '#000054']}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center' ,
+                  position: 'relative',
+                  flexDirection: 'row'
+                }}>
+                <Image source={civIcon}
+                       resizeMode='contain'
+                       style= {{
+                         height: 150,
+                         width: '30%',
+                       }}/>
+                <View style={{width: '70%'}}>
+                  <Text size='xsmall' style={{marginBottom:10}}>
+                    If you are a civilian you must try to find and eliminate the mafias - Be smart and pay attention to anyone acting strangely
+                  </Text>
+                </View>
+              </LinearGradient>
             </View>
-          </LinearGradient>
-        </View>
 
-        <View style={{display: 'flex', flexDirection: 'row', width: '99%', justifyContent: 'space-around', alignItems: 'center'}}>
-          <Button onPress={handleDoNotShowMessage} margin={2}>
-            <Text size='xsmall' color='white' width='100%'>DON'T SHOW AGAIN</Text>
-          </Button>
-          <Button secondary onPress={hideMessage} width={100} margin={2}>
-            <Text size='xsmall'>OK</Text>
-          </Button>
-        </View>
-
+            <View style={{display: 'flex', flexDirection: 'row', width: '99%', justifyContent: 'space-around', alignItems: 'center'}}>
+              <Text onPress={handleDoNotShowMessage} size='xsmall' color='#00EB0A' type='bold' width='100%' style={{textDecorationLine: 'underline'}}>Don't show again</Text>
+              <Button secondary onPress={hideMessage} width={100} margin={2}>
+                <Text size='xsmall'>OK</Text>
+              </Button>
+            </View>
+          </View>
+        </MafiaBackground>
       </View>
     </Modal>
   )};
