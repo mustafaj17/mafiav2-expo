@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {
   View,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
@@ -21,6 +22,8 @@ import {setUser} from "../../redux/actions/userActions";
 import PageTitle from '../../components/pageTitle';
 import TermsModal from "../../components/termsModal";
 import PrivacyModal from "../../components/privacyModal";
+import HowToPlay from "./howToPlay";
+import Constants from "expo-constants";
 
 const DISPLAY_NAME_LIMIT = 12;
 
@@ -36,8 +39,9 @@ class SignUp extends React.Component {
     profilePicMode : false,
     usernameLimitReached: false,
     termsModalVisible: false,
-    privacyModalVisible: false
-  }
+    privacyModalVisible: false,
+    isHowToPlayVisible: true
+  };
 
   handleSignUp = async () => {
 
@@ -113,6 +117,11 @@ class SignUp extends React.Component {
 
     return (
       <MafiaBackground>
+        <Modal visible={this.state.isHowToPlayVisible} transparent animationType='fade'>
+          <View style={{flex: 1, padding: 20, paddingTop: 20 + Constants.statusBarHeight, backgroundColor: 'rgba(0,0,0, 0.7)'}}>
+            <HowToPlay skipInstructions={() => this.setState({isHowToPlayVisible: false})} isModal />
+          </View>
+        </Modal>
         <TermsModal
           termsModalVisible={termsModalVisible}
           closeModal={() => this.setState({termsModalVisible: false})}
