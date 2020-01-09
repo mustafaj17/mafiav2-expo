@@ -31,7 +31,7 @@ class HowToPlay extends React.Component {
 
   renderProgressBar = () => {
     const { currentIndex }  = this.state;
-    const loader = ['M', 'A', 'F', 'I', 'A'];
+    const loader = 'MAFIA'.split('');
     return loader.map((letter, key) => {
       const isCurrent = currentIndex === key;
 
