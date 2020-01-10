@@ -24,16 +24,11 @@ const ModalConfirm = ({ visible, onConfirm, onCancel }) => {
           style={{
             width: '80%',
             height: 170,
-            borderRadius: 4,
+            borderRadius: 2,
             borderWidth: 1,
             borderColor: '#00EB0A',
           }}>
-          <MafiaBackground
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <MafiaBackground>
             <View
               style={{
                 display: 'flex',

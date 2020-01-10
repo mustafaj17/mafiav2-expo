@@ -7,6 +7,7 @@ const LoadingScreen = () => {
   return (
     <View
       style={{
+        marginTop: -50,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

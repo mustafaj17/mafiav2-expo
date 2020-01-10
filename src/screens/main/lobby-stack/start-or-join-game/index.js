@@ -20,6 +20,7 @@ import MafiaBackground from '../../../../components/mafiaBackground';
 import { COLLECTIONS } from '../../../../constants';
 import ErrorMessage from '../../../../components/errorMessage';
 import LoadingScreen from '../../../../components/loadingScreen';
+import PageTitle from "../../../../components/pageTitle";
 
 class StartOrJoinGame extends Component {
   // static navigationOptions = ({navigation}) => ({
@@ -149,12 +150,10 @@ class StartOrJoinGame extends Component {
             <LoadingScreen />
           ) : (
             <>
-              <Text size={'large'} style={{ marginBottom: 50 }}>
-                {isUserStartingGame ? 'Start Game' : 'Join Game'}
-              </Text>
+              <PageTitle title={isUserStartingGame ? 'Start Game' : 'Join Game'}/>
 
-              <Text style={{ marginBottom: 50 }}>
-                {isUserStartingGame ? 'Please' : 'Join Game'}
+              <Text size='xsmall' letterSpacing={1} style={{ marginBottom: 50, paddingLeft: 20, paddingRight: 20 }}>
+                {isUserStartingGame ? 'Please enter a unique game ID below which you will share with other players' : 'Please enter the game you wish to join'}
               </Text>
 
               <FloatingLabelInput
