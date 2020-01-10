@@ -4,28 +4,28 @@ export const LOADING_USER_PHOTO_TOGGLE = 'LOADING_USER_PHOTO_TOGGLE';
 export const SET_USER_STATS = 'SET_USER_STATS';
 
 export const setUser = user => {
-    return {
-        type: SET_USER,
-        payload: user
-    }
-}
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+};
 
 export const updateUserProfilePic = photoURL => {
-    return {
-        type: UPDATE_USER_PROFILE_PIC,
-        payload: photoURL
-    }
-}
+  return {
+    type: UPDATE_USER_PROFILE_PIC,
+    payload: photoURL,
+  };
+};
 
 export const loadingUserPhotoToggle = () => {
-    return {
-        type: LOADING_USER_PHOTO_TOGGLE,
-    }
-}
+  return {
+    type: LOADING_USER_PHOTO_TOGGLE,
+  };
+};
 
 export const setUserStats = stats => {
-    return {
-        type: SET_USER_STATS,
-        payload: stats
-    }
-}
+  return {
+    type: SET_USER_STATS,
+    payload: stats,
+  };
+};

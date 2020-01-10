@@ -7,11 +7,11 @@ import {
   BackHandler,
   ToastAndroid,
   TouchableOpacity,
-  Modal
+  Modal,
 } from 'react-native';
-import Constants from 'expo-constants'
-import * as Permissions from 'expo-permissions'
-import * as ImagePicker from 'expo-image-picker'
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
@@ -21,8 +21,7 @@ import Text from '../text';
 import MafiaBackground from '../mafiaBackground';
 import ProfilePicture from '../profilePicture';
 
-
-const DESIRED_RATIO = "16:9";
+const DESIRED_RATIO = '16:9';
 const IMAGE_QUALITY = 0.1;
 
 //todo:remove this
@@ -31,21 +30,21 @@ YellowBox.ignoreWarnings(['Setting a timer']);
 export default class ProfileImagePicker extends React.Component {
   state = {
     image: null,
-    screenWidth: Dimensions.get('window').width
+    screenWidth: Dimensions.get('window').width,
   };
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
 
   handleBackButton = () => {
     ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
-  }
+  };
 
   prepareCameraRatio = async () => {
     if (Constants.platform.android && this.camera) {
@@ -53,44 +52,42 @@ export default class ProfileImagePicker extends React.Component {
 
       // See if the current device has your desired ratio, otherwise get the maximum supported one
       // Usually the last element of "ratios" is the maximum supported ratio
-      const ratio = ratios.find((ratio) => ratio === DESIRED_RATIO) || ratios[ratios.length - 1];
+      const ratio =
+        ratios.find(ratio => ratio === DESIRED_RATIO) ||
+        ratios[ratios.length - 1];
       this.setState({ ratio });
     }
-  }
+  };
 
   pickImageFromLibrary = async () => {
-
-    this.setState({loading: true});
+    this.setState({ loading: true });
 
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     console.log(status);
     if (status === 'granted') {
-      this.setState({hasCameraLibraryPermission: true});
-    }else{
-      this.setState({hasCameraLibraryPermission: false, loading: false});
+      this.setState({ hasCameraLibraryPermission: true });
+    } else {
+      this.setState({ hasCameraLibraryPermission: false, loading: false });
       return;
     }
 
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: IMAGE_QUALITY
+      quality: IMAGE_QUALITY,
     });
 
-    if(result.cancelled){
+    if (result.cancelled) {
       this.setState({ loading: false });
-    }
-
-    else if (!result.cancelled) {
+    } else if (!result.cancelled) {
       this.setState({ image: result.uri, showPic: true, loading: false });
     }
   };
 
   takePicture = async () => {
-
     let result = await this.camera.takePictureAsync({
       skipProcessing: true,
-      quality: IMAGE_QUALITY
-    })
+      quality: IMAGE_QUALITY,
+    });
 
     if (!result.cancelled) {
       this.setState({ image: result.uri, showPic: true });
@@ -99,22 +96,27 @@ export default class ProfileImagePicker extends React.Component {
 
   savePicture = () => {
     this.props.savePicture(this.state.image);
-  }
+  };
 
   render() {
-    let { image, showPic, loading, screenWidth, hasCameraLibraryPermission } = this.state;
+    let {
+      image,
+      showPic,
+      loading,
+      screenWidth,
+      hasCameraLibraryPermission,
+    } = this.state;
     let { hideProfileImagePicker } = this.props;
     let pictureSize = screenWidth - 60;
-    let pictureBorderRadius = Math.floor(pictureSize/2);
+    let pictureBorderRadius = Math.floor(pictureSize / 2);
 
-    if(loading) return <LoadingScreen/>;
+    if (loading) return <LoadingScreen />;
 
-    if(showPic){
-      return(
+    if (showPic) {
+      return (
         <Modal>
           <MafiaBackground>
             <View style={globalStyles.page}>
-
               <TouchableOpacity
                 onPress={hideProfileImagePicker}
                 style={{
@@ -125,35 +127,42 @@ export default class ProfileImagePicker extends React.Component {
                 <Ionicons name="md-close" size={32} color="white" />
               </TouchableOpacity>
 
-              <ProfilePicture imageUri={image} size={pictureSize}/>
+              <ProfilePicture imageUri={image} size={pictureSize} />
 
-              <View style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                width: '100%',
-                marginTop: 20
-
-              }}>
-              <Button onPress={() => this.setState({showPic: false})} style={{width: 'auto', marginRight: 20, backgroundColor: 'none', borderColor: 'whitesmoke'}}>
-                <Text>Change Image</Text>
-              </Button>
-              <Button onPress={this.savePicture} style={{width: 'auto'}}>
-                <Text>Done</Text>
-              </Button>
+              <View
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  width: '100%',
+                  marginTop: 20,
+                }}>
+                <Button
+                  onPress={() => this.setState({ showPic: false })}
+                  style={{
+                    width: 'auto',
+                    marginRight: 20,
+                    backgroundColor: 'none',
+                    borderColor: 'whitesmoke',
+                  }}>
+                  <Text>Change Image</Text>
+                </Button>
+                <Button onPress={this.savePicture} style={{ width: 'auto' }}>
+                  <Text>Done</Text>
+                </Button>
               </View>
             </View>
           </MafiaBackground>
         </Modal>
-      )
+      );
     }
 
     return (
       <Modal>
         <View style={globalStyles.page}>
           <Camera
-            ref={ ref => this.camera = ref }
+            ref={ref => (this.camera = ref)}
             style={{ flex: 1, width: '100%' }}
             type={Camera.Constants.Type.front}
             onCameraReady={this.prepareCameraRatio}
@@ -165,9 +174,8 @@ export default class ProfileImagePicker extends React.Component {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
-                position: 'relative'
+                position: 'relative',
               }}>
-
               <TouchableOpacity
                 onPress={hideProfileImagePicker}
                 style={{
@@ -178,52 +186,57 @@ export default class ProfileImagePicker extends React.Component {
                 <Ionicons name="md-close" size={32} color="white" />
               </TouchableOpacity>
 
-              <View style={{
-                height: pictureSize,
-                width:pictureSize,
-                borderColor: 'white',
-                borderWidth: 3,
-                borderStyle: 'solid',
-                borderRadius: pictureBorderRadius
-              }}/>
+              <View
+                style={{
+                  height: pictureSize,
+                  width: pictureSize,
+                  borderColor: 'white',
+                  borderWidth: 3,
+                  borderStyle: 'solid',
+                  borderRadius: pictureBorderRadius,
+                }}
+              />
 
               <TouchableOpacity onPress={this.takePicture}>
-                <View style={{
-                  height: 80,
-                  width:80,
-                  borderColor: 'white',
-                  borderWidth: 2,
-                  borderStyle: 'solid',
-                  borderRadius: 40,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 20
-                }}>
-                  <SimpleLineIcons name='camera' size={32} color='white'/>
+                <View
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderColor: 'white',
+                    borderWidth: 2,
+                    borderStyle: 'solid',
+                    borderRadius: 40,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 20,
+                  }}>
+                  <SimpleLineIcons name="camera" size={32} color="white" />
                 </View>
-
               </TouchableOpacity>
 
-              <View style={{
-                position: 'absolute',
-                width: '100%',
-                bottom: 0,
-                left: 0
-              }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  bottom: 0,
+                  left: 0,
+                }}>
                 <Button
                   onPress={this.pickImageFromLibrary}
                   disabled={hasCameraLibraryPermission === false}
-                  style={{width: '100%', margin: 0, marginBottom: 20}}
-                >
-                  <Text  size='small'>{`${(hasCameraLibraryPermission === false) ? 'Permission needed to use image from Gallery' : 'Pick an image from camera roll'}`}</Text>
+                  style={{ width: '100%', margin: 0, marginBottom: 20 }}>
+                  <Text size="small">{`${
+                    hasCameraLibraryPermission === false
+                      ? 'Permission needed to use image from Gallery'
+                      : 'Pick an image from camera roll'
+                  }`}</Text>
                 </Button>
               </View>
             </View>
           </Camera>
         </View>
       </Modal>
-    )
-
+    );
   }
 }

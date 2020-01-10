@@ -13,11 +13,11 @@ export class FloatingLabelInput extends React.Component {
 
   handleFocus = () => {
     this.setState({ isFocused: true });
-  }
+  };
 
   handleBlur = () => {
     this.setState({ isFocused: this.props.value.length > 0 });
-  }
+  };
 
   componentDidUpdate() {
     Animated.timing(this._animatedIsFocused, {
@@ -27,7 +27,7 @@ export class FloatingLabelInput extends React.Component {
   }
 
   render() {
-    const { label,value, ...props } = this.props;
+    const { label, value, ...props } = this.props;
     const labelStyle = {
       position: 'absolute',
       left: this._animatedIsFocused.interpolate({
@@ -64,7 +64,7 @@ export class FloatingLabelInput extends React.Component {
             color: 'white',
             fontFamily: 'oxygen-regular',
             borderRadius: 2,
-            ...props.style
+            ...props.style,
           }}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
@@ -72,11 +72,10 @@ export class FloatingLabelInput extends React.Component {
           autoCorrect={false}
           spellCheck={false}
           placeholder={label}
-          placeholderTextColor='grey'
+          placeholderTextColor="grey"
         />
         {props.children}
       </View>
     );
   }
 }
-

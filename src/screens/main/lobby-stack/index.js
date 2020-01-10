@@ -1,21 +1,22 @@
-import {createStackNavigator} from "react-navigation";
-import Lobby from "./lobby";
-import StartOrJoinGame from "./start-or-join-game";
-import UserProfile from "./user-profile";
+import { createStackNavigator } from 'react-navigation';
+import Lobby from './lobby';
+import StartOrJoinGame from './start-or-join-game';
+import UserProfile from './user-profile';
 import Constants from 'expo-constants';
 
-export default createStackNavigator({
-    Lobby : {
+export default createStackNavigator(
+  {
+    Lobby: {
       screen: Lobby,
       navigationOptions: () => ({
         gesturesEnabled: false,
         header: null,
-      })
+      }),
     },
-    StartOrJoinGame : {
-      screen: StartOrJoinGame
+    StartOrJoinGame: {
+      screen: StartOrJoinGame,
     },
-    UserProfile : {
+    UserProfile: {
       screen: UserProfile,
     },
   },
@@ -28,5 +29,6 @@ export default createStackNavigator({
       headerStyle: {
         marginTop: -Constants.statusBarHeight,
       },
-    }
-  })
+    },
+  },
+);

@@ -1,10 +1,10 @@
 export const TYPE = {
-    CIVILIAN: 'CIVILIAN',
-    MAFIA: 'MAFIA'
-}
+  CIVILIAN: 'CIVILIAN',
+  MAFIA: 'MAFIA',
+};
 
 export const COLLECTIONS = {
-    STATS: 'user-stats',
-    PLAYERS: 'players',
-    GAMES: 'mafia-games'
-}
+  STATS: 'user-stats',
+  PLAYERS: 'players',
+  GAMES: 'mafia-games',
+};

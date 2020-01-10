@@ -8,55 +8,54 @@ export const END_GAME = 'END_GAME';
 export const USER_HAS_SEEN_TYPE = 'USER_HAS_SEEN_TYPE';
 
 export const setGameDocument = gameDoc => {
-    return {
-        type: SET_GAME_DOCUMENT,
-        payload: gameDoc
-    }
-}
+  return {
+    type: SET_GAME_DOCUMENT,
+    payload: gameDoc,
+  };
+};
 
 export const updateGameData = data => {
-    return {
-        type: UPDATE_GAME_DATA,
-        payload: data
-    }
-}
+  return {
+    type: UPDATE_GAME_DATA,
+    payload: data,
+  };
+};
 
 export const setGameDisconnect = gameDisconnect => {
-    return {
-        type: SET_GAME_DISCONNECT,
-        payload: gameDisconnect
-    }
-}
+  return {
+    type: SET_GAME_DISCONNECT,
+    payload: gameDisconnect,
+  };
+};
 
 export const updatePlayersData = data => {
-    return {
-        type: UPDATE_PLAYERS_DATA,
-        payload: data
-    }
-}
+  return {
+    type: UPDATE_PLAYERS_DATA,
+    payload: data,
+  };
+};
 
 export const setPlayersDisconnect = playersDisconnect => {
-    return {
-        type: SET_PLAYERS_DISCONNECT,
-        payload: playersDisconnect
-    }
-}
+  return {
+    type: SET_PLAYERS_DISCONNECT,
+    payload: playersDisconnect,
+  };
+};
 
 export const toggleDisplayPlayerTypes = () => {
-    return {
-        type: TOGGLE_DISPLAY_PLAYER_TYPES
-    }
-}
+  return {
+    type: TOGGLE_DISPLAY_PLAYER_TYPES,
+  };
+};
 
 export const endGame = () => {
-    return {
-        type: END_GAME
-    }
-}
-
+  return {
+    type: END_GAME,
+  };
+};
 
 export const userHasSeenType = () => {
-    return {
-        type: USER_HAS_SEEN_TYPE
-    }
-}
+  return {
+    type: USER_HAS_SEEN_TYPE,
+  };
+};

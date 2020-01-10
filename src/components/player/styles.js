@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-const styles =  StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
     backgroundColor: 'rgba(0,0,0,0.7)',
-    marginBottom: 10
+    marginBottom: 10,
   },
   player: {
     display: 'flex',
@@ -12,7 +12,7 @@ const styles =  StyleSheet.create({
     minHeight: 60,
     alignItems: 'center',
     flexDirection: 'row',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 });
 
