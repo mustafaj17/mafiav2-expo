@@ -1,10 +1,10 @@
-import {View, Dimensions, StyleSheet, Image, Animated} from "react-native";
+import { View, Dimensions, StyleSheet, Image, Animated } from 'react-native';
 
 import Carousel from 'react-native-snap-carousel';
-import React from 'react'
-import MafiaBackground from "../../../components/mafiaBackground";
-import Text from "../../../components/text";
-import { slideData, modalHome } from "./constants";
+import React from 'react';
+import MafiaBackground from '../../../components/mafiaBackground';
+import Text from '../../../components/text';
+import { slideData, modalHome } from './constants';
 
 const horizontalMargin = 20;
 const slideWidth = 300;
@@ -13,54 +13,70 @@ const sliderWidth = Dimensions.get('window').width;
 const itemWidth = slideWidth + horizontalMargin * 2;
 
 class HowToPlay extends React.Component {
-
   state = {
     currentIndex: [0],
-    left: new Animated.Value(30),  // Initial value for opacity: 0
+    left: new Animated.Value(30), // Initial value for opacity: 0
   };
 
   componentDidMount() {
-    this.runAnimation()
+    this.runAnimation();
   }
 
   runAnimation() {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.state.left, {
-          toValue: -30,                   // Animate to opacity: 1 (opaque)
+          toValue: -30, // Animate to opacity: 1 (opaque)
           duration: 500,
         }),
         Animated.timing(this.state.left, {
           // and twirl
           toValue: 30,
-          duration: 500
-
-        })]
-      )).start()
+          duration: 500,
+        }),
+      ]),
+    ).start();
   }
 
-  renderItem = ({item, index}) => (
-    <View style={{width: itemWidth, flex: 1, paddingHorizontal: horizontalMargin }}>
-      <View style={{width: slideWidth, flex: 1, justifyContent: 'center', alignItems: 'center'}} >
-        {item.image && <Image source={item.image} style={{height: 200, width: slideWidth}} />}
+  renderItem = ({ item, index }) => (
+    <View
+      style={{
+        width: itemWidth,
+        flex: 1,
+        paddingHorizontal: horizontalMargin,
+      }}>
+      <View
+        style={{
+          width: slideWidth,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {item.image && (
+          <Image
+            source={item.image}
+            style={{ height: 200, width: slideWidth }}
+          />
+        )}
         {item.text}
       </View>
     </View>
   );
 
-  onSnapItem = (index) => {
+  onSnapItem = index => {
     const { currentIndex } = this.state;
     const newIndex = [...currentIndex];
-    if (!currentIndex.includes(index)) this.setState({currentIndex: [...currentIndex, index]})
+    if (!currentIndex.includes(index))
+      this.setState({ currentIndex: [...currentIndex, index] });
     if (currentIndex.includes(index)) {
-      newIndex.pop()
-      this.setState({currentIndex: newIndex})
+      newIndex.pop();
+      this.setState({ currentIndex: newIndex });
     }
   };
 
   renderProgressBar = () => {
-    const { currentIndex }  = this.state;
-    const { isModal }  = this.props;
+    const { currentIndex } = this.state;
+    const { isModal } = this.props;
     const progressText = isModal ? ' MAFIA' : 'MAFIA';
     const progressArray = progressText.split('');
     return progressArray.map((letter, key) => {
@@ -76,17 +92,24 @@ class HowToPlay extends React.Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {isPassed
-            ? <Text size='xsmall' type='bold' color='#00EB0A'>{letter}</Text>
-            : <View style={{
-              height: 8,
-              width: 8,
-              borderRadius: 4,
-              borderColor: '#00EB0A',
-              borderWidth: 2}}/>
-          }
-        </View>)}
-    )
+          {isPassed ? (
+            <Text size="xsmall" type="bold" color="#00EB0A">
+              {letter}
+            </Text>
+          ) : (
+            <View
+              style={{
+                height: 8,
+                width: 8,
+                borderRadius: 4,
+                borderColor: '#00EB0A',
+                borderWidth: 2,
+              }}
+            />
+          )}
+        </View>
+      );
+    });
   };
 
   render() {
@@ -97,18 +120,18 @@ class HowToPlay extends React.Component {
 
     return (
       <MafiaBackground>
-        <View style={{
-          flex: 1,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
-          borderColor: '#00EB0A',
-          borderWidth: isModal ? 1 : 0,
-          borderRadius: 4
-        }}>
-
-          {!isModal && <Text style={{marginTop: 10}}>How to play</Text>}
+        <View
+          style={{
+            flex: 1,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
+            borderColor: '#00EB0A',
+            borderWidth: isModal ? 1 : 0,
+            borderRadius: 4,
+          }}>
+          {!isModal && <Text style={{ marginTop: 10 }}>How to play</Text>}
           <Carousel
             onSnapToItem={this.onSnapItem}
             renderItem={this.renderItem}
@@ -118,25 +141,36 @@ class HowToPlay extends React.Component {
             removeClippedSubviews={false}
           />
 
-          <View style={{position: 'absolute', bottom: 20, justifyContent: 'center', alignItems: 'center'}}>
-
-            {
-              isModal &&
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            {isModal && (
               <Text
                 onPress={skipInstructions}
                 size={carouselDone ? 'small' : 'xsmall'}
-                color='#00EB0A'
+                color="#00EB0A"
                 type={carouselDone ? 'bold' : 'regular'}
-                style={{textDecorationLine: carouselDone ? 'none' : 'underline'}}
-              >
+                style={{
+                  textDecorationLine: carouselDone ? 'none' : 'underline',
+                }}>
                 {carouselDone ? 'Done' : 'Skip'}
               </Text>
-            }
+            )}
 
-            <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, width: 160, justifyContent: 'space-between'}}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: 10,
+                width: 160,
+                justifyContent: 'space-between',
+              }}>
               {this.renderProgressBar()}
             </View>
-
           </View>
         </View>
       </MafiaBackground>
