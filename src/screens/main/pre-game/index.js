@@ -198,6 +198,7 @@ class PreGame extends React.Component {
                   <Button onPress={this.handleStartGame}>
                       <Text >Start Game</Text>
                   </Button> :
+                  
                   <Text style={{marginBottom: 20}}>3 players needed... </Text>
               )}
 

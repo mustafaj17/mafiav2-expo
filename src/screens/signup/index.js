@@ -40,7 +40,6 @@ class SignUp extends React.Component {
     usernameLimitReached: false,
     termsModalVisible: false,
     privacyModalVisible: false,
-    isHowToPlayVisible: true
   };
 
   handleSignUp = async () => {
@@ -117,11 +116,6 @@ class SignUp extends React.Component {
 
     return (
       <MafiaBackground>
-        <Modal visible={this.state.isHowToPlayVisible} transparent animationType='fade'>
-          <View style={{flex: 1, padding: 20, paddingTop: 20 + Constants.statusBarHeight, backgroundColor: 'rgba(0,0,0, 0.7)'}}>
-            <HowToPlay skipInstructions={() => this.setState({isHowToPlayVisible: false})} isModal />
-          </View>
-        </Modal>
         <TermsModal
           termsModalVisible={termsModalVisible}
           closeModal={() => this.setState({termsModalVisible: false})}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BackHandler, ToastAndroid, Image, View, TouchableOpacity } from 'react-native';
+import {BackHandler, ToastAndroid, Image, View, TouchableOpacity, Modal, AsyncStorage} from 'react-native';
 import globalStyles from '../../styles/global';
 import {NavigationEvents} from "react-navigation";
 import Button from '../../components/button';
@@ -9,26 +9,58 @@ import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import mafia from '../../../assets/mafia-icon.png';
 import civilian from '../../../assets/civilian-icon.png';
+import Constants from "expo-constants";
+import HowToPlay from "../signup/howToPlay";
 
 
 export default class Landing extends React.Component {
+  state = {
+    showWelcomeMessage: true,
+  }
+
+  componentDidMount = async () => {
+    try {
+      const value = await AsyncStorage.getItem('hasSeenWelcome');
+      if (value !== 'true') {
+        this.setState({ showWelcomeMessage: true })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  hideWelcomeMessage = async () => {
+    try {
+      await AsyncStorage.setItem('hasSeenWelcome', 'true');
+    } catch (error) {
+      console.log(error)
+    }
+    this.setState({ showWelcomeMessage: false })
+  };
+
   screenWillFocus = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
+  };
 
   screenWillBlur = () => {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
+  };
 
   handleBackButton = () => {
     ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
     return true;
-  }
+  };
 
   render() {
     const { navigation } = this.props;
+    const { showWelcomeMessage } = this.state;
     return (
       <MafiaBackground>
+        <Modal visible={showWelcomeMessage} transparent animationType='fade'>
+          <View style={{flex: 1, padding: 20, paddingTop: 20 + Constants.statusBarHeight, backgroundColor: 'rgba(0,0,0, 0.7)'}}>
+            <HowToPlay skipInstructions={this.hideWelcomeMessage} isModal />
+          </View>
+        </Modal>
         <View style={globalStyles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}

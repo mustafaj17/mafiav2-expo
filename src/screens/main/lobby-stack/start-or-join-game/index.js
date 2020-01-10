@@ -144,10 +144,12 @@ class StartOrJoinGame extends Component{
 
                     <>
 
-                        <Text size={'large'} style={{
-                            marginBottom: 50
-                        }}>
+                        <Text size={'large'} style={{ marginBottom: 50 }}>
                             {isUserStartingGame ? 'Start Game' : 'Join Game'}
+                        </Text>
+
+                        <Text style={{ marginBottom: 50 }}>
+                            {isUserStartingGame ? 'Please' : 'Join Game'}
                         </Text>
 
                         <FloatingLabelInput

@@ -1,10 +1,10 @@
-import {View, Dimensions, StyleSheet, Image} from "react-native";
+import {View, Dimensions, StyleSheet, Image, Animated} from "react-native";
 
 import Carousel from 'react-native-snap-carousel';
 import React from 'react'
 import MafiaBackground from "../../../components/mafiaBackground";
 import Text from "../../../components/text";
-import { slideData } from "./constants";
+import { slideData, modalHome } from "./constants";
 
 const horizontalMargin = 20;
 const slideWidth = 300;
@@ -14,7 +14,30 @@ const itemWidth = slideWidth + horizontalMargin * 2;
 
 class HowToPlay extends React.Component {
 
-  state = { currentIndex: 0 };
+  state = {
+    currentIndex: [0],
+    left: new Animated.Value(30),  // Initial value for opacity: 0
+  };
+
+  componentDidMount() {
+    this.runAnimation()
+  }
+
+  runAnimation() {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.left, {
+          toValue: -30,                   // Animate to opacity: 1 (opaque)
+          duration: 500,
+        }),
+        Animated.timing(this.state.left, {
+          // and twirl
+          toValue: 30,
+          duration: 500
+
+        })]
+      )).start()
+  }
 
   renderItem = ({item, index}) => (
     <View style={{width: itemWidth, flex: 1, paddingHorizontal: horizontalMargin }}>
@@ -26,36 +49,51 @@ class HowToPlay extends React.Component {
   );
 
   onSnapItem = (index) => {
-    this.setState({currentIndex: index})
+    const { currentIndex } = this.state;
+    const newIndex = [...currentIndex];
+    if (!currentIndex.includes(index)) this.setState({currentIndex: [...currentIndex, index]})
+    if (currentIndex.includes(index)) {
+      newIndex.pop()
+      this.setState({currentIndex: newIndex})
+    }
   };
 
   renderProgressBar = () => {
     const { currentIndex }  = this.state;
-    const loader = 'MAFIA'.split('');
-    return loader.map((letter, key) => {
-      const isCurrent = currentIndex === key;
-
-      return <View key={key} style={{
-        height: isCurrent ? 18 : 12,
-        width: isCurrent ? 18 : 12,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 2,
-        margin: 6,
-        borderColor: '#00EB0A',
-        borderWidth: isCurrent ? 0 : 2,
-      }}>
-        {isCurrent && <Text size='xsmall' type='bold' color='#00EB0A' style={{marginLeft: 2, marginTop: -6.5}}>{letter}</Text>}
-      </View>}
+    const { isModal }  = this.props;
+    const progressText = isModal ? ' MAFIA' : 'MAFIA';
+    const progressArray = progressText.split('');
+    return progressArray.map((letter, key) => {
+      const isPassed = currentIndex.includes(key);
+      if (letter === ' ') return;
+      return (
+        <View
+          key={key}
+          style={{
+            height: 20,
+            width: 20,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {isPassed
+            ? <Text size='xsmall' type='bold' color='#00EB0A'>{letter}</Text>
+            : <View style={{
+              height: 8,
+              width: 8,
+              borderRadius: 4,
+              borderColor: '#00EB0A',
+              borderWidth: 2}}/>
+          }
+        </View>)}
     )
   };
 
-
   render() {
     const { skipInstructions, isModal } = this.props;
-    const { currentIndex } = this.state;
-    const carouselDone = currentIndex === slideData.length - 1;
+    const { currentIndex, left } = this.state;
+    const data = isModal ? [modalHome(left), ...slideData] : slideData;
+    const carouselDone = currentIndex.length === data.length;
 
     return (
       <MafiaBackground>
@@ -69,14 +107,14 @@ class HowToPlay extends React.Component {
           borderWidth: isModal ? 1 : 0,
           borderRadius: 4
         }}>
-          {/* may wanna do the header below differently */}
-          <Text style={{marginTop: 10}}>How to play</Text>
+
+          {!isModal && <Text style={{marginTop: 10}}>How to play</Text>}
           <Carousel
             onSnapToItem={this.onSnapItem}
             renderItem={this.renderItem}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
-            data={slideData}
+            data={data}
             removeClippedSubviews={false}
           />
 
@@ -95,7 +133,7 @@ class HowToPlay extends React.Component {
               </Text>
             }
 
-            <View style={{display: 'flex', flexDirection: 'row', marginTop: 10}}>
+            <View style={{display: 'flex', flexDirection: 'row', marginTop: 10, width: 160, justifyContent: 'space-between'}}>
               {this.renderProgressBar()}
             </View>
 
