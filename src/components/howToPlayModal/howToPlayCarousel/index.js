@@ -166,7 +166,7 @@ class HowToPlayCarousel extends React.Component {
               </Text>
             )}
 
-            {!isHowToPlayAction && currentIndex !== 0 &&
+            {(currentIndex !== 0 || isHowToPlayAction) &&
             <View
               style={{
                 display: 'flex',
