@@ -21,7 +21,7 @@ import HowToPlayModal from "../../components/howToPlayModal";
 export default class Landing extends React.Component {
   state = {
     showWelcomeMessage: false,
-    isHowToPlay: false
+    isHowToPlayAction: false
   };
 
   componentDidMount = async () => {
@@ -59,15 +59,15 @@ export default class Landing extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { showWelcomeMessage, isHowToPlay } = this.state;
+    const { showWelcomeMessage, isHowToPlayAction } = this.state;
     return (
       <MafiaBackground>
         <HowToPlayModal
           visible={showWelcomeMessage}
-          closeModal={isHowToPlay
-          ? () => this.setState({showWelcomeMessage: false, isHowToPlay: false})
+          closeModal={isHowToPlayAction
+          ? () => this.setState({showWelcomeMessage: false, isHowToPlayAction: false})
           : this.hideWelcomeMessage}
-          isHowToPlay={isHowToPlay}
+          isHowToPlayAction={isHowToPlayAction}
         />
         <View style={globalStyles.page}>
           <NavigationEvents
@@ -110,7 +110,7 @@ export default class Landing extends React.Component {
         </View>
 
         <TouchableOpacity
-          onPress={() => this.setState({showWelcomeMessage: true, isHowToPlay: true})}
+          onPress={() => this.setState({showWelcomeMessage: true, isHowToPlayAction: true})}
           style={{
             position: 'absolute',
             bottom: 0,

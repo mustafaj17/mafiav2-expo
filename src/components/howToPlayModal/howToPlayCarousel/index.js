@@ -70,8 +70,8 @@ class HowToPlayCarousel extends React.Component {
 
   renderProgressBar = () => {
     const { currentIndex } = this.state;
-    const { isHowToPlay } = this.props;
-    const progressText = isHowToPlay ? 'MAFIA' : ' MAFIA';
+    const { isHowToPlayAction } = this.props;
+    const progressText = isHowToPlayAction ? 'MAFIA' : ' MAFIA';
     const progressArray = progressText.split('');
 
     return progressArray.map((letter, key) => {
@@ -108,9 +108,9 @@ class HowToPlayCarousel extends React.Component {
   };
 
   render() {
-    const { skipInstructions, isHowToPlay } = this.props;
+    const { skipInstructions, isHowToPlayAction } = this.props;
     const { currentIndex, left } = this.state;
-    const data = !isHowToPlay ? [modalHome(left), ...slideData] : slideData;
+    const data = !isHowToPlayAction ? [modalHome(left), ...slideData] : slideData;
     const carouselDone = currentIndex === data.length-1;
 
     return (
@@ -126,14 +126,14 @@ class HowToPlayCarousel extends React.Component {
             borderWidth: 1,
             borderRadius: 4,
           }}>
-          {isHowToPlay && (
+          {isHowToPlayAction && (
             <TouchableOpacity
               onPress={skipInstructions}
               style={{ position: 'absolute', top: 2, right: 10, zIndex: 30 }}>
               <Ionicons name="md-close" size={32} color="white" />
             </TouchableOpacity>
           )}
-          {isHowToPlay && <Text style={{ marginTop: 10 }}>How to play</Text>}
+          {isHowToPlayAction && <Text style={{ marginTop: 10 }}>How to play</Text>}
           <Carousel
             onSnapToItem={this.onSnapItem}
             renderItem={this.renderItem}
@@ -150,7 +150,7 @@ class HowToPlayCarousel extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {!isHowToPlay && currentIndex !== 0 && (
+            {!isHowToPlayAction && currentIndex !== 0 && (
               <Text
                 onPress={skipInstructions}
                 size={carouselDone ? 'small' : 'xsmall'}

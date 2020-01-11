@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 import HowToPlayCarousel from "./howToPlayCarousel";
 import React from "react";
 
-const HowToPlayModal = ({visible, isHowToPlay, closeModal}) => (
+const HowToPlayModal = ({visible, isHowToPlayAction, closeModal}) => (
   <Modal visible={visible} transparent animationType="fade">
     <View
       style={{
@@ -13,7 +13,7 @@ const HowToPlayModal = ({visible, isHowToPlay, closeModal}) => (
         backgroundColor: 'rgba(0,0,0, 0.7)',
       }}>
       <HowToPlayCarousel
-        isHowToPlay={isHowToPlay}
+        isHowToPlayAction={isHowToPlayAction}
         skipInstructions={closeModal}
       />
     </View>
