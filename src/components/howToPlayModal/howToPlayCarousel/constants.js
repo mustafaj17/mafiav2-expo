@@ -55,7 +55,7 @@ export const slideData = [
               source={mafiaIcon}
               resizeMode="contain"
               style={{
-                height: 150,
+                height: 120,
                 width: 150,
               }}
             />
@@ -63,7 +63,7 @@ export const slideData = [
               source={civIcon}
               resizeMode="contain"
               style={{
-                height: 150,
+                height: 120,
                 width: 150,
               }}
             />
