@@ -14,7 +14,7 @@ const itemWidth = slideWidth + horizontalMargin * 2;
 
 class HowToPlay extends React.Component {
   state = {
-    currentIndex: [0],
+    currentIndex: 0,
     left: new Animated.Value(30), // Initial value for opacity: 0
   };
 
@@ -64,14 +64,7 @@ class HowToPlay extends React.Component {
   );
 
   onSnapItem = index => {
-    const { currentIndex } = this.state;
-    const newIndex = [...currentIndex];
-    if (!currentIndex.includes(index))
-      this.setState({ currentIndex: [...currentIndex, index] });
-    if (currentIndex.includes(index)) {
-      newIndex.pop();
-      this.setState({ currentIndex: newIndex });
-    }
+      this.setState({ currentIndex: index });
   };
 
   renderProgressBar = () => {
@@ -79,8 +72,9 @@ class HowToPlay extends React.Component {
     const { isModal } = this.props;
     const progressText = isModal ? ' MAFIA' : 'MAFIA';
     const progressArray = progressText.split('');
+
     return progressArray.map((letter, key) => {
-      const isPassed = currentIndex.includes(key);
+      const isPassed = key <= currentIndex;
       if (letter === ' ') return;
       return (
         <View
@@ -116,7 +110,7 @@ class HowToPlay extends React.Component {
     const { skipInstructions, isModal } = this.props;
     const { currentIndex, left } = this.state;
     const data = isModal ? [modalHome(left), ...slideData] : slideData;
-    const carouselDone = currentIndex.length === data.length;
+    const carouselDone = currentIndex === data.length-1;
 
     return (
       <MafiaBackground>
@@ -148,7 +142,7 @@ class HowToPlay extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {isModal && (
+            {isModal && currentIndex !== 0 && (
               <Text
                 onPress={skipInstructions}
                 size={carouselDone ? 'small' : 'xsmall'}
