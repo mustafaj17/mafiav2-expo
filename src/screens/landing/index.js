@@ -20,7 +20,7 @@ import HowToPlayModal from "../../components/howToPlayModal";
 
 export default class Landing extends React.Component {
   state = {
-    showWelcomeMessage: false,
+    showWelcomeMessage: true,
     isHowToPlayAction: false
   };
 

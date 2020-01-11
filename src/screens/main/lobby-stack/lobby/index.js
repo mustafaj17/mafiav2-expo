@@ -80,10 +80,10 @@ class Lobby extends Component {
   };
 
   render() {
-    const { howToPlay } = this.state;
+    const { showHowToPlay } = this.state;
     return (
       <MafiaBackground>
-        <HowToPlayModal visible={howToPlay} isHowToPlayAction closeModal={this.hideHowToPlay} />
+        <HowToPlayModal visible={showHowToPlay} isHowToPlayAction closeModal={this.hideHowToPlay} />
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
