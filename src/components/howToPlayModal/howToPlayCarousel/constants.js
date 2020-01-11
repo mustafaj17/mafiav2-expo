@@ -60,11 +60,8 @@ export const modalHome = left => ({
   image: null,
   text: (
     <>
-      <Text size="large" type="bold" style={{ paddingBottom: 60 }}>
-        Welcome to Mafia
-      </Text>
       <MafiaTextLogo />
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1} style={{textAlign: 'center'}}>
         Before you get started, take some time to read the instructions on how
         to play!
       </Text>
