@@ -8,6 +8,8 @@ import HowToPlay3 from '../../../../assets/how-to-play/howtoplay3.png';
 import HowToPlay4 from '../../../../assets/how-to-play/howtoplay4.png';
 import { Ionicons } from '@expo/vector-icons';
 import MafiaTextLogo from '../../mafiaTextLogo';
+import mafiaIcon from "../../../../assets/mafia-icon.png";
+import civIcon from "../../../../assets/civilian-icon.png";
 
 export const slideData = [
   {
@@ -47,11 +49,32 @@ export const slideData = [
   },
   {
     text: (
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
-        After each round, players will need to vote who they believe to be the
-        mafia. The player with the most votes will be eliminated. This will
-        continues until either team wins
-      </Text>
+      <>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <Image
+              source={mafiaIcon}
+              resizeMode="contain"
+              style={{
+                height: 150,
+                width: 150,
+              }}
+            />
+            <Image
+              source={civIcon}
+              resizeMode="contain"
+              style={{
+                height: 150,
+                width: 150,
+              }}
+            />
+          </View>
+          <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+            After each round, players will need to vote who they believe to be the mafia.
+          </Text>
+          <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+            The player with the most votes will then be eliminated. This will continues until either team wins.
+          </Text>
+      </>
     ),
   },
 ];
