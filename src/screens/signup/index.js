@@ -17,8 +17,6 @@ import { setUser } from '../../redux/actions/userActions';
 import PageTitle from '../../components/pageTitle';
 import TermsModal from '../../components/termsModal';
 import PrivacyModal from '../../components/privacyModal';
-import HowToPlay from './howToPlay';
-import Constants from 'expo-constants';
 
 const DISPLAY_NAME_LIMIT = 12;
 

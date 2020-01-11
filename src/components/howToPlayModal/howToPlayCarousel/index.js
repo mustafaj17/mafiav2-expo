@@ -2,8 +2,8 @@ import {View, Dimensions, StyleSheet, Image, Animated, TouchableOpacity} from 'r
 
 import Carousel from 'react-native-snap-carousel';
 import React from 'react';
-import MafiaBackground from '../../../components/mafiaBackground';
-import Text from '../../../components/text';
+import MafiaBackground from '../../mafiaBackground';
+import Text from '../../text';
 import { slideData, modalHome } from './constants';
 import {Ionicons} from "@expo/vector-icons";
 
@@ -13,7 +13,7 @@ const slideWidth = 300;
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = slideWidth + horizontalMargin * 2;
 
-class HowToPlay extends React.Component {
+class HowToPlayCarousel extends React.Component {
   state = {
     currentIndex: 0,
     left: new Animated.Value(30), // Initial value for opacity: 0
@@ -180,4 +180,4 @@ class HowToPlay extends React.Component {
   }
 }
 
-export default HowToPlay;
+export default HowToPlayCarousel;

@@ -5,7 +5,6 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Modal,
   AsyncStorage,
 } from 'react-native';
 import globalStyles from '../../styles/global';
@@ -17,8 +16,7 @@ import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import mafia from '../../../assets/mafia-icon.png';
 import civilian from '../../../assets/civilian-icon.png';
-import Constants from 'expo-constants';
-import HowToPlay from '../signup/howToPlay';
+import HowToPlayModal from "../../components/howToPlayModal";
 
 export default class Landing extends React.Component {
   state = {
@@ -64,22 +62,13 @@ export default class Landing extends React.Component {
     const { showWelcomeMessage, isHowToPlay } = this.state;
     return (
       <MafiaBackground>
-        <Modal visible={showWelcomeMessage} transparent animationType="fade">
-          <View
-            style={{
-              flex: 1,
-              padding: 20,
-              paddingTop: 20 + Constants.statusBarHeight,
-              backgroundColor: 'rgba(0,0,0, 0.7)',
-            }}>
-            <HowToPlay
-              isHowToPlay={isHowToPlay}
-              skipInstructions={isHowToPlay
-                ? () => this.setState({showWelcomeMessage: false, isHowToPlay: false})
-                : this.hideWelcomeMessage}
-            />
-          </View>
-        </Modal>
+        <HowToPlayModal
+          visible={showWelcomeMessage}
+          closeModal={isHowToPlay
+          ? () => this.setState({showWelcomeMessage: false, isHowToPlay: false})
+          : this.hideWelcomeMessage}
+          isHowToPlay={isHowToPlay}
+        />
         <View style={globalStyles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}

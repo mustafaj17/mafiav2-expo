@@ -1,10 +1,10 @@
 import { Animated, Image } from 'react-native';
 import PlaceHolderImage from '../../../../assets/placeholder-image.png';
-import Text from '../../../components/text';
+import Text from '../../text';
 import React from 'react';
 import arrowRight from '../../../../assets/arrow-right.jpg';
 import { Ionicons } from '@expo/vector-icons';
-import MafiaLogo from '../../../components/mafiaLogo';
+import MafiaLogo from '../../mafiaLogo';
 
 export const slideData = [
   {

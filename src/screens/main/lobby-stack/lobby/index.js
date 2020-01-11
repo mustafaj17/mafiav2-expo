@@ -19,8 +19,7 @@ import MafiaBackground from '../../../../components/mafiaBackground';
 import logo from '../../../../../assets/mafia-lobby-logo2.png';
 import mafia from '../../../../../assets/mafia-icon.png';
 import civilian from '../../../../../assets/civilian-icon.png';
-import Constants from "expo-constants";
-import HowToPlay from "../../../signup/howToPlay";
+import HowToPlayModal from "../../../../components/howToPlayModal";
 
 class Lobby extends Component {
   state={
@@ -81,19 +80,10 @@ class Lobby extends Component {
   };
 
   render() {
+    const { howToPlay } = this.state;
     return (
       <MafiaBackground>
-        <Modal visible={this.state.showHowToPlay} transparent animationType="fade">
-          <View
-            style={{
-              flex: 1,
-              padding: 20,
-              paddingTop: 20 + Constants.statusBarHeight,
-              backgroundColor: 'rgba(0,0,0, 0.7)',
-            }}>
-            <HowToPlay skipInstructions={this.hideHowToPlay} isHowToPlay/>
-          </View>
-        </Modal>
+        <HowToPlayModal visible={howToPlay} isHowToPlay closeModal={this.hideHowToPlay} />
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
