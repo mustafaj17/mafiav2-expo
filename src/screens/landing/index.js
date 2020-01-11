@@ -22,7 +22,8 @@ import HowToPlay from '../signup/howToPlay';
 
 export default class Landing extends React.Component {
   state = {
-    showWelcomeMessage: true,
+    showWelcomeMessage: false,
+    isHowToPlay: false
   };
 
   componentDidMount = async () => {
@@ -60,7 +61,7 @@ export default class Landing extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { showWelcomeMessage } = this.state;
+    const { showWelcomeMessage, isHowToPlay } = this.state;
     return (
       <MafiaBackground>
         <Modal visible={showWelcomeMessage} transparent animationType="fade">
@@ -71,7 +72,12 @@ export default class Landing extends React.Component {
               paddingTop: 20 + Constants.statusBarHeight,
               backgroundColor: 'rgba(0,0,0, 0.7)',
             }}>
-            <HowToPlay skipInstructions={this.hideWelcomeMessage} isModal />
+            <HowToPlay
+              isHowToPlay={isHowToPlay}
+              skipInstructions={isHowToPlay
+                ? () => this.setState({showWelcomeMessage: false, isHowToPlay: false})
+                : this.hideWelcomeMessage}
+            />
           </View>
         </Modal>
         <View style={globalStyles.page}>
@@ -115,7 +121,7 @@ export default class Landing extends React.Component {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('HowToPlay')}
+          onPress={() => this.setState({showWelcomeMessage: true, isHowToPlay: true})}
           style={{
             position: 'absolute',
             bottom: 0,

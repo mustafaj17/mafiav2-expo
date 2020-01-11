@@ -5,13 +5,13 @@ import {
   ToastAndroid,
   StyleSheet,
   TouchableOpacity,
-  Image,
+  Image, Modal, AsyncStorage,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
-import { FontAwesome } from '@expo/vector-icons';
+import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
@@ -19,8 +19,14 @@ import MafiaBackground from '../../../../components/mafiaBackground';
 import logo from '../../../../../assets/mafia-lobby-logo2.png';
 import mafia from '../../../../../assets/mafia-icon.png';
 import civilian from '../../../../../assets/civilian-icon.png';
+import Constants from "expo-constants";
+import HowToPlay from "../../../signup/howToPlay";
 
 class Lobby extends Component {
+  state={
+    showHowToPlay: false
+  };
+
   screenWillFocus = async () => {
     const { user } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -70,9 +76,24 @@ class Lobby extends Component {
     this.props.navigation.navigate('UserProfile');
   };
 
+  hideHowToPlay = () => {
+    this.setState({ showHowToPlay: false });
+  };
+
   render() {
     return (
       <MafiaBackground>
+        <Modal visible={this.state.showHowToPlay} transparent animationType="fade">
+          <View
+            style={{
+              flex: 1,
+              padding: 20,
+              paddingTop: 20 + Constants.statusBarHeight,
+              backgroundColor: 'rgba(0,0,0, 0.7)',
+            }}>
+            <HowToPlay skipInstructions={this.hideHowToPlay} isHowToPlay/>
+          </View>
+        </Modal>
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
@@ -133,6 +154,27 @@ class Lobby extends Component {
             </Button>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={() => this.setState({showHowToPlay: true})}
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            left: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              paddingBottom: 50,
+              display: 'flex',
+              flexDirection: 'row',
+            }}>
+            <Ionicons name="md-book" size={32} color="#15D600" />
+            <Text style={{ marginLeft: 10 }}>How To Play</Text>
+          </View>
+        </TouchableOpacity>
       </MafiaBackground>
     );
   }

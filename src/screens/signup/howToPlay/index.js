@@ -1,10 +1,11 @@
-import { View, Dimensions, StyleSheet, Image, Animated } from 'react-native';
+import {View, Dimensions, StyleSheet, Image, Animated, TouchableOpacity} from 'react-native';
 
 import Carousel from 'react-native-snap-carousel';
 import React from 'react';
 import MafiaBackground from '../../../components/mafiaBackground';
 import Text from '../../../components/text';
 import { slideData, modalHome } from './constants';
+import {Ionicons} from "@expo/vector-icons";
 
 const horizontalMargin = 20;
 const slideWidth = 300;
@@ -69,8 +70,8 @@ class HowToPlay extends React.Component {
 
   renderProgressBar = () => {
     const { currentIndex } = this.state;
-    const { isModal } = this.props;
-    const progressText = isModal ? ' MAFIA' : 'MAFIA';
+    const { isHowToPlay } = this.props;
+    const progressText = isHowToPlay ? 'MAFIA' : ' MAFIA';
     const progressArray = progressText.split('');
 
     return progressArray.map((letter, key) => {
@@ -107,9 +108,9 @@ class HowToPlay extends React.Component {
   };
 
   render() {
-    const { skipInstructions, isModal } = this.props;
+    const { skipInstructions, isHowToPlay } = this.props;
     const { currentIndex, left } = this.state;
-    const data = isModal ? [modalHome(left), ...slideData] : slideData;
+    const data = !isHowToPlay ? [modalHome(left), ...slideData] : slideData;
     const carouselDone = currentIndex === data.length-1;
 
     return (
@@ -122,10 +123,17 @@ class HowToPlay extends React.Component {
             alignItems: 'center',
             display: 'flex',
             borderColor: '#00EB0A',
-            borderWidth: isModal ? 1 : 0,
+            borderWidth: 1,
             borderRadius: 4,
           }}>
-          {!isModal && <Text style={{ marginTop: 10 }}>How to play</Text>}
+          {isHowToPlay && (
+            <TouchableOpacity
+              onPress={skipInstructions}
+              style={{ position: 'absolute', top: 2, right: 10, zIndex: 30 }}>
+              <Ionicons name="md-close" size={32} color="white" />
+            </TouchableOpacity>
+          )}
+          {isHowToPlay && <Text style={{ marginTop: 10 }}>How to play</Text>}
           <Carousel
             onSnapToItem={this.onSnapItem}
             renderItem={this.renderItem}
@@ -142,7 +150,7 @@ class HowToPlay extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {isModal && currentIndex !== 0 && (
+            {!isHowToPlay && currentIndex !== 0 && (
               <Text
                 onPress={skipInstructions}
                 size={carouselDone ? 'small' : 'xsmall'}
