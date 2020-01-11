@@ -95,11 +95,12 @@ class VotingDraw extends React.Component {
           {this.getPlayersWhoDrew()}
         </ScrollView>
 
-        {currentPlayer.isAdmin && (
+        {currentPlayer.isAdmin ? (
           <Button onPress={this.handleRevote}>
             <Text>Re-vote</Text>
           </Button>
-        )}
+        ) :
+          <Text style={{marginBottom: 20}}>Waiting for admin...</Text>}
       </View>
     );
   }

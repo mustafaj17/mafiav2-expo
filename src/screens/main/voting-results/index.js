@@ -164,7 +164,7 @@ class VotingResults extends React.Component {
             <Text>Next</Text>
           </Button>
         ) :
-        <Text>Waiting for admin...</Text>
+        <Text style={{marginBottom: 20}}>Waiting for admin...</Text>
         }
       </View>
     );

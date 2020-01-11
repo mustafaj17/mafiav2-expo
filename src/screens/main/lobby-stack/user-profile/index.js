@@ -152,7 +152,7 @@ class UserProfile extends React.Component {
           {user.stats && (
             <View style={{ margin: 20 }}>
               <View style={{ marginBottom: 10 }}>
-                <Text type="bold">Stats</Text>
+                <Text type="bold" color='#00EB0A'>Stats</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
