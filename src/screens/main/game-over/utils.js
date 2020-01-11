@@ -1,4 +1,7 @@
 export const sortGameStats = players => {
+
+  debugger;
+
   let voters = {};
   players.forEach(player => {
     player.votedFor.forEach(vote => {
@@ -10,7 +13,7 @@ export const sortGameStats = players => {
   let sortedResults = [];
 
   for (let player in voters) {
-    const playerObj = players.find(play => play.displayName === player);
+    const playerObj = players.find(play => play.email === player);
     sortedResults.push([playerObj, voters[player]]);
   }
   sortedResults.sort((a, b) => b[1] - a[1]);
@@ -22,9 +25,9 @@ export const getVotesAgainstPlayer = (players, currentPlayer) => {
   let voters = {};
   players.forEach(player => {
     player.votedFor.forEach(vote => {
-      if (vote === currentPlayer.displayName) {
-        if (!voters[player.displayName]) voters[player.displayName] = 0;
-        voters[player.displayName]++;
+      if (vote === currentPlayer.email) {
+        if (!voters[player.email]) voters[player.email] = 0;
+        voters[player.email]++;
       }
     });
   });
@@ -33,7 +36,7 @@ export const getVotesAgainstPlayer = (players, currentPlayer) => {
   console.log('sortedresults***', sortedResults);
   return sortedResults.map(vote => {
     if (vote[1] === sortedResults[0][1]) {
-      return [players.find(play => play.displayName === vote[0]), vote[1]];
+      return [players.find(play => play.email === vote[0]), vote[1]];
     }
   });
 };
@@ -46,9 +49,7 @@ export const generateStatsObj = (players, sortedResults) => {
   let stats = { mostVoted: [], leastVoted: [] };
 
   players.forEach(player => {
-    if (
-      !sortedResults.map(res => res[0].displayName).includes(player.displayName)
-    )
+    if (!sortedResults.map(res => res[0].email).includes(player.email))
       zeroVotes.push([player, 0]);
   });
 

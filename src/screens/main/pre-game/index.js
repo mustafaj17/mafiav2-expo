@@ -201,14 +201,16 @@ class PreGame extends React.Component {
           <View style={{ height: 100 }}></View>
         </ScrollView>
 
-        {currentPlayer.isAdmin &&
+        {currentPlayer.isAdmin ?
           (inGamePlayers.length > 2 ? (
             <Button onPress={this.handleStartGame}>
               <Text>Start Game</Text>
             </Button>
           ) : (
             <Text style={{ marginBottom: 20 }}>3 players needed... </Text>
-          ))}
+          )) :
+          <Text style={{ marginBottom: 20 }}>Waiting for admin... </Text>
+        }
 
         <TouchableOpacity
           onPress={this.startTestGame}

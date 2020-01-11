@@ -1,5 +1,4 @@
-import { Animated, Image, View } from 'react-native';
-import PlaceHolderImage from '../../../../assets/placeholder-image.png';
+import { Animated } from 'react-native';
 import Text from '../../text';
 import React from 'react';
 import HowToPlay1 from '../../../../assets/how-to-play/howtoplay1.png';
@@ -8,23 +7,21 @@ import HowToPlay3 from '../../../../assets/how-to-play/howtoplay3.png';
 import HowToPlay4 from '../../../../assets/how-to-play/howtoplay4.png';
 import { Ionicons } from '@expo/vector-icons';
 import MafiaTextLogo from '../../mafiaTextLogo';
-import mafiaIcon from "../../../../assets/mafia-icon.png";
-import civIcon from "../../../../assets/civilian-icon.png";
 
 export const slideData = [
   {
     image: HowToPlay1,
     text: (
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
-        You need a <Text color="#FF0000">minimum of 3 people</Text> to play this
-        game and you must be <Text color="#FF0000">together.</Text>
+      <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
+        You need a <Text color="#00EB0A">minimum of 3 people</Text> to play this
+        game and you must be <Text color="#00EB0A">together.</Text>
       </Text>
     ),
   },
   {
     image: HowToPlay2,
     text: (
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+      <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
         Once the game has started, mafia and civilian types will be assigned
         randomly to each player
       </Text>
@@ -33,7 +30,7 @@ export const slideData = [
   {
     image: HowToPlay3,
     text: (
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+      <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
         Mafias must work together to eliminate the civilians, whilst not
         revealing their true identity
       </Text>
@@ -42,7 +39,7 @@ export const slideData = [
   {
     image: HowToPlay4,
     text: (
-      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+      <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
         Civilians must try to identify the mafias and eliminate them.
       </Text>
     ),
@@ -50,28 +47,10 @@ export const slideData = [
   {
     text: (
       <>
-          <View style={{display: 'flex', flexDirection: 'row'}}>
-            <Image
-              source={mafiaIcon}
-              resizeMode="contain"
-              style={{
-                height: 120,
-                width: 150,
-              }}
-            />
-            <Image
-              source={civIcon}
-              resizeMode="contain"
-              style={{
-                height: 120,
-                width: 150,
-              }}
-            />
-          </View>
-          <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
             After each round, players will need to vote who they believe to be the mafia.
           </Text>
-          <Text style={{ paddingTop: 20 }} letterSpacing={1}>
+          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
             The player with the most votes will then be eliminated. This will continues until either team wins.
           </Text>
       </>
@@ -84,13 +63,13 @@ export const modalHome = left => ({
   text: (
     <>
       <MafiaTextLogo />
-      <Text style={{ paddingTop: 20 }} letterSpacing={1} style={{textAlign: 'center'}}>
+      <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1} >
         Before you get started, take some time to read the instructions on how
         to play!
       </Text>
       <Animated.View
         style={{
-          marginTop: 30,
+          marginTop: 50,
           marginLeft: left,
           display: 'flex',
           flexDirection: 'row',
@@ -103,7 +82,7 @@ export const modalHome = left => ({
         <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
         <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
       </Animated.View>
-      <Text letterSpacing={3} size='xxsmall' color='#15D600'>swipe left</Text>
+      <Text letterSpacing={3} size='xxsmall' color='#15D600' >swipe left</Text>
     </>
   ),
 });

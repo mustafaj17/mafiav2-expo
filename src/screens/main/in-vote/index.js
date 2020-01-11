@@ -45,10 +45,10 @@ class InVote extends React.Component {
     const { navigation } = this.props;
 
     const votingResults = inGamePlayers.reduce(function(map, player) {
-      if (!(player.votingFor.displayName in map)) {
-        map[player.votingFor.displayName] = 0;
+      if (!(player.votingFor.email in map)) {
+        map[player.votingFor.email] = 0;
       }
-      map[player.votingFor.displayName]++;
+      map[player.votingFor.email]++;
       return map;
     }, {});
 

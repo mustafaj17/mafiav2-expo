@@ -1,10 +1,10 @@
 import { TYPE } from '../../../constants';
 export const generateSortedVotes = players => {
   const votingResults = players.reduce((result, player) => {
-    if (!result[player.votingFor.displayName]) {
-      result[player.votingFor.displayName] = [];
+    if (!result[player.votingFor.email]) {
+      result[player.votingFor.email] = [];
     }
-    result[player.votingFor.displayName].push(player.displayName);
+    result[player.votingFor.email].push(player.email);
     return result;
   }, {});
 

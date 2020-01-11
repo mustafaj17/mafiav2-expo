@@ -6,7 +6,7 @@ import { TYPE } from '../../constants';
 import mafiaIcon from '../../../assets/mafia-type-icon.png';
 import civIcon from '../../../assets/civilian-type-icon.png';
 
-const StatBox = ({ title, players }) => {
+const StatBox = ({ title, players = [] }) => {
   if (!players.length) return null;
   return (
     <View

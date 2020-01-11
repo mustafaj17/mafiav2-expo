@@ -46,7 +46,7 @@ class VotingResults extends React.Component {
 
     const votedOutPlayerResult = generateSortedVotes(inGamePlayers)[0];
     const player = inGamePlayers.find(
-      player => player.displayName === votedOutPlayerResult[0],
+      player => player.email === votedOutPlayerResult[0],
     );
     const votedForBy = votedOutPlayerResult[1];
 
@@ -65,7 +65,7 @@ class VotingResults extends React.Component {
         gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
         {
           votingFor: null,
-          votedFor: [...player.votedFor, player.votingFor.displayName],
+          votedFor: [...player.votedFor, player.votingFor.email],
           ready: false,
           isOut: player.email === playerVotedOut,
         },
@@ -159,11 +159,13 @@ class VotingResults extends React.Component {
           </View>
         )}
 
-        {currentPlayer.isAdmin && (
+        {currentPlayer.isAdmin ? (
           <Button onPress={this.handleNextRound}>
             <Text>Next</Text>
           </Button>
-        )}
+        ) :
+        <Text>Waiting for admin...</Text>
+        }
       </View>
     );
   }

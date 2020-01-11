@@ -20,6 +20,7 @@ import logo from '../../../../../assets/mafia-lobby-logo2.png';
 import mafia from '../../../../../assets/mafia-icon.png';
 import civilian from '../../../../../assets/civilian-icon.png';
 import HowToPlayModal from "../../../../components/howToPlayModal";
+import MafiaTextLogo from '../../../../components/mafiaTextLogo';
 
 class Lobby extends Component {
   state={
@@ -113,6 +114,8 @@ class Lobby extends Component {
             <Button onPress={this.handleStartGame}>
               <Text>START GAME</Text>
             </Button>
+
+            <MafiaTextLogo/>
 
 
 

@@ -152,7 +152,7 @@ class StartOrJoinGame extends Component {
             <>
               <PageTitle title={isUserStartingGame ? 'Start Game' : 'Join Game'}/>
 
-              <Text size='xsmall' letterSpacing={1} style={{ marginBottom: 50, paddingLeft: 20, paddingRight: 20 }}>
+              <Text size='xsmall' letterSpacing={1} style={{ marginBottom: 10, paddingLeft: 20, paddingRight: 20, width: '90%', textAlign: 'center' }}>
                 {isUserStartingGame ? 'Please enter a unique game ID below which you will share with other players' : 'Please enter the game you wish to join'}
               </Text>
 
