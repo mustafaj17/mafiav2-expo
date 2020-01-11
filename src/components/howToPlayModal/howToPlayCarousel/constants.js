@@ -1,50 +1,54 @@
-import { Animated, Image } from 'react-native';
+import { Animated, Image, View } from 'react-native';
 import PlaceHolderImage from '../../../../assets/placeholder-image.png';
 import Text from '../../text';
 import React from 'react';
-import arrowRight from '../../../../assets/arrow-right.jpg';
+import HowToPlay1 from '../../../../assets/how-to-play/howtoplay1.png';
+import HowToPlay2 from '../../../../assets/how-to-play/howtoplay2.png';
+import HowToPlay3 from '../../../../assets/how-to-play/howtoplay3.png';
+import HowToPlay4 from '../../../../assets/how-to-play/howtoplay4.png';
 import { Ionicons } from '@expo/vector-icons';
 import MafiaLogo from '../../mafiaLogo';
+import MafiaTextLogo from '../../mafiaTextLogo';
 
 export const slideData = [
   {
-    image: PlaceHolderImage,
+    image: HowToPlay1,
     text: (
-      <Text style={{ paddingTop: 20 }}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         You need a <Text color="#FF0000">minimum of 3 people</Text> to play this
         game and you must be <Text color="#FF0000">together.</Text>
       </Text>
     ),
   },
   {
-    image: PlaceHolderImage,
+    image: HowToPlay2,
     text: (
-      <Text style={{ paddingTop: 20 }}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         Once the game has started, mafia and civilian types will be assigned
         randomly to each player
       </Text>
     ),
   },
   {
-    image: PlaceHolderImage,
+    image: HowToPlay3,
     text: (
-      <Text style={{ paddingTop: 20 }}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         Mafias must work together to eliminate the civilians, whilst not
         revealing their true identity
       </Text>
     ),
   },
   {
-    image: PlaceHolderImage,
+    image: HowToPlay4,
     text: (
-      <Text style={{ paddingTop: 20 }}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         Civilians must try to identify the mafias and eliminate them.
       </Text>
     ),
   },
   {
     text: (
-      <Text style={{ paddingTop: 20 }}>
+      <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         After each round, players will need to vote who they believe to be the
         mafia. The player with the most votes will be eliminated. This will
         continues until either team wins
@@ -60,7 +64,7 @@ export const modalHome = left => ({
       <Text size="large" type="bold" style={{ paddingBottom: 60 }}>
         Welcome to Mafia
       </Text>
-      <MafiaLogo />
+      <MafiaTextLogo />
       <Text style={{ paddingTop: 20 }} letterSpacing={1}>
         Before you get started, take some time to read the instructions on how
         to play!

@@ -114,30 +114,7 @@ class Lobby extends Component {
               <Text>START GAME</Text>
             </Button>
 
-            <View
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'row',
-                marginBottom: 20,
-                marginTop: 20,
-              }}>
-              <Image
-                source={mafia}
-                resizeMode="contain"
-                style={{ width: 40, height: 150 }}
-              />
-              <Image
-                source={logo}
-                resizeMode="contain"
-                style={{ width: 250, height: 150 }}
-              />
-              <Image
-                source={civilian}
-                resizeMode="contain"
-                style={{ width: 40, height: 150 }}
-              />
-            </View>
+
 
             <Button onPress={this.handleJoinGame}>
               <Text>JOIN GAME</Text>

@@ -57,7 +57,8 @@ class HowToPlayCarousel extends React.Component {
         {item.image && (
           <Image
             source={item.image}
-            style={{ height: 200, width: slideWidth }}
+            resizeMethod='contain'
+            style={{ height: 210, width: 240 }}
           />
         )}
         {item.text}

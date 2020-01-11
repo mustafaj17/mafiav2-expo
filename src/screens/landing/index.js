@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import mafia from '../../../assets/mafia-icon.png';
 import civilian from '../../../assets/civilian-icon.png';
 import HowToPlayModal from "../../components/howToPlayModal";
+import MafiaTextLogo from '../../components/mafiaTextLogo';
 
 export default class Landing extends React.Component {
   state = {
@@ -79,30 +80,7 @@ export default class Landing extends React.Component {
             <Text>Login</Text>
           </Button>
 
-          <View
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginBottom: 20,
-              marginTop: 20,
-            }}>
-            <Image
-              source={mafia}
-              resizeMode="contain"
-              style={{ width: 40, height: 150 }}
-            />
-            <Image
-              source={logo}
-              resizeMode="contain"
-              style={{ width: 250, height: 150 }}
-            />
-            <Image
-              source={civilian}
-              resizeMode="contain"
-              style={{ width: 40, height: 150 }}
-            />
-          </View>
+          <MafiaTextLogo/>
 
           <Button onPress={() => navigation.navigate('SignUp')}>
             <Text>Sign Up</Text>
