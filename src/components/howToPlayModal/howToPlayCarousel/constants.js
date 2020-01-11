@@ -74,15 +74,16 @@ export const modalHome = left => ({
           width: 200,
           justifyContent: 'space-between',
         }}>
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropright" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
+        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
       </Animated.View>
+      <Text letterSpacing={3} size='xxsmall' color='#15D600'>swipe left</Text>
     </>
   ),
 });

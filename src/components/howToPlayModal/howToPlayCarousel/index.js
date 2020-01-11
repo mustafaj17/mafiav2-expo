@@ -6,6 +6,7 @@ import MafiaBackground from '../../mafiaBackground';
 import Text from '../../text';
 import { slideData, modalHome } from './constants';
 import {Ionicons} from "@expo/vector-icons";
+import Button from "../../button";
 
 const horizontalMargin = 20;
 const slideWidth = 300;
@@ -151,7 +152,8 @@ class HowToPlayCarousel extends React.Component {
               alignItems: 'center',
             }}>
             {!isHowToPlayAction && currentIndex !== 0 && (
-              <Text
+              carouselDone ? <Button width={100} onPress={skipInstructions}><Text size='small'>Done</Text></Button>:
+                <Text
                 onPress={skipInstructions}
                 size={carouselDone ? 'small' : 'xsmall'}
                 color="#00EB0A"
@@ -159,7 +161,7 @@ class HowToPlayCarousel extends React.Component {
                 style={{
                   textDecorationLine: carouselDone ? 'none' : 'underline',
                 }}>
-                {carouselDone ? 'Done' : 'Skip'}
+                Skip
               </Text>
             )}
 
