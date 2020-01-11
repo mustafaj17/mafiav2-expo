@@ -57,7 +57,7 @@ class HowToPlayCarousel extends React.Component {
         {item.image && (
           <Image
             source={item.image}
-            resizeMethod='contain'
+            resizeMode='contain'
             style={{ height: 210, width: 240 }}
           />
         )}
@@ -166,6 +166,7 @@ class HowToPlayCarousel extends React.Component {
               </Text>
             )}
 
+            {!isHowToPlayAction && currentIndex !== 0 &&
             <View
               style={{
                 display: 'flex',
@@ -176,6 +177,7 @@ class HowToPlayCarousel extends React.Component {
               }}>
               {this.renderProgressBar()}
             </View>
+            }
           </View>
         </View>
       </MafiaBackground>

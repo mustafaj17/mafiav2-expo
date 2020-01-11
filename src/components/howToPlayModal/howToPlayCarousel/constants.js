@@ -7,7 +7,6 @@ import HowToPlay2 from '../../../../assets/how-to-play/howtoplay2.png';
 import HowToPlay3 from '../../../../assets/how-to-play/howtoplay3.png';
 import HowToPlay4 from '../../../../assets/how-to-play/howtoplay4.png';
 import { Ionicons } from '@expo/vector-icons';
-import MafiaLogo from '../../mafiaLogo';
 import MafiaTextLogo from '../../mafiaTextLogo';
 
 export const slideData = [
@@ -78,9 +77,6 @@ export const modalHome = left => ({
           width: 200,
           justifyContent: 'space-between',
         }}>
-        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
-        <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
         <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
         <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
         <Ionicons name="md-arrow-dropleft" size={40} color="#15D600" />
