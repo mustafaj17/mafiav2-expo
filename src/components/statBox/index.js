@@ -31,9 +31,9 @@ const StatBox = ({ title, players = [] }) => {
       </View>
 
       <View style={{ minWidth: 200 }}>
-        {players.map(player => (
+        {players.map((player, index) => (
           <View
-            key={player.uid}
+            key={index}
             style={{ display: 'flex', flexDirection: 'row', marginBottom: 5 }}>
             <ProfilePicture size={45} imageUri={player[0].photoURL} />
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>
