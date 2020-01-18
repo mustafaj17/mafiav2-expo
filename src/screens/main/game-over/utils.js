@@ -31,14 +31,12 @@ export const getVotesAgainstPlayer = (players, currentPlayer) => {
   });
 
   let sortedResults = sortObjectToArray(voters);
-
-  const votesAgainst = [];
-  sortedResults.forEach(vote => {
+  return sortedResults.reduce((acc, vote) => {
     if (vote[1] === sortedResults[0][1]) {
-      votesAgainst.push([players.find(play => play.email === vote[0]), vote[1]]);
+      acc.push([players.find(play => play.email === vote[0]), vote[1]]);
     }
-  });
-  return votesAgainst;
+    return acc
+  }, []);
 };
 
 export const generateStatsObj = (players, sortedResults) => {
