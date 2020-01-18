@@ -10,6 +10,7 @@ const StatBox = ({ title, players = [] }) => {
   if (!players.length) return null;
   return (
     <View
+      key={title}
       style={{
         backgroundColor: '#1A1A1A',
         display: 'flex',

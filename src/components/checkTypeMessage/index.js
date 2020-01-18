@@ -26,7 +26,7 @@ const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
   };
 
   return (
-    <Modal visible transparent animationType="fade">
+    <Modal transparent animationType="fade">
       <View
         style={{
           flex: 1,
@@ -53,7 +53,6 @@ const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
             </TouchableOpacity>
 
             <Text size="large" type="bold">
-              {' '}
               LET'S PLAY
             </Text>
             <View style={{ padding: 10 }}>

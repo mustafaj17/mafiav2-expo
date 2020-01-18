@@ -1,7 +1,5 @@
 export const sortGameStats = players => {
 
-  debugger;
-
   let voters = {};
   players.forEach(player => {
     player.votedFor.forEach(vote => {

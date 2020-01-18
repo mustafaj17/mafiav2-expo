@@ -28,6 +28,7 @@ class VotingResults extends React.Component {
 
     const gameOver = isGameOver(inGamePlayers);
 
+    console.log('Voting complete is ', gameData.votingComplete);
     if (gameData.votingComplete) {
       gameDoc.ref.update('votingComplete', false);
       if (gameOver) {
