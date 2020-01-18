@@ -175,15 +175,9 @@ class SignUp extends React.Component {
               <ProfilePicture imageUri={imageUri} size={60} />
 
               {hasCameraPermission === false ? (
-                <View>
-                  <Text style={{ textAlign: 'center' }}>
-                    Mafia needs camera permissions
-                  </Text>
-                  <Text style={{ textAlign: 'center' }}>
-                    Please change settings
-                  </Text>
-                  <Text style={{ textAlign: 'center' }}>
-                    You can do this later if you like.
+                <View style={{width: '70%', marginLeft: 10}}>
+                  <Text type='light'  size='xsmall' color='#00EB0A'>
+                    Mafia needs camera permissions, please change settings (You can do this later if you like).
                   </Text>
                 </View>
               ) : (

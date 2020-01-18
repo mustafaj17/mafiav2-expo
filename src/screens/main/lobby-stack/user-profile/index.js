@@ -138,12 +138,9 @@ class UserProfile extends React.Component {
             </View>
 
             {hasCameraPermission === false && (
-              <View style={{ marginTop: 10 }}>
-                <Text size="small" type="light" style={{ textAlign: 'center' }}>
-                  Mafia needs camera permissions
-                </Text>
-                <Text size="small" type="light" style={{ textAlign: 'center' }}>
-                  Please change settings to add picture
+              <View style={{ marginTop: 10, padding: 10 }}>
+                <Text size="small" color='#00EB0A' style={{ textAlign: 'center' }} letterSpacing={1}>
+                  Mafia needs camera permissions, please change settings to add picture.
                 </Text>
               </View>
             )}
@@ -183,7 +180,7 @@ class UserProfile extends React.Component {
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ marginRight: 10 }}>{user.stats.gamesLeft}</Text>
-                <Text color="grey">Quit games</Text>
+                <Text color="grey">Games Quited</Text>
               </View>
             </View>
           )}

@@ -22,8 +22,8 @@ export const slideData = [
     image: HowToPlay2,
     text: (
       <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
-        Once the game has started, mafia and civilian types will be assigned
-        randomly to each player
+        Once the game has started, Mafias and Civilians will be assigned
+        randomly to each player.
       </Text>
     ),
   },
@@ -32,7 +32,7 @@ export const slideData = [
     text: (
       <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
         Mafias must work together to eliminate the civilians, whilst not
-        revealing their true identity
+        revealing their true identity.
       </Text>
     ),
   },
@@ -52,6 +52,9 @@ export const slideData = [
           </Text>
           <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
             The player with the most votes will then be eliminated. This will continues until either team wins.
+          </Text>
+          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
+            Don't forget to hide your phone from other players :D
           </Text>
       </>
     ),
