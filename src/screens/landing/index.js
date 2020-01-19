@@ -11,24 +11,22 @@ import globalStyles from '../../styles/global';
 import { NavigationEvents } from 'react-navigation';
 import Button from '../../components/button';
 import Text from '../../components/text';
-import logo from '../../../assets/mafia-lobby-logo2.png';
 import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
-import mafia from '../../../assets/mafia-icon.png';
-import civilian from '../../../assets/civilian-icon.png';
 import HowToPlayModal from "../../components/howToPlayModal";
 import MafiaTextLogo from '../../components/mafiaTextLogo';
 
 export default class Landing extends React.Component {
   state = {
-    showWelcomeMessage: true,
+    showWelcomeMessage: false,
     isHowToPlayAction: false
   };
 
   componentDidMount = async () => {
     try {
-      const value = await AsyncStorage.getItem('hasSeenWelcome');
-      if (value !== 'true') {
+      const hasSeenWelcome = await AsyncStorage.getItem('hasSeenWelcome');
+      console.log('hasSeenWelcome ', typeof hasSeenWelcome);
+      if (hasSeenWelcome !== 'true') {
         this.setState({ showWelcomeMessage: true });
       }
     } catch (error) {
@@ -66,8 +64,8 @@ export default class Landing extends React.Component {
         <HowToPlayModal
           visible={showWelcomeMessage}
           closeModal={isHowToPlayAction
-          ? () => this.setState({showWelcomeMessage: false, isHowToPlayAction: false})
-          : this.hideWelcomeMessage}
+            ? () => this.setState({showWelcomeMessage: false, isHowToPlayAction: false})
+            : this.hideWelcomeMessage}
           isHowToPlayAction={isHowToPlayAction}
         />
         <View style={globalStyles.page}>
@@ -86,6 +84,7 @@ export default class Landing extends React.Component {
             <Text>Sign Up</Text>
           </Button>
         </View>
+
 
         <TouchableOpacity
           onPress={() => this.setState({showWelcomeMessage: true, isHowToPlayAction: true})}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, ScrollView, Modal } from 'react-native';
+import { View, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
@@ -17,13 +17,16 @@ import { setUser } from '../../redux/actions/userActions';
 import PageTitle from '../../components/pageTitle';
 import TermsModal from '../../components/termsModal';
 import PrivacyModal from '../../components/privacyModal';
+import { Feather } from '@expo/vector-icons';
 
-const DISPLAY_NAME_LIMIT = 12;
+
+const DISPLAY_NAME_LIMIT = 15;
 
 class SignUp extends React.Component {
   state = {
     email: '',
     password: '',
+    showPassword: false,
     errorMessage: null,
     displayName: '',
     imageUri: null,
@@ -96,6 +99,7 @@ class SignUp extends React.Component {
       usernameLimitReached,
       termsModalVisible,
       privacyModalVisible,
+      showPassword
     } = this.state;
 
     if (this.state.loading) return <LoadingScreen />;
@@ -157,12 +161,24 @@ class SignUp extends React.Component {
               onChangeText={value => this.setState({ email: value })}
               value={email}
             />
-            <FloatingLabelInput
-              secureTextEntry={true}
-              label="Password"
-              onChangeText={value => this.setState({ password: value })}
-              value={password}
-            />
+            <View style={{position: 'relative'}}>
+              <FloatingLabelInput
+                secureTextEntry={!showPassword}
+                label="Password"
+                onChangeText={value => this.setState({ password: value })}
+                value={password}
+              />
+
+              <View style={{ position: 'absolute', right: 25, bottom: 30, zIndex: 2}}>
+              <TouchableOpacity onPress={() => this.setState({showPassword: !showPassword})}>
+                {showPassword
+                  ? <Feather name='eye-off' size={24} color='#15D600'/>
+                  : <Feather name='eye' size={24} color='#15D600'/>
+                }
+              </TouchableOpacity>
+              </View>
+
+            </View>
 
             <View
               style={{

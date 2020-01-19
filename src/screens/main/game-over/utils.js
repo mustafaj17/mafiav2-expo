@@ -21,6 +21,7 @@ export const sortGameStats = players => {
 
 export const getVotesAgainstPlayer = (players, currentPlayer) => {
   let voters = {};
+
   players.forEach(player => {
     player.votedFor.forEach(vote => {
       if (vote === currentPlayer.email) {
