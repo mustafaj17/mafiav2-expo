@@ -18,7 +18,7 @@ import MafiaTextLogo from '../../components/mafiaTextLogo';
 
 export default class Landing extends React.Component {
   state = {
-    showWelcomeMessage: false,
+    showWelcomeMessage: true,
     isHowToPlayAction: false
   };
 

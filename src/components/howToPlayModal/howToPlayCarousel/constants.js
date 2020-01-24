@@ -31,7 +31,7 @@ export const slideData = [
     image: HowToPlay3,
     text: (
       <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
-        Mafias must work together to eliminate the civilians, whilst not
+        Mafias must work together to eliminate the Civilians, whilst not
         revealing their true identity.
       </Text>
     ),
@@ -40,21 +40,21 @@ export const slideData = [
     image: HowToPlay4,
     text: (
       <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
-        Civilians must try to identify the mafias and eliminate them.
+        Civilians must try to identify the Mafias and eliminate them.
       </Text>
     ),
   },
   {
     text: (
       <>
-          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
-            After each round, players will need to vote who they believe to be the mafia.
+          <Text style={{ textAlign: 'center' }} letterSpacing={1}>
+            After each round, players will need to vote who they believe to be the Mafia.
           </Text>
-          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
+          <Text style={{ paddingTop: 10, textAlign: 'center' }} letterSpacing={1}>
             The player with the most votes will then be eliminated. This will continues until either team wins.
           </Text>
-          <Text style={{ paddingTop: 20, textAlign: 'center' }} letterSpacing={1}>
-            Don't forget to hide your phone from other players :D
+          <Text style={{ paddingTop: 10, textAlign: 'center' }} letterSpacing={1}>
+            Don't forget to hide your phone from other players!
           </Text>
       </>
     ),
