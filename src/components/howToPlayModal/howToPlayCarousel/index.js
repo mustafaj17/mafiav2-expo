@@ -126,6 +126,7 @@ class HowToPlayCarousel extends React.Component {
             borderColor: '#00EB0A',
             borderWidth: 1,
             borderRadius: 4,
+            overflow: 'hidden'
           }}>
           {isHowToPlayAction && (
             <TouchableOpacity

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 import { firestore } from '../../../../services/firebase';
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
@@ -145,7 +145,7 @@ class StartOrJoinGame extends Component {
 
     return (
       <MafiaBackground>
-        <View style={styles.page}>
+        <KeyboardAvoidingView style={styles.page}>
           {loading ? (
             <LoadingScreen />
           ) : (
@@ -173,7 +173,7 @@ class StartOrJoinGame extends Component {
               </Button>
             </>
           )}
-        </View>
+        </KeyboardAvoidingView>
       </MafiaBackground>
     );
   }
