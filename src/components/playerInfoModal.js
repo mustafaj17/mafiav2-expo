@@ -49,28 +49,43 @@ class PlayerInfoModal extends React.Component {
                 <Text style={{ marginBottom: 10 }}>{player.displayName}</Text>
                 <ProfilePicture imageUri={player.photoURL} />
 
+
                 {player.stats && (
-                  <View style={{ marginTop: 40 }}>
-                    <Text size="small">
-                      Games Played : {player.stats.gamesPlayed}
-                    </Text>
-                    <Text size="small">
-                      Games Won : {player.stats.gamesWon}
-                    </Text>
-                    <Text size="small">
-                      Games Won as Mafia : {player.stats.gamesWonAsMafia}
-                    </Text>
-                    <Text size="small">
-                      Games Won as Civilian :{' '}
-                      {player.stats.gamesWon - player.stats.gamesWonAsMafia}
-                    </Text>
-                    <Text size="small">
-                      Games Lost :{' '}
-                      {player.stats.gamesPlayed - player.stats.gamesWon}
-                    </Text>
-                    <Text size="small">
-                      Games Left : {player.stats.gamesLeft}
-                    </Text>
+                  <View style={{ margin: 20 }}>
+                    <View style={{ marginBottom: 10, minWidth: 20 }}>
+                      <Text type="bold" color='#00EB0A'>Stats</Text>
+                    </View>
+
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text style={{ marginRight: 10, minWidth: 20 }}>
+                        {player.stats.gamesPlayed}
+                      </Text>
+                      <Text color="grey">Games Played</Text>
+                    </View>
+
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text style={{ marginRight: 10, minWidth: 20 }}>{player.stats.gamesWon}</Text>
+                      <Text color="grey">Games Won</Text>
+                    </View>
+
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text style={{ marginRight: 10, minWidth: 20 }}>
+                        {player.stats.gamesWonAsMafia}
+                      </Text>
+                      <Text color="grey">Games Won as Mafia</Text>
+                    </View>
+
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text style={{ marginRight: 10, minWidth: 20 }}>
+                        {player.stats.gamesWon - player.stats.gamesWonAsMafia}
+                      </Text>
+                      <Text color="grey">Games Won as Civilian</Text>
+                    </View>
+
+                    <View style={{ display: 'flex', flexDirection: 'row' }}>
+                      <Text style={{ marginRight: 10, minWidth: 20 }}>{player.stats.gamesLeft}</Text>
+                      <Text color="grey">Games Quited</Text>
+                    </View>
                   </View>
                 )}
               </>

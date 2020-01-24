@@ -90,7 +90,7 @@ class HowToPlayCarousel extends React.Component {
             alignItems: 'center',
           }}>
           {isPassed ? (
-            <Text size="xsmall" type="bold" color="#00EB0A">
+            <Text size="xsmall" type="bold" color="#15D600">
               {letter}
             </Text>
           ) : (
@@ -99,8 +99,7 @@ class HowToPlayCarousel extends React.Component {
                 height: 8,
                 width: 8,
                 borderRadius: 4,
-                borderColor: '#00EB0A',
-                borderWidth: 2,
+                backgroundColor: '#15D600',
               }}
             />
           )}

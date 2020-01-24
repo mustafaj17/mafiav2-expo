@@ -121,11 +121,10 @@ class UserProfile extends React.Component {
                   right: 0,
                 }}>
                 <View>
-                  {user.photoURL ? (
-                    <MaterialIcons name="edit" color="white" size={28} />
-                  ) : (
-                    <FontAwesome name="plus" color="white" size={28} />
-                  )}
+                  {user.photoURL
+                    ? <MaterialIcons name="edit" color="white" size={28} />
+                    : <FontAwesome name="plus" color="#15D600" size={28} />
+                  }
                 </View>
               </TouchableOpacity>
             </View>
@@ -148,38 +147,38 @@ class UserProfile extends React.Component {
 
           {user.stats && (
             <View style={{ margin: 20 }}>
-              <View style={{ marginBottom: 10 }}>
+              <View style={{ marginBottom: 10, minWidth: 20 }}>
                 <Text type="bold" color='#00EB0A'>Stats</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginRight: 10 }}>
+                <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesPlayed}
                 </Text>
                 <Text color="grey">Games Played</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginRight: 10 }}>{user.stats.gamesWon}</Text>
+                <Text style={{ marginRight: 10, minWidth: 20 }}>{user.stats.gamesWon}</Text>
                 <Text color="grey">Games Won</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginRight: 10 }}>
+                <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesWonAsMafia}
                 </Text>
                 <Text color="grey">Games Won as Mafia</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginRight: 10 }}>
+                <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesWon - user.stats.gamesWonAsMafia}
                 </Text>
                 <Text color="grey">Games Won as Civilian</Text>
               </View>
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ marginRight: 10 }}>{user.stats.gamesLeft}</Text>
+                <Text style={{ marginRight: 10, minWidth: 20 }}>{user.stats.gamesLeft}</Text>
                 <Text color="grey">Games Quited</Text>
               </View>
             </View>

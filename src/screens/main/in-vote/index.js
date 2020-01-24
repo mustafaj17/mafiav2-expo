@@ -65,30 +65,7 @@ class InVote extends React.Component {
     }
   };
 
-  testAutoVote = () => {
-    const { inGamePlayers, gameDoc } = this.props;
-    const getRandomPlayer = () => {
-      const randomNumber = Math.floor(Math.random() * inGamePlayers.length);
-      return inGamePlayers[randomNumber];
-    };
-    const batch = firestore.batch();
-    inGamePlayers.forEach(player => {
-      const randomPlayer = getRandomPlayer();
-      batch.update(
-        gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
-        { votingFor: randomPlayer },
-      );
-    });
 
-    batch
-      .commit()
-      .then(() => {
-        console.log('automated voting complete');
-      })
-      .catch(e => {
-        console.log('error completing autoVote: ', e);
-      });
-  };
 
   render() {
     const { inGamePlayers, currentPlayer } = this.props;
@@ -136,22 +113,7 @@ class InVote extends React.Component {
           </>
         )}
 
-        <TouchableOpacity
-          onPress={this.testAutoVote}
-          style={{
-            position: 'absolute',
-            bottom: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            backgroundColor: 'pink',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text size="xxsmall">Auto vote</Text>
-        </TouchableOpacity>
+
       </View>
     );
   }
@@ -170,3 +132,45 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(GameScreenHOC(InVote));
+
+// testAutoVote = () => {
+//   const { inGamePlayers, gameDoc } = this.props;
+//   const getRandomPlayer = () => {
+//     const randomNumber = Math.floor(Math.random() * inGamePlayers.length);
+//     return inGamePlayers[randomNumber];
+//   };
+//   const batch = firestore.batch();
+//   inGamePlayers.forEach(player => {
+//     const randomPlayer = getRandomPlayer();
+//     batch.update(
+//       gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
+//       { votingFor: randomPlayer },
+//     );
+//   });
+//
+//   batch
+//     .commit()
+//     .then(() => {
+//       console.log('automated voting complete');
+//     })
+//     .catch(e => {
+//       console.log('error completing autoVote: ', e);
+//     });
+// };
+//
+// <TouchableOpacity
+//   onPress={this.testAutoVote}
+//   style={{
+//     position: 'absolute',
+//     bottom: 100,
+//     left: 10,
+//     width: 50,
+//     height: 50,
+//     borderRadius: 25,
+//     backgroundColor: 'pink',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   }}>
+//   <Text size="xxsmall">Auto vote</Text>
+// </TouchableOpacity>

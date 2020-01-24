@@ -125,31 +125,7 @@ class PreRound extends React.Component {
           />
         )}
 
-        <TouchableOpacity
-          onPress={() => {
-            const batch = firestore.batch();
-            inGamePlayers.forEach(player => {
-              batch.update(
-                gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
-                { ready: true },
-              );
-            });
-            batch.commit().then(() => {});
-          }}
-          style={{
-            position: 'absolute',
-            bottom: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            backgroundColor: 'pink',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text size="xxsmall">Ready-all</Text>
-        </TouchableOpacity>
+
       </View>
     );
   }
@@ -173,3 +149,30 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(GameScreenHOC(PreRound));
+
+
+{/*<TouchableOpacity*/}
+  {/*onPress={() => {*/}
+    {/*const batch = firestore.batch();*/}
+    {/*inGamePlayers.forEach(player => {*/}
+      {/*batch.update(*/}
+        {/*gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),*/}
+        {/*{ ready: true },*/}
+      {/*);*/}
+    {/*});*/}
+    {/*batch.commit().then(() => {});*/}
+  {/*}}*/}
+  {/*style={{*/}
+    {/*position: 'absolute',*/}
+    {/*bottom: 100,*/}
+    {/*left: 10,*/}
+    {/*width: 50,*/}
+    {/*height: 50,*/}
+    {/*borderRadius: 25,*/}
+    {/*backgroundColor: 'pink',*/}
+    {/*display: 'flex',*/}
+    {/*justifyContent: 'center',*/}
+    {/*alignItems: 'center',*/}
+  {/*}}>*/}
+  {/*<Text size="xxsmall">Ready-all</Text>*/}
+{/*</TouchableOpacity>*/}
