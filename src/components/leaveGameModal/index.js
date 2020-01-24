@@ -48,6 +48,11 @@ class LeaveGameModal extends React.Component {
         gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
         { leftGame: true },
       );
+    }else{
+      batch.update(
+        gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
+        { leftGame: true },
+      );
     }
 
     endGameAction();

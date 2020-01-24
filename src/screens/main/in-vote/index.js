@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GameScreenHOC(InVote, true));
+)(GameScreenHOC(InVote));
 
 // testAutoVote = () => {
 //   const { inGamePlayers, gameDoc } = this.props;

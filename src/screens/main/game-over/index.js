@@ -200,8 +200,8 @@ class GameOver extends React.Component {
           </LinearGradient>
 
           <View>
-            <StatBox title="MOST VOTED" players={stats.mostVoted} />
-            <StatBox title="LEAST VOTED" players={stats.leastVoted} />
+            { stats && <StatBox title="MOST VOTED" players={stats.mostVoted} />}
+            {stats && <StatBox title="LEAST VOTED" players={stats.leastVoted} />}
             {this.getVotesAgainst()}
           </View>
 
