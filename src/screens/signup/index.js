@@ -1,6 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
@@ -116,6 +123,7 @@ class SignUp extends React.Component {
     }
 
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex: 1}}>
       <MafiaBackground>
         <TermsModal
           termsModalVisible={termsModalVisible}
@@ -251,6 +259,7 @@ class SignUp extends React.Component {
           </Button>
         </KeyboardAvoidingView>
       </MafiaBackground>
+      </TouchableWithoutFeedback>
     );
   }
 }

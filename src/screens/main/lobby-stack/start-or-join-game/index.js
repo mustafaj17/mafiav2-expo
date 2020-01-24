@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import { firestore } from '../../../../services/firebase';
 import styles from '../../../../styles/global';
 import { connect } from 'react-redux';
@@ -144,6 +144,7 @@ class StartOrJoinGame extends Component {
     );
 
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex: 1}}>
       <MafiaBackground>
         <KeyboardAvoidingView style={styles.page}>
           {loading ? (
@@ -175,6 +176,7 @@ class StartOrJoinGame extends Component {
           )}
         </KeyboardAvoidingView>
       </MafiaBackground>
+      </TouchableWithoutFeedback>
     );
   }
 }

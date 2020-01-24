@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, View } from 'react-native';
 import firebase from '../../services/firebase';
 import { FloatingLabelInput } from '../../components/floatingLabelInput/floatingLabelInput';
 import LoadingScreen from '../../components/loadingScreen';
@@ -35,6 +35,7 @@ export default class Login extends React.Component {
     if (this.state.loading) return <LoadingScreen />;
 
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex: 1}}>
       <MafiaBackground>
         <KeyboardAvoidingView style={globalStyles.page}>
           <FloatingLabelInput
@@ -78,6 +79,7 @@ export default class Login extends React.Component {
           </View>
         </KeyboardAvoidingView>
       </MafiaBackground>
+      </TouchableWithoutFeedback>
     );
   }
 }
