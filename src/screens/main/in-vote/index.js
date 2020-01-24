@@ -2,24 +2,19 @@ import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
-import { firestore } from '../../../services/firebase';
 import {
   getCurrentPlayer,
   getInGamePlayers,
   haveAllPlayersVoted,
 } from '../../../redux/selectors';
 import GameScreenHOC from '../../../components/gameScreenHoc';
-import Button from '../../../components/button';
-import Text from '../../../components/text';
 import PageTitle from '../../../components/pageTitle';
-import AnimateLogo from '../../../components/amimatedLogo';
 import Player from '../../../components/player/Player';
 import { COLLECTIONS } from '../../../constants';
 
 class InVote extends React.Component {
   state = {
     playerHasVoted: false,
-    activeSlide: 0,
   };
 
   voteForPlayer = player => {
@@ -31,15 +26,13 @@ class InVote extends React.Component {
     this.setState({ playerHasVoted: true });
   };
 
-  shouldComponentUpdate = nextProps => {
-    const { allPlayersHaveVoted, inGamePlayers } = nextProps;
+  componentDidUpdate = (prevProps, prevState, snapshot) => {
+    const { allPlayersHaveVoted, inGamePlayers } = this.props;
 
     if (allPlayersHaveVoted) {
       this.handleVotingComplete(inGamePlayers);
-      // return false;
     }
-    return true;
-  };
+  }
 
   handleVotingComplete = inGamePlayers => {
     const { navigation } = this.props;
@@ -131,7 +124,7 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GameScreenHOC(InVote));
+)(GameScreenHOC(InVote, true));
 
 // testAutoVote = () => {
 //   const { inGamePlayers, gameDoc } = this.props;
