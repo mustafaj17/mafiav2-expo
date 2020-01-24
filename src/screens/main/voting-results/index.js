@@ -130,7 +130,7 @@ class VotingResults extends React.Component {
     const { currentPlayer, votedOutPlayer } = this.props;
 
     if(!votedOutPlayer){
-      <LoadingScreen/>
+      return(<LoadingScreen/>)
     }
 
     return (
@@ -145,7 +145,7 @@ class VotingResults extends React.Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <PlayerOut player={this.state.votedOutPlayer} />
+          <PlayerOut player={votedOutPlayer} />
         </View>
 
         {!currentPlayer.isOut && false && (
