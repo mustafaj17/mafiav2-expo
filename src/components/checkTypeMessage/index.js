@@ -92,9 +92,9 @@ const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
                     width: '30%',
                   }}
                 />
-                <View style={{ width: '70%' }}>
-                  <Text size="xsmall" style={{ marginBottom: 10 }}>
-                    If you are a Mafia you can see other Mafias -
+                <View style={{ width: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Text size="xsmall" >
+                    If you're a Mafia you can see other Mafias -
                     You must trick everyone into believing you are a Civilian -
                     Play smart!
                   </Text>
@@ -123,10 +123,10 @@ const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
                     width: '30%',
                   }}
                 />
-                <View style={{ width: '70%' }}>
-                  <Text size="xsmall" style={{ marginBottom: 10 }}>
-                    If you are a Civilian you must try to find and eliminate the
-                    Mafias - See who's acting strange!
+                <View style={{ width: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                  <Text size="xsmall">
+                    If you're a Civilian you must try to find and eliminate the Mafias -
+                    Who's acting strange?
                   </Text>
                 </View>
               </LinearGradient>
