@@ -13,7 +13,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "cover",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,40 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "buildNumber": "001",
+      "bundleIdentifier": "com.debugdigital.mafiav2",
+      "icon": "./assets/icon.png",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take pictures for profile display picture images.",
+        "NSPhotoLibraryUsageDescription": "This app uses the photo library for profile display picture images."
+      },
+      "googleServicesFile": "./src/services/firebase.js",
+      "splash":  {
+        "image": "./assets/splash.png"
+      }
+    },
+    "android": {
+      "package": "com.debugdigital.mafiav2",
+      "versionCode": "1",
+      "icon": "./assets/icon.png",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "RECORD_AUDIO",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.google.android.c2dm.permission.RECEIVE"
+      ],
+      "googleServicesFile": "./src/services/firebase.js",
+      "splash": {
+        "mdpi": "./assets/splash.png"
+      }
+    },
+    "androidNavigationBar": {
+      "visible": true,
+      "barStyle": "light-content",
+      "backgroundColor": "#000000"
     }
   }
 }
