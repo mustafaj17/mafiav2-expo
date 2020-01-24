@@ -21,6 +21,7 @@ import ProfilePicture from '../../../components/profilePicture';
 import PlayerOut from '../../../components/playerOut';
 import PageTitle from '../../../components/pageTitle';
 import { COLLECTIONS } from '../../../constants';
+import LoadingScreen from '../../../components/loadingScreen';
 
 class VotingResults extends React.Component {
   shouldComponentUpdate = nextProps => {
@@ -49,6 +50,15 @@ class VotingResults extends React.Component {
     const player = inGamePlayers.find(
       player => player.email === votedOutPlayerResult[0],
     );
+
+
+    //if players leave during voting this is to stop an error occuring since we might have a case where the
+    //players ingame have not receieved any votes
+    if(!player){
+      this.handleNextRound()
+      return;
+    }
+
     const votedForBy = votedOutPlayerResult[1];
 
     this.setState({
@@ -117,7 +127,11 @@ class VotingResults extends React.Component {
   };
 
   render() {
-    const { currentPlayer } = this.props;
+    const { currentPlayer, votedOutPlayer } = this.props;
+
+    if(!votedOutPlayer){
+      <LoadingScreen/>
+    }
 
     return (
       <View style={{ ...styles.page }}>
