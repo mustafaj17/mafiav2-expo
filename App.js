@@ -10,10 +10,9 @@ import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
-import Constants from 'expo-constants';
 import { View } from 'react-native';
-import Text from "./src/components/text";
 import MafiaBackground from "./src/components/mafiaBackground";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 const AppStack = createStackNavigator({
   Main: Main
@@ -51,7 +50,7 @@ const AuthStack = createStackNavigator({
       headerTransparent: true,
       headerTintColor: 'white',
       headerStyle: {
-        marginTop: -Constants.statusBarHeight,
+        marginTop: -getStatusBarHeight(),
       }
     }
   });
@@ -70,7 +69,7 @@ let Navigation = createAppContainer(createSwitchNavigator(
       headerTransparent: true,
       headerTintColor: 'black',
       headerStyle: {
-        marginTop: -Constants.statusBarHeight,
+        marginTop: -getStatusBarHeight(),
       }
     }
   }
@@ -103,7 +102,7 @@ class App extends React.Component{
           flex: 1
         }}>
         <View style={{
-          paddingTop: Constants.statusBarHeight,
+          paddingTop: getStatusBarHeight(),
           flex: 1
         }}>
           {this.state.loadingFonts ?

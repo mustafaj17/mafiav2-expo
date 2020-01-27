@@ -24,12 +24,13 @@ import { COLLECTIONS } from '../../../constants';
 import LoadingScreen from '../../../components/loadingScreen';
 
 class VotingResults extends React.Component {
+
+
   shouldComponentUpdate = nextProps => {
     const { gameData, navigation, gameDoc, inGamePlayers } = nextProps;
 
     const gameOver = isGameOver(inGamePlayers);
 
-    console.log('Voting complete is ', gameData.votingComplete);
     if (gameData.votingComplete) {
       gameDoc.ref.update('votingComplete', false);
       if (gameOver) {
@@ -44,7 +45,8 @@ class VotingResults extends React.Component {
   };
 
   componentWillMount() {
-    const { inGamePlayers } = this.props;
+
+    const { inGamePlayers, currentPlayer } = this.props;
 
     const votedOutPlayerResult = generateSortedVotes(inGamePlayers)[0];
     const player = inGamePlayers.find(
@@ -52,14 +54,10 @@ class VotingResults extends React.Component {
     );
 
 
-    //if players leave during voting this is to stop an error occuring since we might have a case where the
-    //players ingame have not receieved any votes
-    if(!player){
-      this.handleNextRound()
-      return;
+    //if the voted out player leaves during voting this will prevent an error
+    if(!player && currentPlayer.isAdmin){
+      this.handleNextRound();
     }
-
-    const votedForBy = votedOutPlayerResult[1];
 
     this.setState({
       votedOutPlayer: player,
@@ -127,7 +125,8 @@ class VotingResults extends React.Component {
   };
 
   render() {
-    const { currentPlayer, votedOutPlayer } = this.props;
+    const { currentPlayer } = this.props;
+    const { votedOutPlayer } = this.state;
 
     if(!votedOutPlayer){
       return(<LoadingScreen/>)
@@ -147,32 +146,6 @@ class VotingResults extends React.Component {
           }}>
           <PlayerOut player={votedOutPlayer} />
         </View>
-
-        {!currentPlayer.isOut && false && (
-          <View
-            style={{
-              width: '100%',
-              height: 'auto',
-              marginBottom: 10,
-              backgroundColor: '#fafafa',
-              borderTopColor: '#ebebeb',
-              borderTopWidth: 1,
-            }}>
-            <View style={{ marginLeft: 10 }}>
-              <Text type="light">You're voters </Text>
-            </View>
-
-            <ScrollView
-              style={{
-                padding: 10,
-                width: '100%',
-              }}
-              horizontal
-              showsHorizontalScrollIndicator={false}>
-              {this.getPlayersWhoVotedForCurrentPlayer()}
-            </ScrollView>
-          </View>
-        )}
 
         {currentPlayer.isAdmin ? (
           <Button onPress={this.handleNextRound}>

@@ -12,8 +12,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import mafiaIcon from '../../../assets/mafia-icon.png';
 import civIcon from '../../../assets/civilian-icon.png';
 import MafiaBackground from '../mafiaBackground';
-import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
   const handleDoNotShowMessage = async () => {
@@ -32,7 +32,7 @@ const CheckTypeMessage = ({ userSeenType, hideMessage }) => {
           flex: 1,
           width: '100%',
           padding: 12,
-          paddingTop: 12 + Constants.statusBarHeight,
+          paddingTop: 12 + getStatusBarHeight(),
           backgroundColor: 'rgba(0,0,0, 0.7)',
         }}>
         <MafiaBackground

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  Image,
   View,
   YellowBox,
   Dimensions,
@@ -20,6 +19,7 @@ import Button from '../button';
 import Text from '../text';
 import MafiaBackground from '../mafiaBackground';
 import ProfilePicture from '../profilePicture';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const DESIRED_RATIO = '16:9';
 const IMAGE_QUALITY = 0.1;
@@ -121,7 +121,7 @@ export default class ProfileImagePicker extends React.Component {
                 onPress={hideProfileImagePicker}
                 style={{
                   position: 'absolute',
-                  top: Constants.statusBarHeight,
+                  top: getStatusBarHeight(),
                   right: 10,
                 }}>
                 <Ionicons name="md-close" size={32} color="white" />
@@ -180,7 +180,7 @@ export default class ProfileImagePicker extends React.Component {
                 onPress={hideProfileImagePicker}
                 style={{
                   position: 'absolute',
-                  top: Constants.statusBarHeight,
+                  top: getStatusBarHeight(),
                   right: 10,
                 }}>
                 <Ionicons name="md-close" size={32} color="white" />

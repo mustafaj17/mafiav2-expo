@@ -2,7 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import Lobby from './lobby';
 import StartOrJoinGame from './start-or-join-game';
 import UserProfile from './user-profile';
-import Constants from 'expo-constants';
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 export default createStackNavigator(
   {
@@ -27,7 +27,7 @@ export default createStackNavigator(
       headerTintColor: 'white',
       headerBackTitle: null,
       headerStyle: {
-        marginTop: -Constants.statusBarHeight,
+        marginTop: -getStatusBarHeight(),
       },
     },
   },

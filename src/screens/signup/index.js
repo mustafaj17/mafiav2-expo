@@ -124,27 +124,20 @@ class SignUp extends React.Component {
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex: 1}}>
-      <MafiaBackground>
-        <TermsModal
-          termsModalVisible={termsModalVisible}
-          closeModal={() => this.setState({ termsModalVisible: false })}
-        />
-        <PrivacyModal
-          privacyModalVisible={privacyModalVisible}
-          closeModal={() => this.setState({ privacyModalVisible: false })}
-        />
-        <KeyboardAvoidingView
-          style={globalStyles.page}
-          behavior="padding"
-          enabled>
-          <PageTitle title="SIGN UP" />
-          <ScrollView
-            style={{
-              flex: 1,
-              paddingTop: 20,
-              paddingBottom: 50,
-              width: '100%',
-            }}>
+        <MafiaBackground>
+          <TermsModal
+            termsModalVisible={termsModalVisible}
+            closeModal={() => this.setState({ termsModalVisible: false })}
+          />
+          <PrivacyModal
+            privacyModalVisible={privacyModalVisible}
+            closeModal={() => this.setState({ privacyModalVisible: false })}
+          />
+          <KeyboardAvoidingView
+            style={{flex: 1}}
+            behavior="padding"
+            enabled>
+            <PageTitle title="SIGN UP" />
             <View>
               <FloatingLabelInput
                 label="Display Name"
@@ -169,6 +162,7 @@ class SignUp extends React.Component {
               onChangeText={value => this.setState({ email: value })}
               value={email}
             />
+
             <View style={{position: 'relative'}}>
               <FloatingLabelInput
                 secureTextEntry={!showPassword}
@@ -178,12 +172,12 @@ class SignUp extends React.Component {
               />
 
               <View style={{ position: 'absolute', right: 25, bottom: 30, zIndex: 2}}>
-              <TouchableOpacity onPress={() => this.setState({showPassword: !showPassword})}>
-                {showPassword
-                  ? <Feather name='eye-off' size={24} color='#15D600'/>
-                  : <Feather name='eye' size={24} color='#15D600'/>
-                }
-              </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.setState({showPassword: !showPassword})}>
+                  {showPassword
+                    ? <Feather name='eye-off' size={24} color='#15D600'/>
+                    : <Feather name='eye' size={24} color='#15D600'/>
+                  }
+                </TouchableOpacity>
               </View>
 
             </View>
@@ -246,19 +240,22 @@ class SignUp extends React.Component {
                 .
               </Text>
             </View>
-          </ScrollView>
 
-          {errorMessage && (
-            <View style={{ paddingLeft: 10, paddingRight: 10 }}>
-              <ErrorMessage errorMessage={errorMessage} />
+            <View style={{ display: 'flex', flex: 1, alignItems: 'center',
+              justifyContent: 'flex-end'}}>
+            {errorMessage && (
+              <View style={{ paddingLeft: 10, paddingRight: 10 }}>
+                <ErrorMessage errorMessage={errorMessage} />
+              </View>
+            )}
+
+            <Button onPress={this.handleSignUp}>
+              <Text>Create account</Text>
+            </Button>
+
             </View>
-          )}
-
-          <Button onPress={this.handleSignUp}>
-            <Text>Create account</Text>
-          </Button>
-        </KeyboardAvoidingView>
-      </MafiaBackground>
+          </KeyboardAvoidingView>
+        </MafiaBackground>
       </TouchableWithoutFeedback>
     );
   }

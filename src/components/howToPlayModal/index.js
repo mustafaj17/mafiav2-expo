@@ -1,7 +1,7 @@
-import {Modal, View} from "react-native";
-import Constants from "expo-constants";
+import { Modal, View } from 'react-native';
 import HowToPlayCarousel from "./howToPlayCarousel";
 import React from "react";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const HowToPlayModal = ({visible, isHowToPlayAction, closeModal}) => (
   <Modal visible={visible} transparent animationType="fade">
@@ -9,7 +9,7 @@ const HowToPlayModal = ({visible, isHowToPlayAction, closeModal}) => (
       style={{
         flex: 1,
         padding: 20,
-        paddingTop: 20 + Constants.statusBarHeight,
+        paddingTop: 20 + getStatusBarHeight(),
         backgroundColor: 'rgba(0,0,0, 0.7)',
       }}>
       <HowToPlayCarousel
