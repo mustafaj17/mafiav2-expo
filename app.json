@@ -37,7 +37,7 @@
     },
     "android": {
       "package": "com.debugdigital.mafiav2",
-      "versionCode": "1",
+      "versionCode": 1,
       "icon": "./assets/icon.png",
       "permissions": [
         "CAMERA",
@@ -51,11 +51,6 @@
       "splash": {
         "mdpi": "./assets/splash.png"
       }
-    },
-    "androidNavigationBar": {
-      "visible": true,
-      "barStyle": "light-content",
-      "backgroundColor": "#000000"
     }
   }
 }
