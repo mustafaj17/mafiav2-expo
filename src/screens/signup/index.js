@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   View,
   KeyboardAvoidingView,
-  ScrollView,
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
@@ -11,7 +10,6 @@ import {
 import firebase from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
-import globalStyles from '../../styles/global';
 import ProfilePicture from '../../components/profilePicture';
 import * as Permissions from 'expo-permissions';
 import LoadingScreen from '../../components/loadingScreen';
@@ -137,7 +135,9 @@ class SignUp extends React.Component {
             style={{flex: 1}}
             behavior="padding"
             enabled>
+
             <PageTitle title="SIGN UP" />
+
             <View>
               <FloatingLabelInput
                 label="Display Name"

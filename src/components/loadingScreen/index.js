@@ -2,12 +2,13 @@ import React from 'react';
 import { View } from 'react-native';
 import globalStyles from '../../styles/global';
 import AnimateLogo from '../amimatedLogo';
+import { getPadding } from '../../../App';
 
 const LoadingScreen = () => {
   return (
     <View
       style={{
-        marginTop: -50,
+        marginTop: -getPadding(),
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

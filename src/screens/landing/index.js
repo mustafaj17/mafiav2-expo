@@ -15,10 +15,11 @@ import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import HowToPlayModal from "../../components/howToPlayModal";
 import MafiaTextLogo from '../../components/mafiaTextLogo';
+import { getPadding } from '../../../App';
 
 export default class Landing extends React.Component {
   state = {
-    showWelcomeMessage: true,
+    showWelcomeMessage: false,
     isHowToPlayAction: false
   };
 
@@ -77,6 +78,8 @@ export default class Landing extends React.Component {
           <Button onPress={() => navigation.navigate('Login')}>
             <Text>Login</Text>
           </Button>
+
+          <Text>{getPadding()}</Text>
 
           <MafiaTextLogo/>
 

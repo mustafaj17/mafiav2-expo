@@ -21,12 +21,6 @@ import MafiaBackground from '../../../../components/mafiaBackground';
 class UserProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      // headerTitle instead of title
-      headerTitle: () => (
-        <Text type="bold" size="small">
-          User Profile
-        </Text>
-      ),
       headerRight: (
         <TouchableOpacity
           style={{ marginRight: 8 }}
@@ -97,6 +91,7 @@ class UserProfile extends React.Component {
             flex: 1,
             opacity: signOutModal ? 0.3 : 1,
           }}>
+
           <ModalConfirm
             visible={signOutModal}
             onConfirm={() => firebase.auth().signOut()}
