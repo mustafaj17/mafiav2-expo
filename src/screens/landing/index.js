@@ -79,15 +79,12 @@ export default class Landing extends React.Component {
             <Text>Login</Text>
           </Button>
 
-          <Text>{getPadding()}</Text>
-
           <MafiaTextLogo/>
 
           <Button onPress={() => navigation.navigate('SignUp')}>
             <Text>Sign Up</Text>
           </Button>
         </View>
-
 
         <TouchableOpacity
           onPress={() => this.setState({showWelcomeMessage: true, isHowToPlayAction: true})}

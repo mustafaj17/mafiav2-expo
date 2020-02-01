@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation'
 import AuthLoading from './src/screens/authLoading'
 import SignUp from './src/screens/signup'
-import Terms from './src/screens/signup/terms'
 import Login from './src/screens/login'
 import Landing from './src/screens/landing'
 import Main from './src/screens/main';
@@ -12,13 +11,12 @@ import LoadingScreen from './src/components/loadingScreen';
 import * as Font from 'expo-font';
 import { View } from 'react-native';
 import MafiaBackground from "./src/components/mafiaBackground";
-import { getStatusBarHeight } from "react-native-status-bar-height";
+import { Dimensions, Platform } from 'react-native';
 
 const AppStack = createStackNavigator({
   Main: Main
 }, {
   headerMode: 'none',
-  transparentCard: true,
 });
 
 const AuthStack = createStackNavigator({
@@ -35,13 +33,6 @@ const AuthStack = createStackNavigator({
     Login : {
       screen: Login,
     } ,
-    Terms: {
-      screen: Terms,
-      navigationOptions: () => ({
-        gesturesEnabled: false,
-        header: null,
-      })
-    },
   },
   {
     initialRouteName: 'Landing',
@@ -50,9 +41,10 @@ const AuthStack = createStackNavigator({
       headerTransparent: true,
       headerTintColor: 'white',
       headerStyle: {
-        marginTop: -getStatusBarHeight(),
+        marginTop: -getPadding()
       }
     }
+
   });
 
 let Navigation = createAppContainer(createSwitchNavigator(
@@ -67,9 +59,9 @@ let Navigation = createAppContainer(createSwitchNavigator(
     defaultNavigationOptions: {
       headerBackTitle: null,
       headerTransparent: true,
-      headerTintColor: 'black',
+      headerTintColor: 'white',
       headerStyle: {
-        marginTop: -getStatusBarHeight(),
+        marginTop: -getPadding()
       }
     }
   }
@@ -97,20 +89,17 @@ class App extends React.Component{
 
     return (
       <Provider store={store}>
-        <MafiaBackground style={{
-          backgroundColor: '#4d4d4d',
-          flex: 1
-        }}>
-        <View style={{
-          paddingTop: getStatusBarHeight(),
-          flex: 1
-        }}>
-          {this.state.loadingFonts ?
-            <LoadingScreen/>
-            :
-            <Navigation/>
-          }
-        </View>
+        <MafiaBackground style={{ flex: 1 }}>
+          <View style={{
+            paddingTop: getPadding(),
+            flex: 1
+          }}>
+            {this.state.loadingFonts ?
+              <LoadingScreen/>
+              :
+              <Navigation/>
+            }
+          </View>
         </MafiaBackground>
       </Provider>
     )
@@ -118,3 +107,27 @@ class App extends React.Component{
 }
 
 export default App;
+
+export function getPadding(){
+  return Platform.OS === 'android' ? 0 : isIphoneX() ? 40 : 30;
+}
+
+export function isIphoneX() {
+  const dim = Dimensions.get('window');
+
+  return (
+    // This has to be iOS
+    Platform.OS === 'ios' &&
+
+    // Check either, iPhone X or XR
+    (isIPhoneXSize(dim) || isIPhoneXrSize(dim))
+  )
+}
+
+export function isIPhoneXSize(dim) {
+  return dim.height === 812 || dim.width === 812;
+}
+
+export function isIPhoneXrSize(dim) {
+  return dim.height === 896 || dim.width === 896;
+}
