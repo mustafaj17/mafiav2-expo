@@ -174,7 +174,7 @@ class UserProfile extends React.Component {
 
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>{user.stats.gamesLeft}</Text>
-                <Text color="grey">Games Quited</Text>
+                <Text color="grey">Games Quitted</Text>
               </View>
             </View>
           )}

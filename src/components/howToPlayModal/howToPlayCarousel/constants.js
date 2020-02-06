@@ -51,7 +51,7 @@ export const slideData = [
             After each round, players will need to vote who they believe to be the Mafia.
           </Text>
           <Text style={{ paddingTop: 10, textAlign: 'center' }} letterSpacing={1}>
-            The player with the most votes will then be eliminated. This will continues until either team wins.
+            The player with the most votes will then be eliminated. This will continue until either team wins.
           </Text>
           <Text style={{ paddingTop: 10, textAlign: 'center' }} letterSpacing={1}>
             Don't forget to hide your phone from other players!
