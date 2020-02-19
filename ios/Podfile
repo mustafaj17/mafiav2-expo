@@ -32,4 +32,6 @@ target 'com.debugdigital.mafiav2' do
 
   use_unimodules!
 
+  pod 'RNExitApp', :path => '../node_modules/react-native-exit-app'
+
 end

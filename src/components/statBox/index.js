@@ -1,10 +1,7 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import {  View } from 'react-native';
 import Text from '../../components/text';
 import ProfilePicture from '../profilePicture';
-import { TYPE } from '../../constants';
-import mafiaIcon from '../../../assets/mafia-type-icon.png';
-import civIcon from '../../../assets/civilian-type-icon.png';
 
 const StatBox = ({ title, players = [] }) => {
   if (!players.length) return null;

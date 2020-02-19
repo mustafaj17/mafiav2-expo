@@ -1,21 +1,16 @@
 import React from 'react';
 import {
-  BackHandler,
-  ToastAndroid,
-  Image,
   View,
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
 import globalStyles from '../../styles/global';
-import { NavigationEvents } from 'react-navigation';
 import Button from '../../components/button';
 import Text from '../../components/text';
 import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import HowToPlayModal from "../../components/howToPlayModal";
 import MafiaTextLogo from '../../components/mafiaTextLogo';
-import { getPadding } from '../../../App';
 
 export default class Landing extends React.Component {
   state = {
@@ -44,19 +39,6 @@ export default class Landing extends React.Component {
     this.setState({ showWelcomeMessage: false });
   };
 
-  screenWillFocus = () => {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  };
-
-  screenWillBlur = () => {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  };
-
-  handleBackButton = () => {
-    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
-    return true;
-  };
-
   render() {
     const { navigation } = this.props;
     const { showWelcomeMessage, isHowToPlayAction } = this.state;
@@ -70,10 +52,6 @@ export default class Landing extends React.Component {
           isHowToPlayAction={isHowToPlayAction}
         />
         <View style={globalStyles.page}>
-          <NavigationEvents
-            onWillFocus={this.screenWillFocus}
-            onWillBlur={this.screenWillBlur}
-          />
 
           <Button onPress={() => navigation.navigate('Login')}>
             <Text>Login</Text>

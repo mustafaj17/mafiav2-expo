@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import {
   View,
   BackHandler,
-  ToastAndroid,
   StyleSheet,
   TouchableOpacity,
-  Image, Modal, AsyncStorage,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -16,15 +14,14 @@ import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
 import MafiaBackground from '../../../../components/mafiaBackground';
-import logo from '../../../../../assets/mafia-lobby-logo2.png';
-import mafia from '../../../../../assets/mafia-icon.png';
-import civilian from '../../../../../assets/civilian-icon.png';
 import HowToPlayModal from "../../../../components/howToPlayModal";
 import MafiaTextLogo from '../../../../components/mafiaTextLogo';
+import { YesNoModal } from '../../../../components/YesNoModal';
 
 class Lobby extends Component {
   state={
-    showHowToPlay: false
+    showHowToPlay: false,
+    showCloseAppModal: false
   };
 
   screenWillFocus = async () => {
@@ -52,7 +49,7 @@ class Lobby extends Component {
   };
 
   handleBackButton = () => {
-    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+    this.setState({showCloseAppModal: true});
     return true;
   };
 
@@ -81,10 +78,18 @@ class Lobby extends Component {
   };
 
   render() {
-    const { showHowToPlay } = this.state;
+    const { showHowToPlay, showCloseAppModal } = this.state;
     return (
       <MafiaBackground>
         <HowToPlayModal visible={showHowToPlay} isHowToPlayAction closeModal={this.hideHowToPlay} />
+
+        <YesNoModal
+          visible={showCloseAppModal}
+          closeModal={() => this.setState({showCloseAppModal: false})}
+          onConfirm={()=> BackHandler.exitApp()}
+          question='Close Mafia?'
+        />
+
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
