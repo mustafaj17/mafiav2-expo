@@ -67,7 +67,7 @@ class HowToPlayCarousel extends React.Component {
   );
 
   onSnapItem = index => {
-      this.setState({ currentIndex: index });
+    this.setState({ currentIndex: index });
   };
 
   renderProgressBar = () => {
@@ -129,13 +129,18 @@ class HowToPlayCarousel extends React.Component {
             overflow: 'hidden'
           }}>
           {isHowToPlayAction && (
-            <TouchableOpacity
-              onPress={skipInstructions}
-              style={{ position: 'absolute', top: 2, right: 10, zIndex: 30 }}>
-              <Ionicons name="md-close" size={32} color="white" />
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={skipInstructions}
+                style={{ position: 'absolute', top: 8, right: 15, zIndex: 30 }}>
+                <Ionicons name="md-close" size={32} color="white" />
+              </TouchableOpacity>
+
+              <Text type='bold' style={{ marginTop: 10 }}>
+                HOW TO PLAY
+              </Text>
+            </>
           )}
-          {isHowToPlayAction && <Text style={{ marginTop: 10 }}>How to play</Text>}
           <Carousel
             onSnapToItem={this.onSnapItem}
             renderItem={this.renderItem}
@@ -152,19 +157,22 @@ class HowToPlayCarousel extends React.Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {!isHowToPlayAction && currentIndex !== 0 && (
-              carouselDone ? <Button width={100} onPress={skipInstructions}><Text size='small'>Done</Text></Button>:
-                <Text
+            {!isHowToPlayAction && (carouselDone ?
+              <Button
+                width={100}
+                onPress={skipInstructions}>
+                <Text size='small'>OK</Text>
+              </Button>
+              :
+              <Text
                 onPress={skipInstructions}
-                size={carouselDone ? 'small' : 'xsmall'}
+                size={'xsmall'}
                 color="#00EB0A"
-                type={carouselDone ? 'bold' : 'regular'}
-                style={{
-                  textDecorationLine: carouselDone ? 'none' : 'underline',
-                }}>
+                type={'regular'}
+                style={{ textDecorationLine: 'underline' }}>
                 Skip
-              </Text>
-            )}
+              </Text>)
+            }
 
             {(currentIndex !== 0 || isHowToPlayAction) &&
             <View

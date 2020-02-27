@@ -35,7 +35,7 @@ export function YesNoModal({closeModal, onConfirm, question, visible}){
                 alignItems: 'center',
                 padding: 20
               }}>
-              <Text style={{ marginBottom: 10 }}>
+              <Text style={{ marginBottom: 10, textAlign: 'center' }}>
                 {question}
               </Text>
               <View style={{ display: 'flex', flexDirection: 'row' }}>

@@ -42,7 +42,7 @@ const Text = props => {
 
 Text.propTypes = {
   type: PropTypes.oneOf(['bold', 'regular', 'light']),
-  size: PropTypes.oneOf(['xxsmall', 'xsmall', 'small', 'medium', 'large']),
+  size: PropTypes.oneOf(['xxsmall', 'xsmall', 'small', 'medium', 'large', 'xlarge']),
   color: PropTypes.string,
   letterSpacing: PropTypes.number,
 };

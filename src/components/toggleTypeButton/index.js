@@ -39,7 +39,7 @@ class ToggleTypeButton extends React.Component {
           {showPlayerTypes ? 'HIDE' : 'SHOW'}
         </Text>
         <Text size="small" color="white">
-          TYPE
+          TEAM
         </Text>
       </TouchableOpacity>
     );

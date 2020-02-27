@@ -128,6 +128,7 @@ class GameOver extends React.Component {
 
     return (
       <MafiaBackground>
+        <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1}}>
         <ScrollView style={{ width: '100%', flex: 1 }}>
           <LinearGradient
             start={{ x: 0, y: -0.5 }}
@@ -205,18 +206,13 @@ class GameOver extends React.Component {
             {this.getVotesAgainst()}
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              flex: 1,
-              width: '100%',
-              alignItems: 'center',
-            }}>
+
+        </ScrollView>
+
             <Button onPress={this.handleEndGame}>
               <Text>End Game</Text>
             </Button>
-          </View>
-        </ScrollView>
+        </View>
       </MafiaBackground>
     );
   }
