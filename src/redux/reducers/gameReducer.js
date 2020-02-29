@@ -6,7 +6,7 @@ import {
   SET_PLAYERS_DISCONNECT,
   TOGGLE_DISPLAY_PLAYER_TYPES,
   END_GAME,
-  USER_HAS_SEEN_TYPE,
+  USER_HAS_SEEN_TYPE, USER_CLICKED_TOGGLE_BTN,
 } from './../actions/gameActions';
 
 const initialState = {
@@ -19,6 +19,7 @@ const initialState = {
   playersDisconnect: null,
   showPlayerTypes: false,
   userHasSeenType: false,
+  userClickedToggleBtn: false
 };
 
 export default (state = initialState, action) => {
@@ -61,6 +62,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userHasSeenType: true,
+      };
+    case USER_CLICKED_TOGGLE_BTN:
+      return {
+        ...state,
+        userClickedToggleBtn: true,
       };
     default:
       return state;

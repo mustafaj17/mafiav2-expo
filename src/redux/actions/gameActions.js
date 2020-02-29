@@ -6,6 +6,7 @@ export const SET_PLAYERS_DISCONNECT = 'SET_PLAYERS_DISCONNECT';
 export const TOGGLE_DISPLAY_PLAYER_TYPES = 'TOGGLE_DISPLAY_PLAYER_TYPES';
 export const END_GAME = 'END_GAME';
 export const USER_HAS_SEEN_TYPE = 'USER_HAS_SEEN_TYPE';
+export const USER_CLICKED_TOGGLE_BTN = 'USER_CLICKED_TOGGLE_BTN';
 
 export const setGameDocument = gameDoc => {
   return {
@@ -54,8 +55,14 @@ export const endGame = () => {
   };
 };
 
-export const userHasSeenType = () => {
+export const setUserHasSeenType = () => {
   return {
     type: USER_HAS_SEEN_TYPE,
+  };
+};
+
+export const setUserClickedToggleBtn = () => {
+  return {
+    type: USER_CLICKED_TOGGLE_BTN,
   };
 };

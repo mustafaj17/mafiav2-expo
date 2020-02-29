@@ -17,6 +17,7 @@ class RevealTypeModal extends React.Component{
       subHeading: 'HIDE YOUR PHONE',
       btnText: 'REVEAL YOUR CHARACTER',
       characterRevealed: false,
+      isRevealing: false
     }
 
     this.mafiaOpacity= new Animated.Value(0);
@@ -27,6 +28,7 @@ class RevealTypeModal extends React.Component{
   }
 
   revealCharacter = () => {
+    this.setState({isRevealing: true})
     Animated.sequence([
       Animated.parallel([
         Animated.timing(this.mafiaOutlineLeft, {
@@ -63,13 +65,13 @@ class RevealTypeModal extends React.Component{
         })
       ])
     ]).start( () => {
-      this.setState({characterRevealed: true})
+      this.setState({characterRevealed: true, isRevealing: false})
     })
   }
 
   render() {
 
-    const { heading, subHeading, btnText} = this.state;
+    const { heading, subHeading, btnText, isRevealing} = this.state;
 
     const mafiaOpacity = this.mafiaOpacity.interpolate({
       inputRange: [0,1],
@@ -112,10 +114,12 @@ class RevealTypeModal extends React.Component{
               marginBottom: 50,
               position: 'relative'
             }}>
+              {!isRevealing &&
               <Animated.View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: characterRevealed ? 0 : 1 , position: 'absolute'}}>
                 <Text size='xlarge' type='bold' style={{fontSize: 32}}>{heading}</Text>
                 <Text color='#00EB0A'type={'bold'} size='small'>{subHeading}</Text>
               </Animated.View>
+              }
 
               <Animated.View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: characterRevealed ? 1 : 0 , position: 'absolute'}}>
                 <Text type='bold' style={{fontSize: 32}}>
@@ -171,20 +175,24 @@ class RevealTypeModal extends React.Component{
 
             </View>
 
-            {!characterRevealed ?
+            <View style={{ height: 150 }}>
+              {!isRevealing && !characterRevealed &&
               <TouchableOpacity onPress={this.revealCharacter}>
                 <View style={{ backgroundColor: '#00EB0A', padding: 20, margin: 20 }}>
                   <Text type='bold' color='black' size='xsmall'>{btnText}</Text>
                 </View>
               </TouchableOpacity>
-              :
+              }
+
+              {!isRevealing && characterRevealed &&
               <TouchableOpacity onPress={closeModal}>
                 <View style={{ backgroundColor: '#00EB0A', padding: 20, margin: 20, width: 280,
                   display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Text type='bold' color='black' size='xsmall'>PLAY</Text>
+                  <Text type='bold' color='black' >PLAY</Text>
                 </View>
               </TouchableOpacity>
-            }
+              }
+            </View>
 
 
           </View>

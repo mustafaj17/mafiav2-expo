@@ -99,7 +99,7 @@ class HowToPlayCarousel extends React.Component {
                 height: 8,
                 width: 8,
                 borderRadius: 4,
-                backgroundColor: '#15D600',
+                backgroundColor: 'white',
               }}
             />
           )}
