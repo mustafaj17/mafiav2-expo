@@ -96,9 +96,7 @@ class PreRound extends React.Component {
               padding: 10,
             }}>
             <ReadyButton />
-
-              <ToggleTypeButton />
-
+            <ToggleTypeButton />
           </View>
         )}
 

@@ -6,6 +6,7 @@ import mafiaIconOutline from '../../../assets/mafia-icon-outline.png';
 import React from 'react';
 import MafiaBackground from '../mafiaBackground';
 import Text from '../text';
+import { AnimatePulsate } from '../animation/animatePulsating';
 
 class RevealTypeModal extends React.Component{
 
@@ -177,16 +178,18 @@ class RevealTypeModal extends React.Component{
 
             <View style={{ height: 150 }}>
               {!isRevealing && !characterRevealed &&
-              <TouchableOpacity onPress={this.revealCharacter}>
-                <View style={{ backgroundColor: '#00EB0A', padding: 20, margin: 20 }}>
-                  <Text type='bold' color='black' size='xsmall'>{btnText}</Text>
-                </View>
-              </TouchableOpacity>
+              <AnimatePulsate>
+                <TouchableOpacity onPress={this.revealCharacter}>
+                  <View style={{ backgroundColor: '#00EB0A', padding: 20, margin: 20 }}>
+                    <Text type='bold' color='black' size='xsmall'>{btnText}</Text>
+                  </View>
+                </TouchableOpacity>
+              </AnimatePulsate>
               }
 
               {!isRevealing && characterRevealed &&
               <TouchableOpacity onPress={closeModal}>
-                <View style={{ backgroundColor: '#00EB0A', padding: 20, margin: 20, width: 280,
+                <View style={{ backgroundColor: '#00EB0A', padding: 15, margin: 20, width: 280,
                   display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Text type='bold' color='black' >PLAY</Text>
                 </View>

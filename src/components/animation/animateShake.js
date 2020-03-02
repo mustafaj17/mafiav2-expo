@@ -34,8 +34,6 @@ export class AnimateShake extends React.Component {
 
   render() {
 
-    debugger;
-
     if(!this.props.isShaking){
       return this.props.children;
     }
@@ -44,14 +42,13 @@ export class AnimateShake extends React.Component {
       inputRange: [0,1,2],
       outputRange: ['-5deg', '0deg','5deg'],
     })
+
     return (
 
       <Animated.View style={{
         transform: [{ rotate: rotations}]
       }}>
-        <TouchableOpacity onPress={this.stopAnimation}>
         {this.props.children}
-        </TouchableOpacity>
       </Animated.View>
     );
   }
