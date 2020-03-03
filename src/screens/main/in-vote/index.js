@@ -61,30 +61,30 @@ class InVote extends React.Component {
   };
 
 
-  testAutoVote = () => {
-    const { inGamePlayers, gameDoc } = this.props;
-    const getRandomPlayer = () => {
-      const randomNumber = Math.floor(Math.random() * inGamePlayers.length);
-      return inGamePlayers[randomNumber];
-    };
-    const batch = firestore.batch();
-    inGamePlayers.forEach(player => {
-      const randomPlayer = getRandomPlayer();
-      batch.update(
-        gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
-        { votingFor: randomPlayer },
-      );
-    });
-
-    batch
-      .commit()
-      .then(() => {
-        console.log('automated voting complete');
-      })
-      .catch(e => {
-        console.log('error completing autoVote: ', e);
-      });
-  };
+  // testAutoVote = () => {
+  //   const { inGamePlayers, gameDoc } = this.props;
+  //   const getRandomPlayer = () => {
+  //     const randomNumber = Math.floor(Math.random() * inGamePlayers.length);
+  //     return inGamePlayers[randomNumber];
+  //   };
+  //   const batch = firestore.batch();
+  //   inGamePlayers.forEach(player => {
+  //     const randomPlayer = getRandomPlayer();
+  //     batch.update(
+  //       gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
+  //       { votingFor: randomPlayer },
+  //     );
+  //   });
+  //
+  //   batch
+  //     .commit()
+  //     .then(() => {
+  //       console.log('automated voting complete');
+  //     })
+  //     .catch(e => {
+  //       console.log('error completing autoVote: ', e);
+  //     });
+  // };
 
 
 
@@ -151,22 +151,22 @@ class InVote extends React.Component {
             </ScrollView>
           </>
         )}
-        <TouchableOpacity
-          onPress={this.testAutoVote}
-          style={{
-            position: 'absolute',
-            bottom: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            backgroundColor: 'pink',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text size="xxsmall">Auto vote</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+          {/*onPress={this.testAutoVote}*/}
+          {/*style={{*/}
+            {/*position: 'absolute',*/}
+            {/*bottom: 100,*/}
+            {/*left: 10,*/}
+            {/*width: 50,*/}
+            {/*height: 50,*/}
+            {/*borderRadius: 25,*/}
+            {/*backgroundColor: 'pink',*/}
+            {/*display: 'flex',*/}
+            {/*justifyContent: 'center',*/}
+            {/*alignItems: 'center',*/}
+          {/*}}>*/}
+          {/*<Text size="xxsmall">Auto vote</Text>*/}
+        {/*</TouchableOpacity>*/}
 
 
       </View>

@@ -37,7 +37,7 @@
     },
     "android": {
       "package": "com.debugdigital.mafiav2",
-      "versionCode": 1,
+      "versionCode": 3,
       "icon": "./assets/icon.png",
       "permissions": [
         "CAMERA",

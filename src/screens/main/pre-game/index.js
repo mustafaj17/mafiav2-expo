@@ -20,92 +20,92 @@ import LoadingScreen from '../../../components/loadingScreen';
 class PreGame extends React.Component {
 
 
-  startTestGame = () => {
-    const { gameDoc, navigation, currentPlayer } = this.props;
-
-    const testPlayers = [
-      {
-        email: 'test1@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Amoori',
-        ready: true,
-        votedFor: [],
-        uid: 1,
-      },
-      {
-        email: 'test2@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Ali',
-        ready: true,
-        votedFor: [],
-        uid: 2,
-      },
-      {
-        email: 'test3@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Stunna Jay',
-        ready: false,
-        votedFor: [],
-        uid: 3,
-      },
-      {
-        email: 'test4@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Muk',
-        ready: true,
-        votedFor: [],
-        uid: 4,
-      },
-      // {
-      //     email: 'test5@email.com',
-      //     type: TYPE.MAFIA,
-      //     displayName: 'Big Jimmy Jones',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 5
-      // },
-      // {
-      //     email: 'test6@email.com',
-      //     type: TYPE.CIVILIAN,
-      //     displayName: 'big civilian man',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 6
-      // },
-      // {
-      //     email: 'test5@email.com',
-      //     type: TYPE.CIVILIAN,
-      //     displayName: 'civilian brudda',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 7
-      // }
-    ];
-
-    const batch = firestore.batch();
-
-    batch.update(gameDoc.ref, { gameStarted: true });
-    testPlayers.forEach(player => {
-      batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {
-        ...player,
-      });
-    });
-
-    batch.update(
-      gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
-      { type: TYPE.MAFIA, votedFor: [] },
-    );
-
-    batch
-      .commit()
-      .then(() => {
-        console.log('game started and player types set');
-        navigation.navigate('PreRound');
-      })
-      .catch(e => {
-        console.log('error starting game and setting player types: ', e);
-      });
-  };
+  // startTestGame = () => {
+  //   const { gameDoc, navigation, currentPlayer } = this.props;
+  //
+  //   const testPlayers = [
+  //     {
+  //       email: 'test1@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Amoori',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 1,
+  //     },
+  //     {
+  //       email: 'test2@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Ali',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 2,
+  //     },
+  //     {
+  //       email: 'test3@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Stunna Jay',
+  //       ready: false,
+  //       votedFor: [],
+  //       uid: 3,
+  //     },
+  //     {
+  //       email: 'test4@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Muk',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 4,
+  //     },
+  //     // {
+  //     //     email: 'test5@email.com',
+  //     //     type: TYPE.MAFIA,
+  //     //     displayName: 'Big Jimmy Jones',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 5
+  //     // },
+  //     // {
+  //     //     email: 'test6@email.com',
+  //     //     type: TYPE.CIVILIAN,
+  //     //     displayName: 'big civilian man',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 6
+  //     // },
+  //     // {
+  //     //     email: 'test5@email.com',
+  //     //     type: TYPE.CIVILIAN,
+  //     //     displayName: 'civilian brudda',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 7
+  //     // }
+  //   ];
+  //
+  //   const batch = firestore.batch();
+  //
+  //   batch.update(gameDoc.ref, { gameStarted: true });
+  //   testPlayers.forEach(player => {
+  //     batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {
+  //       ...player,
+  //     });
+  //   });
+  //
+  //   batch.update(
+  //     gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
+  //     { type: TYPE.MAFIA, votedFor: [] },
+  //   );
+  //
+  //   batch
+  //     .commit()
+  //     .then(() => {
+  //       console.log('game started and player types set');
+  //       navigation.navigate('PreRound');
+  //     })
+  //     .catch(e => {
+  //       console.log('error starting game and setting player types: ', e);
+  //     });
+  // };
 
   setPlayerTypes = () => {
     const players = [...this.props.playersData];
@@ -144,7 +144,6 @@ class PreGame extends React.Component {
   };
 
   handleStartGame = () => {
-    //todo: add logic to start game when there is 3 players or more
     const { gameDoc } = this.props;
 
     const players = this.setPlayerTypes();
@@ -214,22 +213,23 @@ class PreGame extends React.Component {
           )) :
           <Text style={{ marginBottom: 20 }}>Waiting for admin... </Text>
         }
-        <TouchableOpacity
-          onPress={this.startTestGame}
-          style={{
-            position: 'absolute',
-            bottom: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            backgroundColor: 'pink',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text size="xxsmall">Test</Text>
-        </TouchableOpacity>
+
+        {/*<TouchableOpacity*/}
+          {/*onPress={this.startTestGame}*/}
+          {/*style={{*/}
+            {/*position: 'absolute',*/}
+            {/*bottom: 100,*/}
+            {/*left: 10,*/}
+            {/*width: 50,*/}
+            {/*height: 50,*/}
+            {/*borderRadius: 25,*/}
+            {/*backgroundColor: 'pink',*/}
+            {/*display: 'flex',*/}
+            {/*justifyContent: 'center',*/}
+            {/*alignItems: 'center',*/}
+          {/*}}>*/}
+          {/*<Text size="xxsmall">Test</Text>*/}
+        {/*</TouchableOpacity>*/}
 
       </View>
     );
