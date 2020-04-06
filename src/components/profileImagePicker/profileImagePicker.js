@@ -226,11 +226,11 @@ export default class ProfileImagePicker extends React.Component {
                   onPress={this.pickImageFromLibrary}
                   disabled={hasCameraLibraryPermission === false}
                   style={{ width: '100%', margin: 0, marginBottom: 20 }}>
-                  <Text size="small">{`${
+                  <Text size="small">{
                     hasCameraLibraryPermission === false
                       ? 'Permission needed to use image from Gallery'
                       : 'Pick an image from camera roll'
-                  }`}</Text>
+                  }</Text>
                 </Button>
               </View>
             </View>

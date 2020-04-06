@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import ReadyButton from '../../../components/playerReadyButton';
@@ -20,7 +20,7 @@ import PageTitle from '../../../components/pageTitle';
 import PlayerWithToggleType from '../../../components/player/PlayerWithToggleType';
 import { COLLECTIONS, TYPE } from '../../../constants';
 import RevealTypeModal from '../../../components/revealType';
-import { AnimateShake } from '../../../components/animation/animateShake';
+import FooterActionBar from '../../../components/footerActionBar/footerActionBar';
 
 class PreRound extends React.Component {
 
@@ -83,21 +83,10 @@ class PreRound extends React.Component {
         </ScrollView>
 
         {!currentPlayer.isOut && (
-          <View
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: 80,
-              flex: 1,
-              bottom: 10,
-              left: 0,
-              display: 'flex',
-              flexDirection: 'row',
-              padding: 10,
-            }}>
+          <FooterActionBar>
             <ReadyButton />
             <ToggleTypeButton />
-          </View>
+          </FooterActionBar>
         )}
 
         {!userHasSeenType && (
@@ -108,29 +97,29 @@ class PreRound extends React.Component {
         )}
 
         {/*<TouchableOpacity*/}
-          {/*onPress={() => {*/}
-            {/*const batch = firestore.batch();*/}
-            {/*inGamePlayers.forEach(player => {*/}
-              {/*batch.update(*/}
-                {/*gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),*/}
-                {/*{ ready: true },*/}
-              {/*);*/}
-            {/*});*/}
-            {/*batch.commit().then(() => {});*/}
-          {/*}}*/}
-          {/*style={{*/}
-            {/*position: 'absolute',*/}
-            {/*bottom: 100,*/}
-            {/*left: 10,*/}
-            {/*width: 50,*/}
-            {/*height: 50,*/}
-            {/*borderRadius: 25,*/}
-            {/*backgroundColor: 'pink',*/}
-            {/*display: 'flex',*/}
-            {/*justifyContent: 'center',*/}
-            {/*alignItems: 'center',*/}
-          {/*}}>*/}
-          {/*<Text size="xxsmall">Ready-all</Text>*/}
+        {/*onPress={() => {*/}
+        {/*const batch = firestore.batch();*/}
+        {/*inGamePlayers.forEach(player => {*/}
+        {/*batch.update(*/}
+        {/*gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),*/}
+        {/*{ ready: true },*/}
+        {/*);*/}
+        {/*});*/}
+        {/*batch.commit().then(() => {});*/}
+        {/*}}*/}
+        {/*style={{*/}
+        {/*position: 'absolute',*/}
+        {/*bottom: 100,*/}
+        {/*left: 10,*/}
+        {/*width: 50,*/}
+        {/*height: 50,*/}
+        {/*borderRadius: 25,*/}
+        {/*backgroundColor: 'pink',*/}
+        {/*display: 'flex',*/}
+        {/*justifyContent: 'center',*/}
+        {/*alignItems: 'center',*/}
+        {/*}}>*/}
+        {/*<Text size="xxsmall">Ready-all</Text>*/}
         {/*</TouchableOpacity>*/}
       </View>
     );

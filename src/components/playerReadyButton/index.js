@@ -29,10 +29,11 @@ class playerReadyButton extends React.Component {
           alignItems: 'center',
           backgroundColor: '#00EB0A',
           flex: 1,
-          marginRight: 10,
+          padding: 10,
+          margin: 5,
         }}
         onPress={this.setPlayerReady}>
-        <Text color="black">
+        <Text color="black" size='small'>
           {' '}
           {currentPlayer.ready ? 'WAITING...' : 'READY'}
         </Text>

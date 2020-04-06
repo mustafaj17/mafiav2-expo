@@ -37,6 +37,8 @@ class ToggleTypeButton extends React.Component {
           borderColor: '#31d08a',
           borderWidth: 1,
           borderTopWidth: showPlayerTypes ? 5 : 1,
+          padding: 10,
+          margin: 5,
         }}>
         <Text size="small" color="white">
           {showPlayerTypes ? 'HIDE' : 'SHOW'}

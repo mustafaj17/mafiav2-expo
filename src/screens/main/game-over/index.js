@@ -24,6 +24,7 @@ import civIcon from '../../../../assets/civilian-icon.png';
 import mafiaIcon from '../../../../assets/mafia-icon.png';
 import MafiaBackground from '../../../components/mafiaBackground';
 import { LinearGradient } from 'expo-linear-gradient';
+import FooterActionBar from '../../../components/footerActionBar/footerActionBar';
 
 class GameOver extends React.Component {
   handleEndGame = () => {
@@ -129,89 +130,91 @@ class GameOver extends React.Component {
     return (
       <MafiaBackground>
         <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1}}>
-        <ScrollView style={{ width: '100%', flex: 1 }}>
-          <LinearGradient
-            start={{ x: 0, y: -0.5 }}
-            end={{ x: 0, y: 1 }}
-            colors={mafiasWon ? ['#811C24', '#DB1C24'] : ['#0000FF', '#000054']}
-            style={{
-              flex: 1,
-              width: '100%',
-              paddingTop: 10,
-              paddingBottom: 10,
-              display: 'flex',
-              minHeight: 160,
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-            }}>
-            <Image
-              source={mafiasWon ? mafiaIcon : civIcon}
-              resizeMode="contain"
+          <ScrollView style={{ width: '100%', flex: 1 }}>
+            <LinearGradient
+              start={{ x: 0, y: -0.5 }}
+              end={{ x: 0, y: 1 }}
+              colors={mafiasWon ? ['#811C24', '#DB1C24'] : ['#0000FF', '#000054']}
               style={{
-                height: 150,
-                width: 150,
-                position: 'absolute',
-                opacity: 0.5,
-                bottom: 0,
-                right: 10,
-              }}
-            />
-            <Text type="bold" style={{ marginBottom: 10 }}>
-              WINNERS
-            </Text>
-            <View style={{ minWidth: 200 }}>
-              {mafiasWon ? this.getMafias() : this.getCivilians()}
-            </View>
-          </LinearGradient>
+                flex: 1,
+                width: '100%',
+                paddingTop: 10,
+                paddingBottom: 10,
+                display: 'flex',
+                minHeight: 160,
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative',
+              }}>
+              <Image
+                source={mafiasWon ? mafiaIcon : civIcon}
+                resizeMode="contain"
+                style={{
+                  height: 150,
+                  width: 150,
+                  position: 'absolute',
+                  opacity: 0.5,
+                  bottom: 0,
+                  right: 10,
+                }}
+              />
+              <Text type="bold" style={{ marginBottom: 10 }}>
+                WINNERS
+              </Text>
+              <View style={{ minWidth: 200 }}>
+                {mafiasWon ? this.getMafias() : this.getCivilians()}
+              </View>
+            </LinearGradient>
 
-          <LinearGradient
-            start={{ x: 0, y: -0.5 }}
-            end={{ x: 0, y: 1 }}
-            colors={mafiasWon ? ['#0000FF', '#000054'] : ['#811C24', '#DB1C24']}
-            style={{
-              flex: 1,
-              width: '100%',
-              paddingTop: 10,
-              minHeight: 160,
-              paddingBottom: 10,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-            }}>
-            <Image
-              source={mafiasWon ? civIcon : mafiaIcon}
-              resizeMode="contain"
+            <LinearGradient
+              start={{ x: 0, y: -0.5 }}
+              end={{ x: 0, y: 1 }}
+              colors={mafiasWon ? ['#0000FF', '#000054'] : ['#811C24', '#DB1C24']}
               style={{
-                height: 150,
-                width: 150,
-                position: 'absolute',
-                opacity: 0.5,
-                bottom: 0,
-                right: 10,
-              }}
-            />
-            <Text type="bold" style={{ marginBottom: 10 }}>
-              LOSERS
-            </Text>
-            <View style={{ minWidth: 200 }}>
-              {mafiasWon ? this.getCivilians() : this.getMafias()}
+                flex: 1,
+                width: '100%',
+                paddingTop: 10,
+                minHeight: 160,
+                paddingBottom: 10,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative',
+              }}>
+              <Image
+                source={mafiasWon ? civIcon : mafiaIcon}
+                resizeMode="contain"
+                style={{
+                  height: 150,
+                  width: 150,
+                  position: 'absolute',
+                  opacity: 0.5,
+                  bottom: 0,
+                  right: 10,
+                }}
+              />
+              <Text type="bold" style={{ marginBottom: 10 }}>
+                LOSERS
+              </Text>
+              <View style={{ minWidth: 200 }}>
+                {mafiasWon ? this.getCivilians() : this.getMafias()}
+              </View>
+            </LinearGradient>
+
+            <View>
+              { stats && <StatBox title="MOST VOTED" players={stats.mostVoted} />}
+              {stats && <StatBox title="LEAST VOTED" players={stats.leastVoted} />}
+              {this.getVotesAgainst()}
             </View>
-          </LinearGradient>
-
-          <View>
-            { stats && <StatBox title="MOST VOTED" players={stats.mostVoted} />}
-            {stats && <StatBox title="LEAST VOTED" players={stats.leastVoted} />}
-            {this.getVotesAgainst()}
-          </View>
 
 
-        </ScrollView>
+          </ScrollView>
 
+          <FooterActionBar>
             <Button onPress={this.handleEndGame}>
               <Text>End Game</Text>
             </Button>
+          </FooterActionBar>
         </View>
       </MafiaBackground>
     );

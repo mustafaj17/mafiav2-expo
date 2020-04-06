@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Button = props => {
   return (
-    <TouchableHighlight underlayColor="transparent" onPress={props.onPress}>
+    <TouchableHighlight underlayColor="transparent" onPress={props.onPress} disabled={props.disabled}>
       <View
         style={{
           display: 'flex',
@@ -30,10 +30,12 @@ Button.propTypes = {
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   secondary: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   secondary: false,
+  disabled: false,
 };
 
 export default Button;
