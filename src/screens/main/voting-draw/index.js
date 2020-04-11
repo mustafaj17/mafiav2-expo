@@ -91,6 +91,17 @@ class VotingDraw extends React.Component {
       <View style={{ ...styles.page }}>
         <PageTitle title="DRAW" />
 
+        <Text size='small'
+              type='light'
+              letterSpacing={1}
+              style={{
+                textAlign: 'center',
+                margin: 20,
+                marginTop: 10
+              }}>
+          The players below received the same amount of votes.
+        </Text>
+
         <ScrollView style={{ width: '100%', flex: 1 }}>
           {this.getPlayersWhoDrew()}
         </ScrollView>

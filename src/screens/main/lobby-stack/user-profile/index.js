@@ -17,15 +17,19 @@ import Text from '../../../../components/text';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import ModalConfirm from '../../../../components/modalConfirm';
 import MafiaBackground from '../../../../components/mafiaBackground';
+import { YesNoModal } from '../../../../components/YesNoModal';
 
 class UserProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
         <TouchableOpacity
-          style={{ marginRight: 8 }}
+          style={{ marginRight: 10 }}
           onPress={navigation.getParam('openModal')}>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text size='small' style={{marginRight: 5}}>Sign out</Text>
           <MaterialIcons name="exit-to-app" color="white" size={28} />
+          </View>
         </TouchableOpacity>
       ),
     };
@@ -89,13 +93,13 @@ class UserProfile extends React.Component {
             display: 'flex',
             justifyContent: 'space-between',
             flex: 1,
-            opacity: signOutModal ? 0.3 : 1,
           }}>
 
-          <ModalConfirm
+          <YesNoModal
             visible={signOutModal}
+            closeModal={() => this.setState({ signOutModal: false })}
             onConfirm={() => firebase.auth().signOut()}
-            onCancel={() => this.setState({ signOutModal: false })}
+            question='Are you sure you want to sign out?'
           />
 
           <View
@@ -141,38 +145,46 @@ class UserProfile extends React.Component {
           </View>
 
           {user.stats && (
-            <View style={{ margin: 20 }}>
-              <View style={{ marginBottom: 10, minWidth: 20 }}>
+            <View style={{
+              margin: 20,
+              marginLeft: 30,
+              marginRight: 30,
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <View style={{ marginBottom: 20, minWidth: 20 }}>
                 <Text type="bold" color='#00EB0A'>Stats</Text>
               </View>
 
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesPlayed}
                 </Text>
                 <Text color="grey">Games Played</Text>
               </View>
 
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>{user.stats.gamesWon}</Text>
                 <Text color="grey">Games Won</Text>
               </View>
 
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesWonAsMafia}
                 </Text>
                 <Text color="grey">Games Won as Mafia</Text>
               </View>
 
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>
                   {user.stats.gamesWon - user.stats.gamesWonAsMafia}
                 </Text>
                 <Text color="grey">Games Won as Civilian</Text>
               </View>
 
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                 <Text style={{ marginRight: 10, minWidth: 20 }}>{user.stats.gamesLeft}</Text>
                 <Text color="grey">Games Quitted</Text>
               </View>

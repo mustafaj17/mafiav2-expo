@@ -26,13 +26,13 @@ import LoadingScreen from '../../../components/loadingScreen';
 class VotingResults extends React.Component {
 
 
-  shouldComponentUpdate = nextProps => {
+  shouldComponentUpdate = async nextProps => {
     const { gameData, navigation, gameDoc, inGamePlayers } = nextProps;
 
     const gameOver = isGameOver(inGamePlayers);
 
     if (gameData.votingComplete) {
-      gameDoc.ref.update('votingComplete', false);
+      await gameDoc.ref.update('votingComplete', false);
       if (gameOver) {
         navigation.navigate('GameOver');
       } else {
@@ -172,4 +172,4 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GameScreenHOC(VotingResults));
+)(GameScreenHOC(VotingResults, true));

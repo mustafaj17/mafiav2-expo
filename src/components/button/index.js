@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Button = props => {
   return (
-    <TouchableHighlight underlayColor="transparent" onPress={props.onPress}>
+    <TouchableHighlight underlayColor="transparent" onPress={props.onPress} disabled={props.disabled}>
       <View
         style={{
           display: 'flex',
@@ -15,6 +15,7 @@ const Button = props => {
           padding: props.padding || 15,
           width: props.width || 250,
           borderWidth: 1,
+          opacity: props.disabled ? 0.2 : 1,
           backgroundColor: props.secondary ? '#0f9600' : '#001302',
           // borderStyle : 'solid',
           borderColor: props.secondary ? '#001302' : '#0f9600',
@@ -30,10 +31,12 @@ Button.propTypes = {
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   secondary: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   secondary: false,
+  disabled: false,
 };
 
 export default Button;

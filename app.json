@@ -31,13 +31,13 @@
         "NSPhotoLibraryUsageDescription": "This app uses the photo library for profile display picture images."
       },
       "googleServicesFile": "./src/services/firebase.js",
-      "splash":  {
+      "splash": {
         "image": "./assets/splash.png"
       }
     },
     "android": {
       "package": "com.debugdigital.mafiav2",
-      "versionCode": 1,
+      "versionCode": 3,
       "icon": "./assets/icon.png",
       "permissions": [
         "CAMERA",
@@ -51,6 +51,9 @@
       "splash": {
         "mdpi": "./assets/splash.png"
       }
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Mafia v2",
+  "name": "com.debugdigital.mafiav2"
 }

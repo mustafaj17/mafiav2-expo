@@ -1,14 +1,11 @@
 import React from 'react';
-import { Modal, View } from 'react-native';
-import Text from '../text';
-import Button from '../button';
 import { firestore } from '../../services/firebase';
 import { getCurrentPlayer, getInGamePlayers } from '../../redux/selectors';
 import { endGame } from '../../redux/actions/gameActions';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { COLLECTIONS } from '../../constants';
-import MafiaBackground from '../mafiaBackground';
+import { YesNoModal } from '../YesNoModal';
 
 class LeaveGameModal extends React.Component {
   handlePlayerLeaving = async () => {
@@ -20,6 +17,8 @@ class LeaveGameModal extends React.Component {
       inGamePlayers,
       players,
       endGameAction,
+      visible,
+      hideModal
     } = this.props;
     const batch = firestore.batch();
 
@@ -75,63 +74,20 @@ class LeaveGameModal extends React.Component {
   };
 
   render() {
-    return (
-      <Modal
-        onRequestClose={this.hideModal}
-        animationType="slide"
-        transparent={true}>
-        <View
-          style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              width: '80%',
-              height: 200,
 
-              borderRadius: 4,
-              borderWidth: 1,
-              borderColor: 'black',
-            }}>
-            <MafiaBackground>
-              <View
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  padding: 20,
-                  alignItems: 'center',
-                }}>
-                <Text style={{ marginBottom: 10 }}>
-                  Are you sure you want to leave?
-                </Text>
+    const {
+      visible,
+      hideModal
+    } = this.props;
 
-                <View
-                  style={{
-                    display: 'flex',
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Button
-                    onPress={this.handlePlayerLeaving}
-                    style={{ width: 120 }}>
-                    <Text>Yes</Text>
-                  </Button>
-
-                  <Button onPress={this.props.hideModal} style={{ width: 120 }}>
-                    <Text>No</Text>
-                  </Button>
-                </View>
-              </View>
-            </MafiaBackground>
-          </View>
-        </View>
-      </Modal>
-    );
+    return(
+      <YesNoModal
+        visible={visible}
+        closeModal={hideModal}
+        onConfirm={this.handlePlayerLeaving}
+        question='Are you sure you want to leave?'
+      />
+    )
   }
 }
 

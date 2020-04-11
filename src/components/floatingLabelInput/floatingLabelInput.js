@@ -48,7 +48,7 @@ export class FloatingLabelInput extends React.Component {
       }),
     };
     return (
-      <View style={{ width: '100%', padding: 10 }}>
+      <View style={{ width: '100%', padding: 10, height: 80 }}>
         <TextInput
           {...props}
           value={value}

@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MafiaBackground from '../mafiaBackground';
 import PlayerInfoModal from '../playerInfoModal';
 import LeaveGameModal from '../leaveGameModal';
+import { YesNoModal } from '../YesNoModal';
 
 export default (WrappedComponent, hideCloseButton) => {
   class HOC extends React.Component {
@@ -28,7 +29,6 @@ export default (WrappedComponent, hideCloseButton) => {
     }
 
     handleBackButton = () => {
-      ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
       return true;
     };
 
@@ -38,7 +38,7 @@ export default (WrappedComponent, hideCloseButton) => {
       });
     };
 
-    hideModal = () => {
+    closeModal = () => {
       this.setState({
         showModal: false,
       });
@@ -55,9 +55,12 @@ export default (WrappedComponent, hideCloseButton) => {
             </TouchableOpacity>
           )}
 
-          {this.state.showModal && (
-            <LeaveGameModal hideModal={this.hideModal} />
-          )}
+
+
+          <LeaveGameModal
+            visible={this.state.showModal}
+            hideModal={this.closeModal}/>
+
 
           <MafiaBackground>
             <WrappedComponent {...this.props} />

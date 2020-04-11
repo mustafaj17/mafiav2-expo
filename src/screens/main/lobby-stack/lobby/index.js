@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import {
   View,
   BackHandler,
-  ToastAndroid,
   StyleSheet,
   TouchableOpacity,
-  Image, Modal, AsyncStorage,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -16,43 +14,32 @@ import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
 import MafiaBackground from '../../../../components/mafiaBackground';
-import logo from '../../../../../assets/mafia-lobby-logo2.png';
-import mafia from '../../../../../assets/mafia-icon.png';
-import civilian from '../../../../../assets/civilian-icon.png';
 import HowToPlayModal from "../../../../components/howToPlayModal";
 import MafiaTextLogo from '../../../../components/mafiaTextLogo';
+import { YesNoModal } from '../../../../components/YesNoModal';
 
 class Lobby extends Component {
   state={
-    showHowToPlay: false
+    showHowToPlay: false,
+    showCloseAppModal: false
   };
 
   screenWillFocus = async () => {
     const { user } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    const userStats = await firestore
-      .collection(COLLECTIONS.STATS)
-      .doc(user.email)
-      .get();
-    if (userStats.exists) {
-      this.props.setUserStats(userStats.data());
-    } else {
-      const newStats = {
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesWonAsMafia: 0,
-        gamesLeft: 0,
-      };
-      firestore
-        .collection(COLLECTIONS.STATS)
-        .doc(user.email)
-        .set(newStats);
-      this.props.setUserStats(newStats);
+    if (!user.stats) {
+      await this.getUserStats()
     }
   };
 
+  getUserStats = async () => {
+    const { email } = this.props.user;
+    const userStats = await firestore.collection(COLLECTIONS.STATS).doc(email).get();
+    this.props.setUserStats(userStats.data());
+  }
+
   handleBackButton = () => {
-    ToastAndroid.show('Back button is pressed', ToastAndroid.SHORT);
+    this.setState({showCloseAppModal: true} );
     return true;
   };
 
@@ -81,10 +68,18 @@ class Lobby extends Component {
   };
 
   render() {
-    const { showHowToPlay } = this.state;
+    const { showHowToPlay, showCloseAppModal } = this.state;
     return (
       <MafiaBackground>
         <HowToPlayModal visible={showHowToPlay} isHowToPlayAction closeModal={this.hideHowToPlay} />
+
+        <YesNoModal
+          visible={showCloseAppModal}
+          closeModal={() => this.setState({showCloseAppModal: false})}
+          onConfirm={()=> BackHandler.exitApp()}
+          question='Close Mafia?'
+        />
+
         <View style={styles.page}>
           <NavigationEvents
             onWillFocus={this.screenWillFocus}
@@ -160,7 +155,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
 });
 const mapDispatchToProps = dispatch => ({
   setUserStats: stats => dispatch(setUserStats(stats)),

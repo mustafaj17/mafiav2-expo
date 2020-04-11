@@ -43,7 +43,7 @@ class PlayerInfoModal extends React.Component {
                     right: 10,
                     zIndex: 2,
                   }}>
-                  <Ionicons name="md-close" size={32} color="black" />
+                  <Ionicons name="md-close" size={32} color="white" />
                 </TouchableOpacity>
 
                 <Text style={{ marginBottom: 10 }}>{player.displayName}</Text>

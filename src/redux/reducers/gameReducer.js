@@ -6,8 +6,9 @@ import {
   SET_PLAYERS_DISCONNECT,
   TOGGLE_DISPLAY_PLAYER_TYPES,
   END_GAME,
-  USER_HAS_SEEN_TYPE,
+  USER_HAS_SEEN_TYPE, USER_CLICKED_TOGGLE_BTN,
 } from './../actions/gameActions';
+import { SET_GAME_CONFIG } from '../actions/gameActions';
 
 const initialState = {
   gameDoc: null,
@@ -19,6 +20,11 @@ const initialState = {
   playersDisconnect: null,
   showPlayerTypes: false,
   userHasSeenType: false,
+  userClickedToggleBtn: false,
+  config: {
+    timer: 30,
+    mafiaCount: 0
+  }
 };
 
 export default (state = initialState, action) => {
@@ -61,6 +67,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userHasSeenType: true,
+      };
+    case USER_CLICKED_TOGGLE_BTN:
+      return {
+        ...state,
+        userClickedToggleBtn: true,
+      };
+    case SET_GAME_CONFIG:
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          ...action.payload
+        }
       };
     default:
       return state;
