@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import {
   didMafiasWin,
   getCurrentPlayer,
-  getInGamePlayers,
 } from '../../../redux/selectors';
 import GameScreenHOC from '../../../components/gameScreenHoc';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
 import { endGame } from '../../../redux/actions/gameActions';
+import { setUserStats } from '../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../constants';
 import { getAllPlayers } from '../../../redux/selectors';
 import {
@@ -54,25 +54,28 @@ class GameOver extends React.Component {
   }
 
   updateUserStats = async () => {
-    const { mafiasWon, currentPlayer, stats } = this.props;
+    const { mafiasWon, currentPlayer, stats, setUserStats } = this.props;
 
     const userWonAsMafia = mafiasWon && currentPlayer.type === TYPE.MAFIA;
     const userWonAsCivilian =
       !mafiasWon && currentPlayer.type === TYPE.CIVILIAN;
     const userWon = userWonAsMafia || userWonAsCivilian;
+    const newStats = {
+      ...stats,
+      gamesPlayed: stats.gamesPlayed + 1,
+      gamesWon: userWon ? stats.gamesWon + 1 : stats.gamesWon,
+      gamesWonAsMafia: userWonAsMafia
+        ? stats.gamesWonAsMafia + 1
+        : stats.gamesWonAsMafia,
+      lastPlayed: new Date(),
+    }
 
     await firestore
       .collection(COLLECTIONS.STATS)
       .doc(currentPlayer.email)
-      .update({
-        ...stats,
-        gamesPlayed: stats.gamesPlayed + 1,
-        gamesWon: userWon ? stats.gamesWon + 1 : stats.gamesWon,
-        gamesWonAsMafia: userWonAsMafia
-          ? stats.gamesWonAsMafia + 1
-          : stats.gamesWonAsMafia,
-        lastPlayed: new Date(),
-      });
+      .update(newStats);
+
+    setUserStats(stats);
   };
 
   handlePlayAgain = () => {};
@@ -241,7 +244,6 @@ const mapStateToProps = state => ({
   gameData: state.game.gameData,
   gameDoc: state.game.gameDoc,
   currentPlayer: getCurrentPlayer(state),
-  inGamePlayers: getInGamePlayers(state),
   allPlayers: getAllPlayers(state),
   mafiasWon: didMafiasWin(state),
   stats: state.user.stats,
@@ -249,6 +251,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   endGame: () => dispatch(endGame()),
+  setUserStats: stats => dispatch(setUserStats(stats)),
 });
 
 export default connect(

@@ -6,7 +6,6 @@ import { getCurrentPlayer } from '../../../redux/selectors';
 import GameScreenHOC from '../../../components/gameScreenHoc';
 import Text from '../../../components/text';
 import Button from '../../../components/button';
-import PageTitle from '../../../components/pageTitle';
 
 
 const hintText = [
@@ -19,16 +18,15 @@ const hintText = [
 ];
 
 class InRound extends React.Component {
-  state = {
-    timer: 59,
-    hintTextIndex: 0,
-    hintTextOpacity: 1,
-    hintText : hintText[0]
-  };
-
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.hintTextOpacity = new Animated.Value(1);
+    this.state = {
+        timer: props.gameData.roundTime,
+        hintTextIndex: 0,
+        hintTextOpacity: 1,
+        hintText : hintText[0]
+    };
   }
 
   componentDidMount() {
@@ -39,7 +37,7 @@ class InRound extends React.Component {
 
   setTimer = () => {
     this.timer = setInterval(() => {
-      const newTime = this.state.timer - 1;
+      const newTime = this.props.timer - 1;
       if (newTime === 0) {
         this.endRound();
       } else {

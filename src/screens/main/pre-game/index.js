@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity, Animated, Modal } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../../../styles/global';
 import { connect } from 'react-redux';
 import { firestore } from '../../../services/firebase';
 import {
-  areAllPlayersReady,
   getCurrentPlayer,
   getInGamePlayers,
 } from '../../../redux/selectors';
@@ -17,126 +16,111 @@ import PageTitle from '../../../components/pageTitle';
 import { Ionicons } from '@expo/vector-icons';
 import LoadingScreen from '../../../components/loadingScreen';
 import FooterActionBar from '../../../components/footerActionBar/footerActionBar';
-import MafiaBackground from '../../../components/mafiaBackground';
+import ConfigureGameModal from '../../../components/configureGameModal';
 
 class PreGame extends React.Component {
 
   state = {
-    showConfigureGameModal: false
+    showConfigureGameModal: false,
   }
 
+  // startTestGame = () => {
+  //   const { gameDoc, navigation, currentPlayer } = this.props;
+  //
+  //   const testPlayers = [
+  //     {
+  //       email: 'test1@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Amoori',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 1,
+  //     },
+  //     {
+  //       email: 'test2@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Ali',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 2,
+  //     },
+  //     {
+  //       email: 'test3@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Stunna Jay',
+  //       ready: false,
+  //       votedFor: [],
+  //       uid: 3,
+  //     },
+  //     {
+  //       email: 'test4@email.com',
+  //       type: TYPE.CIVILIAN,
+  //       displayName: 'Muk',
+  //       ready: true,
+  //       votedFor: [],
+  //       uid: 4,
+  //     },
+  //     // {
+  //     //     email: 'test5@email.com',
+  //     //     type: TYPE.MAFIA,
+  //     //     displayName: 'Big Jimmy Jones',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 5
+  //     // },
+  //     // {
+  //     //     email: 'test6@email.com',
+  //     //     type: TYPE.CIVILIAN,
+  //     //     displayName: 'big civilian man',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 6
+  //     // },
+  //     // {
+  //     //     email: 'test5@email.com',
+  //     //     type: TYPE.CIVILIAN,
+  //     //     displayName: 'civilian brudda',
+  //     //     ready: true,
+  //     //     votedFor: [],
+  //     //     uid: 7
+  //     // }
+  //   ];
+  //
+  //   const batch = firestore.batch();
+  //
+  //   batch.update(gameDoc.ref, { gameStarted: false });
+  //   testPlayers.forEach(player => {
+  //     batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {
+  //       ...player,
+  //     });
+  //   });
+  //
+  //   batch.update(
+  //     gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
+  //     { type: TYPE.MAFIA, votedFor: [] },
+  //   );
+  //
+  //   batch
+  //     .commit()
+  //     .then(() => {
+  //       console.log('game started and player types set');
+  //       navigation.navigate('PreRound');
+  //     })
+  //     .catch(e => {
+  //       console.log('error starting game and setting player types: ', e);
+  //     });
+  // };
 
-  startTestGame = () => {
-    const { gameDoc, navigation, currentPlayer } = this.props;
+  getDefaultMafiaCount = () => {
+    const { playerCount } = this.props
 
-    const testPlayers = [
-      {
-        email: 'test1@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Amoori',
-        ready: true,
-        votedFor: [],
-        uid: 1,
-      },
-      {
-        email: 'test2@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Ali',
-        ready: true,
-        votedFor: [],
-        uid: 2,
-      },
-      {
-        email: 'test3@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Stunna Jay',
-        ready: false,
-        votedFor: [],
-        uid: 3,
-      },
-      {
-        email: 'test4@email.com',
-        type: TYPE.CIVILIAN,
-        displayName: 'Muk',
-        ready: true,
-        votedFor: [],
-        uid: 4,
-      },
-      // {
-      //     email: 'test5@email.com',
-      //     type: TYPE.MAFIA,
-      //     displayName: 'Big Jimmy Jones',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 5
-      // },
-      // {
-      //     email: 'test6@email.com',
-      //     type: TYPE.CIVILIAN,
-      //     displayName: 'big civilian man',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 6
-      // },
-      // {
-      //     email: 'test5@email.com',
-      //     type: TYPE.CIVILIAN,
-      //     displayName: 'civilian brudda',
-      //     ready: true,
-      //     votedFor: [],
-      //     uid: 7
-      // }
-    ];
-
-    const batch = firestore.batch();
-
-    batch.update(gameDoc.ref, { gameStarted: false });
-    testPlayers.forEach(player => {
-      batch.set(gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email), {
-        ...player,
-      });
-    });
-
-    batch.update(
-      gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(currentPlayer.email),
-      { type: TYPE.MAFIA, votedFor: [] },
-    );
-
-    batch
-      .commit()
-      .then(() => {
-        console.log('game started and player types set');
-        // navigation.navigate('PreRound');
-      })
-      .catch(e => {
-        console.log('error starting game and setting player types: ', e);
-      });
-  };
+    //MAFIA algorithm
+    return (Math.ceil(playerCount  / 2 ) ) -1
+  }
 
   setPlayerTypes = () => {
+    let { mafiaCount } = this.props || this.getDefaultMafiaCount()
     const players = [...this.props.playersData];
-    let mafiaCount;
-
-    switch (true) {
-      case players.length < 5:
-        mafiaCount = 1;
-        break;
-      case players.length < 8:
-        mafiaCount = 2;
-        break;
-      case players.length < 11:
-        mafiaCount = 3;
-        break;
-      case players.length < 14:
-        mafiaCount = 4;
-        break;
-      case players.length < 16:
-        mafiaCount = 5;
-        break;
-      default:
-        mafiaCount = 6;
-        break;
-    }
 
     while (mafiaCount) {
       let rand = Math.floor(Math.random() * players.length);
@@ -150,7 +134,15 @@ class PreGame extends React.Component {
   };
 
   handleStartGame = () => {
-    const { gameDoc } = this.props;
+
+    const { gameDoc, inGamePlayers  } = this.props;
+
+    //they need 3 players to start a game
+    if(inGamePlayers.length < 3) {
+      return;
+    }
+
+    const { customRoundTime } = this.state;
 
     const players = this.setPlayerTypes();
 
@@ -161,7 +153,7 @@ class PreGame extends React.Component {
     });
 
     const batch = firestore.batch();
-    batch.update(gameDoc.ref, { gameStarted: true });
+    batch.update(gameDoc.ref, { gameStarted: true, roundTime: customRoundTime || 60 });
     players.forEach(player => {
       batch.update(
         gameDoc.ref.collection(COLLECTIONS.PLAYERS).doc(player.email),
@@ -192,7 +184,6 @@ class PreGame extends React.Component {
 
   showConfigureGameModal = () => {
     this.setState({showConfigureGameModal: true})
-
   }
 
   render() {
@@ -213,33 +204,14 @@ class PreGame extends React.Component {
           <View style={{ height: 100 }}/>
         </ScrollView>
 
-          <Modal
-            visible={this.state.showConfigureGameModal}
-            animationType="slide"
-          >
-            <View style={{
-              padding: 40,
-              height: 250,
-              backgroundColor: 'none',
-              flex: 1,
-              width: '100%',
-            }}>
-              <MafiaBackground>
-                <Text>Configure</Text>
-                <Button onPress={() => this.setState({showConfigureGameModal: false})}>
-                  <Text>Hide</Text>
-                </Button>
-              </MafiaBackground>
-            </View>
-
-          </Modal>
-
-
+        <ConfigureGameModal
+          visible={this.state.showConfigureGameModal}
+          closeModal={() => this.setState({showConfigureGameModal: false})}
+        />
 
         {currentPlayer.isAdmin &&
         <FooterActionBar>
           <Button onPress={this.handleStartGame}
-                  disabled={inGamePlayers.length < 3}
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -253,6 +225,7 @@ class PreGame extends React.Component {
           </Button>
 
           <Button onPress={this.showConfigureGameModal}
+                  disabled={inGamePlayers.length < 3}
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
@@ -276,22 +249,22 @@ class PreGame extends React.Component {
 
 
 
-        <TouchableOpacity
-          onPress={this.startTestGame}
-          style={{
-            position: 'absolute',
-            bottom: 100,
-            left: 10,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            backgroundColor: 'pink',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text size="xxsmall">Test</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+        {/*  onPress={this.startTestGame}*/}
+        {/*  style={{*/}
+        {/*    position: 'absolute',*/}
+        {/*    bottom: 100,*/}
+        {/*    left: 10,*/}
+        {/*    width: 50,*/}
+        {/*    height: 50,*/}
+        {/*    borderRadius: 25,*/}
+        {/*    backgroundColor: 'pink',*/}
+        {/*    display: 'flex',*/}
+        {/*    justifyContent: 'center',*/}
+        {/*    alignItems: 'center',*/}
+        {/*  }}>*/}
+        {/*  <Text size="xxsmall">Test</Text>*/}
+        {/*</TouchableOpacity>*/}
 
       </View>
     );
@@ -302,10 +275,11 @@ const mapStateToProps = state => ({
   gameDoc: state.game.gameDoc,
   gameData: state.game.gameData,
   playersData: state.game.playersData,
+  mafiaCount: state.game.config.mafiaCount,
   inGamePlayers: getInGamePlayers(state),
   currentPlayer: getCurrentPlayer(state),
+  playerCount: state.game.playersData.length,
   playerRequirementMet: state.game.playersData.length > 0,
-  allPlayersAreReady: areAllPlayersReady(state),
 });
 
 const mapDispatchToProps = dispatch => ({});

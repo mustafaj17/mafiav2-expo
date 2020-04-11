@@ -84,7 +84,7 @@ class StartOrJoinGame extends Component {
       }
 
       if (isUserStartingGame) {
-        gameDoc.ref.set({
+        await gameDoc.ref.set({
           gameName: gameName,
           timestamp: new Date(),
         });
@@ -93,7 +93,7 @@ class StartOrJoinGame extends Component {
 
       const playersColRef = gameDoc.ref.collection(COLLECTIONS.PLAYERS);
 
-      playersColRef.doc(user.email).set({
+      await playersColRef.doc(user.email).set({
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,
