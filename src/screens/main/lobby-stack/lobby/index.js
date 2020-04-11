@@ -27,29 +27,19 @@ class Lobby extends Component {
   screenWillFocus = async () => {
     const { user } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    const userStats = await firestore
-      .collection(COLLECTIONS.STATS)
-      .doc(user.email)
-      .get();
-    if (userStats.exists) {
-      this.props.setUserStats(userStats.data());
-    } else {
-      const newStats = {
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesWonAsMafia: 0,
-        gamesLeft: 0,
-      };
-      firestore
-        .collection(COLLECTIONS.STATS)
-        .doc(user.email)
-        .set(newStats);
-      this.props.setUserStats(newStats);
+    if (!user.stats) {
+      await this.getUserStats()
     }
   };
 
+  getUserStats = async () => {
+    const { email } = this.props.user;
+    const userStats = await firestore.collection(COLLECTIONS.STATS).doc(email).get();
+    this.props.setUserStats(userStats.data());
+  }
+
   handleBackButton = () => {
-    this.setState({showCloseAppModal: true});
+    this.setState({showCloseAppModal: true} );
     return true;
   };
 
@@ -165,7 +155,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
 });
 const mapDispatchToProps = dispatch => ({
   setUserStats: stats => dispatch(setUserStats(stats)),

@@ -28,16 +28,30 @@ import FooterActionBar from '../../../components/footerActionBar/footerActionBar
 
 class GameOver extends React.Component {
   handleEndGame = () => {
-    const { navigation, game } = this.props;
-    game.playersDisconnect();
-    game.gameDisconnect();
-    this.props.endGame();
+    const { navigation, endGame } = this.props;
+    endGame();
     navigation.navigate('Lobby');
   };
 
   componentWillMount = () => {
+    const { game } = this.props;
+    game.playersDisconnect();
+    game.gameDisconnect();
     this.updateUserStats();
+    this.updateGameDoc();
   };
+
+  updateGameDoc = async () => {
+
+    const { gameDoc, allPlayers, currentPlayer } = this.props;
+
+    if(currentPlayer.isAdmin) {
+      await gameDoc.ref.update({
+        gameComplete: new Date(),
+        playerCount: allPlayers.length
+      })
+    }
+  }
 
   updateUserStats = async () => {
     const { mafiasWon, currentPlayer, stats } = this.props;
@@ -57,6 +71,7 @@ class GameOver extends React.Component {
         gamesWonAsMafia: userWonAsMafia
           ? stats.gamesWonAsMafia + 1
           : stats.gamesWonAsMafia,
+        lastPlayed: new Date(),
       });
   };
 

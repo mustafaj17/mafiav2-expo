@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  Platform
 } from 'react-native';
-import firebase from '../../services/firebase';
+import firebase, { firestore } from '../../services/firebase';
 import ProfileImagePicker from '../../components/profileImagePicker/profileImagePicker';
 import { uploadProfilePictureToFirebase, uriToBlob } from './utils';
 import ProfilePicture from '../../components/profilePicture';
@@ -18,11 +19,12 @@ import MafiaBackground from '../../components/mafiaBackground';
 import Text from '../../components/text';
 import Button from '../../components/button';
 import ErrorMessage from '../../components/errorMessage';
-import { setUser } from '../../redux/actions/userActions';
+import { setUser, setUserStats } from '../../redux/actions/userActions';
 import PageTitle from '../../components/pageTitle';
 import TermsModal from '../../components/termsModal';
 import PrivacyModal from '../../components/privacyModal';
 import { Feather } from '@expo/vector-icons';
+import { COLLECTIONS } from '../../constants';
 
 
 const DISPLAY_NAME_LIMIT = 15;
@@ -55,20 +57,44 @@ class SignUp extends React.Component {
           blob,
           userCredentials.user.email,
         );
-        userCredentials.user.updateProfile({
+        await userCredentials.user.updateProfile({
           displayName: displayName,
           photoURL,
         });
         this.props.setUser({ photoURL, displayName });
       } else {
-        userCredentials.user.updateProfile({ displayName: displayName });
+        await userCredentials.user.updateProfile({ displayName: displayName });
         this.props.setUser({ displayName });
       }
+      await this.initFirebaseUserProfile()
       this.props.navigation.navigate('Main');
     } catch (error) {
       this.setState({ loading: false, errorMessage: error.message });
     }
   };
+
+  initFirebaseUserProfile = async () => {
+    const { email } = this.state;
+    const newUserProfile = {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      gamesWonAsMafia: 0,
+      gamesLeft: 0,
+      joinDate: new Date(),
+      device: Platform.OS
+      //TODO: add more data about user
+
+    };
+
+    try {
+      await firestore.collection(COLLECTIONS.STATS).doc(email).set({
+        ...newUserProfile
+      })
+    } catch (error) {
+      this.setState({ loading: false, errorMessage: error.message });
+    }
+    this.props.setUserStats(newUserProfile);
+  }
 
   takeProfilePic = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -243,15 +269,15 @@ class SignUp extends React.Component {
 
             <View style={{ display: 'flex', flex: 1, alignItems: 'center',
               justifyContent: 'flex-end'}}>
-            {errorMessage && (
-              <View style={{ paddingLeft: 10, paddingRight: 10 }}>
-                <ErrorMessage errorMessage={errorMessage} />
-              </View>
-            )}
+              {errorMessage && (
+                <View style={{ paddingLeft: 10, paddingRight: 10 }}>
+                  <ErrorMessage errorMessage={errorMessage} />
+                </View>
+              )}
 
-            <Button onPress={this.handleSignUp}>
-              <Text>Create account</Text>
-            </Button>
+              <Button onPress={this.handleSignUp}>
+                <Text>Create account</Text>
+              </Button>
 
             </View>
           </KeyboardAvoidingView>
@@ -263,6 +289,7 @@ class SignUp extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   setUser: user => dispatch(setUser(user)),
+  setUserStats: stats => dispatch(setUserStats(stats))
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);
