@@ -210,27 +210,40 @@ class PreGame extends React.Component {
 
         {currentPlayer.isAdmin &&
         <FooterActionBar>
+          <View style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            width: '100%',
+            flex: 1
+          }}>
           <Button onPress={this.handleStartGame}
+                  width='auto'
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    flexDirection: 'row',
                     backgroundColor: '#00EB0A',
                     padding: 10,
                     margin: 5,
+                    flexGrow: 2,
                     flex: 1
                   }}>
             <Text size='small' color='black'>{ inGamePlayers.length > 2 ? 'Start Game' : '3 players needed...'}</Text>
           </Button>
 
           <Button onPress={this.showConfigureGameModal}
-                  disabled={inGamePlayers.length < 3}
+                  // TODO: uncomment below
+                  // disabled={inGamePlayers.length < 3}
+                  width='auto'
                   style={{
                     display: 'flex',
                     justifyContent: 'center',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    width: 140,
+                    flexGrow: 1,
                     borderColor: '#31d08a',
                     padding: 10,
                     margin: 5,
@@ -239,6 +252,7 @@ class PreGame extends React.Component {
             <Ionicons name="md-settings" size={22} color="#00EB0A" />
             <Text size='small' style={{paddingLeft: 5}}>Custom</Text>
           </Button>
+          </View>
         </FooterActionBar>
         }
 
