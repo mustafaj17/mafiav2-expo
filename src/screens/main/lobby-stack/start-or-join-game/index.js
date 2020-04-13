@@ -74,7 +74,7 @@ class StartOrJoinGame extends Component {
           return;
         }
         //game has started
-        if (gameDoc.exists && gameDoc.data().gameInProgress) {
+        if (gameDoc.exists && gameDoc.data().gameStarted) {
           this.setState({
             loading: false,
             errorMessage: 'This game has started',

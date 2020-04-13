@@ -15,7 +15,7 @@ const Button = props => {
           padding: props.padding || 15,
           width: props.width || 250,
           borderWidth: 1,
-          opacity: props.disabled ? 0.2 : 1,
+          opacity: props.disabled ? 0.6 : 1,
           backgroundColor: props.secondary ? '#0f9600' : '#001302',
           // borderStyle : 'solid',
           borderColor: props.secondary ? '#001302' : '#0f9600',

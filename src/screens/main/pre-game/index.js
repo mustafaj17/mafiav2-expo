@@ -119,8 +119,8 @@ class PreGame extends React.Component {
   }
 
   setPlayerTypes = () => {
-    let { mafiaCount } = this.props || this.getDefaultMafiaCount()
-    const players = [...this.props.playersData];
+    let mafiaCount = this.props.mafiaCount || this.getDefaultMafiaCount()
+    const players = [...this.props.inGamePlayers];
 
     while (mafiaCount) {
       let rand = Math.floor(Math.random() * players.length);
@@ -129,7 +129,6 @@ class PreGame extends React.Component {
         mafiaCount--;
       }
     }
-
     return players;
   };
 
@@ -278,7 +277,7 @@ const mapStateToProps = state => ({
   mafiaCount: state.game.config.mafiaCount,
   inGamePlayers: getInGamePlayers(state),
   currentPlayer: getCurrentPlayer(state),
-  playerCount: state.game.playersData.length,
+  playerCount: getInGamePlayers(state).length,
   playerRequirementMet: state.game.playersData.length > 0,
 });
 

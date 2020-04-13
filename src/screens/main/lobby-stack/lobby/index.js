@@ -9,7 +9,7 @@ import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import Text from '../../../../components/text';
 import Button from '../../../../components/button';
-import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { firestore } from '../../../../services/firebase';
 import { setUserStats } from '../../../../redux/actions/userActions';
 import { COLLECTIONS, TYPE } from '../../../../constants';
@@ -17,11 +17,13 @@ import MafiaBackground from '../../../../components/mafiaBackground';
 import HowToPlayModal from "../../../../components/howToPlayModal";
 import MafiaTextLogo from '../../../../components/mafiaTextLogo';
 import { YesNoModal } from '../../../../components/YesNoModal';
+import FeedbackModal from '../../../../components/feedbackModal';
 
 class Lobby extends Component {
   state={
     showHowToPlay: false,
-    showCloseAppModal: false
+    showCloseAppModal: false,
+    showFeedbackModal: false
   };
 
   screenWillFocus = async () => {
@@ -68,10 +70,12 @@ class Lobby extends Component {
   };
 
   render() {
-    const { showHowToPlay, showCloseAppModal } = this.state;
+    const { showHowToPlay, showCloseAppModal, showFeedbackModal } = this.state;
     return (
       <MafiaBackground>
         <HowToPlayModal visible={showHowToPlay} isHowToPlayAction closeModal={this.hideHowToPlay} />
+
+        <FeedbackModal visible={showFeedbackModal} closeModal={() => this.setState({showFeedbackModal: false})}/>
 
         <YesNoModal
           visible={showCloseAppModal}
@@ -119,8 +123,7 @@ class Lobby extends Component {
             </Button>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={() => this.setState({showHowToPlay: true})}
+        <View
           style={{
             position: 'absolute',
             bottom: 0,
@@ -132,14 +135,25 @@ class Lobby extends Component {
           }}>
           <View
             style={{
-              paddingBottom: 50,
+              paddingBottom: 20,
               display: 'flex',
-              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-            <Ionicons name="md-book" size={32} color="#15D600" />
-            <Text style={{ marginLeft: 10 }}>How To Play</Text>
+            <TouchableOpacity onPress={() => this.setState({showHowToPlay: true})}>
+              <View style={{display: 'flex',flexDirection: 'row', marginBottom: 20}}>
+                <Ionicons name="md-book" size={32} color="#15D600" />
+                <Text style={{ marginLeft: 10 }}>How To Play</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({showFeedbackModal: true})}>
+              <View style={{display: 'flex',flexDirection: 'row'}}>
+                <MaterialIcons name="feedback" size={32} color="#15D600" />
+                <Text style={{ marginLeft: 10 }}>Give Feedback</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
       </MafiaBackground>
     );
   }

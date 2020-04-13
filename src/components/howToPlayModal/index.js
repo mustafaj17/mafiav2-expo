@@ -4,7 +4,8 @@ import React from "react";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const HowToPlayModal = ({visible, isHowToPlayAction, closeModal}) => (
-  <Modal visible={visible} transparent animationType="fade">
+  <Modal visible={visible} transparent animationType="fade"
+         onRequestClose={closeModal}>
     <View
       style={{
         flex: 1,
