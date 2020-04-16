@@ -9,6 +9,13 @@ import { firestore } from '../../services/firebase';
 import { COLLECTIONS } from '../../constants';
 import { Ionicons } from '@expo/vector-icons';
 import ErrorMessage from '../errorMessage';
+import { getStatusBarHeight } from "react-native-status-bar-height";
+
+
+const generateDateString = () => {
+  const today = new Date();
+  return `${today.getDate()}-${today.getMonth()}-${today.getFullYear()}--${today.getHours()}:${today.getMinutes()}`
+}
 
 class FeedbackModal extends React.Component{
 
@@ -23,8 +30,10 @@ class FeedbackModal extends React.Component{
     Keyboard.dismiss()
     this.setState({loading: true})
 
+    const docId = `${user.email}-${generateDateString()}`
+
     try {
-      await firestore.collection(COLLECTIONS.FEEDBACK).doc(user.email).set({
+      await firestore.collection(COLLECTIONS.FEEDBACK).doc(docId).set({
         feedback
       })
     } catch (e) {
@@ -38,6 +47,10 @@ class FeedbackModal extends React.Component{
 
     setTimeout( () => {
       closeModal();
+      this.setState({
+        feedBackSubmitted: false,
+        feedback: ''
+      })
     } , 1500)
 
   }
@@ -60,11 +73,11 @@ class FeedbackModal extends React.Component{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            position: 'relative'
           }}>
 
           <View style={{
             flex: 1,
-
             width: '100%',
           }}>
 
@@ -82,25 +95,15 @@ class FeedbackModal extends React.Component{
                 paddingTop: 40
               }}>
 
-                <TouchableOpacity
+                { !feedBackSubmitted && <TouchableOpacity
                   style={{
                     position: 'absolute',
                     right: 10,
-                    top: 10
+                    top: 10 + getStatusBarHeight()
                   }}
                   onPress={closeModal}>
                   <Ionicons name="md-close" size={32} color="white" />
-                </TouchableOpacity>
-
-                { !feedBackSubmitted &&
-                <Text size='small' style={{textAlign: 'center'}}>
-                  We would love to hear your feedback - write anything you would like us to know.
-                </Text>}
-                { !feedBackSubmitted && <Text size='xxsmall'
-                      color='#15D600'
-                      style={{marginTop: 5, textAlign: 'center'}}>
-                  Max 300 character
-                </Text>}
+                </TouchableOpacity>}
 
 
                 <View style={{
@@ -109,7 +112,20 @@ class FeedbackModal extends React.Component{
                   flex: 1,
                   paddingTop: 10
                 }}>
-                  {loading && <ActivityIndicator size={32} color='#15D600'/>}
+
+                  { !(feedBackSubmitted || loading) &&
+                  <Text size='small' style={{textAlign: 'center'}}>
+                    We would love to hear your feedback - write anything you would like us to know.
+                  </Text>}
+                  { !(feedBackSubmitted || loading) && <Text size='xxsmall'
+                                                color='#15D600'
+                                                style={{marginTop: 5,marginBottom: 20, textAlign: 'center'}}>
+                    Max 300 character
+                  </Text>}
+
+
+
+                  {loading && <ActivityIndicator color='#15D600'/>}
                   {feedBackSubmitted && <Text color='#15D600'>Feedback Submitted</Text>}
                   {!loading && !feedBackSubmitted && <TextInput
                     value={feedback}
@@ -137,8 +153,8 @@ class FeedbackModal extends React.Component{
                 </View>
 
                 {!feedBackSubmitted && <Button onPress={this.submitInput} disabled={(feedback.trim().length < 5) || loading}>
-                    <Text>Submit Feedback</Text>
-                  </Button>
+                  <Text>Submit Feedback</Text>
+                </Button>
                 }
 
 

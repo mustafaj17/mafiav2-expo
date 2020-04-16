@@ -9,8 +9,8 @@ import {
   Modal,
 } from 'react-native';
 import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
+import Permissions from 'expo-permissions';
+import ImagePicker from 'expo-image-picker';
 import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
@@ -224,7 +224,7 @@ export default class ProfileImagePicker extends React.Component {
                 }}>
                 <Button
                   onPress={this.pickImageFromLibrary}
-                  disabled={hasCameraLibraryPermission === false}
+                  disabled={!hasCameraLibraryPermission}
                   style={{ width: '100%', margin: 0, marginBottom: 20 }}>
                   <Text size="small">{
                     hasCameraLibraryPermission === false

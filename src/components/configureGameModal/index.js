@@ -110,7 +110,6 @@ class ConfigureGameModal extends React.Component{
           }}>
           <View style={{
             paddingTop: 40,
-            padding: 20,
             height: 450,
             width: '100%',
           }}>
@@ -124,7 +123,8 @@ class ConfigureGameModal extends React.Component{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flex: 1
+                flex: 1,
+                padding: 20,
               }}>
                 <TouchableOpacity
                   style={{
@@ -198,11 +198,14 @@ class ConfigureGameModal extends React.Component{
                     </TouchableOpacity>
                   </View>
                 </View>
+
+                <Button onPress={this.setGameConfig}>
+                  <Text>Set</Text>
+                </Button>
+
               </View>
 
-              <Button onPress={this.setGameConfig}>
-                <Text>Set</Text>
-              </Button>
+
             </MafiaBackground>
           </View>
         </View>
