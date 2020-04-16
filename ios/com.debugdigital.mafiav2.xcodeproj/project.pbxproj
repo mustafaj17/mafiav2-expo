@@ -12,6 +12,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		176EF27BC4CC60F2CA0D8216 /* libPods-com.debugdigital.mafiav2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A53BBD0B6AE1EE6C438E10AC /* libPods-com.debugdigital.mafiav2.a */; };
+		5F7A88B32444D083003724C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F7A88B22444D083003724C0 /* GoogleService-Info.plist */; };
+		5F7A88B924462F40003724C0 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7A88B824462F40003724C0 /* libRNGoogleSignin.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,12 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = com.debugdigital.mafiav2/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E161EC63116424905F0F25F /* Pods-com.debugdigital.mafiav2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.debugdigital.mafiav2.release.xcconfig"; path = "Target Support Files/Pods-com.debugdigital.mafiav2/Pods-com.debugdigital.mafiav2.release.xcconfig"; sourceTree = "<group>"; };
+		5F7A88AA2441FCFD003724C0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../Downloads/FacebookSDKs-iOS-4.40.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		5F7A88AB2441FCFD003724C0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Downloads/FacebookSDKs-iOS-4.40.0/Bolts.framework"; sourceTree = "<group>"; };
+		5F7A88AC2441FCFD003724C0 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../Downloads/FacebookSDKs-iOS-4.40.0/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		5F7A88AD2441FCFD003724C0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../Downloads/FacebookSDKs-iOS-4.40.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		5F7A88B22444D083003724C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F7A88B824462F40003724C0 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRNGoogleSignin.a; path = "../../Library/Developer/Xcode/DerivedData/RNGoogleSignin-dduluwrpgdzfodftpecsuonqebqt/Build/Products/Debug-iphonesimulator/libRNGoogleSignin.a"; sourceTree = "<group>"; };
 		A53BBD0B6AE1EE6C438E10AC /* libPods-com.debugdigital.mafiav2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.debugdigital.mafiav2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE5414DF459C0311B48147E /* Pods-com.debugdigital.mafiav2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.debugdigital.mafiav2.debug.xcconfig"; path = "Target Support Files/Pods-com.debugdigital.mafiav2/Pods-com.debugdigital.mafiav2.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -37,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				176EF27BC4CC60F2CA0D8216 /* libPods-com.debugdigital.mafiav2.a in Frameworks */,
+				5F7A88B924462F40003724C0 /* libRNGoogleSignin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +55,7 @@
 		13B07FAE1A68108700A75B9A /* com.debugdigital.mafiav2 */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A88B22444D083003724C0 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -60,6 +70,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F7A88B824462F40003724C0 /* libRNGoogleSignin.a */,
+				5F7A88AB2441FCFD003724C0 /* Bolts.framework */,
+				5F7A88AA2441FCFD003724C0 /* FBSDKCoreKit.framework */,
+				5F7A88AD2441FCFD003724C0 /* FBSDKLoginKit.framework */,
+				5F7A88AC2441FCFD003724C0 /* FBSDKShareKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -119,6 +134,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				E2A9ED272C6E9F10C62D55B4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,6 +186,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5F7A88B32444D083003724C0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +205,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		C2B45D7CF3AB52481C829399 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -210,6 +227,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2A9ED272C6E9F10C62D55B4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-com.debugdigital.mafiav2/Pods-com.debugdigital.mafiav2-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-com.debugdigital.mafiav2/Pods-com.debugdigital.mafiav2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD4C38642228810C00325AF5 /* Start Packager */ = {
@@ -268,11 +305,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = TR69DD6BBB;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../Downloads/FacebookSDKs-iOS-4.40.0\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = com.debugdigital.mafiav2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.debugdigital.mafiav2;
@@ -291,12 +331,16 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TR69DD6BBB;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../Downloads/FacebookSDKs-iOS-4.40.0\"",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = com.debugdigital.mafiav2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.debugdigital.mafiav2;
 				PRODUCT_NAME = com.debugdigital.mafiav2;

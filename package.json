@@ -7,6 +7,7 @@
     "postinstall": "jetify"
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^4.0.0",
     "expo": "^34.0.1",
     "expo-camera": "~6.0.0",
     "expo-constants": "~6.0.0",
@@ -23,7 +24,9 @@
     "react-dom": "16.8.3",
     "react-native": "0.59.10",
     "react-native-exit-app": "^1.1.0",
+    "react-native-fbsdk": "^1.1.2",
     "react-native-gesture-handler": "~1.3.0",
+    "react-native-google-signin": "^2.1.1",
     "react-native-reanimated": "^1.1.0",
     "react-native-screens": "1.0.0-alpha.22",
     "react-native-snap-carousel": "^3.8.4",

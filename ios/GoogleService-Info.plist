@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>328931836560-5pom41i5oov27df0kgi0vip808voao8k.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.328931836560-5pom41i5oov27df0kgi0vip808voao8k</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>328931836560-u48tf8r3v3lgp2h4qf2kgf97ot7thkbu.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAzjcfprkS9rzskcXcuJrr86jTb1kXuG_U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>328931836560</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.debugdigital.mafiav2</string>
+	<key>PROJECT_ID</key>
+	<string>mafia-7c60c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mafia-7c60c.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:328931836560:ios:4a28c5f8dfc20b756c0e15</string>
+	<key>DATABASE_URL</key>
+	<string>https://mafia-7c60c.firebaseio.com</string>
+</dict>
+</plist>

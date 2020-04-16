@@ -11,8 +11,12 @@ import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import HowToPlayModal from "../../components/howToPlayModal";
 import MafiaTextLogo from '../../components/mafiaTextLogo';
+import FBLoginButton from '../../components/facebookLogin';
+import GoogleLogin from '../../components/googleLogin';
+import {setUser, setUserStats} from '../../redux/actions/userActions';
+import {connect} from 'react-redux';
 
-export default class Landing extends React.Component {
+class Landing extends React.Component {
   state = {
     showWelcomeMessage: false,
     isHowToPlayAction: false
@@ -52,15 +56,16 @@ export default class Landing extends React.Component {
           isHowToPlayAction={isHowToPlayAction}
         />
         <View style={globalStyles.page}>
+          <MafiaTextLogo/>
+          <FBLoginButton navigation={navigation} readPermissions={["public_profile email"]} />
+          <GoogleLogin />
+          <Button onPress={() => navigation.navigate('SignUp')}>
+            <Text size="small">Continue with Email</Text>
+          </Button>
+
 
           <Button onPress={() => navigation.navigate('Login')}>
             <Text>Login</Text>
-          </Button>
-
-          <MafiaTextLogo/>
-
-          <Button onPress={() => navigation.navigate('SignUp')}>
-            <Text>Sign Up</Text>
           </Button>
         </View>
 
@@ -89,3 +94,10 @@ export default class Landing extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user)),
+  setUserStats: stats => dispatch(setUserStats(stats))
+});
+
+export default connect(null, mapDispatchToProps)(Landing);
