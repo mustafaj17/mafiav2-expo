@@ -81,9 +81,7 @@ class SignUp extends React.Component {
       gamesWonAsMafia: 0,
       gamesLeft: 0,
       joinDate: new Date(),
-      device: Platform.OS
-      //TODO: add more data about user
-
+      device: Platform.OS,
     };
 
     try {

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { ActivityIndicator, Image, View } from 'react-native';
 import noProfilePic from '../../../assets/noProfilePic.png';
 import * as PropTypes from 'prop-types';
-import Text from '../text';
 
 const ProfilePicture = ({ imageUri, size, loadingPhoto }) => {
   const borderRadius = Math.floor(size / 2);

@@ -18,6 +18,7 @@ import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import ModalConfirm from '../../../../components/modalConfirm';
 import MafiaBackground from '../../../../components/mafiaBackground';
 import { YesNoModal } from '../../../../components/YesNoModal';
+import LoadingScreen from '../../../../components/loadingScreen';
 
 class UserProfile extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -37,6 +38,7 @@ class UserProfile extends React.Component {
 
   state = {
     signOutModal: false,
+    uploadingImage: false
   };
 
   componentDidMount() {
@@ -60,13 +62,14 @@ class UserProfile extends React.Component {
     this.setState({ profilePicMode: false });
 
     try {
-      loadUserPhotoToggle();
+      this.setState({uploadingImage: true});
       const blob = await uriToBlob(imageUri);
       const photoURL = await uploadProfilePictureToFirebase(blob, user.email);
-      await firebase.auth().currentUser.updateProfile({ photoURL });
       updateProfilePic(photoURL);
-      loadUserPhotoToggle();
+      await firebase.auth().currentUser.updateProfile({ photoURL });
+      this.setState({uploadingImage: false});
     } catch (e) {
+      this.setState({uploadingImage: false});
       console.log(e);
     }
   };
@@ -74,6 +77,7 @@ class UserProfile extends React.Component {
   render() {
     const { hasCameraPermission, profilePicMode, signOutModal } = this.state;
     const { user } = this.props;
+    const { uploadingImage } = this.state;
 
     if (profilePicMode) {
       return (
@@ -86,6 +90,9 @@ class UserProfile extends React.Component {
       );
     }
 
+    if(uploadingImage){
+      return <LoadingScreen text='Uploading Image...'/>
+    }
     return (
       <MafiaBackground>
         <View

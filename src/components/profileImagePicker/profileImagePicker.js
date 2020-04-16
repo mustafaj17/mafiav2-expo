@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   View,
   YellowBox,
@@ -9,8 +9,9 @@ import {
   Modal,
 } from 'react-native';
 import Constants from 'expo-constants';
-import Permissions from 'expo-permissions';
-import ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import * as ImageManipulator from 'expo-image-manipulator';
 import { Camera } from 'expo-camera';
 import LoadingScreen from '../loadingScreen';
 import globalStyles from '../../styles/global';
@@ -22,7 +23,7 @@ import ProfilePicture from '../profilePicture';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const DESIRED_RATIO = '16:9';
-const IMAGE_QUALITY = 0.1;
+const IMAGE_QUALITY = 0.2;
 
 //todo:remove this
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -62,24 +63,33 @@ export default class ProfileImagePicker extends React.Component {
   pickImageFromLibrary = async () => {
     this.setState({ loading: true });
 
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    console.log(status);
-    if (status === 'granted') {
-      this.setState({ hasCameraLibraryPermission: true });
-    } else {
-      this.setState({ hasCameraLibraryPermission: false, loading: false });
-      return;
+    try {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      console.log(status);
+      if (status === 'granted') {
+        this.setState({ hasCameraLibraryPermission: true });
+      } else {
+        this.setState({ hasCameraLibraryPermission: false, loading: false });
+        return;
+      }
+    }
+    catch(e){
+      console.log(e.message)
     }
 
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: IMAGE_QUALITY,
-    });
 
-    if (result.cancelled) {
-      this.setState({ loading: false });
-    } else if (!result.cancelled) {
-      this.setState({ image: result.uri, showPic: true, loading: false });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All
+      });
+      if (result.cancelled) {
+        this.setState({ loading: false });
+      } else if (!result.cancelled) {
+        const compressedImage = await ImageManipulator.manipulateAsync(result.uri, [{resize: {width: 400, height: 400}}], {compress: IMAGE_QUALITY})
+        this.setState({ image: compressedImage.uri, showPic: true, loading: false });
+      }
+    }catch(e){
+      console.log(e.message)
     }
   };
 
@@ -211,7 +221,7 @@ export default class ProfileImagePicker extends React.Component {
                     alignItems: 'center',
                     marginTop: 20,
                   }}>
-                  <SimpleLineIcons name="camera" size={32} color="white" />
+                  <SimpleLineIcons name="camera" size={32} color="#15D600" />
                 </View>
               </TouchableOpacity>
 
@@ -224,8 +234,8 @@ export default class ProfileImagePicker extends React.Component {
                 }}>
                 <Button
                   onPress={this.pickImageFromLibrary}
-                  disabled={!hasCameraLibraryPermission}
-                  style={{ width: '100%', margin: 0, marginBottom: 20 }}>
+                  disabled={hasCameraLibraryPermission === false}
+                  style={{ width: '100%', margin: 0, marginBottom: 10, borderWidth: 0, borderRadius: 0 }}>
                   <Text size="small">{
                     hasCameraLibraryPermission === false
                       ? 'Permission needed to use image from Gallery'
