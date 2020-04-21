@@ -63,6 +63,9 @@ const  GoogleLogin = ({ setUser, setUserStats }) => {
 
   // move this function into a higher scope as its used twice and will be used again for google
   const initFirebaseUserProfile = async (email) => {
+
+    const { setUserStats } = this.props;
+
     const newUserProfile = {
       gamesPlayed: 0,
       gamesWon: 0,

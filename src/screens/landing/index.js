@@ -57,7 +57,7 @@ class Landing extends React.Component {
         />
         <View style={globalStyles.page}>
           <MafiaTextLogo/>
-          <FBLoginButton navigation={navigation} readPermissions={["public_profile email"]} />
+          <FBLoginButton />
           <GoogleLogin />
           <Button onPress={() => navigation.navigate('SignUp')}>
             <Text size="small">Continue with Email</Text>

@@ -13,7 +13,6 @@ import Button from '../button';
 const  FBLoginButton = ({ setUser, setUserStats }) => {
 
   const facebookLogin = async () => {
-    console.log('set user function', setUser)
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('name, email');
     LoginManager.logInWithPermissions(['public_profile', 'email']).then(
@@ -38,6 +37,7 @@ const  FBLoginButton = ({ setUser, setUserStats }) => {
 
   // move this function into a higher scope as its used twice and will be used again for google
   const initFirebaseUserProfile = async (email) => {
+
     const newUserProfile = {
       gamesPlayed: 0,
       gamesWon: 0,
