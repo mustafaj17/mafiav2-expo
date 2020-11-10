@@ -11,8 +11,6 @@ import MafiaBackground from '../../components/mafiaBackground';
 import { Ionicons } from '@expo/vector-icons';
 import HowToPlayModal from "../../components/howToPlayModal";
 import MafiaTextLogo from '../../components/mafiaTextLogo';
-import FBLoginButton from '../../components/facebookLogin';
-import GoogleLogin from '../../components/googleLogin';
 import {setUser, setUserStats} from '../../redux/actions/userActions';
 import {connect} from 'react-redux';
 
@@ -57,8 +55,8 @@ class Landing extends React.Component {
         />
         <View style={globalStyles.page}>
           <MafiaTextLogo/>
-          <FBLoginButton />
-          <GoogleLogin />
+          {/*<FBLoginButton />*/}
+          {/*<GoogleLogin />*/}
           <Button onPress={() => navigation.navigate('SignUp')}>
             <Text size="small">Continue with Email</Text>
           </Button>
