@@ -17,7 +17,7 @@
     "expo-image-picker": "~9.1.1",
     "expo-linear-gradient": "~8.3.0",
     "expo-permissions": "~9.3.0",
-    "firebase": "7.9.0",
+    "firebase": "10.9.0",
     "jetifier": "^1.6.5",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
